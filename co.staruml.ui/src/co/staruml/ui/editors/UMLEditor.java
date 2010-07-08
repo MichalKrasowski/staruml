@@ -31,7 +31,10 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FontDialog;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.*;
 import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.part.FileEditorInput;
@@ -55,6 +58,7 @@ import co.staruml.handler.SelectHandler;
 import co.staruml.handler.SelectHandlerListener;
 import co.staruml.swt.DiagramControlSWT;
 import co.staruml.uml.UMLIconLoader;
+import co.staruml.util.SWTResourceManager;
 import co.staruml.views.UMLClassView;
 
 
@@ -72,7 +76,8 @@ public class UMLEditor extends MultiPageEditorPart implements IResourceChangeLis
 	private DiagramView diagramView;
 	private DiagramControl editor;
 	private ImageManager imageManager;
-	private ScrolledComposite composite;
+	private ScrolledComposite rightComposite;
+	private Composite leftComposite;
 	
 
 	public UMLEditor() {
@@ -81,33 +86,98 @@ public class UMLEditor extends MultiPageEditorPart implements IResourceChangeLis
 	}
 	
 	void createPage0() {
-
-	
-		UMLClassView nodeView3 = new UMLClassView();
-		nodeView3.initialize(null, 210, 20, 310, 120);
-//		nodeView3.setSelected(true);
-
+		// 2-column layout configuration left : palate , right : canvas
+		GridLayout mainGridLayout = new GridLayout(2, false);
+		Composite mainComposite = new Composite(this.getContainer(),SWT.NORMAL);
+		mainComposite.setLayout(mainGridLayout);
+		leftComposite = new Composite(mainComposite, SWT.BORDER);
+		rightComposite = new ScrolledComposite(mainComposite, SWT.BORDER);
+		
+		// Creates an object that implements the Canvas to draw a diagram
+		editor = new DiagramControlSWT(rightComposite, SWT.NONE);
+		/*************************************************************************
+		 *                           Start left layout                           *
+		 *************************************************************************/
+		// Left Palette layout configuration 
+		leftComposite.setBackground(SWTResourceManager.getColor((SWT.COLOR_GRAY)));
+		GridData leftGridData = new GridData(SWT.LEFT, SWT.TOP, false, true, 1, 1);
+		//Set style
+		leftGridData.widthHint = 130;
+		leftGridData.heightHint = 568;
+		leftComposite.setLayoutData(leftGridData);
+		//Set Left Title
+		Label lblToolbox = new Label(leftComposite, SWT.HORIZONTAL | SWT.CENTER);
+		lblToolbox.setFont(SWTResourceManager.getFont("¸¼Àº °íµñ", 10, SWT.BOLD));
+		lblToolbox.setAlignment(SWT.CENTER);
+		lblToolbox.setBackground(SWTResourceManager.getColor(SWT.COLOR_GRAY));
+		lblToolbox.setBounds(0, 0, 130, 15);
+		lblToolbox.setText("Toolbox");
+		//Set ToolBar
+		ToolBar leftToolBar = new ToolBar(leftComposite, SWT.FLAT | SWT.LEFT | SWT.VERTICAL);
+		leftToolBar.setFont(SWTResourceManager.getFont("¸¼Àº °íµñ", 9, SWT.BOLD));
+		leftToolBar.setBackground(SWTResourceManager.getColor(SWT.COLOR_GRAY));
+		leftToolBar.setBounds(0, 21, 130, 500);
+		// Seperator
+		SWTCompositeUtil.addSeperator(leftToolBar, 0, 0, 130, 2);
+		// Set Annoation DropDown item
+		ToolItem annoationDroupDown = SWTCompositeUtil.addToolItem(leftToolBar,"Annoation             ",SWT.PUSH);
+		// Add Annoation DropDown Listener
+		SWTCompositeUtil.addSelectListener(annoationDroupDown,leftToolBar,editor);
+		// Seperator
+		SWTCompositeUtil.addSeperator(leftToolBar,0, 29, 130, 2);
+		// Set Annoation DropDown item
+	    ToolItem classDroupDown = SWTCompositeUtil.addToolItem(leftToolBar,"Class                    ",SWT.PUSH);
+		// Add Class DropDown Listener
+	    SWTCompositeUtil.addSelectListener(classDroupDown,leftToolBar,editor);
+		// Seperator
+	    SWTCompositeUtil.addSeperator(leftToolBar,0, 60, 130, 2);
+	    // Temp use for SWT.PUSH height bug
+	    ToolItem temp = SWTCompositeUtil.addToolItem(leftToolBar,"Temp                  ",SWT.DROP_DOWN);
+	    temp.dispose();
+		
+		/*************************************************************************
+		 *                           End left layout                             *
+		 *************************************************************************/
+//		UMLClassView nodeView3 = new UMLClassView();
+//		nodeView3.initialize(null, 210, 20, 310, 120);
+////		nodeView3.setSelected(true);
+//
+//		diagramView = new DiagramView();
+//		diagramView.addOwnedView(nodeView3);
+//
+//		SelectHandler handler = new SelectHandler();
+//		handler.setSelectHandlerListener(this);
+		/*************************************************************************
+		 *                           Start right layout                          *
+		 *************************************************************************/
+//		Event Scroll implemented in the future
+//		rightComposite = new ScrolledComposite(mainComposite, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+ 
+//		Create right composite. Implementation of the screen to expand ScrolledComposite
+		GridData rightGridData = new GridData(SWT.LEFT, SWT.TOP, false, false, 1, 1);
+//		rightGridData.widthHint = 940;
+//		rightGridData.heightHint = 550;
+//		Set layout
+		rightComposite.setLayoutData(rightGridData);
+		
 		diagramView = new DiagramView();
-		diagramView.addOwnedView(nodeView3);
-
-		SelectHandler handler = new SelectHandler();
-		handler.setSelectHandlerListener(this);
-		
-		composite = new ScrolledComposite(
-	    		this.getContainer(), SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
-		
-		editor = new DiagramControlSWT(composite, SWT.NONE);
+//		Add a view
 		editor.setDiagramView(diagramView);
 		editor.getCanvas().setGridFactor(new GridFactor(4, 4));
 		editor.getCanvas().setZoomFactor(new ZoomFactor(2, 2));
 		editor.getCanvas().setAntialias(Canvas.AS_ON);
 		editor.getCanvas().setTextAntialias(Canvas.AS_ON);
-		editor.setHandler(handler);
-		editor.setSize(1215, 684);
+//		editor.setHandler(handler);
+		editor.setSize(955, 567);
 		editor.repaint();
-
-		composite.setContent((DiagramControlSWT) editor);
-		int index = addPage(composite);
+		rightComposite.setContent((DiagramControlSWT) editor);
+		
+		/*************************************************************************
+		 *                           End right layout                            *
+		 *************************************************************************/
+		
+		int index = addPage(mainComposite);
+		setPageText(index, "diagram");
 	}
 	
 	protected void createPages() {
@@ -214,4 +284,5 @@ public class UMLEditor extends MultiPageEditorPart implements IResourceChangeLis
 	public void reconnectEdge(EdgeView edge, Points points,View newParticipant, boolean isTailSide) {
 		System.out.println("modifyEdge");
 	}
+	
 }
