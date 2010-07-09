@@ -4,6 +4,7 @@ package co.staruml.ui.editors;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.io.StringWriter;
 
@@ -54,12 +55,14 @@ import co.staruml.graphics.GridFactor;
 import co.staruml.graphics.ImageManager;
 import co.staruml.graphics.Points;
 import co.staruml.graphics.ZoomFactor;
+import co.staruml.handler.CreatetHandler;
 import co.staruml.handler.SelectHandler;
 import co.staruml.handler.SelectHandlerListener;
 import co.staruml.swt.DiagramControlSWT;
 import co.staruml.uml.UMLIconLoader;
 import co.staruml.util.SWTResourceManager;
 import co.staruml.views.UMLClassView;
+import co.staruml.handler.Handler;
 
 
 /**
@@ -95,6 +98,16 @@ public class UMLEditor extends MultiPageEditorPart implements IResourceChangeLis
 		
 		// Creates an object that implements the Canvas to draw a diagram
 		editor = new DiagramControlSWT(rightComposite, SWT.NONE);
+		
+		// Handler Setting
+		SelectHandler selectHandler = new SelectHandler();
+		selectHandler.setSelectHandlerListener(this);
+		CreatetHandler createHandler = new CreatetHandler(editor);
+		// HandlerMap Setting
+		HashMap<String,Handler> handerMap = new HashMap<String,Handler>();
+		handerMap.put("selectHandler", selectHandler);
+		handerMap.put("createHandler", createHandler);
+		
 		/*************************************************************************
 		 *                           Start left layout                           *
 		 *************************************************************************/
@@ -122,13 +135,13 @@ public class UMLEditor extends MultiPageEditorPart implements IResourceChangeLis
 		// Set Annoation DropDown item
 		ToolItem annoationDroupDown = SWTCompositeUtil.addToolItem(leftToolBar,"Annoation             ",SWT.PUSH);
 		// Add Annoation DropDown Listener
-		SWTCompositeUtil.addSelectListener(annoationDroupDown,leftToolBar,editor);
+		SWTCompositeUtil.addSelectListener(annoationDroupDown,leftToolBar,editor,handerMap);
 		// Seperator
 		SWTCompositeUtil.addSeperator(leftToolBar,0, 29, 130, 2);
 		// Set Annoation DropDown item
-	    ToolItem classDroupDown = SWTCompositeUtil.addToolItem(leftToolBar,"Class                    ",SWT.PUSH);
+	    ToolItem classDroupDown = SWTCompositeUtil.addToolItem(leftToolBar,"Class Diagram       ",SWT.PUSH);
 		// Add Class DropDown Listener
-	    SWTCompositeUtil.addSelectListener(classDroupDown,leftToolBar,editor);
+	    SWTCompositeUtil.addSelectListener(classDroupDown,leftToolBar,editor,handerMap);
 		// Seperator
 	    SWTCompositeUtil.addSeperator(leftToolBar,0, 60, 130, 2);
 	    // Temp use for SWT.PUSH height bug
@@ -145,8 +158,6 @@ public class UMLEditor extends MultiPageEditorPart implements IResourceChangeLis
 //		diagramView = new DiagramView();
 //		diagramView.addOwnedView(nodeView3);
 //
-//		SelectHandler handler = new SelectHandler();
-//		handler.setSelectHandlerListener(this);
 		/*************************************************************************
 		 *                           Start right layout                          *
 		 *************************************************************************/
@@ -212,11 +223,9 @@ public class UMLEditor extends MultiPageEditorPart implements IResourceChangeLis
 	}
 	
 	public void resourceChanged(final IResourceChangeEvent event){
-		System.out.println("resourceChanged");
 	}
 	
 	public void selectArea(int x1, int y1, int x2, int y2) {
-		System.out.println("selectArea");
 		
 		diagramView.deselectAll();
 		diagramView.selectArea(editor.getCanvas(), x1, y1, x2, y2);
@@ -224,19 +233,15 @@ public class UMLEditor extends MultiPageEditorPart implements IResourceChangeLis
 	}
 
 	public void deselectView(View view) {
-		System.out.println("deselectView");
 	}
 
 	public void changeSelectedViewsContainer(int dx, int dy, View containerView) {
-		System.out.println("changeSelectedViewsContainer");
 	}
 
 	public void changeViewContainer(View view, int dx, int dy,View containerView) {
-		System.out.println("changeViewContainer");
 	}
 
 	public void moveSelectedViews(int dx, int dy) {
-		System.out.println("moveSelectedViews");
 		for (View v : diagramView.getSelectedViews()) {
 			v.move(editor.getCanvas(), dx, dy);
 		}
@@ -244,26 +249,22 @@ public class UMLEditor extends MultiPageEditorPart implements IResourceChangeLis
 	}
 
 	public void moveView(View view, int dx, int dy) {
-		System.out.println("moveView");
 		view.move(editor.getCanvas(), dx, dy);
 		editor.repaint();
 	}
 
 	public void selectAdditionalView(View view) {
-		System.out.println("selectAdditionalView");
 		view.setSelected(true);
 		editor.repaint();
 	}
 
 	public void selectView(View view) {
-		System.out.println("selectView");
 		diagramView.deselectAll();
 		view.setSelected(true);
 		editor.repaint();
 	}
 
 	public void resizeNode(NodeView node, int left, int top, int right, int bottom) {
-		System.out.println("resizeNode");
 		node.setLeft(left);
 		node.setTop(top);
 		node.setRight(right);
@@ -272,17 +273,14 @@ public class UMLEditor extends MultiPageEditorPart implements IResourceChangeLis
 	}
 
 	public void viewDoubleClicked(View view) {
-		System.out.println("View double clicked : " + view);
 	}
 
 	public void modifyEdge(EdgeView edge, Points points) {
-		System.out.println("modifyEdge");
 		edge.getPoints().assign(points);
 		editor.repaint();
 	}
 
 	public void reconnectEdge(EdgeView edge, Points points,View newParticipant, boolean isTailSide) {
-		System.out.println("modifyEdge");
 	}
 	
 }

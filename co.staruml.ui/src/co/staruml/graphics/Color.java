@@ -41,8 +41,5 @@ public class Color {
 	
 	public static void main(String[] args) {
 		java.awt.Color c = java.awt.Color.LIGHT_GRAY;
-		System.out.println(c.getRed());
-		System.out.println(c.getGreen());
-		System.out.println(c.getBlue());
 	}
 }

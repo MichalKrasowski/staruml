@@ -20,8 +20,8 @@ public class EdgeManipulator extends Manipulator {
 	private int selectedIndex;
 	private int edgeSelectLocation;
 	
-	public EdgeManipulator(SelectHandler handler) {
-		this.handler = handler;
+	public EdgeManipulator(Handler handler) {
+		this.handler = (SelectHandler)handler;
 		points = new Points();
 		originPoints = new Points();
 	}

@@ -9,7 +9,7 @@ public class ManipulatorBinder {
 	private NodeManipulator nodeManipulator;
 	private EdgeManipulator edgeManipulator;
 	
-	public ManipulatorBinder(SelectHandler selectHandler) {
+	public ManipulatorBinder(Handler selectHandler) {
 		nodeManipulator = new NodeManipulator(selectHandler);
 		edgeManipulator = new EdgeManipulator(selectHandler);
 	}

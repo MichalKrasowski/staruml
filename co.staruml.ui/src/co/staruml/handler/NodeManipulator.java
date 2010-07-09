@@ -17,8 +17,8 @@ public class NodeManipulator extends Manipulator {
 	private double ratio;
 	private int selectedPtType;
 	
-	public NodeManipulator(SelectHandler handler) {
-		this.handler = handler;
+	public NodeManipulator(Handler handler) {
+		this.handler = (SelectHandler)handler;
 	}
 	
 	private int gridFitX(Canvas canvas, int x) {

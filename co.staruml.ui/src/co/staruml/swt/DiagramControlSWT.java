@@ -73,8 +73,7 @@ public class DiagramControlSWT extends org.eclipse.swt.widgets.Canvas implements
 	
 	private void drawBackground(GC gc) {
 		if (backgroundImage == null) {
-			backgroundImage = new Image(
-					getDisplay(), getDiagramWidth(), getDiagramHeight());
+			backgroundImage = new Image(getDisplay(), getDiagramWidth(), getDiagramHeight());
 			GC igc = new GC(backgroundImage);
 			igc.setBackground(backgroundColor);
 			igc.fillRectangle(0, 0, getDiagramWidth(), getDiagramHeight());
@@ -241,7 +240,6 @@ public class DiagramControlSWT extends org.eclipse.swt.widgets.Canvas implements
 			canvas.setGC(gc);
 			// canvas.setGC(perm_gc);
 			handler.mousePressed(this, canvas, toAbstractMouseEvent(e));
-			
 			gc.dispose();
 		}
 	}

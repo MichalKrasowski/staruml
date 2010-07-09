@@ -1,5 +1,7 @@
 package co.staruml.ui.editors;
 
+import java.util.HashMap;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -7,6 +9,7 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
 import co.staruml.core.DiagramControl;
+import co.staruml.handler.Handler;
 
 public class SWTCompositeUtil {
 	
@@ -30,8 +33,8 @@ public class SWTCompositeUtil {
 	/*
 	 * Add listener to ToolItem
 	 */
-	public static void addSelectListener(ToolItem dropdown,ToolBar leftToolBar,DiagramControl editor){
-		DropdownSelectionListener listener = new DropdownSelectionListener(dropdown,leftToolBar,editor);
+	public static void addSelectListener(ToolItem dropdown,ToolBar leftToolBar,DiagramControl editor,HashMap<String,Handler> handerMap){
+		DropdownSelectionListener listener = new DropdownSelectionListener(dropdown,leftToolBar,editor,handerMap);
 		dropdown.addSelectionListener(listener);
 	}
 }

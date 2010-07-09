@@ -66,7 +66,6 @@ public class Project extends Wizard implements INewWizard {
 		
 		Image folderImg = PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_FOLDER);
 		
-		System.out.println("folderImg : "+folderImg);
 		WorkspaceModifyOperation op = new WorkspaceModifyOperation() {
 			protected void execute(IProgressMonitor monitor)throws CoreException {
 				createProject(description, newProjectHandle, monitor);
