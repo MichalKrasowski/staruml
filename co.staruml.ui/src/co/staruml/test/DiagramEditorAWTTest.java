@@ -2,6 +2,7 @@ package co.staruml.test;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 import javax.swing.*;
 
@@ -58,7 +59,7 @@ public class DiagramEditorAWTTest implements SelectHandlerListener {
 		edgeView2.setLineStyle(Const.LS_OBLIQUE);
 		edgeView2.setLineColor(Color.GRAY);
 		edgeView2.initialize(null, 30, 30, 210, 210);
-
+		
 		diagramView = new DiagramView();
 		diagramView.addOwnedView(nodeView1);
 		diagramView.addOwnedView(nodeView2);

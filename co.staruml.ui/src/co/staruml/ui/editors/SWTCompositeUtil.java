@@ -34,7 +34,7 @@ public class SWTCompositeUtil {
 	 * Add listener to ToolItem
 	 */
 	public static void addSelectListener(ToolItem dropdown,ToolBar leftToolBar,DiagramControl editor,HashMap<String,Handler> handerMap){
-		DropdownSelectionListener listener = new DropdownSelectionListener(dropdown,leftToolBar,editor,handerMap);
+		TooboxSelectionListener listener = new TooboxSelectionListener(dropdown,leftToolBar,editor,handerMap);
 		dropdown.addSelectionListener(listener);
 	}
 }

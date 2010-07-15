@@ -99,10 +99,11 @@ public class SelectHandler extends Handler {
 		doubleClicked = false;
 		
 		if ((diagramControl.getDiagramView().getSelectedViews().size() == 1) && 
-				(isPointInSelectionLine(canvas, diagramControl.getDiagramView().getSelectedViews().firstElement(), x, y)))
+				(isPointInSelectionLine(canvas, diagramControl.getDiagramView().getSelectedViews().firstElement(), x, y))){
 			view = diagramControl.getDiagramView().getSelectedViews().firstElement();
-		else
+		}else{
 			view = diagramControl.getDiagramView().getViewAt(canvas, z.getX(), z.getY());
+		}
 		
 		if (e.getButton() == MouseEvent.BUTTON1) { // left button
 			if (view == null) {
@@ -130,13 +131,13 @@ public class SelectHandler extends Handler {
 					manipulator = manipulatorBinder.bind(view);
 					if (manipulator != null)
 						manipulator.mousePressed(diagramControl, canvas, view, e);
-					// TODO NodeView 처리. (662 line of Handlers.pas)
+					// TODO NodeView (662 line of Handlers.pas)
 				} else if (diagramControl.getDiagramView().getSelectedViews().size() > 1) {
 					mode = SM_GROUPING;
 					boundingBox = diagramControl.getDiagramView().getSelectedBoundingBox(canvas);
 					//Coord.drawRange(canvas, boundingBox.getX1(), boundingBox.getY1(), 
 					//		boundingBox.getX2(), boundingBox.getY2());
-					// TODO Container �?�� 처리. (671 line of Handlers.pas)
+					// TODO Container  (671 line of Handlers.pas)
 				} else {
 					mode = SM_NONE;
 				}
@@ -173,11 +174,11 @@ public class SelectHandler extends Handler {
 				f2.setX(diagramControl.getDiagramHeight());
 			// draw new rubber band
 			drawRubberband(diagramControl, canvas, f1.getX(), f1.getY(), f2.getX(), f2.getY());
-			// TODO Scrolled 처리.
+			// TODO Scrolled 泥섎━.
 		} else {
 			if (mode == SM_GROUPING) {
 				// multiple views selected mode
-				// TODO containment �?�� 처리 (739 line of Handlers.pas)
+				// TODO containment 占�占쏙옙 泥섎━ (739 line of Handlers.pas)
 				int dx = b.getX() - g2.getX();
 				int dy = b.getY() - g2.getY();
 				g2.setPoint(b);
@@ -216,12 +217,12 @@ public class SelectHandler extends Handler {
 				// draw new rubber band
 				drawRubberband(diagramControl, canvas, boundingBox.getX1(), boundingBox.getY1(), 
 						boundingBox.getX2(), boundingBox.getY2());
-				// TODO Scrolled 처리 (789 line of Handlers.pas)
+				// TODO Scrolled 泥섎━ (789 line of Handlers.pas)
 			} else if (mode == SM_INDIVIDUAL) {
 				// single view selected mode
 				if (manipulator != null)
 					manipulator.mouseDragged(diagramControl, canvas, view, e);
-				// TODO NodeView 처리 (801 line of Handlers.pas)
+				// TODO NodeView 泥섎━ (801 line of Handlers.pas)
 			}
 		}
 	}
@@ -239,18 +240,18 @@ public class SelectHandler extends Handler {
 			} else if (!e.isShiftDown()) {
 				selectView(view);
 			}
-			// TODO ContainmentHandlingProxy 처리.
+			// TODO ContainmentHandlingProxy 泥섎━.
 			// selected views moved
 			if ((g2.getX() != g1.getX()) || (g2.getY() != g1.getY())) {
-				// TODO ContainmentHandlingProxy 처리.
+				// TODO ContainmentHandlingProxy 泥섎━.
 				moveSelectedViews(g2.getX() - g1.getX(), g2.getY() - g1.getY());
 			}
-			// TODO ContainmentHandlingProxy 처리.
+			// TODO ContainmentHandlingProxy 泥섎━.
 		} else if (mode == SM_INDIVIDUAL) {
-			// TODO NodeView 처리 (851 line of Handlers.pas)
+			// TODO NodeView 泥섎━ (851 line of Handlers.pas)
 			if (manipulator != null)
 				manipulator.mouseReleased(diagramControl, canvas, view, e);
-			// TODO ContainmentHandlingProxy 처리.
+			// TODO ContainmentHandlingProxy 泥섎━.
 			if (doubleClicked) {
 				viewDoubleClicked(view);
 			}

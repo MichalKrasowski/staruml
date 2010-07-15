@@ -1,8 +1,10 @@
 package co.staruml.core;
 
+import java.util.HashMap;
 import java.util.Vector;
 
 import co.staruml.graphics.*;
+import co.staruml.handler.Handler;
 
 
 /**
@@ -95,6 +97,9 @@ public class DiagramView extends View {
 	
 	public View getViewAt(Canvas canvas, int x, int y) {
 		for (View v : ownedViews) {
+			if(v instanceof EdgeView){
+				EdgeView view = (EdgeView)v;
+			}
 			if (v.isVisible() && v.isSelectable()) {
 				View view = v.getViewAt(canvas, x, y);
 				if (view != null) return view;

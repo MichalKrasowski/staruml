@@ -1,5 +1,7 @@
 package co.staruml.test;
 
+import java.util.HashMap;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -23,6 +25,8 @@ import co.staruml.graphics.GridFactor;
 import co.staruml.graphics.ImageManager;
 import co.staruml.graphics.Points;
 import co.staruml.graphics.ZoomFactor;
+import co.staruml.handler.CreatetHandler;
+import co.staruml.handler.Handler;
 import co.staruml.handler.SelectHandler;
 import co.staruml.handler.SelectHandlerListener;
 import co.staruml.swt.*;
@@ -198,9 +202,7 @@ public class DiagramEditorSWTTest implements SelectHandlerListener {
 		editor.repaint();
 	}
 
-	public void reconnectEdge(EdgeView edge, Points points,
-			View newParticipant, boolean isTailSide) {
-		// TODO Auto-generated method stub
+	public void reconnectEdge(EdgeView edge, Points points,View newParticipant, boolean isTailSide) {
 		
 	}
 

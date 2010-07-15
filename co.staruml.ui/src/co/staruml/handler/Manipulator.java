@@ -1,6 +1,7 @@
 package co.staruml.handler;
 
 import co.staruml.core.DiagramControl;
+import co.staruml.core.EdgeView;
 import co.staruml.core.View;
 import co.staruml.graphics.*;
 

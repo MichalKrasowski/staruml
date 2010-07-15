@@ -1,5 +1,7 @@
 package co.staruml.swt;
 
+import java.util.HashMap;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.MouseMoveListener;
@@ -13,6 +15,7 @@ import org.eclipse.swt.widgets.Composite;
 import co.staruml.core.Cursor;
 import co.staruml.core.DiagramControl;
 import co.staruml.core.DiagramView;
+import co.staruml.core.EdgeView;
 import co.staruml.graphics.*;
 import co.staruml.handler.Handler;
 import co.staruml.handler.MouseEvent;
@@ -31,6 +34,7 @@ public class DiagramControlSWT extends org.eclipse.swt.widgets.Canvas implements
 	private GC imageBufferGC = null;
 	private GC perm_gc;
 	private Image backgroundImage = null;
+	public HashMap<String,Handler> handerMap;
 
 	// ------------------------------------------------------------------------
 	
@@ -127,7 +131,7 @@ public class DiagramControlSWT extends org.eclipse.swt.widgets.Canvas implements
 
 	// ------------------------------------------------------------------------
 
-	public DiagramControlSWT(Composite parent, int style) {
+	public DiagramControlSWT(Composite parent, int style,HashMap<String,Handler> handerMap) {
 		super(parent, style | SWT.DOUBLE_BUFFERED);
 		perm_gc = new GC(this);
 		canvas = new CanvasSWT(perm_gc);
@@ -137,6 +141,7 @@ public class DiagramControlSWT extends org.eclipse.swt.widgets.Canvas implements
 		addMouseListener(this);
 		addMouseMoveListener(this);
 		addPaintListener(this);
+		this.handerMap = handerMap;
 	}
 
 	public Handler getHandler() {

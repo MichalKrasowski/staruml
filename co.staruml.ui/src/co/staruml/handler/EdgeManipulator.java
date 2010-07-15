@@ -88,10 +88,11 @@ public class EdgeManipulator extends Manipulator {
 							points.getPoint(selectedIndex).getX(),
 							points.getPoint(selectedIndex).getY());
 					View oldPart;
-					if (edgeSelectLocation == SL_TAIL)
+					if (edgeSelectLocation == SL_TAIL){
 						oldPart = ((EdgeView) view).getTail();
-					else
+					}else{
 						oldPart = ((EdgeView) view).getHead();
+					}
 					if (v != null) {
 						if (v == oldPart)
 							handler.modifyEdge((EdgeView) view, points);
@@ -126,6 +127,7 @@ public class EdgeManipulator extends Manipulator {
 	protected void moveSkeleton(DiagramControl diagramControl, Canvas canvas, View view, Point delta) {
 		Point p, p1, p2;
 		Point op, op1, op2;
+
 		if (style == Const.LS_RECTILINEAR) {
 			// Get points at end of the selected line
 			p1 = new Point(points.getPoint(selectedIndex));
@@ -156,6 +158,7 @@ public class EdgeManipulator extends Manipulator {
 					delta.setY(delta.getY() - ((p1.getY() + delta.getY()) - gridFitY(canvas, p1.getY() + delta.getY())));
 					p1.setY(gridFitY(canvas, p1.getY() + delta.getY()));
 				}
+				
 				if (op1.getX() == op2.getX())
 					p2.setX(p1.getX());
 				if (op1.getY() == op2.getY())
@@ -184,29 +187,28 @@ public class EdgeManipulator extends Manipulator {
 					}
 					p2.setY(p1.getY());
 				}
-				
-				if (((edgeSelectLocation == SL_LINE) && (selectedIndex == 0)) || 
-						((edgeSelectLocation == SL_HEAD) && (points.count() == 2))) {
-					points.insert(0, new Point(points.getPoint(0)));
-					originPoints.insert(0, new Point(points.getPoint(0)));
-					selectedIndex++;
-				} else if (((edgeSelectLocation == SL_LINE) && (selectedIndex == (points.count() - 2))) || 
-							((edgeSelectLocation == SL_TAIL) && (points.count() == 2))) {
-					points.insert(selectedIndex + 1, new Point(points.getPoint(selectedIndex + 1)));
-					originPoints.insert(selectedIndex + 1, new Point(points.getPoint(selectedIndex + 1)));
-				}
-				
-				// Modify points not to stray from Canvas
-				putPointBoundsOnCanvas(diagramControl, p1);
-				putPointBoundsOnCanvas(diagramControl, p2);
-				
-				// Re-assign selected points to modified.
-				points.getPoint(selectedIndex).setPoint(p1);
-				if (edgeSelectLocation == SL_HEAD)
-					points.getPoint(selectedIndex - 1).setPoint(p2);
-				else
-					points.getPoint(selectedIndex + 1).setPoint(p2);
 			}
+			if (((edgeSelectLocation == SL_LINE) && (selectedIndex == 0)) || 
+					((edgeSelectLocation == SL_HEAD) && (points.count() == 2))) {
+				points.insert(0, new Point(points.getPoint(0)));
+				originPoints.insert(0, new Point(points.getPoint(0)));
+				selectedIndex++;
+			} else if (((edgeSelectLocation == SL_LINE) && (selectedIndex == (points.count() - 2))) || 
+						((edgeSelectLocation == SL_TAIL) && (points.count() == 2))) {
+				points.insert(selectedIndex + 1, new Point(points.getPoint(selectedIndex + 1)));
+				originPoints.insert(selectedIndex + 1, new Point(points.getPoint(selectedIndex + 1)));
+			}
+			
+			// Modify points not to stray from Canvas
+			putPointBoundsOnCanvas(diagramControl, p1);
+			putPointBoundsOnCanvas(diagramControl, p2);
+			
+			// Re-assign selected points to modified.
+			points.getPoint(selectedIndex).setPoint(p1);
+			if (edgeSelectLocation == SL_HEAD)
+				points.getPoint(selectedIndex - 1).setPoint(p2);
+			else
+				points.getPoint(selectedIndex + 1).setPoint(p2);
 		} else {
 			// Get selected point
 			p = new Point(points.getPoint(selectedIndex));

@@ -18,7 +18,7 @@ import co.staruml.handler.Handler;
 import co.staruml.handler.MouseEvent;
 import co.staruml.handler.SelectHandler;
 
-public class DropdownSelectionListener extends SelectionAdapter {
+public class TooboxSelectionListener extends SelectionAdapter {
 	  private ToolItem dropdown;
 	  private ToolBar leftToolBar;
 	  private DiagramControl editor;
@@ -26,7 +26,7 @@ public class DropdownSelectionListener extends SelectionAdapter {
 	  private String thirdWidget;  // Use for draw plate
 	  private HashMap<String,Handler> handerMap;
 
-	  public DropdownSelectionListener(ToolItem dropdown,ToolBar leftToolBar,DiagramControl editor,HashMap<String,Handler> handerMap) {
+	  public TooboxSelectionListener(ToolItem dropdown,ToolBar leftToolBar,DiagramControl editor,HashMap<String,Handler> handerMap) {
 	    this.dropdown = dropdown;
 	    this.leftToolBar = leftToolBar;
 	    this.editor = editor;
@@ -41,13 +41,22 @@ public class DropdownSelectionListener extends SelectionAdapter {
 		}else if(widgetName.equals("Class Diagram")){// Drop Down plate menu
 			setClassPlate();
 		}else if(widgetName.equals("Class")){ //create Class UML
-			CreatetHandler handler = (CreatetHandler)handerMap.get("createHandler");
-			handler.setType("Class");
-			editor.setHandler(handler);
+			CreatetHandler createHandler = (CreatetHandler)handerMap.get("createHandler");
+			createHandler.setType("Class");
+			editor.setHandler(createHandler);
 		}else if(widgetName.equals("Select")){ //Change handler
 			SelectHandler selectHandler = (SelectHandler)handerMap.get("selectHandler");
 			editor.setHandler(selectHandler);
+		}else if(widgetName.equals("Composition")){ //Change handler
+			CreatetHandler createHandler = (CreatetHandler)handerMap.get("createHandler");
+			createHandler.setType("Composition");
+			editor.setHandler(createHandler);
+		}else if(widgetName.equals("Generalization")){ //Generalization handler
+			CreatetHandler createHandler = (CreatetHandler)handerMap.get("createHandler");
+			createHandler.setType("Generalization");
+			editor.setHandler(createHandler);
 		}
+		
 		
 	  }
 	  
@@ -62,7 +71,6 @@ public class DropdownSelectionListener extends SelectionAdapter {
 			  leftToolBar.getItems()[1].dispose();
 			  leftToolBar.getChildren()[2].dispose();
 			  ToolItem selectItem = SWTCompositeUtil.addToolItem(leftToolBar,    "Select             ",SWT.NONE);
-			  // Add Select Listener
 		      SWTCompositeUtil.addSelectListener(selectItem,leftToolBar,editor,handerMap);
 			  ToolItem textItem = SWTCompositeUtil.addToolItem(leftToolBar,      "Text               ",SWT.NONE);
 			  ToolItem noteItem = SWTCompositeUtil.addToolItem(leftToolBar,      "Note              ",SWT.NONE);
@@ -74,6 +82,7 @@ public class DropdownSelectionListener extends SelectionAdapter {
 			  ToolItem classDroupDown = SWTCompositeUtil.addToolItem(leftToolBar,"Class Diagram       ",SWT.PUSH);
 			  // Add Class Listener
 		      SWTCompositeUtil.addSelectListener(classDroupDown,leftToolBar,editor,handerMap);
+		      
 		      // Seperator
 		      SWTCompositeUtil.addSeperator(leftToolBar,0, 245, 130, 2);
 		      // Temp use for SWT.PUSH height bug
@@ -119,14 +128,17 @@ public class DropdownSelectionListener extends SelectionAdapter {
 		  if(leftToolBar.getItemCount() <= 2){
 			  if(secondWidget.equals("Class Diagram")){
 				  ToolItem selectItem = SWTCompositeUtil.addToolItem(leftToolBar,    "Select             ",SWT.NONE);
-				  // Add Select Listener
 			      SWTCompositeUtil.addSelectListener(selectItem,leftToolBar,editor,handerMap);
-				  ToolItem classItem = SWTCompositeUtil.addToolItem(leftToolBar,      "Class               ",SWT.NONE);
-				  // Add  Listener
+				  
+			      ToolItem classItem = SWTCompositeUtil.addToolItem(leftToolBar,      "Class               ",SWT.NONE);
 				  SWTCompositeUtil.addSelectListener(classItem,leftToolBar,editor,handerMap);
+				  
 				  ToolItem compositionItem = SWTCompositeUtil.addToolItem(leftToolBar,      "Composition    ",SWT.NONE);
+				  SWTCompositeUtil.addSelectListener(compositionItem,leftToolBar,editor,handerMap);
+				  
 				  ToolItem generalizationItem = SWTCompositeUtil.addToolItem(leftToolBar,  "Generalization ",SWT.NONE);
-				  // Seperator
+				  SWTCompositeUtil.addSelectListener(generalizationItem,leftToolBar,editor,handerMap);
+				  
 			      SWTCompositeUtil.addSeperator(leftToolBar,0, 185, 130, 2);
 			      // Temp use for SWT.PUSH height bug
 			      ToolItem temp = SWTCompositeUtil.addToolItem(leftToolBar,"Temp                  ",SWT.DROP_DOWN);
