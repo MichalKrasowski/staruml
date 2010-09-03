@@ -2,6 +2,8 @@ package co.staruml.handler;
 
 import java.util.*;
 
+import org.eclipse.swt.events.KeyEvent;
+
 import co.staruml.core.DiagramControl;
 import co.staruml.graphics.Canvas;
 
@@ -32,6 +34,13 @@ public class HandlerGroup extends Handler {
 	}
 
 	public void mouseReleased(DiagramControl diagramControl, Canvas canvas, MouseEvent e) {
+	}
+
+	@Override
+	public void keyPressed(DiagramControl diagramControl, Canvas canvas,
+			KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

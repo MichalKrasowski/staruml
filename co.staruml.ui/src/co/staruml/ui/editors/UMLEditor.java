@@ -33,7 +33,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FontDialog;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.*;
@@ -56,6 +59,7 @@ import co.staruml.graphics.ImageManager;
 import co.staruml.graphics.Points;
 import co.staruml.graphics.ZoomFactor;
 import co.staruml.handler.CreatetHandler;
+import co.staruml.handler.MouseEvent;
 import co.staruml.handler.SelectHandler;
 import co.staruml.handler.SelectHandlerListener;
 import co.staruml.swt.DiagramControlSWT;
@@ -77,7 +81,7 @@ import co.staruml.handler.Handler;
 public class UMLEditor extends MultiPageEditorPart implements IResourceChangeListener, SelectHandlerListener{
 
 	private DiagramView diagramView;
-	private DiagramControl editor;
+	private DiagramControlSWT editor;
 	private ImageManager imageManager;
 	private ScrolledComposite rightComposite;
 	private Composite leftComposite;
@@ -90,7 +94,7 @@ public class UMLEditor extends MultiPageEditorPart implements IResourceChangeLis
 	
 	void createPage0() {
 		// 2-column layout configuration left : palate , right : canvas
-		GridLayout mainGridLayout = new GridLayout(2, false);
+		GridLayout mainGridLayout = new GridLayout(3, false);
 		Composite mainComposite = new Composite(this.getContainer(),SWT.NORMAL);
 		mainComposite.setLayout(mainGridLayout);
 		leftComposite = new Composite(mainComposite, SWT.BORDER);
@@ -102,6 +106,8 @@ public class UMLEditor extends MultiPageEditorPart implements IResourceChangeLis
 		// Handler Setting
 		SelectHandler selectHandler = new SelectHandler();
 		selectHandler.setSelectHandlerListener(this);
+		selectHandler.setRightComposite(rightComposite);
+		selectHandler.setDiagramControlSWT(editor);
 		CreatetHandler createHandler = new CreatetHandler();
 		// HandlerMap Setting
 		handerMap.put("selectHandler", selectHandler);
@@ -113,7 +119,7 @@ public class UMLEditor extends MultiPageEditorPart implements IResourceChangeLis
 		// Left Palette layout configuration 
 		leftComposite.setBackground(SWTResourceManager.getColor((SWT.COLOR_GRAY)));
 		GridData leftGridData = new GridData(SWT.LEFT, SWT.TOP, false, true, 1, 1);
-		//Set style
+		//Set size
 		leftGridData.widthHint = 130;
 		leftGridData.heightHint = 568;
 		leftComposite.setLayoutData(leftGridData);
@@ -150,8 +156,14 @@ public class UMLEditor extends MultiPageEditorPart implements IResourceChangeLis
 		/*************************************************************************
 		 *                           Start right layout                          *
 		 *************************************************************************/
+	   
 		GridData rightGridData = new GridData(SWT.LEFT, SWT.TOP, false, false, 1, 1);
 		rightComposite.setLayoutData(rightGridData);
+	    rightComposite.setFont(SWTResourceManager.getFont("맑은 고딕", 8, SWT.NORMAL));
+//	    Set size
+		rightGridData.widthHint = 955;
+		rightGridData.heightHint = 557;	    
+//		
 		diagramView = new DiagramView();
 //		Add a view
 		editor.setDiagramView(diagramView);
@@ -160,9 +172,9 @@ public class UMLEditor extends MultiPageEditorPart implements IResourceChangeLis
 		editor.getCanvas().setAntialias(Canvas.AS_ON);
 		editor.getCanvas().setTextAntialias(Canvas.AS_ON);
 		editor.setHandler(selectHandler);
-		editor.setSize(955, 567);
+		editor.setSize(3000, 3000);
 		editor.repaint();
-		rightComposite.setContent((DiagramControlSWT) editor);
+		rightComposite.setContent(editor);
 		
 		/*************************************************************************
 		 *                           End right layout                            *
@@ -253,7 +265,28 @@ public class UMLEditor extends MultiPageEditorPart implements IResourceChangeLis
 		editor.repaint();
 	}
 
-	public void viewDoubleClicked(View view) {
+	public void viewDoubleClicked(DiagramControl diagramControl, Canvas canvas, View view, MouseEvent e) {
+		if(view != null){
+			if(view instanceof UMLClassView){
+				int area = SWTCompositeUtil.getSelcetedViewArea(canvas, view, e);
+				switch(area){
+					case UMLClassView.CLASS_NAME_AREA:
+//						SWTCompositeUtil.drawTextArea(rightComposite,diagramControl,canvas,view,e);
+						System.out.println("CLASS_NAME_AREA ");
+					break;
+					case UMLClassView.CLASS_ATTRIBUTE_AREA:
+						System.out.println("CLASS_ATTRIBUTE_AREA ");
+					break;
+					case UMLClassView.CLASS_OPERATION_AREA:
+						System.out.println("CLASS_OPERATION_AREA ");
+					break;
+					default:
+						System.out.println("default ");
+				}
+			}else if(view instanceof EdgeView){
+				System.out.println("EdgeView : "+view);
+			}
+		}
 	}
 
 	public void modifyEdge(EdgeView edge, Points points) {

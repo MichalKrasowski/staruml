@@ -1,10 +1,18 @@
 package co.staruml.handler;
 
+import java.util.Vector;
+
+import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.events.KeyEvent;
+
 import co.staruml.core.DiagramControl;
+import co.staruml.core.DiagramView;
 import co.staruml.core.EdgeView;
 import co.staruml.core.NodeView;
 import co.staruml.core.View;
 import co.staruml.graphics.*;
+import co.staruml.swt.DiagramControlSWT;
+import co.staruml.ui.editors.SWTCompositeUtil;
 
 /*
  * (Notice) Choice of coordinates in SelectHandler
@@ -42,6 +50,9 @@ public class SelectHandler extends Handler {
 	protected ManipulatorBinder manipulatorBinder;
 	protected ManipulatableNotifier manipulatableNotifier;
 	protected ContainmentHandlingProxy containmentHandlingProxy; 
+	
+	private ScrolledComposite rightComposite;
+	private DiagramControlSWT editor;
 	
 	public SelectHandler() {
 		mode = SM_NONE;
@@ -150,6 +161,8 @@ public class SelectHandler extends Handler {
 				selectView(view);
 			}
 			mode = SM_NONE;
+			// Create pop-up menu
+			SWTCompositeUtil.canvasPop(editor,rightComposite,diagramControl, canvas, view, e);
 		}
 	}
 	
@@ -174,7 +187,7 @@ public class SelectHandler extends Handler {
 				f2.setX(diagramControl.getDiagramHeight());
 			// draw new rubber band
 			drawRubberband(diagramControl, canvas, f1.getX(), f1.getY(), f2.getX(), f2.getY());
-			// TODO Scrolled 泥섎━.
+			// TODO Scrolled 처리.
 		} else {
 			if (mode == SM_GROUPING) {
 				// multiple views selected mode
@@ -217,12 +230,12 @@ public class SelectHandler extends Handler {
 				// draw new rubber band
 				drawRubberband(diagramControl, canvas, boundingBox.getX1(), boundingBox.getY1(), 
 						boundingBox.getX2(), boundingBox.getY2());
-				// TODO Scrolled 泥섎━ (789 line of Handlers.pas)
+				// TODO Scrolled 처리 (789 line of Handlers.pas)
 			} else if (mode == SM_INDIVIDUAL) {
 				// single view selected mode
 				if (manipulator != null)
 					manipulator.mouseDragged(diagramControl, canvas, view, e);
-				// TODO NodeView 泥섎━ (801 line of Handlers.pas)
+				// TODO NodeView 처리 (801 line of Handlers.pas)
 			}
 		}
 	}
@@ -240,20 +253,20 @@ public class SelectHandler extends Handler {
 			} else if (!e.isShiftDown()) {
 				selectView(view);
 			}
-			// TODO ContainmentHandlingProxy 泥섎━.
+			// TODO ContainmentHandlingProxy 처리.
 			// selected views moved
 			if ((g2.getX() != g1.getX()) || (g2.getY() != g1.getY())) {
-				// TODO ContainmentHandlingProxy 泥섎━.
+				// TODO ContainmentHandlingProxy 처리.
 				moveSelectedViews(g2.getX() - g1.getX(), g2.getY() - g1.getY());
 			}
-			// TODO ContainmentHandlingProxy 泥섎━.
+			// TODO ContainmentHandlingProxy 처리.
 		} else if (mode == SM_INDIVIDUAL) {
-			// TODO NodeView 泥섎━ (851 line of Handlers.pas)
+			// TODO NodeView 처리 (851 line of Handlers.pas)
 			if (manipulator != null)
 				manipulator.mouseReleased(diagramControl, canvas, view, e);
-			// TODO ContainmentHandlingProxy 泥섎━.
+			// TODO ContainmentHandlingProxy 처리.
 			if (doubleClicked) {
-				viewDoubleClicked(view);
+				viewDoubleClicked(diagramControl, canvas, view, e);
 			}
 			doubleClicked = false;
 		}
@@ -295,9 +308,9 @@ public class SelectHandler extends Handler {
 			listener.selectArea(x1, y1, x2, y2);
 	}
 	
-	public void viewDoubleClicked(View view) {
+	public void viewDoubleClicked(DiagramControl diagramControl, Canvas canvas, View view, MouseEvent e) {
 		if (listener != null)
-			listener.viewDoubleClicked(view);
+			listener.viewDoubleClicked(diagramControl,canvas,view,e);
 	}
 	
 	// view modification events
@@ -338,5 +351,28 @@ public class SelectHandler extends Handler {
 			listener.reconnectEdge(edge, points, newParticipant, isTailSide);
 	}
 
+	public void keyPressed(DiagramControl diagramControl, Canvas canvas,
+			KeyEvent e) {
+		try{
+		Vector<View> selectedViews = diagramControl.getDiagramView().getSelectedViews();
+		if(selectedViews.size() != 0){
+			switch(e.keyCode){
+				case 127://delete
+					diagramControl.getDiagramView().removeOwnedView(selectedViews.get(0));
+				break;
+			}
+			diagramControl.repaint();
+		}
+		}catch(Exception ee){
+			ee.printStackTrace();
+		}
+	}
+	
+	public void setRightComposite(ScrolledComposite rightComposite){
+		this.rightComposite = rightComposite;
+	}
 
+	public void setDiagramControlSWT(DiagramControlSWT editor){
+		this.editor = editor;
+	}
 }

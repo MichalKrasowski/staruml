@@ -41,11 +41,11 @@ public class UMLGeneralNodeView extends NodeView {
 			DECORATION_ICON_HEIGHT = 28;
 	
 	
-	protected String stereotype;
-	protected String name;
-	protected String namespace;
-	protected String property;
-	protected String icon;
+	protected String stereotype = "";
+	protected String name ;
+	protected String namespace = "";
+	protected String property = "";
+	protected String icon = "";;
 	protected UMLCompartment templateCompartment;
 	protected Vector<UMLCompartment> compartments;
 	protected int stereotypeDisplay;
@@ -55,29 +55,28 @@ public class UMLGeneralNodeView extends NodeView {
 	protected boolean showGradation;
 	protected boolean showIcon;
 	
+	protected Point namePt;
+	protected int attributeHeight;
+	
 	public UMLGeneralNodeView() {
 		templateCompartment = new UMLCompartment("template");
 		compartments = new Vector<UMLCompartment>();
-		
-		
 		
 		lineColor = Color.GRAY;
 		fillColor = Color.CYAN;
 		font = new Font("Tahoma", Font.NORMAL, 8);
 		
+//		stereotypeDisplay = UML.SD_DECORATION;
+//		stereotype = "stereotype : <<ClassDiagram>>";
+//		namespace = "namespace : org.mk.graphics";
+//		property = "{transient,\nok=true,\nGUI=false}";
+		name = "Prak, YongCheon";
 		
-		stereotypeDisplay = UML.SD_DECORATION;
-		stereotype = "stereotype : <<ClassDiagram>>";
-		name = "name : Class1";
-		namespace = "namespace : org.mk.graphics";
-		property = "{transient,\nok=true,\nGUI=false}";
-		icon = UML.ICON_CLASS;
-		
-		showNamespace = true;
-		showProperty = true;
+		showNamespace = false;
+		showProperty = false;
 		showShadow = true;
 		showGradation = true;
-		showIcon = true;
+		showIcon = false;
 	}
 
 	// ------------------------------------------------------------------------
@@ -110,7 +109,9 @@ public class UMLGeneralNodeView extends NodeView {
 		}
 		if (_showDecorationIcon)
 			w = Math.max(w, w + DECORATION_ICON_WIDTH);
-		return new Point(w, h);
+		namePt = new Point(w+COMPARTMENTSAREA_LEFT_MARGIN+COMPARTMENTSAREA_RIGHT_MARGIN, 
+						   h+COMPARTMENTSAREA_TOP_MARGIN+COMPARTMENTSAREA_BOTTOM_MARGIN);
+		return  new Point(w, h);
 	}
 	
 	protected Point getCompartmentSize(Canvas canvas, UMLCompartment compartment) {
@@ -139,10 +140,14 @@ public class UMLGeneralNodeView extends NodeView {
 				showNamespace, showProperty, _showDecorationIcon);
 		w = Math.max(w, sz.getX());
 		h = h + sz.getY();
+		
 		for (int i = 0; i < compartments.size(); i++) {
 			sz = getCompartmentSize(canvas, compartments.elementAt(i));
 			w = Math.max(w, sz.getX());
 			h = h + COMPARTMENT_INTERVAL + sz.getY();
+			if(i == 0){ // set attribute height
+				attributeHeight = sz.getY(); 
+			}
 		}
 		return new Point(
 				w + COMPARTMENTSAREA_LEFT_MARGIN + COMPARTMENTSAREA_RIGHT_MARGIN,
@@ -382,4 +387,11 @@ public class UMLGeneralNodeView extends NodeView {
 		this.stereotypeDisplay = stereotypeDisplay;
 	}
 	
+	public Point getClassAreaPoint(Canvas canvas){
+		return namePt;
+	}
+	
+	public int getAttributereaHeight(Canvas canvas){
+		return attributeHeight;
+	}
 }

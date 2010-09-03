@@ -172,7 +172,7 @@ public class DiagramEditorAWTTest implements SelectHandlerListener {
 		editor.repaint();
 	}
 
-	public void viewDoubleClicked(View view) {
+	public void viewDoubleClicked(DiagramControl diagramControl, Canvas canvas, View view, MouseEvent e) {
 		System.out.println("View double clicked : " + view);
 	}
 

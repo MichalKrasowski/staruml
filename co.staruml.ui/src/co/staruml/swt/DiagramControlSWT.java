@@ -3,10 +3,12 @@ package co.staruml.swt;
 import java.util.HashMap;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
@@ -22,7 +24,7 @@ import co.staruml.handler.MouseEvent;
 
 
 public class DiagramControlSWT extends org.eclipse.swt.widgets.Canvas implements 
-		DiagramControl, PaintListener, MouseListener, MouseMoveListener {
+		DiagramControl, PaintListener, MouseListener, MouseMoveListener , KeyListener{
 
 	private Handler handler;
 	private CanvasSWT canvas;
@@ -141,6 +143,7 @@ public class DiagramControlSWT extends org.eclipse.swt.widgets.Canvas implements
 		addMouseListener(this);
 		addMouseMoveListener(this);
 		addPaintListener(this);
+		addKeyListener(this);
 		this.handerMap = handerMap;
 	}
 
@@ -236,7 +239,6 @@ public class DiagramControlSWT extends org.eclipse.swt.widgets.Canvas implements
 	// ------------------------------------------------------------------------
 	
 	public void mouseDoubleClick(org.eclipse.swt.events.MouseEvent e) {
-		// TODO Auto-generated method stub
 	}
 
 	public void mouseDown(org.eclipse.swt.events.MouseEvent e) {
@@ -253,7 +255,6 @@ public class DiagramControlSWT extends org.eclipse.swt.widgets.Canvas implements
 		if (handler != null) {
 			GC gc = new GC(this);
 			canvas.setGC(gc);
-			// canvas.setGC(perm_gc);
 			handler.mouseReleased(this, canvas, toAbstractMouseEvent(e));
 			gc.dispose();
 		}
@@ -270,6 +271,20 @@ public class DiagramControlSWT extends org.eclipse.swt.widgets.Canvas implements
 				handler.mouseMoved(this, canvas, toAbstractMouseEvent(e));
 			gc.dispose();
 		}
+	}
+
+	public void keyPressed(KeyEvent e) {
+		if (handler != null) {
+			GC gc = new GC(this);
+			canvas.setGC(gc);
+			// canvas.setGC(perm_gc);
+			handler.keyPressed(this, canvas, e);
+			gc.dispose();
+		}
+	}
+
+	public void keyReleased(KeyEvent e) {
+		
 	}
 
 }

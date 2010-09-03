@@ -2,6 +2,8 @@ package co.staruml.handler;
 
 import java.util.HashMap;
 
+import org.eclipse.swt.events.KeyEvent;
+
 import co.staruml.core.Const;
 import co.staruml.core.DiagramControl;
 import co.staruml.core.EdgeView;
@@ -40,7 +42,7 @@ public class CreatetHandler extends Handler {
 		// Class Create
 		if(type.equals("Class")){
 			UMLClassView nodeView = new UMLClassView();
-			nodeView.initialize(null, x, y, x+200, y+200);
+			nodeView.initialize(null, x, y, x+110, y+80);
 			diagramControl.getDiagramView().addOwnedView(nodeView);
 		// Composition , Generalization Create
 		}else if(type.equals("Composition") || type.equals("Generalization")){
@@ -107,6 +109,13 @@ public class CreatetHandler extends Handler {
 			return view.containsPoint(canvas, z.getX(), z.getY());
 		}
 		return false;
+	}
+
+	@Override
+	public void keyPressed(DiagramControl diagramControl, Canvas canvas,
+			KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

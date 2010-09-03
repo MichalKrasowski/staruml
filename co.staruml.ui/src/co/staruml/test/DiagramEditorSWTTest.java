@@ -27,6 +27,7 @@ import co.staruml.graphics.Points;
 import co.staruml.graphics.ZoomFactor;
 import co.staruml.handler.CreatetHandler;
 import co.staruml.handler.Handler;
+import co.staruml.handler.MouseEvent;
 import co.staruml.handler.SelectHandler;
 import co.staruml.handler.SelectHandlerListener;
 import co.staruml.swt.*;
@@ -193,7 +194,7 @@ public class DiagramEditorSWTTest implements SelectHandlerListener {
 		editor.repaint();
 	}
 
-	public void viewDoubleClicked(View view) {
+	public void viewDoubleClicked(DiagramControl diagramControl, Canvas canvas, View view, MouseEvent e) {
 		System.out.println("View double clicked : " + view);
 	}
 

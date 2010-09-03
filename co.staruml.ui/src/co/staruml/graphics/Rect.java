@@ -116,4 +116,12 @@ public class Rect {
 	public String toString() {
 		return "[" + x1 + "," + y1 + "," + x2 + "," + y2 + "]";
 	}
+	
+	public boolean isContain(int x,int y){
+		boolean flag = false;
+		if(x1<=x && x2>=x && y1<=y && y2>=y){
+			flag = true;
+		}
+		return flag;
+	}
 }
