@@ -1,0 +1,38 @@
+<%if (!UML2GenModelUtil.getSubsetGenFeatures(genClass, genFeature, false, false).isEmpty() || !UML2GenModelUtil.getSupersetGenFeatures(genClass, genFeature, false, true).isEmpty()) {%>
+		<%=genModel.getImportedName("org.eclipse.emf.ecore.resource.Resource")%>.Internal eInternalResource = eInternalResource();
+		if (eInternalResource == null || !eInternalResource.isLoading()) {
+  <%for (GenFeature subsetGenFeature : UML2GenModelUtil.getSubsetGenFeatures(genClass, genFeature, false, false)) {%>
+    <%if (subsetGenFeature.isContainer()) {%>
+			<%=subsetGenFeature.getImportedType(genClass)%> <%=subsetGenFeature.getSafeName()%> = <%=subsetGenFeature.isBasicGet() ? "basicGet" + subsetGenFeature.getAccessorName() : subsetGenFeature.getGetAccessor()%>();
+    <%} else if (genClass.getImplementingGenModel(subsetGenFeature).isVirtualDelegation()) {%>
+			Object <%=subsetGenFeature.getSafeName()%> = eVirtualGet(<%=genClass.getQualifiedFeatureID(subsetGenFeature)%>);
+    <%}%>
+			if (<%=subsetGenFeature.getSafeName()%> != null && <%=subsetGenFeature.getSafeName()%> != new<%=genFeature.getCapName()%>)
+			{
+				set<%=subsetGenFeature.getAccessorName()%>(null);
+			}
+  <%}%>
+  <%for (GenFeature supersetGenFeature : UML2GenModelUtil.getSupersetGenFeatures(genClass, genFeature, false, true)) {%>
+			if (new<%=genFeature.getCapName()%> != null)
+			{
+    <%if (supersetGenFeature.isListType()) {%>
+				<%=supersetGenFeature.getImportedType(genClass)%> <%=supersetGenFeature.getSafeName()%> = <%=supersetGenFeature.getGetAccessor()%>();
+				if (!<%=supersetGenFeature.getSafeName()%>.contains(new<%=genFeature.getCapName()%>))
+				{
+					<%=supersetGenFeature.getSafeName()%>.add(new<%=genFeature.getCapName()%>);
+				}
+    <%} else {%>
+      <%if (supersetGenFeature.isContainer()) {%>
+				<%=supersetGenFeature.getImportedType(genClass)%> <%=supersetGenFeature.getSafeName()%> = <%=supersetGenFeature.isBasicGet() ? "basicGet" + supersetGenFeature.getAccessorName() : supersetGenFeature.getGetAccessor()%>();
+      <%} else if (genClass.getImplementingGenModel(supersetGenFeature).isVirtualDelegation()) {%>
+				Object <%=supersetGenFeature.getSafeName()%> = eVirtualGet(<%=genClass.getQualifiedFeatureID(supersetGenFeature)%>);
+      <%}%>
+				if (new<%=genFeature.getCapName()%> != <%=supersetGenFeature.getSafeName()%>)
+				{
+					set<%=supersetGenFeature.getAccessorName()%>(new<%=genFeature.getCapName()%>);
+				}
+    <%}%>
+			}
+  <%}%>
+		}
+<%}%>

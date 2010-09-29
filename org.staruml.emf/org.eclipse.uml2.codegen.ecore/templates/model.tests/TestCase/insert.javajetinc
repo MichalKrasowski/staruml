@@ -1,0 +1,92 @@
+<%for (GenFeature genFeature : UML2GenModelUtil.getImplementedRedefinedGenFeatures(genClass)) {%>
+  <%if (genFeature.isGet() && !genFeature.isSuppressedGetVisibility()) {%>
+
+	/**
+	 * Tests the '{@link <%=genFeature.getGenClass().getQualifiedInterfaceName()%>#<%=genFeature.getGetAccessor()%>() <em><%=genFeature.getFormattedName()%></em>}' feature getter.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see <%=genFeature.getGenClass().getQualifiedInterfaceName()%>#<%=genFeature.getGetAccessor()%>()
+	 * @generated
+	 */
+    <%if (genModel.getComplianceLevel().getValue() >= GenJDKLevel.JDK50 && UML2GenModelUtil.isTest(genFeature)) { //getGenFeature.annotations.insert.javajetinc%>
+<%@ include file="getGenFeature.annotations.insert.javajetinc" fail="silent" %>
+    <%}%>
+	public void test<%=genModel.capName(genFeature.getGetAccessor())%>()
+	{
+		// TODO: implement this redefined feature getter test method
+		// Ensure that you remove @generated or mark it @generated NOT
+	}
+  <%}%>
+  <%if (genFeature.isSet() && !genFeature.isSuppressedSetVisibility()) {%>
+
+	/**
+	 * Tests the '{@link <%=genFeature.getGenClass().getQualifiedInterfaceName()%>#set<%=genFeature.getAccessorName()%>(<%=genFeature.getRawBoundType()%>) <em><%=genFeature.getFormattedName()%></em>}' feature setter.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see <%=genFeature.getGenClass().getQualifiedInterfaceName()%>#set<%=genFeature.getAccessorName()%>(<%=genFeature.getRawBoundType()%>)
+	 * @generated
+	 */
+    <%if (genModel.getComplianceLevel().getValue() >= GenJDKLevel.JDK50 && UML2GenModelUtil.isTest(genFeature)) { //setGenFeature.annotations.insert.javajetinc%>
+<%@ include file="setGenFeature.annotations.insert.javajetinc" fail="silent" %>
+    <%}%>
+	public void testSet<%=genFeature.getAccessorName()%>()
+	{
+		// TODO: implement this redefined feature setter test method
+		// Ensure that you remove @generated or mark it @generated NOT
+	}
+  <%}%>
+  <%if (genFeature.isUnset() && !genFeature.isSuppressedUnsetVisibility()) {%>
+
+	/**
+	 * Tests the '{@link <%=genFeature.getGenClass().getQualifiedInterfaceName()%>#unset<%=genFeature.getAccessorName()%>() <em>unset<%=genFeature.getAccessorName()%>()</em>}' method.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see <%=genFeature.getGenClass().getQualifiedInterfaceName()%>#unset<%=genFeature.getAccessorName()%>()
+	 * @generated
+	 */
+    <%if (genModel.getComplianceLevel().getValue() >= GenJDKLevel.JDK50 && UML2GenModelUtil.isTest(genFeature)) { //unsetGenFeature.annotations.insert.javajetinc%>
+<%@ include file="unsetGenFeature.annotations.insert.javajetinc" fail="silent" %>
+    <%}%>
+	public void testUnset<%=genFeature.getAccessorName()%>()
+	{
+		// TODO: implement this redefined test method
+		// Ensure that you remove @generated or mark it @generated NOT
+	}
+  <%}%>
+  <%if (genFeature.isIsSet() && !genFeature.isSuppressedIsSetVisibility()) {%>
+
+	/**
+	 * Tests the '{@link <%=genFeature.getGenClass().getQualifiedInterfaceName()%>#isSet<%=genFeature.getAccessorName()%>() <em>isSet<%=genFeature.getAccessorName()%>()</em>}' method.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see <%=genFeature.getGenClass().getQualifiedInterfaceName()%>#isSet<%=genFeature.getAccessorName()%>()
+	 * @generated
+	 */
+    <%if (genModel.getComplianceLevel().getValue() >= GenJDKLevel.JDK50 && UML2GenModelUtil.isTest(genFeature)) { //isSetGenFeature.annotations.insert.javajetinc%>
+<%@ include file="isSetGenFeature.annotations.insert.javajetinc" fail="silent" %>
+    <%}%>
+	public void testIsSet<%=genFeature.getAccessorName()%>()
+	{
+		// TODO: implement this redefined test method
+		// Ensure that you remove @generated or mark it @generated NOT
+	}
+  <%}%>
+<%}%>
+<%for (GenOperation genOperation : UML2GenModelUtil.getImplementedRedefinedGenOperations(genClass)) {%>
+
+	/**
+	 * Tests the '{@link <%=genOperation.getGenClass().getQualifiedInterfaceName()%>#<%=genOperation.getName()%>(<%=genOperation.getParameterTypes(", ")%>) <em><%=genOperation.getFormattedName()%></em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see <%=genOperation.getGenClass().getQualifiedInterfaceName()%>#<%=genOperation.getName()%>(<%=genOperation.getParameterTypes(", ")%>)
+	 * @generated
+	 */
+  <%if (genModel.getComplianceLevel().getValue() >= GenJDKLevel.JDK50) { //genOperation.annotations.insert.javajetinc%>
+<%@ include file="genOperation.annotations.insert.javajetinc" fail="silent" %>
+  <%}%>
+	public void test<%=genModel.capName(genOperation.getName())%><%=genOperation.getGenParameters().size() == 0 ? "" : "__" + genOperation.getParameterTypes("_", false)%>()
+	{
+		// TODO: implement this redefined operation test method
+		// Ensure that you remove @generated or mark it @generated NOT
+	}
+<%}%>

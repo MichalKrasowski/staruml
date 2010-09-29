@@ -1,0 +1,35 @@
+<%{ GenOperation genOperation = UML2GenModelUtil.getImplementedCollidingGetGenOperation(genClass, genFeature);%>
+  <%if (genOperation != null && UML2GenModelUtil.hasOperationsClass(genClass, genOperation)) {%>
+		return <%=UML2GenModelUtil.getImportedOperationsClassName(genClass, genOperation)%>.<%=genOperation.getName()%>(this);
+  <%} else if (UML2GenModelUtil.getImplementedUnionGenFeatures(genClass).contains(genFeature)) {%>
+    <%for (GenFeature subsetGenFeature : UML2GenModelUtil.getSubsetGenFeatures(genClass, genFeature)) {%>
+      <%if (!genClass.getExtendedGenFeatures().contains(subsetGenFeature)) {%>
+        <%if (subsetGenFeature.isIsSet() || UML2GenModelUtil.isUnion(subsetGenFeature) || UML2GenModelUtil.isRedefinition(subsetGenFeature) || UML2GenModelUtil.isRedefined(genClass, subsetGenFeature)) {%>
+		if (isSet<%=subsetGenFeature.getAccessorName()%>())
+		{
+			return <%if (subsetGenFeature.isBasicGet()) {%>basicGet<%=subsetGenFeature.getAccessorName()%><%} else {%><%=subsetGenFeature.getGetAccessor()%><%}%>();
+		}
+        <%} else {%>
+          <%if (genClass.isField(subsetGenFeature)) {%>
+		if (eIsSet(<%=genClass.getQualifiedFeatureID(subsetGenFeature)%>))
+		{
+			return <%if (subsetGenFeature.isBasicGet()) {%>basicGet<%=subsetGenFeature.getAccessorName()%><%} else {%><%=subsetGenFeature.getGetAccessor()%><%}%>();
+		}
+          <%} else {%>
+		<%=subsetGenFeature.getImportedType(genClass)%> <%=subsetGenFeature.getSafeName()%> = <%if (subsetGenFeature.isBasicGet()) {%>basicGet<%=subsetGenFeature.getAccessorName()%><%} else {%><%=subsetGenFeature.getGetAccessor()%><%}%>();			
+		if (<%=subsetGenFeature.getSafeName()%> != null)
+		{
+			return <%=subsetGenFeature.getSafeName()%>;
+		}
+          <%}%>
+        <%}%>
+      <%}%>
+    <%}%>
+		return <%if (genClass.getExtendedGenFeatures().contains(genFeature)) {%>super.basicGet<%=genFeature.getAccessorName()%>()<%} else {%>null<%}%>;
+  <%} else {%>
+		// TODO: implement this method to return the '<%=genFeature.getFormattedName()%>' <%=genFeature.getFeatureKind()%>
+		// -> do not perform proxy resolution
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+  <%}%>
+<%}%>

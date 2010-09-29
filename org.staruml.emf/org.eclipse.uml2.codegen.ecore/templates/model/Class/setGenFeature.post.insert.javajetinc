@@ -1,0 +1,3 @@
+<%if (!genFeature.isBasicSet()) {%>
+<%@ include file="basicSetGenFeature.post.insert.javajetinc" fail="silent" %>
+<%}%>

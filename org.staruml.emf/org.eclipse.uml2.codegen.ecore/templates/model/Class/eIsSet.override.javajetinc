@@ -1,0 +1,98 @@
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+  <%if (genModel.useClassOverrideAnnotation()) {%>
+	@Override
+  <%}%>
+	public boolean eIsSet(int featureID)
+	{
+		switch (featureID)
+		{
+<%for (GenFeature genFeature : genClass.getEIsSetGenFeatures()) { String safeNameAccessor = genFeature.getSafeName(); if ("featureID".equals(safeNameAccessor)) { safeNameAccessor = "this." + safeNameAccessor; }%>
+			case <%=genClass.getQualifiedFeatureID(genFeature)%>:
+  <%if (UML2GenModelUtil.isUnion(genFeature) || UML2GenModelUtil.isRedefinition(genFeature) || UML2GenModelUtil.isRedefined(genClass, genFeature)) {%>
+				return isSet<%=genFeature.getAccessorName()%>();
+  <%} else {%>
+    <%if (genFeature.isListType() && !genFeature.isUnsettable()) {%>
+      <%if (genFeature.isWrappedFeatureMapType()) {%>
+        <%if (genFeature.isVolatile()) {%>
+				return !((<%=genModel.getImportedName("org.eclipse.emf.ecore.util.FeatureMap")%>.Internal.Wrapper)<%=genFeature.getGetAccessor()%>()).featureMap().isEmpty();
+        <%} else {%>
+				return <%=safeNameAccessor%> != null && !<%=safeNameAccessor%>.featureMap().isEmpty();
+        <%}%>
+      <%} else {%>
+        <%if (genClass.isField(genFeature)) {%>
+				return <%=safeNameAccessor%> != null && !<%=safeNameAccessor%>.isEmpty();
+        <%} else {%>
+          <%if (genFeature.isField() && genClass.getImplementingGenModel(genFeature).isVirtualDelegation()) {%>
+				<%=genFeature.getImportedType(genClass)%> <%=safeNameAccessor%> = (<%=genFeature.getImportedType(genClass)%>)eVirtualGet(<%=genClass.getQualifiedFeatureID(genFeature)%>);
+				return <%=safeNameAccessor%> != null && !<%=safeNameAccessor%>.isEmpty();
+          <%} else {%>
+				return !<%=genFeature.getGetAccessor()%>().isEmpty();
+          <%}%>
+        <%}%>
+      <%}%>
+    <%} else if (genFeature.isUnsettable()) {%>
+				return isSet<%=genFeature.getAccessorName()%>();
+    <%} else if (genFeature.isResolveProxies()) {%>
+      <%if (genClass.isField(genFeature)) {%>
+				return <%=safeNameAccessor%> != null;
+      <%} else {%>
+        <%if (genFeature.isField() && genClass.getImplementingGenModel(genFeature).isVirtualDelegation()) {%>
+				return eVirtualGet(<%=genClass.getQualifiedFeatureID(genFeature)%>) != null;
+        <%} else {%>
+				return basicGet<%=genFeature.getAccessorName()%>() != null;
+        <%}%>
+      <%}%>
+    <%} else if (!genFeature.hasEDefault()) {%>
+      <%if (genClass.isField(genFeature)) {%>
+				return <%=safeNameAccessor%> != null;
+      <%} else {%>
+        <%if (genFeature.isField() && genClass.getImplementingGenModel(genFeature).isVirtualDelegation()) {%>
+				return eVirtualGet(<%=genClass.getQualifiedFeatureID(genFeature)%>) != null;
+        <%} else {%>
+				return <%=genFeature.getGetAccessor()%>() != null;
+        <%}%>
+      <%}%>
+    <%} else if (genFeature.isPrimitiveType() || genFeature.isEnumType()) {%>
+      <%if (genClass.isField(genFeature)) {%>
+        <%if (genClass.isFlag(genFeature)) {%>
+          <%if (genFeature.isBooleanType()) {%>
+				return ((<%=genClass.getFlagsField(genFeature)%> & <%=genFeature.getUpperName()%>_EFLAG) != 0) != <%=genFeature.getEDefault()%>;
+          <%} else {%>
+				return (<%=genClass.getFlagsField(genFeature)%> & <%=genFeature.getUpperName()%>_EFLAG) != <%=genFeature.getUpperName()%>_EFLAG_DEFAULT;
+          <%}%>
+        <%} else {%>
+				return <%=safeNameAccessor%> != <%=genFeature.getEDefault()%>;
+        <%}%>
+      <%} else {%>
+        <%if (genFeature.isEnumType() && genFeature.isField() && genClass.getImplementingGenModel(genFeature).isVirtualDelegation()) {%>
+				return eVirtualGet(<%=genClass.getQualifiedFeatureID(genFeature)%>, <%=genFeature.getEDefault()%>) != <%=genFeature.getEDefault()%>;
+        <%} else {%>
+				return <%=genFeature.getGetAccessor()%>() != <%=genFeature.getEDefault()%>;
+        <%}%>
+      <%}%>
+    <%} else {//datatype%>
+      <%if (genClass.isField(genFeature)) {%>
+				return <%=genFeature.getEDefault()%> == null ? <%=safeNameAccessor%> != null : !<%=genFeature.getEDefault()%>.equals(<%=safeNameAccessor%>);
+      <%} else {%>
+        <%if (genFeature.isField() && genClass.getImplementingGenModel(genFeature).isVirtualDelegation()) {%>
+				<%=genFeature.getImportedType(genClass)%> <%=safeNameAccessor%> = (<%=genFeature.getImportedType(genClass)%>)eVirtualGet(<%=genClass.getQualifiedFeatureID(genFeature)%>, <%=genFeature.getEDefault()%>);
+				return <%=genFeature.getEDefault()%> == null ? <%=safeNameAccessor%> != null : !<%=genFeature.getEDefault()%>.equals(<%=safeNameAccessor%>);
+        <%} else {%>
+				return <%=genFeature.getEDefault()%> == null ? <%=genFeature.getGetAccessor()%>() != null : !<%=genFeature.getEDefault()%>.equals(<%=genFeature.getGetAccessor()%>());
+        <%}%>
+      <%}%>
+    <%}%>
+  <%}%>
+<%}%>
+		}
+<%if (genModel.isMinimalReflectiveMethods()) {%>
+		return super.eIsSet(featureID);
+<%} else {%>
+		return eDynamicIsSet(featureID);
+<%}%>
+	}
+
