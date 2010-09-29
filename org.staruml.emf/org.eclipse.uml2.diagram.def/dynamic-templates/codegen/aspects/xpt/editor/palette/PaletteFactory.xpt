@@ -1,0 +1,37 @@
+/*
+ * Copyright (c) 2006 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Tatiana Fesenko (Borland) - initial API and implementation
+ */
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+
+«EXTENSION xpt::editor::palette::Utils»
+«EXTENSION xpt::extendedpalette::Utils»
+
+«AROUND nodeToolEntry FOR OclAny»
+«IF self.oclIsKindOf(gmfgen::Palette)-»
+«EXPAND xpt::extendedpalette::PaletteFactory::nodeToolEntry FOR self.oclAsType(gmfgen::Palette)»
+«ELSE-»
+«targetDef.proceed()-»
+«ENDIF-»
+«ENDAROUND»
+
+«AROUND linkToolEntry FOR OclAny»
+«IF self.oclIsKindOf(gmfgen::Palette)-»
+«EXPAND xpt::extendedpalette::PaletteFactory::linkToolEntry FOR self.oclAsType(gmfgen::Palette)»
+«ELSE-»
+«targetDef.proceed()-»
+«ENDIF-»
+«ENDAROUND»
+
+«AROUND newEntry(toolVarName : String) FOR gmfgen::ToolEntry-»
+«EXPAND xpt::extendedpalette::PaletteFactory::newEntry(toolVarName)-»
+«ENDAROUND»
+

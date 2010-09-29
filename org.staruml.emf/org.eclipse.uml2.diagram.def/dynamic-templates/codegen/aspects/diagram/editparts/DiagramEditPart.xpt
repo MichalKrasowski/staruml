@@ -1,0 +1,27 @@
+/*
+ * Copyright (c) 2008 Borland Software Corporation
+ * 
+ * Contributors:
+ *    Michael Golubev (Borland) - #237272
+ *    Tatiana Fesenko (Borland) - #262592 - Contribute UMLPaletteFactory via gmf-runtime IPaletteProvider
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+
+«EXTENSION xpt::extendedpalette::Utils»
+
+«AROUND diagram::editparts::DiagramEditPart::additions FOR gmfgen::GenDiagram-»
+	«IF not childNodes->isEmpty()-»
+		«EXPAND refreshDiagram-»
+	«ENDIF-»
+	«IF supportsExtendedPalette(self)-»
+		«EXPAND xpt::extendedpalette::DiagramEditPart::refreshPalette-»
+	«ENDIF-»
+«ENDAROUND»
+
+«DEFINE refreshDiagram FOR gmfgen::GenCommonBase-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void refreshDiagram() {
+		«EXPAND aspects::xpt::diagram::updater::UpdateCommand::performCanonicalUpdateMethodCall»(getDiagramView().getElement());
+	}
+«ENDDEFINE»

@@ -1,0 +1,29 @@
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«EXTENSION xpt::GenModelUtils»
+
+«AROUND NavigatorItem FOR gmfgen::GenNavigator-»
+	«EXPAND xpt::Common::copyright FOR editorGen-»
+package «packageName»;
+
+	«EXPAND xpt::Common::generatedClassComment»
+public class «navigatorItemClassName» extends «getAbstractNavigatorItemQualifiedClassName()» implements org.eclipse.gmf.runtime.common.core.util.IAdaptableSelection{
+
+	«EXPAND xpt::navigator::NavigatorItem::registerAdapterFactory-»
+	
+	«EXPAND xpt::navigator::NavigatorItem::attributes-»
+	
+	«EXPAND xpt::navigator::NavigatorItem::_constructor-»
+	
+	«EXPAND xpt::navigator::NavigatorItem::getView-»
+	
+	«EXPAND xpt::navigator::NavigatorItem::isLeaf-»
+
+	«EXPAND xpt::navigator::NavigatorItem::equals-»
+	
+	«EXPAND xpt::navigator::NavigatorItem::hashCode-»
+
+	«EXPAND xpt::navigator::NavigatorItem::additions-»
+}
+«ENDAROUND»

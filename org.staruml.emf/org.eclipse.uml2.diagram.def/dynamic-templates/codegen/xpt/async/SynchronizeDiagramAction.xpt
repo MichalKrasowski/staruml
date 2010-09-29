@@ -1,0 +1,32 @@
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/modeling/mdt/uml2tools/gmf/GenModel'»
+
+«EXTENSION xpt::diagramheader::DiagramHeader»
+
+«DEFINE className FOR gmfgen::GenDiagram»«self.editorGen.modelID»SynchronizeDiagramAction«ENDDEFINE»
+«DEFINE packageName FOR gmfgen::GenDiagram»«self.editorGen.packageNamePrefix».async«ENDDEFINE»
+«DEFINE qualifiedClassName FOR gmfgen::GenDiagram»«EXPAND packageName».«EXPAND className»«ENDDEFINE»
+
+«DEFINE SynchronizeDiagramAction FOR gmfgen::GenDiagram»
+package «EXPAND packageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «EXPAND className» extends org.eclipse.uml2.diagram.common.async.SynchronizeDiagramAction {
+
+	«EXPAND xpt::Common::generatedMemberComment»	
+	public «EXPAND className»() {
+		super(«EXPAND aspects::xpt::diagram::updater::DiagramUpdater::typedSharedInstanceCall FOR self.editorGen.diagramUpdater», «-»
+			«EXPAND aspects::xpt::editor::VisualIDRegistry::typedSharedInstanceCall», «-»
+			new «self.editorGen.navigator.getLabelProviderQualifiedClassName()»());
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»	
+	@Override
+	protected java.util.List<org.eclipse.jface.viewers.ViewerFilter> createViewerFilters() {
+		java.util.List<org.eclipse.jface.viewers.ViewerFilter> result = new java.util.ArrayList<org.eclipse.jface.viewers.ViewerFilter>();
+		result.add(new «EXPAND xpt::async::DiagramHeaderFilter::className»());
+		return result;
+	}
+}
+
+«ENDDEFINE»

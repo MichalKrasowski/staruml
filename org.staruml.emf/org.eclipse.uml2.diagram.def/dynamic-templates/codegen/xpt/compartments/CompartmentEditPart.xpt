@@ -1,0 +1,81 @@
+/*
+ * Copyright (c) 2008 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Michael Golubev - U2T specific compartments 
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+
+«EXTENSION xpt::compartments::Guard»
+
+«DEFINE createU2TFigure FOR gmfgen::GenCompartment-»
+«IF not u2tSupportedCompartment(self)-»
+«ERROR 'This compartment is not supported in U2T custom templates: ' + self.repr()»
+«ENDIF-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	@Override
+	public org.eclipse.draw2d.IFigure createFigure() {
+		org.eclipse.uml2.diagram.common.compartments.U2TCompartmentFigure result = new org.eclipse.uml2.diagram.common.compartments.U2TCompartmentFigure(getCompartmentName(), getMapMode());
+		«REM»In contrast to default GMF compartments, U2T-ones uses text pane as a plceholder only, so it is always shown«ENDREM»«-»
+
+		org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout layout = new org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout();
+		layout.setStretchMajorAxis(false);
+		layout.setStretchMinorAxis(false);
+		layout.setMinorAlignment(org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout.ALIGN_TOPLEFT);
+		result.getContentPane().setLayoutManager(layout);
+		
+		return result;
+	}
+«ENDDEFINE»
+
+«DEFINE installResizableCompartmentEditPolicy FOR gmfgen::GenCompartment-»
+	«IF canCollapse-»
+	«IF u2tSupportedCompartment(self)-»
+		installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE, «-»
+			new org.eclipse.uml2.diagram.common.compartments.U2TResizableCompartmentEditPolicy());
+	«ELSE-»
+		installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE, «-»
+			new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableCompartmentEditPolicy());
+	«ENDIF-»
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE hideIfEmptySupport FOR gmfgen::GenCompartment-»
+«IF u2tSupportedCompartment(self) and self.hideIfEmpty -»
+	«EXPAND xpt::Common::generatedMemberComment»	 
+	@Override
+	protected void refreshVisibility() {
+		boolean visibility = getNotationView().isVisible();
+		if (visibility){
+			org.eclipse.gmf.runtime.notation.DrawerStyle style = (org.eclipse.gmf.runtime.notation.DrawerStyle) getNotationView().getStyle(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getDrawerStyle());
+			if (style != null && !style.isCollapsed()){
+				visibility &= !getChildren().isEmpty();
+			}
+		}
+		setVisibility(visibility);
+	}
+	
+	«EXPAND xpt::Common::generatedMemberComment»	
+	@Override
+	protected void addChild(org.eclipse.gef.EditPart child, int index) {
+		super.addChild(child, index);
+		refreshVisibility();
+	}
+	
+	«EXPAND xpt::Common::generatedMemberComment»	
+	@Override
+	protected void removeChild(org.eclipse.gef.EditPart child) {
+		super.removeChild(child);
+		if (isActive()){
+			refreshVisibility();
+		}
+	}
+
+«ENDIF-»
+«ENDDEFINE»

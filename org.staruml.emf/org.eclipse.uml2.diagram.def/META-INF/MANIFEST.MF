@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.eclipse.uml2.diagram.def; singleton:=true
+Bundle-Version: 0.9.0.v200906190654
+Bundle-ClassPath: org.eclipse.uml2.diagram.def_0.9.0.v200906190654.jar
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,org.eclipse.gmf.codegen
+Bundle-ActivationPolicy: lazy

@@ -1,0 +1,143 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Michael Golubev (Borland) - initial API and implementation
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+«IMPORT 'http://www.eclipse.org/modeling/mdt/uml2tools/gmf/GenModel'»
+
+«EXTENSION xpt::diagram::updater::Utils»
+«EXTENSION xpt::GenModelUtils»
+
+«AROUND isOrphaned FOR gmfgen::GenContainerBase-»
+	«LET getSemanticChildren(self)->select(n | null <> (n.viewmap.attributes)[u2tgen::SubstitutableByAttributes]->first()) AS substitutableChildren-»
+		«IF substitutableChildren->isEmpty()-»
+			«EXPAND isOrphanedNoSubstitutables»
+		«ELSE»
+	«EXPAND xpt::Common::generatedMemberComment»
+	«EXPAND aspects::xpt::Warnings::suppressUnchecked»
+protected boolean isOrphaned(java.util.Collection semanticChildren, final org.eclipse.gmf.runtime.notation.View view) {
+	«EXPAND xpt::diagram::updater::containerBaseCanonicalMethods::checkShortcutProperty-»
+	int visualID = «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR getDiagram()»(view);
+	int suggestedID = «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall FOR getDiagram()»((org.eclipse.gmf.runtime.notation.View) getHost().getModel(), view.getElement());
+	switch (visualID) {
+	«EXPAND caseBlockForNotAllowedNodes-»
+	«IF getSemanticChildren(self)->size() > substitutableChildren->size() -»
+	«FOREACH getSemanticChildren(self) AS nextChild-»
+		«IF not substitutableChildren->includes(nextChild) -»
+			«EXPAND xpt::Common::caseVisualID FOR nextChild»		
+		«ENDIF-»
+	«ENDFOREACH-»
+		if (!semanticChildren.contains(view.getElement())) {
+			return true;
+		}
+		«IF hasConformableSemanticChildren(self)-»
+			«REM»the default GMF check above should find conformable semantic chilren EXCEPT substitutable ones«ENDREM»«-»
+			«REM»see base template«ENDREM»«-»
+			«LET getSemanticChildren(self)->reject(n | null <> (n.viewmap.attributes)[u2tgen::SubstitutableByAttributes]->first())->collect(node | node.modelFacet.metaClass) AS childMetaClasses -»
+			«IF not childMetaClasses->forAll(mc | childMetaClasses->select(mc2 | mc = mc2)->size() = 1)-»
+				«EXPAND xpt::diagram::updater::containerBaseCanonicalMethods::updateNotationModelElement-»
+			«ENDIF-»
+			«ENDLET-»
+		«ENDIF-»
+		break;
+	«ENDIF-»
+	«FOREACH substitutableChildren AS nextSubstitutableChild-»
+			«EXPAND xpt::Common::caseVisualID FOR nextSubstitutableChild»
+			if (!semanticChildren.contains(view.getElement())){
+				return true;
+			}
+			return (visualID != suggestedID) && «-»
+			«LET (nextSubstitutableChild.viewmap.attributes)[u2tgen::SubstitutableByAttributes]->first().oclAsType(u2tgen::SubstitutableByAttributes) AS group-»
+				«FOREACH group.getSubstitutableByNodes()->asSequence() AS nextSubstitution SEPARATOR ' && '»
+					(suggestedID != «EXPAND xpt::editor::VisualIDRegistry::visualID FOR nextSubstitution»)
+				«ENDFOREACH-»
+				;		
+			«ENDLET-»
+	«ENDFOREACH-»
+	}
+	return false;	
+}
+		«ENDIF-»
+	«ENDLET-»
+«ENDAROUND»
+
+«DEFINE caseBlockForNotAllowedNodes FOR gmfgen::GenContainerBase-»
+	«REM»We want to explicitly mark as orphaned all generated nodes that are not allowed to be here -- see #208889«ENDREM»«-»
+	«IF self.getDiagram().getAllNodes()->size() > getSemanticChildren(self)->size()-»
+	«FOREACH self.getDiagram().getAllNodes()->asSequence() AS nextRejectedNode-»
+		«IF not getSemanticChildren(self)->includes(nextRejectedNode)-»
+			«EXPAND xpt::Common::caseVisualID FOR nextRejectedNode»
+		«ENDIF-»
+	«ENDFOREACH-»
+			return true; 
+	«ENDIF-»
+	«REM»end of fix for #208889«ENDREM»«-»
+«ENDDEFINE»
+
+«DEFINE isOrphanedNoSubstitutables FOR gmfgen::GenContainerBase-»
+	«REM»below is the copy of isOrphaned::targetDef.proceed() with respect of 208889«ENDREM»«-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	«EXPAND aspects::xpt::Warnings::suppressUnchecked»
+protected boolean isOrphaned(java.util.Collection semanticChildren, final org.eclipse.gmf.runtime.notation.View view) {
+	«EXPAND xpt::diagram::updater::containerBaseCanonicalMethods::checkShortcutProperty-»
+	«IF not getSemanticChildren(self)->isEmpty()-»
+	int visualID = «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR getDiagram()»(view);
+	switch (visualID) {
+		«EXPAND caseBlockForNotAllowedNodes-»
+		«EXPAND xpt::Common::caseVisualID FOREACH getSemanticChildren(self)»
+		if (!semanticChildren.contains(view.getElement())) {
+			return true;
+		}
+		«IF hasConformableSemanticChildren(self)-»
+			«EXPAND xpt::diagram::updater::containerBaseCanonicalMethods::updateNotationModelElement-»
+		«ENDIF-»
+	}
+	«ENDIF-»
+	return false;	
+}
+«ENDDEFINE»
+
+«AROUND getSemanticChildrenList FOR gmfgen::GenContainerBase-»
+	«REM»
+	The only difference with base template so far is marked below
+	«ENDREM»«-»
+	«EXPAND xpt::Common::generatedMemberComment»
+protected java.util.List getSemanticChildrenList() {
+	«IF hasSemanticChildren(self)-»
+	org.eclipse.gmf.runtime.notation.View viewObject = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
+	java.util.List result = new java.util.LinkedList();
+	for (java.util.Iterator it = «EXPAND xpt::diagram::updater::DiagramUpdater::getSemanticChildrenMethodCall»(viewObject).iterator(); it.hasNext();) {
+		«REM»
+		The only difference with base template so far is here: 
+		We are using interface IUpdaterNodeDescriptor instead of predefined instance from our plugin 
+		It is done in order to process descriptors from other diagram plugins 
+		that were dynamically added	by AbstractUpdateDescriptionEditPolicy from
+		«ENDREM»«-»
+		result.add(((org.eclipse.uml2.diagram.common.genapi.IUpdaterNodeDescriptor) it.next()).getModelElement());
+	}
+	return result;
+	«ELSE-»
+	return java.util.Collections.EMPTY_LIST;
+	«ENDIF-»
+}
+«ENDAROUND»
+
+«DEFINE getFactoryHint FOR gmfgen::GenContainerBase-»
+	«EXPAND xpt::Common::generatedMemberComment»	 
+	@Override
+	protected String getFactoryHint(org.eclipse.core.runtime.IAdaptable elementAdapter) {
+		org.eclipse.emf.ecore.EObject domainModelElment = (org.eclipse.emf.ecore.EObject) elementAdapter.getAdapter(org.eclipse.emf.ecore.EObject.class);
+		org.eclipse.gmf.runtime.notation.View containerView = ((org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) getHost()).getNotationView();
+		int hint = «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall FOR getDiagram()»(containerView, domainModelElment);
+		return (hint != -1) ? «EXPAND xpt::editor::VisualIDRegistry::typeMethodCall('hint')» : super.getFactoryHint(elementAdapter);
+	}
+«ENDDEFINE»

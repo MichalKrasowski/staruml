@@ -1,0 +1,33 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Mikhail Golubev (Borland) - extended PropertySource 
+ */
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+
+«AROUND getPropertySourceMethod FOR gmfgen::GenCustomPropertyTab-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public org.eclipse.ui.views.properties.IPropertySource getPropertySource(Object object) {
+		if (object instanceof org.eclipse.ui.views.properties.IPropertySource) {
+			return (org.eclipse.ui.views.properties.IPropertySource) object;
+		}
+		org.eclipse.emf.common.notify.AdapterFactory af = getAdapterFactory(object);
+		if (af != null) {
+			org.eclipse.emf.edit.provider.IItemPropertySource ips = (org.eclipse.emf.edit.provider.IItemPropertySource) af.adapt(object, org.eclipse.emf.edit.provider.IItemPropertySource.class);
+			if (ips != null) {
+				return new org.eclipse.uml2.diagram.common.sheet.PropertySourceExtension(object, ips, af);
+			}
+		}
+		if (object instanceof org.eclipse.core.runtime.IAdaptable) {
+			return (org.eclipse.ui.views.properties.IPropertySource) ((org.eclipse.core.runtime.IAdaptable) object).getAdapter(org.eclipse.ui.views.properties.IPropertySource.class);
+		}
+		return null;
+	}
+«ENDAROUND»

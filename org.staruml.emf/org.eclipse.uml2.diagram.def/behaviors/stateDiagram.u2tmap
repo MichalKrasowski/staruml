@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<u2tmap:NewMenuDefinitions xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:u2tmap="http://www.eclipse.org/modeling/mdt/uml2tools/gmf/mapping" defID="State Diagram New Menus">
+  <contexts>
+    <metaclass href="../../../plugin/org.eclipse.uml2.uml/model/UML.ecore#//State"/>
+    <entries xsi:type="u2tmap:NewMenuEntry" displayName="Entry">
+      <containment href="../../../plugin/org.eclipse.uml2.uml/model/UML.ecore#//State/entry"/>
+      <children href="../../../plugin/org.eclipse.uml2.uml/model/UML.ecore#//Activity"/>
+      <children href="../../../plugin/org.eclipse.uml2.uml/model/UML.ecore#//StateMachine"/>
+      <children href="../../../plugin/org.eclipse.uml2.uml/model/UML.ecore#//OpaqueBehavior"/>
+    </entries>
+    <entries xsi:type="u2tmap:NewMenuEntry" displayName="Exit">
+      <containment href="../../../plugin/org.eclipse.uml2.uml/model/UML.ecore#//State/exit"/>
+      <children href="../../../plugin/org.eclipse.uml2.uml/model/UML.ecore#//Activity"/>
+      <children href="../../../plugin/org.eclipse.uml2.uml/model/UML.ecore#//StateMachine"/>
+      <children href="../../../plugin/org.eclipse.uml2.uml/model/UML.ecore#//OpaqueBehavior"/>
+    </entries>
+    <entries xsi:type="u2tmap:NewMenuEntry" displayName="Do Activity">
+      <containment href="../../../plugin/org.eclipse.uml2.uml/model/UML.ecore#//State/doActivity"/>
+      <children href="../../../plugin/org.eclipse.uml2.uml/model/UML.ecore#//Activity"/>
+      <children href="../../../plugin/org.eclipse.uml2.uml/model/UML.ecore#//StateMachine"/>
+      <children href="../../../plugin/org.eclipse.uml2.uml/model/UML.ecore#//OpaqueBehavior"/>
+    </entries>
+  </contexts>
+</u2tmap:NewMenuDefinitions>

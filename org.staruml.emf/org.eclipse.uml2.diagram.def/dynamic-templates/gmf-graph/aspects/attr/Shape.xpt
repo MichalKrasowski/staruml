@@ -1,0 +1,22 @@
+/*
+ * Copyright (c) 2006 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Michael Golubev (Borland) - #259490 with GEF 3.5M4 default shape width is 0.0
+ */
+«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+
+«AROUND shapeAttrs(figureVarName : String) FOR gmfgraph::Shape-»
+«EXPAND attr::Shape::fill(figureVarName)-»
+«IF xorFill»«EXPAND attr::Shape::xorFill(figureVarName)»«ENDIF-»
+«IF not outline»«EXPAND attr::Shape::outline(figureVarName)»«ENDIF-»
+«IF xorOutline»«EXPAND attr::Shape::xorOutline(figureVarName)»«ENDIF-»
+«IF lineWidth <> 0»«EXPAND attr::Shape::lineWidth(figureVarName)»«ENDIF-»
+«IF lineKind <> gmfgraph::LineKind::LINE_SOLID»«EXPAND attr::Shape::lineKind(figureVarName)»«ENDIF-»
+«ENDAROUND»

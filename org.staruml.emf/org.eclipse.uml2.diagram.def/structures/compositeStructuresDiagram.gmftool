@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmftool:ToolRegistry xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:gmftool="http://www.eclipse.org/gmf/2005/ToolDefinition">
+  <palette
+      title="Composite Structures Diagram"
+      description="Composite Structures Diagram Palette">
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Nodes"
+        description="Diagram Nodes">
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Collaboration"
+          description="Create Collaboration"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Class"
+          description="Create Class"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Interface"
+          description="Create Interface"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Instance Specification"
+          description="Create Instance Specification"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Constraint"
+          description="Create Constraint"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Comment"
+          description="Create Comment"/>
+    </tools>
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Children"
+        description="Child Elements of the Diagram Nodes">
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Element Import"
+          description="Create Element Import"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Attribute"
+          description="Create Attribute"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Operation"
+          description="Create Operation"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Port"
+          description="Create Port"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Collaboration Use"
+          description="Create Collaboration Use"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Slot"
+          description="Create Slot"/>
+    </tools>
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Links"
+        description="Diagram Links">
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Connector"
+          description="Create Connector"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Role Binding"
+          description="Create Role Binding"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Provided Interface"
+          description="Create Provided Interface"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Required Interface"
+          description="Create Required Interface"/>
+      <tools
+          xsi:type="gmftool:ToolGroup"
+          title="Association"
+          description="Create Association"
+          stack="true">
+        <tools
+            xsi:type="gmftool:GenericTool"
+            title="Association"
+            description="Create Association"
+            toolClass="org.eclipse.uml2.diagram.csd.part.CreateAssociationLinkTool.NONE"/>
+        <tools
+            xsi:type="gmftool:GenericTool"
+            title="Shared Association"
+            description="Create Shared Association"
+            toolClass="org.eclipse.uml2.diagram.csd.part.CreateAssociationLinkTool.SHARED"/>
+        <tools
+            xsi:type="gmftool:GenericTool"
+            title="Composite Association"
+            description="Create Composite Association"
+            toolClass="org.eclipse.uml2.diagram.csd.part.CreateAssociationLinkTool.COMPOSITE"/>
+        <tools
+            xsi:type="gmftool:GenericTool"
+            title="Navigable Association"
+            description="Create Navigable Association"
+            toolClass="org.eclipse.uml2.diagram.csd.part.CreateAssociationLinkTool.NAVIGABLE"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Constrained Element"
+          description="Create Constrained Element Link"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Annotated Element"
+          description="Create Annotated Element"/>
+    </tools>
+  </palette>
+</gmftool:ToolRegistry>

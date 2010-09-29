@@ -1,0 +1,22 @@
+/*
+ * Copyright (c) 2008 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Michael Golubev - U2T specific creation edit policy 
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«EXTENSION xpt::diagram::editparts::Utils»
+
+«DEFINE newInstance FOR gmfgen::GenCommonBase»«-»
+«IF 'org.eclipse.uml2.diagram.sequence' = getDiagram().editorGen.plugin.iD-»
+new org.eclipse.uml2.diagram.sequence.edit.policies.SDCreationEditPolicy(«EXPAND aspects::xpt::editor::VisualIDRegistry::typedSharedInstanceCall FOR self.getDiagram()»)«-»
+«ELSE-»
+new org.eclipse.uml2.diagram.common.editpolicies.CreationEditPolicyWithCustomReparent(«EXPAND aspects::xpt::editor::VisualIDRegistry::typedSharedInstanceCall FOR self.getDiagram()»)«-»
+«ENDIF-»
+«ENDDEFINE»

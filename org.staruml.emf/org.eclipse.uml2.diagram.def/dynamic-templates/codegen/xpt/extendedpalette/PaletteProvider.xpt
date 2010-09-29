@@ -1,0 +1,48 @@
+/*
+ * Copyright (c) 2007, 2008 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Tatiana Fesenko (Borland) - initial API and implementation
+ *    Michael Golubev (Borland) - switch actions for comments/nodes
+  */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«IMPORT 'http://www.eclipse.org/modeling/mdt/uml2tools/gmf/GenModel'»
+
+«EXTENSION xpt::extendedpalette::Utils»  
+
+«DEFINE needsExtendedPalette FOR gmfgen::GenDiagram»«supportsExtendedPalette(self)»«ENDDEFINE»
+
+«DEFINE className FOR gmfgen::GenDiagram»PaletteFactoryProvider«ENDDEFINE»
+
+«DEFINE packageName FOR gmfgen::GenDiagram»«palette.packageName»«ENDDEFINE»
+
+«DEFINE qualifiedClassName FOR gmfgen::GenDiagram»«EXPAND packageName».«EXPAND className»«ENDDEFINE»
+
+«DEFINE paletteProvider FOR gmfgen::GenDiagram-»
+package «EXPAND packageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «EXPAND className» extends org.eclipse.gmf.runtime.common.core.service.AbstractProvider implements org.eclipse.gmf.runtime.diagram.ui.services.palette.IPaletteProvider {
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void contributeToPalette(org.eclipse.ui.IEditorPart editor, java.lang.Object content, org.eclipse.gef.palette.PaletteRoot root, java.util.Map predefinedEntries) {
+		new «palette.getFactoryQualifiedClassName()»().fillPalette(root);
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void setContributions(org.eclipse.core.runtime.IConfigurationElement configElement) {
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public boolean provides(org.eclipse.gmf.runtime.common.core.service.IOperation operation) {
+		return false;
+	}
+}
+«ENDDEFINE»

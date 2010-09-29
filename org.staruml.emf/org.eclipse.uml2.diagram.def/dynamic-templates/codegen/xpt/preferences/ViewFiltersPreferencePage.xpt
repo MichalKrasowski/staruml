@@ -1,0 +1,68 @@
+/*
+ * Copyright (c) 2008 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Tatiana Fesenko (Borland) - initial API and implementation
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+«IMPORT 'http://www.eclipse.org/modeling/mdt/uml2tools/gmf/GenModel'»
+
+«EXTENSION xpt::preferences::Utils»
+«EXTENSION org::eclipse::uml2::diagram::codegen::qvt::NativeEMFUtils»
+
+«DEFINE isViewFiltersPreferencePage FOR gmfgen::GenCustomPreferencePage»«isViewFiltersPage(iD)»«ENDDEFINE»
+
+«DEFINE className FOR gmfgen::GenCustomPreferencePage»«getSimpleClassName(qualifiedClassName)»«ENDDEFINE»
+
+«DEFINE qualifiedClassName FOR gmfgen::GenCustomPreferencePage»«qualifiedClassName»«ENDDEFINE»
+
+«DEFINE packageName FOR gmfgen::GenCustomPreferencePage»«getPackageName(qualifiedClassName)»«ENDDEFINE»
+
+«DEFINE ViewFiltersPreferencePage FOR gmfgen::GenCustomPreferencePage»
+package «EXPAND packageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «EXPAND className» extends org.eclipse.uml2.diagram.common.preferences.ViewFiltersPreferencePage {
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.ui.IWorkbench myWorkbench;	
+	
+	«EXPAND xpt::Common::generatedMemberComment»
+	public «EXPAND className»() {
+		setPreferenceStore(«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore());
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	@Override
+	public void init(org.eclipse.ui.IWorkbench workbench) {
+		super.init(workbench);
+		myWorkbench = workbench;
+	}
+	
+	«EXPAND xpt::Common::generatedMemberComment»
+    public boolean performOk() {
+    	super.performOk();
+		refreshDiagramEditors();
+    	return true;
+    }
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private void refreshDiagramEditors() {
+		org.eclipse.ui.IEditorReference[] editors = myWorkbench.getActiveWorkbenchWindow().getActivePage().getEditorReferences();
+		for (int i = 0; i < editors.length; i++) {
+			org.eclipse.ui.IEditorPart editor = editors[i].getEditor(false);
+			if (editor != null && editor instanceof «getDiagram().editorGen.editor.getQualifiedClassName()») {
+		    	((«getDiagram().editorGen.editor.getQualifiedClassName()»)editor).refresh();
+			}
+		}
+	}
+}
+«ENDDEFINE»

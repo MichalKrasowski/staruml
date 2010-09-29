@@ -1,0 +1,16 @@
+modeltype genModel uses "http://www.eclipse.org/gmf/2009/GenModel";
+modeltype u2tAux uses "http://www.eclipse.org/modeling/mdt/uml2tools/gmf/GenModel";
+
+library DiagramHeader;
+
+helper selectDiagramHeader(nodes : Sequence(genModel::GenNode)) : genModel::GenNode {
+	return nodes->select(n | isDiagramHeader(n))->first()
+}
+
+helper isDiagramHeader(genCommon : genModel::GenCommonBase) : Boolean {
+	return null <> (genCommon.viewmap.attributes)[u2tAux::AuxSecondaryDiagramNodeAttribute]->first()
+}
+
+helper isDiagramHeaderCompartment(genCommon : genModel::GenCompartment) : Boolean {
+	return isDiagramHeader(genCommon.node)
+}

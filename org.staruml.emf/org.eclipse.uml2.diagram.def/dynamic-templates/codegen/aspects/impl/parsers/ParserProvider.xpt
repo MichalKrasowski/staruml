@@ -1,0 +1,51 @@
+/*
+ * Copyright (c) 2007, 2008 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Michael Golubev (Borland) - [245969] - temporary migration due to '[244419] custom parsers' GMF changes 
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+
+«EXTENSION xpt::providers::ParserUtils»
+
+«AROUND _parser(modelFacet : gmfgen::FeatureLabelModelFacet, element : gmfgen::GenCommonBase) FOR gmfgen::PredefinedParser»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.gmf.runtime.common.ui.services.parser.IParser «parserFieldName(element)»;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	«IF holder.extensibleViaService»private«ELSE»public«ENDIF» org.eclipse.gmf.runtime.common.ui.services.parser.IParser «parserAccessorName(element)»() {
+		if («parserFieldName(element)» == null) {
+			«parserFieldName(element)» = «EXPAND createParserOldWayMethodName FOR element»();
+		}
+		return «parserFieldName(element)»;
+	}
+	
+	«EXPAND createParserOldWay(modelFacet, element)»
+«ENDAROUND»
+
+«DEFINE createParserOldWayMethodName FOR gmfgen::GenCommonBase»create«self.getUniqueIdentifier().firstToUpper()»Parser«ENDDEFINE»
+
+«DEFINE createParserOldWay(modelFacet : gmfgen::FeatureLabelModelFacet, element : gmfgen::GenCommonBase) FOR gmfgen::PredefinedParser»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected org.eclipse.gmf.runtime.common.ui.services.parser.IParser «EXPAND createParserOldWayMethodName FOR element»() {
+		org.eclipse.emf.ecore.EAttribute[] features = new org.eclipse.emf.ecore.EAttribute[] {
+			«EXPAND MetaModel::MetaFeature FOREACH modelFacet.metaFeatures SEPARATOR ', ' »
+		};
+	«IF modelFacet.editableMetaFeatures->size() > 0-»
+		org.eclipse.emf.ecore.EAttribute[] editableFeatures = new org.eclipse.emf.ecore.EAttribute[] {
+			«EXPAND MetaModel::MetaFeature FOREACH modelFacet.editableMetaFeatures SEPARATOR ', '»
+		};
+	«ENDIF-»
+	«getQualifiedClassName()» parser = new «getQualifiedClassName()»(features«IF modelFacet.editableMetaFeatures->size() > 0», editableFeatures«ENDIF»);
+	«EXPAND impl::parsers::ParserProvider::_setPatterns(viewMethod, editMethod, 'parser') FOR modelFacet-»
+		return parser;
+	}
+«ENDDEFINE»

@@ -1,0 +1,36 @@
+/*
+ * Copyright (c) 2008 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Michael Golubev - update description editpolicy for shortcuts 
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«EXTENSION xpt::diagram::updater::Utils»
+
+«DEFINE installUpdateDescriptionEditPolicy FOR gmfgen::GenCommonBase-»
+	«LET (if (Sequence { self })[gmfgen::GenLinkEnd]->isEmpty() then null else (Sequence { self })[gmfgen::GenLinkEnd]->first() endif) AS linkEnd-»
+	«LET linkEnd.oclAsType(gmfgen::GenLinkEnd) AS linkEndImpl-»
+	«LET null <> linkEndImpl and (null <> linkEndImpl.getMetaClass() and not getOutgoingLinks(linkEndImpl)->isEmpty()) AS canHaveOutgoingLinks-»
+	«LET not (Sequence { self })[gmfgen::GenContainerBase]->isEmpty() and not getSemanticChildren(self.oclAsType(gmfgen::GenContainerBase))->isEmpty() AS canHaveChildren-»
+	«IF canHaveChildren or canHaveOutgoingLinks-»
+		if («EXPAND aspects::xpt::editor::VisualIDRegistry::isShortcutDescendantMethodCall FOR getDiagram()»(getNotationView())){
+			installEditPolicy(«-»
+				org.eclipse.uml2.diagram.common.editpolicies.UpdateDescriptionEditPolicy.ROLE, «-»
+				new org.eclipse.uml2.diagram.common.editpolicies.UpdateDescriptionEditPolicy(«-»
+					«EXPAND aspects::xpt::diagram::updater::DiagramUpdater::typedSharedInstanceCall FOR getDiagram().editorGen.diagramUpdater», «-»
+					«IF getAllSemanticElements(getDiagram())->includes(self)»true«ELSE»false«ENDIF» «-»
+					));
+		}
+	«ENDIF-»
+	«ENDLET-»
+	«ENDLET-»
+	«ENDLET-»
+	«ENDLET-»
+«ENDDEFINE»
+

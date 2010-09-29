@@ -1,0 +1,96 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Tatiana Fesenko (Borland) - initial API and implementation
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+«IMPORT 'http://www.eclipse.org/modeling/mdt/uml2tools/gmf/GenModel'»
+
+«EXTENSION xpt::actions::i18n»
+«EXTENSION xpt::actions::Utils»
+
+«DEFINE ChangeNotationContributionItemProvider FOR gmfgen::GenTopLevelNode»
+package «EXPAND packageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «EXPAND className» extends org.eclipse.gmf.runtime.common.ui.services.action.contributionitem.AbstractContributionItemProvider implements org.eclipse.gmf.runtime.common.core.service.IProvider {
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	@Override
+	protected org.eclipse.jface.action.IAction createAction(String actionId, org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor partDescriptor) {
+		org.eclipse.ui.IWorkbenchPage workbenchPage = partDescriptor.getPartPage();
+	«LET (viewmap.attributes)[u2tgen::SubstitutableByAttributes]->first() AS subChild-»
+	«EXPAND addActions(subChild.oclAsType(u2tgen::SubstitutableByAttributes))-»
+	«ENDLET-»
+		return super.createAction(actionId, partDescriptor);
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	@Override
+	protected org.eclipse.jface.action.IMenuManager createMenuManager(String menuId, org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor partDescriptor) {
+		if (menuId.equals(GROUP_ID))
+			return new org.eclipse.jface.action.MenuManager(GROUP_LABEL, GROUP_ID);
+		if (menuId.equals(MENU_ID))
+			return new org.eclipse.jface.action.MenuManager(MENU_LABEL, MENU_ID);
+		return super.createMenuManager(menuId, partDescriptor);
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static final String MENU_ID = "ChangeNotationMenu"; //$NON-NLS-1$
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static final String MENU_LABEL = «EXPAND xpt::Externalizer::accessorCall(i18nKeyForChangeNotationMenu(changeNotationContributionItemProviderClassName(self))) FOR getDiagram().editorGen»;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static final String GROUP_ID = "ChangeNotationGroup"; //$NON-NLS-1$
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static final String GROUP_LABEL = «EXPAND xpt::Externalizer::accessorCall(i18nKeyForChangeNotationGroup(changeNotationContributionItemProviderClassName(self))) FOR getDiagram().editorGen»;
+}
+«ENDDEFINE»
+
+«DEFINE addActions(subChild : u2tgen::SubstitutableByAttributes) FOR gmfgen::GenTopLevelNode-»
+«IF subChild <> null and not subChild.requiresAll-»
+«FOREACH (subChild.getSubstitutableByNodes())[gmfgen::GenNode]->asSequence() AS newNode»«EXPAND addAction(newNode)»«ENDFOREACH-»
+«ENDIF»
+«ENDDEFINE»
+
+«DEFINE addAction(newNode : gmfgen::GenNode) FOR gmfgen::GenTopLevelNode»
+	if («EXPAND xpt::actions::ChangeNotationAction::qualifiedClassName(newNode)».ACTION_ID.equals(actionId)) {
+		return new «EXPAND xpt::actions::ChangeNotationAction::qualifiedClassName(newNode)»(workbenchPage, actionId);
+	}
+«ENDDEFINE»
+
+«DEFINE className FOR gmfgen::GenTopLevelNode»«changeNotationContributionItemProviderClassName(self)»«ENDDEFINE»
+
+«DEFINE packageName FOR gmfgen::GenTopLevelNode»«self.actionsPackage()»«ENDDEFINE»
+
+«DEFINE qualifiedClassName FOR gmfgen::GenTopLevelNode»«EXPAND packageName».«EXPAND className»«ENDDEFINE»
+
+«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
+«FOREACH editorGen.diagram.topLevelNodes->asSequence() AS node-»
+«IF node.hasAlternativeNotation()-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForChangeNotationMenu(changeNotationContributionItemProviderClassName(node)))-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForChangeNotationGroup(changeNotationContributionItemProviderClassName(node)))-»
+«ENDIF-»
+«ENDFOREACH-»
+«ENDDEFINE»
+
+«DEFINE i18nValues FOR gmfgen::GenDiagram-»
+«FOREACH editorGen.diagram.topLevelNodes->asSequence() AS node-»
+«IF node.hasAlternativeNotation()-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForChangeNotationMenu(changeNotationContributionItemProviderClassName(node)), 'Show as')-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForChangeNotationGroup(changeNotationContributionItemProviderClassName(node)), 'Show as')-»
+«ENDIF-»
+«ENDFOREACH-»
+«ENDDEFINE»
+

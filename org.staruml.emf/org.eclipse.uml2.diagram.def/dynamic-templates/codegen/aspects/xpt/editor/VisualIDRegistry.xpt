@@ -1,0 +1,315 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Michael Golubev (Borland) - initial API and implementation
+ *       1. Diagram Header support
+ *       2. [210678] - Allow multi-view representation for single domain element
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«IMPORT 'http://www.eclipse.org/modeling/mdt/uml2tools/gmf/GenModel'»
+
+«EXTENSION xpt::diagramheader::DiagramHeader»
+«EXTENSION xpt::editor::Utils»
+«EXTENSION xpt::diagram::updater::Utils»
+
+«AROUND additions FOR gmfgen::GenDiagram»
+
+	«EXPAND hasViewChild»
+	
+	«EXPAND getChildDescriptorVisualID»
+	
+	«EXPAND canSubstitute»
+	
+	«EXPAND checkNodeVisualID»
+	
+	«EXPAND isCompartmentVisualID»
+	
+	«EXPAND isSemanticLeafVisualID»
+	
+	«EXPAND typedSharedInstance»
+	
+	«EXPAND isShortcutDescendant»
+«ENDAROUND»
+
+«AROUND returnVisualID FOR gmfgen::GenCommonBase-»
+	«LET (viewmap.attributes)[u2tgen::SubstitutableByAttributes]->first().oclAsType(u2tgen::SubstitutableByAttributes) AS group -»
+	«IF isDiagramHeader(self) -»
+		// Diagram header is already processed above
+	«ELSEIF null <> group and group.requiresAll-»
+		// there is a group of nodes for single semantic element
+		// the group for this element consists of 
+		// «EXPAND xpt::editor::VisualIDRegistry::visualID FOR self»
+		«FOREACH group.getSubstitutableByNodes()->asSequence() AS nextPart-»
+		// «EXPAND xpt::editor::VisualIDRegistry::visualID FOR nextPart»
+		«ENDFOREACH-»
+		// diagram updater is expected to return one node descriptor (and thus one instance of that semantic element) per node in group
+		// we need to give other parts a chance to create their views
+		if («EXPAND xpt::editor::VisualIDRegistry::checkSemanticElement» && !hasViewChild(containerView, domainElement, «EXPAND xpt::editor::VisualIDRegistry::visualID»)) {
+			return «EXPAND xpt::editor::VisualIDRegistry::visualID»;
+		}
+	«ELSE -»
+		«targetDef.proceed()-»
+	«ENDIF-»
+	«ENDLET-»
+«ENDAROUND»
+
+«AROUND caseDomainContainerVisualID FOR gmfgen::GenContainerBase-»
+	«LET selectDiagramHeader(getContainedSemanticNodes(self)) AS childHeader -»
+	«IF null <> childHeader -»
+		«EXPAND xpt::Common::caseVisualID»
+			«EXPAND checkHeader FOR childHeader-»
+			«EXPAND xpt::editor::VisualIDRegistry::returnVisualID FOREACH getContainedSemanticNodes(self)-»
+			«REM»
+			For multipart nodes, we have added additional check hasViewChild into each group item case, in order to allow other group items to create their views.
+			When all views are created, we still need to return arbitrary choosen part's id for given container + semantic pair, to avoid removing the whole group from diagram by updater
+			«ENDREM» «-»
+			«FOREACH getContainedSemanticNodes(self) AS nextChild -»
+					«REM»It would be better to add one "escape" block per group, but its not clear how to do it «ENDREM»«-»
+					«LET (nextChild.viewmap.attributes)[u2tgen::SubstitutableByAttributes]->first().oclAsType(u2tgen::SubstitutableByAttributes) AS nextGroup -»
+					«IF null <> nextGroup and nextGroup.requiresAll -»
+							// "escape" for multi-views part : «EXPAND xpt::editor::VisualIDRegistry::visualID» -- prevents from removing the whole group from diagram
+							if («EXPAND xpt::editor::VisualIDRegistry::checkSemanticElement FOR nextChild») {
+								return «EXPAND xpt::editor::VisualIDRegistry::visualID FOR nextChild»;
+							}
+					«ENDIF-»
+					«ENDLET-»		
+			«ENDFOREACH-»
+			break;
+	«ELSE-»
+		«targetDef.proceed()-»
+	«ENDIF-»
+	«ENDLET-»
+«ENDAROUND»
+
+«DEFINE checkHeader FOR gmfgen::GenNode-»
+	«IF isDiagramHeader(self) -»
+		// We want to additionally show the Canvas Semantical Element in the auxiliary 
+		// «getEditPartQualifiedClassName()» (that serves as a pure visual container for children). 
+		// To do this, we modified CanonicalEditPolicy to add the Canvas semantic Element into the children 
+		// list. The only remaining part is to return correct VID for this special case.
+	
+		if (containerView instanceof org.eclipse.gmf.runtime.notation.Diagram «-»
+			&& domainElement != null && domainElement.equals(containerView.getElement())) {
+				return «EXPAND xpt::editor::VisualIDRegistry::visualID»;
+		}		
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE hasViewChild FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected static boolean hasViewChild(org.eclipse.gmf.runtime.notation.View containerView, org.eclipse.emf.ecore.EObject domainElement, int visualId) {
+		if (containerView == null){
+			return false;
+		}
+		if (domainElement == null){
+			return false;
+		}
+		for (Object next : containerView.getChildren()){
+			org.eclipse.gmf.runtime.notation.View nextView = (org.eclipse.gmf.runtime.notation.View)next;
+			if (domainElement.equals(nextView.getElement()) && getType(visualId).equals(nextView.getType())){
+				return true;
+			}
+		}
+		return false;
+	}
+«ENDDEFINE»
+
+«DEFINE getChildDescriptorVisualID FOR gmfgen::GenDiagram-»
+«LET getDiagram().editorGen.diagramUpdater.getNodeDescriptorQualifiedClassName() AS descriptorFQN-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public static int «EXPAND getChildDescriptorVisualIDMethodName»(«descriptorFQN» container, org.eclipse.emf.ecore.EObject domainElement) {
+	«REM»the line below is generated to workaround compilation error in class diagram, where hasViewChild() method is called «ENDREM»«-»
+	«IF (self.getAllNodes()->collect(n | n.viewmap.attributes)->flatten())[u2tgen::SubstitutableByAttributes]->select(attr | attr.requiresAll)->size() > 0-»
+	final View containerView = null;
+	«ENDIF-»
+	if (domainElement == null) {
+		«EXPAND xpt::editor::VisualIDRegistry::unrecognizedVID-»
+	}
+	switch (container.getVisualID()) {
+		«EXPAND caseDomainDescriptorContainer FOREACH getAllContainers()-»
+	}
+	«EXPAND xpt::editor::VisualIDRegistry::unrecognizedVID-»
+}
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE caseDomainDescriptorContainer FOR gmfgen::GenCompartment-»
+«REM»Do nothing -- compartments are processed inside their nodes«ENDREM»«-»
+«ENDDEFINE»
+
+«DEFINE caseDomainDescriptorContainer FOR gmfgen::GenContainerBase-»
+	«IF getContainedSemanticNodes(self)->size() > 0 or (not (Sequence { self })[gmfgen::GenNode]->isEmpty() and self.oclAsType(gmfgen::GenNode).compartments->size() > 0)-»
+«EXPAND xpt::Common::caseVisualID»
+	«FOREACH getContainedSemanticNodes(self) AS nextDirectChild-»
+		«IF not isDiagramHeader(nextDirectChild)-»
+			«EXPAND xpt::editor::VisualIDRegistry::returnVisualID FOR nextDirectChild-»
+		«ENDIF-»
+	«ENDFOREACH-»
+	«IF not (Sequence { self })[gmfgen::GenNode]->isEmpty()-»
+	«FOREACH self.oclAsType(gmfgen::GenNode).compartments->asSequence() AS nextCompartment-»
+		«EXPAND xpt::editor::VisualIDRegistry::returnVisualID FOREACH getContainedSemanticNodes(nextCompartment)-»
+	«ENDFOREACH-»
+	«ENDIF-»
+	break;
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE getChildDescriptorVisualIDMethodName FOR gmfgen::GenDiagram»getChildDescriptorVisualID«ENDDEFINE»
+
+«DEFINE canSubstitute FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected static boolean canSubstitute(int visualId, int substituteCandidate) {
+		if (visualId == substituteCandidate){
+			return true;
+		}
+		«LET self.getAllNodes()->select(n | not (n.viewmap.attributes)[u2tgen::SubstitutableByAttributes]->isEmpty())->asSequence() AS allSubstitutable-»
+		«IF not allSubstitutable->isEmpty()-»
+		switch(visualId) {
+			«FOREACH allSubstitutable AS next-»
+			«LET (next.viewmap.attributes)[u2tgen::SubstitutableByAttributes]->first() AS nextGroup-»
+			«LET nextGroup.oclAsType(u2tgen::SubstitutableByAttributes) AS nextGroupImpl-»
+			«EXPAND xpt::Common::caseVisualID FOR next»
+				return 
+				«FOREACH nextGroupImpl.getSubstitutableByNodes()->asSequence() AS nextSubstitution SEPARATOR ' || '-»
+					(substituteCandidate == «EXPAND xpt::editor::VisualIDRegistry::visualID FOR nextSubstitution»)
+				«ENDFOREACH»;		
+			«ENDLET-»
+			«ENDLET-»
+			«ENDFOREACH»
+			
+			default: 
+				break;	
+		}
+		«ENDIF-»
+		«ENDLET-»
+		return false;
+	}
+«ENDDEFINE»
+
+«DEFINE isCompartmentVisualIDMethodName FOR gmfgen::GenDiagram»isCompartmentVisualID«ENDDEFINE»
+«DEFINE isCompartmentVisualIDMethodCall FOR gmfgen::GenDiagram»«getVisualIDRegistryQualifiedClassName()».«EXPAND isCompartmentVisualIDMethodName»«ENDDEFINE»
+
+«DEFINE isCompartmentVisualID FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static boolean «EXPAND isCompartmentVisualIDMethodName»(int visualID) {
+		«IF not compartments->isEmpty()-»
+			switch (visualID) {
+				«EXPAND xpt::Common::caseVisualID FOREACH compartments»
+					return true;
+				default:
+					break;
+			}
+		«ENDIF-»
+		return false;
+	}
+
+«ENDDEFINE»
+
+«DEFINE isSemanticLeafVisualIDMethodName FOR gmfgen::GenDiagram»isSemanticLeafVisualID«ENDDEFINE»
+«DEFINE isSemanticLeafVisualIDMethodCall FOR gmfgen::GenDiagram»«getVisualIDRegistryQualifiedClassName()».«EXPAND isSemanticLeafVisualIDMethodName»«ENDDEFINE»
+
+«DEFINE isSemanticLeafVisualID FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static boolean «EXPAND isSemanticLeafVisualIDMethodName»(int visualID) {
+		switch (visualID) {
+			«FOREACH self.getAllNodes()->asSequence() AS nextNode-»
+			«IF getSemanticChildren(nextNode)->isEmpty()-»
+			«IF not nextNode.oclIsKindOf(gmfgen::GenNode) or nextNode.oclAsType(gmfgen::GenNode).compartments->select(c | not getSemanticChildren(c)->isEmpty())->isEmpty()-»
+			«EXPAND xpt::Common::caseVisualID FOR nextNode»
+			«ENDIF-»
+			«ENDIF-»
+			«ENDFOREACH-»
+				return true;
+			default:
+				break;
+		}
+		return false;
+	}
+
+«ENDDEFINE»
+
+«DEFINE checkNodeVisualIDMethodName FOR gmfgen::GenDiagram»checkNodeVisualID«ENDDEFINE»
+«DEFINE checkNodeVisualIDMethodCall FOR gmfgen::GenDiagram»«getVisualIDRegistryQualifiedClassName()».«EXPAND checkNodeVisualIDMethodName»«ENDDEFINE»
+
+«DEFINE checkNodeVisualID FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static boolean «EXPAND checkNodeVisualIDMethodName»(org.eclipse.gmf.runtime.notation.View containerView, org.eclipse.emf.ecore.EObject domainElement, int candidate) {
+		if (candidate == -1){
+			//unrecognized id is always bad
+			return false;
+		}
+		int basic = «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodName»(containerView, domainElement);
+		return basic == candidate || canSubstitute(basic, candidate);
+	}
+«ENDDEFINE»
+
+«DEFINE isShortcutDescendantMethodName FOR gmfgen::GenDiagram»isShortcutDescendant«ENDDEFINE»
+«DEFINE isShortcutDescendantMethodCall FOR gmfgen::GenDiagram»«getVisualIDRegistryQualifiedClassName()».«EXPAND isShortcutDescendantMethodName»«ENDDEFINE»
+
+«DEFINE isShortcutDescendant FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static boolean «EXPAND isShortcutDescendantMethodName»(org.eclipse.gmf.runtime.notation.View view) {
+		org.eclipse.gmf.runtime.notation.View diagram = view.getDiagram();
+		while (view != diagram && view != null) {
+			org.eclipse.emf.ecore.EAnnotation annotation = view.getEAnnotation("Shortcut"); «EXPAND xpt::Common::nonNLS»
+			if (annotation != null) {
+				return true;
+			}
+			view = (org.eclipse.gmf.runtime.notation.View) view.eContainer();
+		}
+		return false;
+	}
+«ENDDEFINE»
+
+«DEFINE typedSharedInstanceName FOR gmfgen::GenDiagram»TYPED_ADAPTER«ENDDEFINE»
+«DEFINE typedSharedInstanceCall FOR gmfgen::GenDiagram»«getVisualIDRegistryQualifiedClassName()».«EXPAND typedSharedInstanceName»«ENDDEFINE»
+
+«DEFINE typedSharedInstance FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static final org.eclipse.uml2.diagram.common.genapi.IVisualIDRegistry «EXPAND typedSharedInstanceName» = new org.eclipse.uml2.diagram.common.genapi.IVisualIDRegistry() {
+		«EXPAND xpt::Common::generatedMemberComment»
+		public String «EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodName»(org.eclipse.gmf.runtime.notation.View view) {
+			return «EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodCall»(view);
+		}
+		
+		«EXPAND xpt::Common::generatedMemberComment»
+		public int «EXPAND xpt::editor::VisualIDRegistry::getVisualIdMethodName»(org.eclipse.gmf.runtime.notation.View view) {
+			return «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»(view);
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public int «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodName»(org.eclipse.gmf.runtime.notation.View containerView, org.eclipse.emf.ecore.EObject domainElement) {
+			return «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall»(containerView, domainElement);
+		}
+		
+		«EXPAND xpt::Common::generatedMemberComment»
+		public boolean «EXPAND checkNodeVisualIDMethodName»(org.eclipse.gmf.runtime.notation.View containerView, org.eclipse.emf.ecore.EObject domainElement, int candidate) {
+			return «EXPAND checkNodeVisualIDMethodCall»(containerView, domainElement, candidate);
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public boolean «EXPAND isCompartmentVisualIDMethodName»(int visualID) {
+			return «EXPAND isCompartmentVisualIDMethodCall»(visualID);
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public boolean «EXPAND isSemanticLeafVisualIDMethodName»(int visualID) {
+			return «EXPAND isSemanticLeafVisualIDMethodCall»(visualID);
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public boolean «EXPAND isShortcutDescendantMethodName»(org.eclipse.gmf.runtime.notation.View view) {
+			return «EXPAND isShortcutDescendantMethodCall»(view);
+		}
+
+	};
+	
+«ENDDEFINE»

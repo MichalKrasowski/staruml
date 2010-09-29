@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmfmap:Mapping xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:gmfmap="http://www.eclipse.org/gmf/2008/mappings"
+    xmlns:gmftool="http://www.eclipse.org/gmf/2005/ToolDefinition">
+  <nodes>
+    <ownedChild>
+      <domainMetaElement
+          href="../../../plugin/org.eclipse.uml2.uml/model/UML.ecore#//RedefinableTemplateSignature"/>
+      <labelMappings>
+        <diagramLabel
+            href="classDiagram_templates.gmfgraph#TemplateSignatureNode_signature"/>
+      </labelMappings>
+      <tool
+          xsi:type="gmftool:CreationTool"
+          href="classDiagram.gmftool#//@palette/@tools.1/@tools.4"/>
+      <diagramNode
+          href="classDiagram_templates.gmfgraph#TemplateSignatureNode"/>
+    </ownedChild>
+  </nodes>
+  <diagram>
+    <domainModel
+        href="../../../plugin/org.eclipse.uml2.uml/model/UML.ecore#/"/>
+    <domainMetaElement
+        href="../../../plugin/org.eclipse.uml2.uml/model/UML.ecore#//Package"/>
+  </diagram>
+</gmfmap:Mapping>

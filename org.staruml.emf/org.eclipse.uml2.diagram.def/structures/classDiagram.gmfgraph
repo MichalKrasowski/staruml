@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmfgraph:Canvas xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:gmfgraph="http://www.eclipse.org/gmf/2006/GraphicalDefinition" name="DEPRECATED_CANVAS">
+  <figures
+      name="DEPRECATED_GALLERY">
+    <descriptors
+        name="DashedLineWDSTArrow">
+      <actualFigure
+          xsi:type="gmfgraph:PolylineConnection"
+          name="DashedLineWDSTArrow"
+          lineKind="LINE_DASH">
+        <targetDecoration
+            xsi:type="gmfgraph:PolylineDecoration"
+            href="../../../plugin/org.eclipse.gmf.graphdef/models/classDiagram.gmfgraph#//@figures.0/@figures.2"/>
+      </actualFigure>
+    </descriptors>
+  </figures>
+  <connections
+      name="DashedConnectionWDstArrow"
+      figure="DashedLineWDSTArrow"/>
+</gmfgraph:Canvas>

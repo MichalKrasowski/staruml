@@ -1,0 +1,31 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Alexander Shatalin (Borland) - initial API and implementation
+ *    Tatiana Fesenko (Borland) - fix for bugzilla #230873 'Make diagram file extension shorter' 
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+
+«EXTENSION aspects::xpt::FileExtensionUtils»
+
+«AROUND test FOR gmfgen::GenEditorGenerator-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public boolean test(Object receiver, String method, Object[] args, Object expectedValue) {
+	if (false == receiver instanceof org.eclipse.emf.common.ui.URIEditorInput) {
+		return false;
+	}
+	org.eclipse.emf.common.ui.URIEditorInput editorInput = (org.eclipse.emf.common.ui.URIEditorInput) receiver;
+«REM» #230873 'Make diagram file extension shorter'«ENDREM-»
+«FOREACH collectAllExtensions(self) AS dfe ITERATOR iter-»
+	«IF iter.isFirstIteration()»return «ELSE» || «ENDIF»"«dfe»".equals(editorInput.getURI().fileExtension())«EXPAND xpt::Common::nonNLS»
+«ENDFOREACH»;
+«REM» End of #230873«ENDREM-»
+	}
+«ENDAROUND»

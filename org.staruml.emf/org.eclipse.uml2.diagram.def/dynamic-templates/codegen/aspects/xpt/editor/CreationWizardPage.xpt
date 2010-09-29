@@ -1,0 +1,44 @@
+/*
+ * Copyright (c) 2006 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Tatiana Fesenko (Borland) - #194187 UMLWizard usability
+ */
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+
+«AROUND additions FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment»
+	/**
+	 * #174315 Automatically set diagram file extension
+	 * @generated
+	 */
+	@Override
+	public org.eclipse.jface.wizard.IWizardPage getNextPage() {
+		org.eclipse.jface.wizard.IWizardPage nextPage = super.getNextPage(); 
+		if ("DiagramModelFile".equals(getName()) && "DomainModelFile".equals(nextPage.getName())) {
+			setDomainFileName(nextPage);
+		}
+		return nextPage;
+	}
+	
+	/**
+	 * #174315 Automatically set diagram file extension
+	 * @generated
+	 */
+	protected void setDomainFileName(org.eclipse.jface.wizard.IWizardPage nextPage) {
+		«creationWizardPageClassName» nextWizardPage = («creationWizardPageClassName») nextPage;
+		String fileName = getFileName();
+		String extension = getExtension();
+		if (fileName.endsWith(extension)) {
+			fileName = fileName.substring(0, fileName.length() - extension.length());
+		}
+		fileName += nextWizardPage.getExtension();
+		nextWizardPage.setFileName(fileName);
+	}
+«ENDAROUND»

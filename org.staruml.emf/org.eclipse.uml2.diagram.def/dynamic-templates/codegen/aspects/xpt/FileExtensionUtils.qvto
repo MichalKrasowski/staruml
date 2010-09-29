@@ -1,0 +1,17 @@
+import xpt.StringOperations;
+
+modeltype genModel uses "http://www.eclipse.org/gmf/2009/GenModel";
+
+library FileExtensionUtils;
+
+helper getDefaultDiagramExtension(generator : genModel::GenEditorGenerator) : String {
+	return let extensions = collectAllExtensions(generator) in (if extensions->isEmpty() then null else extensions->at(0 + 1) endif)
+}
+
+helper collectAllExtensions(generator : genModel::GenEditorGenerator) : Sequence(String) {
+	return collectAllExtensions(generator.diagramFileExtension)
+}
+
+helper collectAllExtensions(extensionList : String) : Sequence(String) {
+	return extensionList.xpandSplit(',')
+}

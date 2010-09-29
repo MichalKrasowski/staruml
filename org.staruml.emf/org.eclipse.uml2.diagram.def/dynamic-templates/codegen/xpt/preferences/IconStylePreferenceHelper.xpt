@@ -1,0 +1,89 @@
+/*
+ * Copyright (c) 2009 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Michael Golubev (Borland) - initial API and implementation
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+
+«EXTENSION xpt::preferences::Utils»
+
+«DEFINE qualifiedClassName FOR gmfgen::GenDiagram»«EXPAND packageName».«EXPAND className»«ENDDEFINE»
+«DEFINE className FOR gmfgen::GenDiagram»DiagramIconStylePreferenceHelper«ENDDEFINE»
+«DEFINE packageName FOR gmfgen::GenDiagram»«self.preferencesPackageName»«ENDDEFINE»
+
+«DEFINE IconStylePreferenceHelper FOR gmfgen::GenDiagram»
+package «EXPAND packageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «EXPAND className» {
+	«EXPAND shouldShowIcon»
+	
+	«EXPAND shouldShowLabel»
+	
+	«EXPAND getPreferencesValueFor»
+}
+«ENDDEFINE»
+
+«DEFINE shouldShowIcon FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static boolean shouldShowStereotypeIcon(org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint hint){
+		org.eclipse.jface.preference.IPreferenceStore store = (org.eclipse.jface.preference.IPreferenceStore)hint.getPreferenceStore();
+		return store.getBoolean(org.eclipse.uml2.diagram.common.preferences.UMLPreferencesConstants.PREF_ICONS_SHOW_STEREOTYPE_ICON_MODE);
+	}
+	
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static boolean shouldShowMetaclassIcon(int visualId, org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint hint){
+		boolean preferencesValue = getPreferencesValueFor(visualId, hint);
+		return preferencesValue;
+	}
+	
+«ENDDEFINE»
+
+«DEFINE getPreferencesValueFor FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private static boolean getPreferencesValueFor(int visualId, org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint hint){
+		org.eclipse.jface.preference.IPreferenceStore store = (org.eclipse.jface.preference.IPreferenceStore)hint.getPreferenceStore();
+		String mode = store.getString(org.eclipse.uml2.diagram.common.preferences.UMLPreferencesConstants.PREF_ICONS_SHOW_HIDE_MODE);
+		if (org.eclipse.uml2.diagram.common.preferences.UMLPreferencesConstants.VALUE_ICONS_SHOW_ALL.equals(mode)){
+			return true;
+		}
+		if (org.eclipse.uml2.diagram.common.preferences.UMLPreferencesConstants.VALUE_ICONS_HIDE_ALL.equals(mode)){
+			return false;
+		}
+		if (org.eclipse.uml2.diagram.common.preferences.UMLPreferencesConstants.VALUE_ICONS_SHOW_SELECTED_VISUAL_IDS.equals(mode)){
+			switch(visualId){
+				«FOREACH getAllNodeGroupingKeys(self) AS nextKey-»
+					«LET getAllLabeledForNodeKey(self, nextKey) AS allForKey-»
+					«IF not allForKey->isEmpty()-»
+						«FOREACH allForKey AS nextCommonBase-»
+							«EXPAND xpt::Common::caseVisualID FOR nextCommonBase»
+						«ENDFOREACH-»
+								return store.getBoolean(org.eclipse.uml2.diagram.common.preferences.UMLPreferencesConstants.PREF_ICONS_SHOW_VISUAL_ID_PREFIX + «-»
+									".«FOREACH allForKey AS nextForKey SEPARATOR '.'»«nextForKey.visualID»«ENDFOREACH»"); 
+					«ENDIF-»
+					«ENDLET-»
+				«ENDFOREACH-»
+							default:
+								return false;
+			}
+		}
+		return false;
+	}
+«ENDDEFINE»
+
+«DEFINE shouldShowLabel FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static boolean shouldShowLabel(int visualId, org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint hint) {
+		return ((org.eclipse.jface.preference.IPreferenceStore) hint.getPreferenceStore()).getBoolean(«EXPAND xpt::preferences::IconStylePreferencePage::qualifiedClassName».getConnectionLabelPreference(visualId));
+	}
+«ENDDEFINE»
+

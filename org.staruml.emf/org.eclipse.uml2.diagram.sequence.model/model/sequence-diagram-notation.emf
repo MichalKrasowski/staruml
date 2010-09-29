@@ -1,0 +1,12 @@
+@namespace(uri="http://www.eclipse.org/mdt/uml2tools/sequence-diagram/notation/2008", prefix="uml2t.seqd.notation")
+package sdnotation;
+
+import "platform:/resource/org.eclipse.gmf.runtime.notation/model/notation.ecore";
+import "platform:/resource/org.eclipse.uml2.diagram.sequence.model/model/sequence-diagram.ecore";
+
+class SDModelStorageStyle extends notation.Style {
+	transient attr int version;
+
+	op sequenced.SDModel getAttachedModel();
+	op void invalidateModel();
+}

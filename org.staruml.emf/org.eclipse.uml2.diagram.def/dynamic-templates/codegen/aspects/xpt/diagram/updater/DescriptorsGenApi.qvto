@@ -1,0 +1,17 @@
+library DescriptorsGenApi;
+
+helper getGenApiNodeDescriptorQualifiedClassName(_any : OclAny) : String {
+	return getGenApiNodeDescriptorQualifiedClassName()
+}
+
+helper getGenApiLinkDescriptorQualifiedClassName(_any : OclAny) : String {
+	return getGenApiLinkDescriptorQualifiedClassName()
+}
+
+helper getGenApiNodeDescriptorQualifiedClassName() : String {
+	return 'org.eclipse.uml2.diagram.common.genapi.IUpdaterNodeDescriptor'
+}
+
+helper getGenApiLinkDescriptorQualifiedClassName() : String {
+	return 'org.eclipse.uml2.diagram.common.genapi.IUpdaterLinkDescriptor'
+}

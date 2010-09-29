@@ -1,0 +1,64 @@
+/*
+ * Copyright (c) 2009 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Tatiana Fesenko (Borland) - initial API and implementation
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+
+«EXTENSION xpt::extendedpalette::Utils»
+
+«AROUND additions FOR gmfgen::GenDiagram-»
+«IF supportsExtendedPalette(self)-»
+«EXPAND configureCommand»
+«EXPAND configureStereotypeCommand»
+«EXPAND afterConfigureCommand»
+«ENDIF-»
+«ENDAROUND»
+
+«DEFINE configureCommand FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment»
+	final protected org.eclipse.gmf.runtime.common.core.command.ICommand getConfigureCommand(org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest req) {
+		org.eclipse.gmf.runtime.common.core.command.ICommand configureStereotype = getConfigureStereotypeCommand(req);
+		org.eclipse.gmf.runtime.common.core.command.ICommand afterConfugure = getAfterConfigureCommand(req);
+		if (configureStereotype!= null && afterConfugure != null) {
+			org.eclipse.gmf.runtime.common.core.command.CompositeCommand result = new org.eclipse.gmf.runtime.common.core.command.CompositeCommand("");
+			result.add(configureStereotype);
+			result.add(afterConfugure);
+			return result; 
+		}
+		if (configureStereotype!= null) {
+			return configureStereotype; 
+		}
+		if (afterConfugure != null) {
+			return afterConfugure; 
+		}
+		return super.getConfigureCommand(req);
+	}
+«ENDDEFINE»
+
+«DEFINE configureStereotypeCommand FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected org.eclipse.gmf.runtime.common.core.command.ICommand getConfigureStereotypeCommand(org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest req) {
+		if (req.getElementToConfigure() instanceof org.eclipse.uml2.uml.Element && req.getParameter(org.eclipse.uml2.diagram.common.part.CreationToolConstants.PARAMETER_CONFUGURE_STEREOTYPE) instanceof org.eclipse.uml2.uml.Stereotype) {
+			org.eclipse.uml2.uml.Element element = (org.eclipse.uml2.uml.Element)req.getElementToConfigure();
+			org.eclipse.uml2.uml.Stereotype stereo = (org.eclipse.uml2.uml.Stereotype)req.getParameter(org.eclipse.uml2.diagram.common.part.CreationToolConstants.PARAMETER_CONFUGURE_STEREOTYPE);
+			org.eclipse.uml2.diagram.common.commands.ApplyOrUnapplyStereotypeCommand.ApplyOrUnapplyStereotypeRequest request = new org.eclipse.uml2.diagram.common.commands.ApplyOrUnapplyStereotypeCommand.ApplyOrUnapplyStereotypeRequest(element, stereo, true);
+			return new org.eclipse.uml2.diagram.common.commands.ApplyOrUnapplyStereotypeCommand(request);
+		}
+		return null;
+	}
+«ENDDEFINE»
+
+«DEFINE afterConfigureCommand FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected org.eclipse.gmf.runtime.common.core.command.ICommand getAfterConfigureCommand(org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest req) {
+		return null;
+	}
+«ENDDEFINE»

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmftool:ToolRegistry xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:gmftool="http://www.eclipse.org/gmf/2005/ToolDefinition">
+  <palette
+      title="Activity Diagram"
+      description="Activity Diagram Palette">
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Activities"
+        description="">
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Activity"
+          description="Create activity"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Parameter Set"
+          description="Create Parameter Set"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Parameter"
+          description="Create Parameter"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Activity Parameter Node"
+          description="Create Activity Parameter Node"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Activity Partition"
+          description="Create Activity Partition"/>
+    </tools>
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Actions"
+        description="Actions">
+      <tools
+          xsi:type="gmftool:ToolGroup"
+          title="Accept Event Action"
+          description="Create new Accept Event Action"
+          stack="true">
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Accept Event Action"
+            description="Create Accept Event Action"/>
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Accept Time Event Action"
+            description="Create Accept Time Event Action"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Add Feature Value Action"
+          description="Create Add Feature Value Action"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Call Behavior Action"
+          description="Create Call Behavior Action"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Call Operation Action"
+          description="Create Call Operation Action"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Create Object Action"
+          description="Create Create Object Action"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Opaque Action"
+          description="Create Opaque Action"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Send Signal Action"
+          description="Create Send Signal Action"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Opaque Behavior"
+          description="Create Opaque Behavior"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Value Specification Action"
+          description="Create Value Specification Action"/>
+    </tools>
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Control Nodes"
+        description="Control Nodes">
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Activity Initial Node"
+          description="Create Activity Initial Node"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Activity Final Node"
+          description="Create Activity Final Node"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Flow Final Node"
+          description="Create Flow Final Node"/>
+      <tools
+          xsi:type="gmftool:ToolGroup"
+          title="Merge/Decision Node"
+          description="Create new Merge/Decision Node"
+          stack="true">
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Merge Node"
+            description="Create Merge Node"/>
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Decision Node"
+            description="Create Decision Node"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:ToolGroup"
+          title="Fork/Join Node"
+          description="Create new Fork/Join Node"
+          stack="true">
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Fork Node"
+            description="Create Fork Node"/>
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Join Node"
+            description="Create Join Node"/>
+      </tools>
+    </tools>
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Structured Activities"
+        description="Structured Activities">
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Conditional Node"
+          description="Create Conditional Node"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Expansion Region"
+          description="Create Expansion Region"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Loop Node"
+          description="Create Loop Node"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Structured Activity Node"
+          description="Create Structured Activity Node"/>
+    </tools>
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Objects"
+        description="Objects">
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Central Buffer"
+          description="Create Central Buffer"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Datastore"
+          description="Create Datastore"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Expansion Node"
+          description="Create Expansion Node"/>
+      <tools
+          xsi:type="gmftool:ToolGroup"
+          title="Pin"
+          description="Create new Pin"
+          stack="true">
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Pin"
+            description="Create Pin"/>
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Input Pin"
+            description="Create Input Pin"/>
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Output Pin"
+            description="Create Output Pin"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Selection"
+          description="Creating SelectionLink"/>
+    </tools>
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Edges"
+        description="Edges">
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Control Flow"
+          description="Create Control Flow"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Object Flow"
+          description="Create Object Flow"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Exception Handler Link"/>
+    </tools>
+  </palette>
+</gmftool:ToolRegistry>

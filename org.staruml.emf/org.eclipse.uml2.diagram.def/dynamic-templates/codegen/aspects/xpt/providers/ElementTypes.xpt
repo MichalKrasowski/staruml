@@ -1,0 +1,45 @@
+/*
+ * Copyright (c) 2006 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Michael Golubev (Borland) - custom icons for diagram elements
+ *                              - more specific fileds for IHintedType's 
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+
+«AROUND xpt::providers::ElementTypes::additions FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static void refreshImageRegistry() {
+		if (imageRegistry != null){
+			imageRegistry.dispose();
+			imageRegistry = null;
+		}
+		imageRegistry = new org.eclipse.jface.resource.ImageRegistry();
+	}
+	
+«ENDAROUND»
+
+«AROUND xpt::providers::ElementTypes::elementTypeField FOR gmfgen::GenCommonBase-»
+	«IF null <> elementType-»
+		«EXPAND xpt::Common::generatedMemberComment»
+public static final «EXPAND elementTypeClass FOR elementType» «getUniqueIdentifier()» = «EXPAND castToElementTypeClass FOR elementType»getElementType("«elementType.uniqueIdentifier»"); «EXPAND xpt::Common::nonNLS»
+	«ENDIF-»
+«ENDAROUND»
+
+«DEFINE elementTypeClass FOR gmfgen::ElementType»«ERROR 'subclass expected'»«ENDDEFINE»
+«DEFINE elementTypeClass FOR gmfgen::MetamodelType»org.eclipse.gmf.runtime.emf.type.core.IHintedType«ENDDEFINE»
+«DEFINE elementTypeClass FOR gmfgen::SpecializationType»org.eclipse.gmf.runtime.emf.type.core.IHintedType«ENDDEFINE»
+«DEFINE elementTypeClass FOR gmfgen::NotationType»org.eclipse.gmf.runtime.emf.type.core.IElementType«ENDDEFINE»
+
+«DEFINE castToElementTypeClass FOR gmfgen::ElementType»«ERROR 'subclass expected'»«ENDDEFINE»
+«DEFINE castToElementTypeClass FOR gmfgen::MetamodelType»(«EXPAND elementTypeClass»)«ENDDEFINE»
+«DEFINE castToElementTypeClass FOR gmfgen::SpecializationType»(«EXPAND elementTypeClass»)«ENDDEFINE»
+«DEFINE castToElementTypeClass FOR gmfgen::NotationType»«ENDDEFINE»

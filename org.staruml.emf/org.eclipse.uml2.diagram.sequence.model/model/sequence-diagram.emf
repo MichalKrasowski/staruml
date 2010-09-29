@@ -1,0 +1,132 @@
+@namespace(uri="http://www.eclipse.org/mdt/uml2tools/sequence-diagram/1.0", prefix="uml2t.seqd")
+package sequenced;
+
+abstract interface SDEntity {
+	//
+}
+
+class SDModel extends SDFrameContainer, SDEntity {
+	ref UMLInteraction[1] umlInteraction;
+	ordered val SDLifeLine[*]#model lifelines;
+	ordered val SDAbstractMessage[*]#model messages; 
+	val SDGate[*] gates;
+	
+	op SDTrace getUMLTracing();
+}
+
+class SDGate extends SDEntity {
+	ref UMLGate umlGate;
+}
+
+abstract interface SDBackedByFragment extends SDEntity {
+	op UMLInteractionFragment getUmlFragment();
+}
+
+abstract class SDLifeLineElement extends SDEntity {
+	op SDLifeLine getCoveredLifeLine();
+}
+
+abstract class SDBracketContainer extends SDLifeLineElement {
+	ordered val SDBracket[*]#bracketContainer brackets;
+}
+
+abstract class SDBracket extends SDLifeLineElement, SDBackedByFragment {
+	readonly ref SDBracketContainer[1]#brackets bracketContainer;
+}
+
+class SDLifeLine extends SDBracketContainer {
+	ref UMLLifeline[1] umlLifeline;
+	readonly ref SDModel[1]#lifelines model;
+}
+
+abstract class SDBehaviorSpec extends SDBracket, SDBracketContainer {
+	ref UMLExecutionSpecification umlExecutionSpec;
+	ref UMLOccurrenceSpecification umlStart;
+	ref UMLOccurrenceSpecification umlFinish;
+}
+
+class SDMountingRegion extends SDBracket, SDBracketContainer {
+	ref SDFrame[1]#regions frame;
+	
+	op SDMountingRegion findMountingRegionForSubFrame(SDFrame subFrame);
+}
+
+abstract class SDFrame extends SDFrameContainer, SDBackedByFragment, SDEntity {
+	readonly ref SDFrameContainer[1]#frames frameContainer;
+	ref SDMountingRegion[*]#frame regions;
+	ref SDLifeLine[*] coveredLifeLines;
+	
+	op SDMountingRegion findRegionForUmlLifeLine(UMLLifeline umlLifeline);
+	op SDMountingRegion findRegionForSDLifeLine(SDLifeLine sdLifeline);
+}
+
+class SDInteractionUse extends SDFrame {
+	ref UMLInteractionUse umlInteractionUse;
+}
+
+class SDCombinedFragment extends SDFrame {
+	ref UMLCombinedFragment umlCombinedFragment;
+}
+
+class SDInteractionOperand extends SDFrame {
+	ref UMLInteractionOperand umlInteractionOperand;
+}
+
+abstract class SDFrameContainer {
+	val SDFrame[*]#frameContainer frames;
+	derived volatile transient !resolve ref UMLInteractionFragment[*] fragmentsList;
+}
+
+class SDExecution extends SDBehaviorSpec {
+	ref SDInvocation[1]#receiveExecution invocation;
+	ref SDMessage[1]#target incomingMessage;
+}
+
+class SDInvocation extends SDBehaviorSpec {
+	ref SDExecution[1]#invocation receiveExecution;
+	ref SDMessage[1]#source outgoingMessage;
+}
+
+abstract class SDAbstractMessage extends SDEntity {
+	ref UMLMessage umlMessage;
+	readonly ref SDModel[1]#messages model;
+	attr String messageNumber; 
+}
+
+class SDMessage extends SDAbstractMessage {
+	ref SDInvocation#outgoingMessage source;
+	ref SDExecution#incomingMessage target;
+}
+
+class SDGateMessage extends SDAbstractMessage {
+	attr boolean fromNotToGate = false;
+	ref SDGate gate;
+	ref SDGateMessageEnd normalEnd;
+}
+
+class SDGateMessageEnd extends SDBracket {
+	ref UMLOccurrenceSpecification umlMessageEnd;
+	attr boolean isStartNotFinish = true;
+}
+
+class SDSimpleNode extends SDBracket {
+	ref UMLInteractionFragment umlSimpleFragment;
+}
+
+abstract interface UMLConstraint : org.eclipse.uml2.uml.Constraint {}
+abstract interface UMLStateInvariant : org.eclipse.uml2.uml.StateInvariant {}
+abstract interface UMLInteraction : org.eclipse.uml2.uml.Interaction {}
+abstract interface UMLPackage : org.eclipse.uml2.uml.Package {}
+abstract interface UMLLifeline : org.eclipse.uml2.uml.Lifeline {}
+abstract interface UMLOccurrenceSpecification : org.eclipse.uml2.uml.OccurrenceSpecification {}
+abstract interface UMLMessage : org.eclipse.uml2.uml.Message {}
+abstract interface UMLDurationConstraint : org.eclipse.uml2.uml.DurationConstraint {}
+
+abstract interface UMLInteractionFragment : org.eclipse.uml2.uml.InteractionFragment {}
+abstract interface UMLExecutionSpecification : org.eclipse.uml2.uml.ExecutionSpecification {}
+abstract interface UMLGate : org.eclipse.uml2.uml.Gate {}
+abstract interface UMLInteractionUse : org.eclipse.uml2.uml.InteractionUse {}
+abstract interface UMLInteractionOperand : org.eclipse.uml2.uml.InteractionOperand {}
+abstract interface UMLCombinedFragment : org.eclipse.uml2.uml.CombinedFragment {}
+
+abstract interface SDTrace : org.eclipse.uml2.diagram.sequence.model.sequenced.SDTrace {}

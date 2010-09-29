@@ -1,0 +1,25 @@
+/*
+ * Copyright (c) 2008 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Michael Golubev - U2T specific creation/layout edit policy 
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«EXTENSION xpt::diagram::editparts::Utils»
+
+«AROUND createDefaultEditPoliciesBody FOR gmfgen::GenDiagram-»
+	«targetDef.proceed()»
+	installEditPolicy(«-»
+		org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CREATION_ROLE, «-»
+		«EXPAND aspects::impl::diagram::editparts::creationEditPolicy::newInstance»);
+	installEditPolicy(«-»
+		org.eclipse.gef.EditPolicy.LAYOUT_ROLE, «-»
+		new org.eclipse.uml2.diagram.common.editpolicies.XYLayoutEditPolicyWithMovableLabels()); //replace with U2T specific version
+«ENDAROUND»

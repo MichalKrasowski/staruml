@@ -1,0 +1,57 @@
+import org.eclipse.uml2.diagram.codegen.qvt.NativeEMFUtils;
+
+modeltype genModel uses "http://www.eclipse.org/gmf/2009/GenModel";
+modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
+
+library Utils;
+
+helper isViewFiltersPage(id : String) : Boolean {
+	return 'viewfilter' = getSimpleClassName(id)
+}
+
+helper getIconStylePreferencePageClassName(diagram : genModel::GenDiagram) : String {
+	return 'DiagramIconStylePreferencePage'
+}
+
+helper getLabelGroupingKey(labelNode: genModel::GenChildLabelNode) : ecore::EClass {
+	return labelNode.modelFacet.metaClass.ecoreClass
+}
+
+helper getLabelGroupingKey(nodeLabel : genModel::GenNodeLabel) : ecore::EClass {
+	return nodeLabel.node.modelFacet.metaClass.ecoreClass
+}
+
+helper getAllNodeGroupingKeys(diagram : genModel::GenDiagram) : Sequence(ecore::EClass) {
+	return diagram.childNodes[genModel::GenChildLabelNode]->collect(nextLabelNode | getLabelGroupingKey(nextLabelNode))->asSequence()
+		->union(diagram.getAllNodes()->collect(nextNode | nextNode.labels->select( nextLabel | nextLabel.elementIcon )->collect( nextLabel | getLabelGroupingKey(nextLabel)))->asSequence())
+		->asSet()->asSequence()->sortedBy(cl | cl.name)
+}
+
+helper getChildLabelNodesWithIconsFor(diagram : genModel::GenDiagram, key : ecore::EClass ) : Sequence(genModel::GenChildLabelNode) {
+	return diagram.childNodes[genModel::GenChildLabelNode]->select(nextLabelNode | getLabelGroupingKey(nextLabelNode) = key )->asSequence()
+}
+
+helper getNodeLabelsWithIconsFor(diagram : genModel::GenDiagram, key : ecore::EClass ) : Sequence(genModel::GenNodeLabel) {
+	return diagram.getAllNodes().labels->select(nextLabel | nextLabel.elementIcon and getLabelGroupingKey(nextLabel) = key)
+}
+
+helper getAllLabeledForNodeKey(diagram : genModel::GenDiagram, key : ecore::EClass) : Sequence(genModel::GenCommonBase) {
+	return getNodeLabelsWithIconsFor(diagram, key)[gmfgen::GenCommonBase]->union(getChildLabelNodesWithIconsFor(diagram, key)[gmfgen::GenCommonBase])
+}
+
+helper getAllLabeledVisualIDsForNodeKey(diagram : genModel::GenDiagram, key : ecore::EClass) : Sequence(EInt) {
+	return getAllLabeledForNodeKey(diagram, key)->collect(common | common.visualID)
+}
+
+helper i18n_labelForKey(key : ecore::EClass) : String {
+	return "DiagramIconStylePreferencePage_label_for_" + key.name
+}
+
+helper i18nKeyForLinkLabelFilterPage(label : genModel::GenLabel) : String {
+	return getIconStylePreferencePageClassName(label.getDiagram()) + '.LinkLabelsFilter_' + label.getUniqueIdentifier()
+}
+
+helper needsLabelFilter(linkLabel : gmfgen::GenLinkLabel) : Boolean {
+	return true
+}
+

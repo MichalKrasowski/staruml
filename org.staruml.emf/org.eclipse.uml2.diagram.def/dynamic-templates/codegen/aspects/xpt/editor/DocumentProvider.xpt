@@ -1,0 +1,25 @@
+/*
+ * Copyright (c) 2009 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Michael Golubev (Borland) - #271299 - support diagrams for OMG XMIs
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«EXTENSION xpt::editor::Utils»
+
+«AROUND createEmptyDocument FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+protected org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument createEmptyDocument() {
+	org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramDocument document = new org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramDocument();
+	org.eclipse.emf.transaction.TransactionalEditingDomain domain = createEditingDomain();
+	org.eclipse.uml2.diagram.common.pathmap.XMI2UMLSupport.enableXMI2UMLSupport(domain.getResourceSet());
+	document.setEditingDomain(domain);
+	return document;
+}
+«ENDAROUND»

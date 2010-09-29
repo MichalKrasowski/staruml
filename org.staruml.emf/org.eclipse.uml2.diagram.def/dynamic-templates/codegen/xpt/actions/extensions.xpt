@@ -1,0 +1,68 @@
+/*
+ * Copyright (c) 2007, 2008 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Tatiana Fesenko (Borland) - initial API and implementation
+ *    Michael Golubev (Borland) - switch actions for comments/nodes
+  */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«IMPORT 'http://www.eclipse.org/modeling/mdt/uml2tools/gmf/GenModel'»
+
+«EXTENSION xpt::actions::Utils»  
+
+«DEFINE changeNotationContributionItemProviders FOR gmfgen::GenDiagram»
+	«EXPAND changeNotationContributionItemProviders FOREACH topLevelNodes»
+«ENDDEFINE»
+
+«DEFINE changeNotationContributionItemProviders FOR gmfgen::GenTopLevelNode»
+«IF self.hasAlternativeNotation()-»
+	<extension point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders" id="contributionItemProviders-change-notation-«getNodeName(self)»">
+      «EXPAND xpt::Common::xmlGeneratedTag»
+      <contributionItemProvider
+            checkPluginLoaded="true"
+            class="«EXPAND xpt::actions::ChangeNotationContributionItemProvider::qualifiedClassName»">
+         <Priority name="Medium"/>
+		 <popupContribution
+               class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+			 <popupMenuGroup
+                  id="ChangeNotation"
+                  path="/propertiesGroup">
+             </popupMenuGroup>
+             <popupMenu
+                   id="ChangeNotationMenu"
+                   path="/ChangeNotation">
+             </popupMenu>                        
+             <popupMenuGroup
+                   id="ChangeNotationGroup"
+                   path="/ChangeNotationMenu/">
+             </popupMenuGroup>
+		«LET (viewmap.attributes)[u2tgen::SubstitutableByAttributes]->first() AS subChild-»
+«LET subChild.oclAsType(u2tgen::SubstitutableByAttributes) AS subChildImpl-»
+		«IF subChildImpl <> null and not subChildImpl.requiresAll-»
+			«FOREACH (subChildImpl.getSubstitutableByNodes())[gmfgen::GenNode]->asSequence() AS newNode»«EXPAND changeNotationPopupAction(newNode)»«ENDFOREACH-»
+		«ENDIF-»
+		«ENDLET-»
+«ENDLET-»
+<popupStructuredContributionCriteria
+                   objectClass="«getEditPartQualifiedClassName()»"
+                   objectCount="1">
+             </popupStructuredContributionCriteria>
+		 </popupContribution>
+      </contributionItemProvider>
+   </extension>
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE changeNotationPopupAction(node : gmfgen::GenNode) FOR gmfgen::GenTopLevelNode»
+			<popupAction
+				path="/ChangeNotationMenu/ChangeNotationGroup"
+				id="«EXPAND xpt::actions::ChangeNotationAction::actionId(node)»">
+			</popupAction>            
+«ENDDEFINE»

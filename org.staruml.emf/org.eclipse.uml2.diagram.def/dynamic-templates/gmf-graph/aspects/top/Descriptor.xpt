@@ -1,0 +1,31 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Michael Golubev (Borland) - temporary fix for compilation errors in DeploymentD
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«EXTENSION Util»
+
+«REM»The only difference is added ()«ENDREM»
+«AROUND accessorToCustom(fa : Sequence(gmfgraph::FigureAccessor)) FOR gmfgraph::ChildAccess-»
+	/**
+	 * @generated
+	 */
+	public «EXPAND Runtime::fqn FOR figure» «accessor»() {
+		«LET fa.accessor->first() AS faAccessor-»
+		«IF faAccessor = accessor-»
+			return super.«faAccessor»();
+		«ELSE-»
+			return «faAccessor»();		
+		«ENDIF-»
+		«ENDLET-»
+	}
+«ENDAROUND»

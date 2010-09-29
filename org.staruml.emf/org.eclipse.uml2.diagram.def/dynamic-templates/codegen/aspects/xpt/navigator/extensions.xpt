@@ -1,0 +1,135 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Dmitry Stadnik (Borland) - initial API and implementation
+ *    Tatiana Fesenko (Borland) - fix for bugzilla #230873 'Make diagram file extension shorter' 
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+
+«EXTENSION aspects::xpt::FileExtensionUtils»
+
+«AROUND extensions FOR gmfgen::GenNavigator-»
+	«EXPAND xpt::navigator::extensions::editorInputPropertyTester('URIEditorInput', 'org.eclipse.emf.common.ui.URIEditorInput', getUriInputTesterQualifiedClassName())-»
+«IF editorGen.diagram.generateShortcutIcon()-»
+
+	«EXPAND xpt::navigator::extensions::editorInputPropertyTester('Shortcut', 'org.eclipse.gmf.runtime.notation.View', editorGen.diagram.getShortcutPropertyTesterQualifiedClassName())-»
+«ENDIF-»
+«IF generateDomainModelNavigator and null <> editorGen.domainGenModel-»
+
+	«EXPAND xpt::navigator::extensions::editorInputPropertyTester('DomainModelElement', 'org.eclipse.emf.ecore.EObject', getDomainModelElementTesterQualifiedClassName())-»
+«ENDIF-»
+
+	«EXPAND xpt::navigator::extensions::registerBindings-»
+
+   <extension point="org.eclipse.ui.navigator.navigatorContent">
+      «EXPAND xpt::Common::xmlGeneratedTag»
+      <navigatorContent
+            id="«contentExtensionID»" 
+            name="«contentExtensionName»" 
+            priority="«contentExtensionPriority»" 
+            contentProvider="«getContentProviderQualifiedClassName()»" 
+            labelProvider="«getLabelProviderQualifiedClassName()»"
+            icon="«editorGen.editor.iconPathX»"
+            activeByDefault="true">
+         <triggerPoints>
+            <or>
+«REM» #230873 'Make diagram file extension shorter'«ENDREM-»
+«FOREACH collectAllExtensions(editorGen) AS dfe-»
+	           <and>
+    	          <instanceof value="org.eclipse.core.resources.IFile"/>
+        	      <test property="org.eclipse.core.resources.extension" value="«dfe»"/>
+               </and>
+«ENDFOREACH-»
+«REM» End of #230873«ENDREM-»
+               <instanceof value="«getAbstractNavigatorItemQualifiedClassName()»"/>
+«IF editorGen.diagram.generateShortcutIcon()-»
+           	   <adapt type="org.eclipse.gmf.runtime.notation.View">
+           	      <test property="«editorGen.plugin.iD».isShortcut"/>
+           	   </adapt>
+«ENDIF-»
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <or>
+         	   <instanceof value="«getAbstractNavigatorItemQualifiedClassName()»"/>
+«IF editorGen.diagram.generateShortcutIcon()-»
+           	   <adapt type="org.eclipse.gmf.runtime.notation.View">
+           	      <test property="«editorGen.plugin.iD».isShortcut"/>
+           	   </adapt>
+«ENDIF-»
+            </or>
+         </possibleChildren>
+         <commonSorter 
+               id="«sorterExtensionID»" 
+               class="«getSorterQualifiedClassName()»">
+            <parentExpression>
+               <or>
+«REM» #230873 'Make diagram file extension shorter'«ENDREM-»
+«FOREACH collectAllExtensions(editorGen) AS dfe-»
+	              <and>
+    	             <instanceof value="org.eclipse.core.resources.IFile"/>
+        	         <test property="org.eclipse.core.resources.extension" value="«dfe»"/>
+                  </and>
+«ENDFOREACH-»
+«REM» End of #230873«ENDREM-»
+                  <instanceof value="«getAbstractNavigatorItemQualifiedClassName()»"/>
+               </or>
+            </parentExpression>
+         </commonSorter>
+      </navigatorContent>
+«IF generateDomainModelNavigator and null <> editorGen.domainGenModel-»
+      <navigatorContent
+            id="«domainContentExtensionID»" 
+            name="«domainContentExtensionName»" 
+            priority="«domainContentExtensionPriority»" 
+            contentProvider="«getDomainContentProviderQualifiedClassName()»" 
+            labelProvider="«getDomainLabelProviderQualifiedClassName()»"
+            icon="«editorGen.editor.iconPathX»"
+            activeByDefault="true">
+         <triggerPoints>
+            <or>
+	           <and>
+    	          <instanceof value="org.eclipse.core.resources.IFile"/>
+        	      <test property="org.eclipse.core.resources.extension" value="«editorGen.domainFileExtension»"/>
+               </and>
+               <and>
+                  <instanceof value="org.eclipse.emf.ecore.EObject"/>
+                  <test property="«editorGen.plugin.iD».isDomainModelElement"/>
+               </and>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <and>
+       	       <instanceof value="org.eclipse.emf.ecore.EObject"/>
+       	       <test property="«editorGen.plugin.iD».isDomainModelElement"/>
+       	    </and>
+         </possibleChildren>
+      </navigatorContent>
+«ENDIF-»
+      <actionProvider
+            id="«actionProviderID»"
+            class="«getActionProviderQualifiedClassName()»">
+         <enablement>
+            <or>
+               <instanceof value="«getAbstractNavigatorItemQualifiedClassName()»"/>
+«IF editorGen.diagram.generateShortcutIcon()-»
+           	   <adapt type="org.eclipse.gmf.runtime.notation.View">
+           	      <test property="«editorGen.plugin.iD».isShortcut"/>
+           	   </adapt>
+«ENDIF-»
+            </or>
+         </enablement>
+      </actionProvider>
+   </extension>
+   
+	«EXPAND xpt::navigator::extensions::registerLinkHelper-»
+«ENDAROUND»

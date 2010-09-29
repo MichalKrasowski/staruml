@@ -1,0 +1,13 @@
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+
+«EXTENSION xpt::detaillevels::DetailLevelsSupport»
+
+«DEFINE getParserOptions FOR gmfgen::GenCommonBase-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions getParserOptions() {
+		return org.eclipse.uml2.diagram.clazz.details.UMLDetailLevelService.getLevel(getNotationView()).getParserOptions(); // XXX: [171240] regenerate with DetailLevelAttributes
+	}
+«ENDDEFINE»
+

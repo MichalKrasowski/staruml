@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmftool:ToolRegistry xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:gmftool="http://www.eclipse.org/gmf/2005/ToolDefinition">
+  <palette
+      title="Deployment Diagram"
+      description="Deployment Diagram Palette">
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Nodes"
+        description="Diagram Nodes">
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Artifact"
+          description="Create Artifact"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Device"
+          description="Create Device"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Node"
+          description="Create Node"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Environment"
+          description="Create Execution Environment"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Specification"
+          description="Create Deployment Specification"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Comment"
+          description="Create Comment"/>
+    </tools>
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Links"
+        description="Diagram Links">
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Manifestation"
+          description="Create Manifestation Link"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Deployment"
+          description="Create Deployment"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Specification Link"
+          description="Link Deployment Specification"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Communication Path"
+          description="Create Communication Path"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Dependency"
+          description="Create Dependency Link"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Annotated Element"
+          description="Create Annotated Element"/>
+    </tools>
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Children"
+        description="Child Elements of the Diagram Nodes">
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Element Import"
+          description="Create Element Import"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Property"
+          description="Created Deployment Specification Property"/>
+    </tools>
+  </palette>
+</gmftool:ToolRegistry>

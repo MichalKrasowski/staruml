@@ -1,0 +1,13 @@
+modeltype genModel uses "http://www.eclipse.org/gmf/2009/GenModel";
+
+library Utils;
+
+helper supportsExtendedPalette(diagram : genModel::GenDiagram) : Boolean {
+	return 
+		('org.eclipse.uml2.diagram.profile' = diagram.editorGen.plugin.iD) or 
+		('org.eclipse.uml2.diagram.clazz' = diagram.editorGen.plugin.iD) or 
+		('org.eclipse.uml2.diagram.component' = diagram.editorGen.plugin.iD) or 
+		('org.eclipse.uml2.diagram.csd' = diagram.editorGen.plugin.iD) or 
+		('org.eclipse.uml2.diagram.deploy' = diagram.editorGen.plugin.iD) or 
+		('org.eclipse.uml2.diagram.usecase' = diagram.editorGen.plugin.iD)
+}

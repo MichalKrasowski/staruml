@@ -1,0 +1,57 @@
+/*
+ * Copyright (c) 2008 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Michael Golubev - U2T specific creation/layout edit policy 
+ *    Michael Golubev - U2T specific graphical node edit policy 
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«EXTENSION xpt::diagram::editparts::Utils»
+«EXTENSION xpt::compartments::Guard»
+
+«AROUND createDefaultEditPoliciesBody FOR gmfgen::GenCompartment-»
+	super.createDefaultEditPolicies();
+	«EXPAND xpt::compartments::CompartmentEditPart::installResizableCompartmentEditPolicy-»
+	«EXPAND xpt::diagram::editparts::Common::installSemanticEditPolicy-»
+	«IF childNodes->size() > 0-»
+		«REM»The change is here -- we are using U2T specific CreationEditPolicy«ENDREM»«-»
+		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CREATION_ROLE, «EXPAND aspects::impl::diagram::editparts::creationEditPolicy::newInstance»);
+		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.DRAG_DROP_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy());
+	«ENDIF-»
+	«IF not listLayout-»
+	«REM»
+	listLayout is used to determine superclass. see CompartmentEditPart.xpt::extendsList. 
+	For ShapeCompartmentEditPart's (and only for them) we are going to replace XYLayoutEditPolicy with U2T custom version
+	«ENDREM»«-»
+	installEditPolicy(«-»
+		org.eclipse.gef.EditPolicy.LAYOUT_ROLE, «-»
+		new org.eclipse.uml2.diagram.common.editpolicies.XYLayoutEditPolicyWithMovableLabels()); //replace with U2T specific version
+	«ENDIF-»
+	«EXPAND xpt::diagram::editparts::Common::installCanonicalEditPolicy-»
+	«EXPAND aspects::impl::diagram::editparts::updateDescriptionEditPolicy::installUpdateDescriptionEditPolicy-»
+	«EXPAND xpt::diagram::editparts::Common::behaviour-»
+	
+«ENDAROUND»
+
+«AROUND createFigure FOR gmfgen::GenCompartment-»
+«IF u2tSupportedCompartment(self)-»
+«EXPAND xpt::compartments::CompartmentEditPart::createU2TFigure-»
+«ELSE-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public org.eclipse.draw2d.IFigure createFigure() {
+		org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure result = (org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure) super.createFigure();
+		«IF not needsTitle-»
+		«REM»By default titles are shown even if there are no TitleStyle, we need to switch it off«ENDREM»«-»	
+		result.setTitleVisibility(false);
+		«ENDIF-»
+		result.setBorder(null);
+		return result;
+	}
+«ENDIF-»
+«ENDAROUND»

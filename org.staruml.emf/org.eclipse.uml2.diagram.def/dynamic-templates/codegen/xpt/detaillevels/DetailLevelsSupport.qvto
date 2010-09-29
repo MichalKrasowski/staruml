@@ -1,0 +1,20 @@
+modeltype gmf uses "http://www.eclipse.org/gmf/2009/GenModel";
+modeltype u2t uses "http://www.eclipse.org/modeling/mdt/uml2tools/gmf/GenModel";
+
+library DetailLevelsSupport;
+
+helper isFilteredCompartment(genCommon : gmf::GenCompartment) : Boolean {
+	let attribute = getDetailsLevelAttribute(genCommon) in 
+	return null <> attribute and attribute.filteringCompartment
+}
+
+helper isDetailsAwareParser(genCommon : gmf::GenCommonBase) : Boolean {
+	let attribute = getDetailsLevelAttribute(genCommon) in 
+	return null <> attribute and attribute.detailsAwareParser
+}
+
+helper getDetailsLevelAttribute(genCommon : gmf::GenCommonBase) : u2t::DetailsLevelAttributes {
+	return genCommon.viewmap.attributes[u2t::DetailsLevelAttributes]->first()
+}
+
+

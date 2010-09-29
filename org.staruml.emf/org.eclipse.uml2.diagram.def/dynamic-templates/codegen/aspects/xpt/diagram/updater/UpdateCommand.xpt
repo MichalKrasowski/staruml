@@ -1,0 +1,45 @@
+/*
+ * Copyright (c) 2007, 2008 Borland Software Corporation
+ * 
+ * Contributors:
+ *    Alexander Shatalin (Borland) - initial API and implementation
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+
+«AROUND additions FOR gmfgen::GenDiagramUpdater-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public static void «EXPAND performCanonicalUpdateMethodName»(org.eclipse.emf.ecore.EObject modelElement) {
+	if (modelElement == null) {
+		return;
+	}
+	java.util.List editPolicies = org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy.getRegisteredEditPolicies(modelElement);
+	for (java.util.Iterator it = editPolicies.iterator(); it.hasNext();) {
+		org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy nextEditPolicy = (org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy) it.next();
+		nextEditPolicy.refresh();
+	}
+}
+«ENDAROUND»
+
+«AROUND execute FOR gmfgen::GenDiagramUpdater-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public Object execute(org.eclipse.core.commands.ExecutionEvent event) throws org.eclipse.core.commands.ExecutionException {
+	org.eclipse.jface.viewers.ISelection selection = org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow().getSelectionService().getSelection();
+	if (selection instanceof org.eclipse.jface.viewers.IStructuredSelection) {
+		org.eclipse.jface.viewers.IStructuredSelection structuredSelection = (org.eclipse.jface.viewers.IStructuredSelection) selection;
+		if (structuredSelection.size() != 1) {
+			return null;
+		}
+		if (structuredSelection.getFirstElement() instanceof org.eclipse.gef.EditPart && ((org.eclipse.gef.EditPart) structuredSelection.getFirstElement()).getModel() instanceof org.eclipse.gmf.runtime.notation.View) {
+			org.eclipse.emf.ecore.EObject modelElement = ((org.eclipse.gmf.runtime.notation.View) ((org.eclipse.gef.EditPart) structuredSelection.getFirstElement()).getModel()).getElement();
+			performCanonicalUpdate(modelElement);
+		}
+	}
+	return null;
+}
+«ENDAROUND»
+
+«DEFINE performCanonicalUpdateMethodCall FOR gmfgen::GenCommonBase»«getDiagram().editorGen.diagramUpdater.getUpdateCommandQualifiedClassName()».«EXPAND performCanonicalUpdateMethodName»«ENDDEFINE»
+
+«DEFINE performCanonicalUpdateMethodName FOR OclAny»performCanonicalUpdate«ENDDEFINE»

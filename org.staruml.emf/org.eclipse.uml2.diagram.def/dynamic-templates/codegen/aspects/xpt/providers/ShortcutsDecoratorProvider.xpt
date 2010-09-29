@@ -1,0 +1,27 @@
+/*
+ * Copyright (c) 2006,2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Michael Golubev (Borland) - workaround for #189608
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+
+«AROUND createDecorators FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+public void createDecorators(org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecoratorTarget decoratorTarget) {
+	org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) decoratorTarget.getAdapter(org.eclipse.gmf.runtime.notation.View.class);
+	if (view != null) {
+		org.eclipse.emf.ecore.EAnnotation annotation = view.getEAnnotation("Shortcut"); «EXPAND xpt::Common::nonNLS»
+		if (annotation != null) {
+			//decoratorTarget.installDecorator(SHORTCUTS_DECORATOR_ID, new ShortcutsDecorator(decoratorTarget)); //this does not work due to #209802
+			decoratorTarget.installDecorator(SHORTCUTS_DECORATOR_ID, new org.eclipse.uml2.diagram.common.draw2d.ManuallyDrawnShortcutDecorator(decoratorTarget));
+		}
+	}
+}
+«ENDAROUND»

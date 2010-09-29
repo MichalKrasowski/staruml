@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmftool:ToolRegistry xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:gmftool="http://www.eclipse.org/gmf/2005/ToolDefinition">
+  <palette
+      title="Class Diagram"
+      description="Class Diagram Palette">
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Nodes"
+        description="Diagram Nodes">
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Class"
+          description="Create Class"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Package"
+          description="Create Package"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Enumeration"
+          description="Create Enumeration"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="DataType"
+          description="Create DataType"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="PrimitiveType"
+          description="Create PrimitiveType"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Constraint"
+          description="Create Constraint"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Association Class"
+          description="Create Association Class"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Interface"
+          description="Create Interface"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Comment"
+          description="Create Comment"/>
+    </tools>
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Children"
+        description="Child Elements of the Diagram Nodes">
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Attribute"
+          description="Create Attribute"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Operation"
+          description="Create Operation"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Enum Literal"
+          description="Create Enum Literal"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Port"
+          description="Create Port"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Template Signature"
+          description="Create Template Signature"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Element Import"
+          description="Create Element Import"/>
+    </tools>
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Links"
+        description="Diagram Links">
+      <tools
+          xsi:type="gmftool:ToolGroup"
+          title="Association"
+          description="Create Association Link"
+          stack="true">
+        <tools
+            xsi:type="gmftool:GenericTool"
+            title="Association"
+            description="Create Association"
+            toolClass="org.eclipse.uml2.diagram.clazz.part.CreateAssociationLinkTool.NONE"/>
+        <tools
+            xsi:type="gmftool:GenericTool"
+            title="Shared Aggregation"
+            description="Create Shared Aggregation"
+            toolClass="org.eclipse.uml2.diagram.clazz.part.CreateAssociationLinkTool.SHARED"/>
+        <tools
+            xsi:type="gmftool:GenericTool"
+            title="Composite Aggregation"
+            description="Create Composite Aggregation"
+            toolClass="org.eclipse.uml2.diagram.clazz.part.CreateAssociationLinkTool.COMPOSITE"/>
+        <tools
+            xsi:type="gmftool:GenericTool"
+            title="Navigable Association"
+            description="Create Association with Navigable Target End "
+            toolClass="org.eclipse.uml2.diagram.clazz.part.CreateAssociationLinkTool.NAVIGABLE"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:ToolGroup"
+          title="Dependency"
+          description="Create Dependency link"
+          stack="true">
+        <tools
+            xsi:type="gmftool:GenericTool"
+            title="Dependency"
+            description="Create Dependency link"
+            toolClass="org.eclipse.uml2.diagram.clazz.part.CreateDependencyLinkTool.DEPENDENCY"/>
+        <tools
+            xsi:type="gmftool:GenericTool"
+            title="Abstraction"
+            description="Create Abstraction link"
+            toolClass="org.eclipse.uml2.diagram.clazz.part.CreateDependencyLinkTool.ABSTRACTION"/>
+        <tools
+            xsi:type="gmftool:GenericTool"
+            title="Usage"
+            description="Create Usage link"
+            toolClass="org.eclipse.uml2.diagram.clazz.part.CreateDependencyLinkTool.USAGE"/>
+        <tools
+            xsi:type="gmftool:GenericTool"
+            title="Substitution"
+            description="Create Substitution link"
+            toolClass="org.eclipse.uml2.diagram.clazz.part.CreateDependencyLinkTool.SUBSTITUTION"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:GenericTool"
+          title="Generalization"
+          description="Create Generalization Link"
+          toolClass="org.eclipse.uml2.diagram.clazz.part.CreateGeneralizationLinkTool"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Provided Interface"
+          description="Create Interface Realization"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Required Interface"
+          description="Create Usage"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Constrained Element"
+          description="Create Constrained Element Link"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="NAry Dependency Target"
+          description="Add NAry Dependency Target"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="NAry Dependency Source"
+          description="Add NAry Dependency Source"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Association End"
+          description="Create Association End Link"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Realization"
+          description="Create Realization Link"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Template Binding"
+          description="Create Template Binding"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Annotated Element"
+          description="Create Annotated Element"/>
+    </tools>
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Instances"
+        description="Instances">
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Instance Specification"
+          description="Create Instance Specification"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Slot"
+          description="Create Slot"/>
+      <tools
+          xsi:type="gmftool:ToolGroup"
+          title="Value Specification"
+          description="Create Value Specification"
+          stack="true">
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Literal String"
+            description="Create Literal String"/>
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Literal Integer"
+            description="Create Literal Integer"/>
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Expression"
+            description="Create Expression"/>
+      </tools>
+    </tools>
+  </palette>
+</gmftool:ToolRegistry>

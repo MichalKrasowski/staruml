@@ -1,0 +1,166 @@
+/*
+ * Copyright (c) 2009 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Tatiana Fesenko (Borland) - #246358 - Show image of stereotype on the extended element
+ *    Michael Golubev (Borland) - #264936 - If node has both name/stereotype labels '<' key should activate stereotype inplace
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+
+«EXTENSION xpt::rotatedlabel::RotatedLabelsSupport»
+«EXTENSION xpt::stereo::StereotypeIconSupport»
+
+«DEFINE getLabelIcon(useElementIcon : Boolean, diagram : gmfgen::GenDiagram) FOR gmfgen::GenCommonBase-»
+«IF not isIconExtendedByStereotype(self)-»
+«ERROR 'this label\'s icon is not affected by stereotype' + self.repr()»
+«ENDIF-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected org.eclipse.swt.graphics.Image getLabelIcon() {
+		EObject parserElement = getParserElement();
+		if (parserElement == null) {
+			return null;
+		}
+		if (false == parserElement instanceof org.eclipse.uml2.uml.Element) {
+			return null;
+		}
+		org.eclipse.swt.graphics.Image withStereo = org.eclipse.uml2.diagram.common.stereo.StereotypeOperationsEx.getAppliedStereotypeImage((org.eclipse.uml2.uml.Element) parserElement, «diagram.getElementTypesQualifiedClassName()».getImageDescriptor(parserElement.eClass()));
+		boolean shouldShow = «EXPAND xpt::preferences::IconStylePreferenceHelper::qualifiedClassName FOR getDiagram()».shouldShowStereotypeIcon(getDiagramPreferencesHint());
+		if (!shouldShow){
+			return null;
+		}			
+		«IF isCombinedNameAndStereotypeLabel(self)-»
+			return withStereo != null ? withStereo : «diagram.getElementTypesQualifiedClassName()».getImage(parserElement.eClass()); 
+		«ELSE-»
+			return withStereo;
+		«ENDIF-»
+	}
+«ENDDEFINE»
+
+«DEFINE performDirectEditRequest_chooseLabelForNode FOR gmfgen::GenNode-»
+«LET findStereotypeAndNameGroupStereotype(self) AS stereoLabel-»
+«IF null != stereoLabel-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void performDirectEditRequest(final org.eclipse.gef.Request request) {
+		org.eclipse.gef.EditPart editPart = this;
+		if (request instanceof org.eclipse.gef.requests.DirectEditRequest){
+			org.eclipse.draw2d.geometry.Point p = new org.eclipse.draw2d.geometry.Point(((org.eclipse.gef.requests.DirectEditRequest)request).getLocation());
+			getFigure().translateToRelative(p);
+			org.eclipse.draw2d.IFigure fig = getFigure().findFigureAt(p);
+			editPart =(EditPart) getViewer().getVisualPartMap().get(fig);
+		}
+		if (editPart == this) {
+			try {
+				editPart = (org.eclipse.gef.EditPart) getEditingDomain().runExclusive(
+					new org.eclipse.emf.transaction.RunnableWithResult.Impl() {
+
+						public void run() {
+							setResult(chooseLabelEditPartForDirectEditRequest(request));
+						}
+					});
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			if (editPart != null && editPart != this){
+				editPart.performRequest(request);
+			}
+		}
+	}
+	
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected org.eclipse.gef.EditPart chooseLabelEditPartForDirectEditRequest(org.eclipse.gef.Request request){
+		if (request.getExtendedData().containsKey(org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants.REQ_DIRECTEDIT_EXTENDEDDATA_INITIAL_CHAR)){
+			Character initialChar = (Character) request.getExtendedData().get(org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants.REQ_DIRECTEDIT_EXTENDEDDATA_INITIAL_CHAR);
+			«EXPAND openStereotypeBracketComment»
+			if (initialChar.charValue() == '<'){
+				org.eclipse.gef.EditPart result = getChildBySemanticHint(«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall FOR stereoLabel»);
+				if (result != null){
+					return result;
+				}
+			}
+		}
+		return getPrimaryChildEditPart();
+	}
+
+«ENDIF-»
+«ENDLET-»	
+«ENDDEFINE»
+
+«DEFINE openStereotypeBracketComment FOR gmfgen::GenCommonBase-»
+// '<' has special meaning, because we have both name- and stereo- inplaces for single node edit part
+// we want to activate stereotype inplace if user presses '<' (for "<< stereotype >>" 
+// notation, also we don't include '<' and '>' into actual inplace text).
+// If user presses any other alfanum key, we will activate name-inplace, as for all other figures
+«ENDDEFINE»
+
+«DEFINE performDirectEditWithInitialChar FOR gmfgen::GenNodeLabel-»
+«IF not isStereotypeAndNameGroupStereotype(self)-»
+«ERROR 'stereotype label expected. Actual ' + self.repr()»
+«ENDIF-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private void performDirectEdit(char initialCharacter) {
+		«EXPAND openStereotypeBracketComment»
+		if (initialCharacter != '<' && getManager() instanceof org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) {
+			((org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) getManager()).show(initialCharacter);
+		} else {
+			performDirectEdit();
+		}
+	}
+«ENDDEFINE»
+
+«DEFINE performDirectEditRequest_redirectToStereotypeLabel FOR gmfgen::GenNodeLabel-»
+«IF not isStereotypeAndNameGroupName(self)-»
+«ERROR 'name label (withing name/stereotype pair) expected. Actual ' + self.repr()»
+«ENDIF-»
+«LET findStereotypeAndNameGroupStereotype(self) AS stereoLabel-»
+«IF null = stereoLabel-»
+«ERROR 'name label (withing name/stereotype pair) without matching stereo-label. ' + self.repr()»
+«ENDIF-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void performDirectEditRequest(org.eclipse.gef.Request request) {
+		final org.eclipse.gef.Request theRequest = request;
+		final Character initialChar;
+		if (theRequest.getExtendedData().get(org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants.REQ_DIRECTEDIT_EXTENDEDDATA_INITIAL_CHAR) instanceof Character){
+			initialChar = (Character)theRequest.getExtendedData().get(org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants.REQ_DIRECTEDIT_EXTENDEDDATA_INITIAL_CHAR);
+		} else {
+			initialChar = null;
+		}
+		«EXPAND openStereotypeBracketComment»
+		if (initialChar != null && '<' == initialChar.charValue()){
+			«self.node.getEditPartQualifiedClassName()» parent = («self.node.getEditPartQualifiedClassName()»)getParent();
+			«stereoLabel.getEditPartQualifiedClassName()» stereoLabel = («stereoLabel.getEditPartQualifiedClassName()»)parent.getChildBySemanticHint(«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall FOR stereoLabel»);
+			if (stereoLabel != null){
+				stereoLabel.performRequest(theRequest);
+				return;
+			}
+		}
+		
+		try {
+			getEditingDomain().runExclusive(new Runnable() {
+
+				public void run() {
+					if (isActive() && isEditable()) {
+						if (initialChar != null) {
+							Character initialChar = (Character) theRequest.getExtendedData().get(org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants.REQ_DIRECTEDIT_EXTENDEDDATA_INITIAL_CHAR);
+							performDirectEdit(initialChar.charValue());
+						} else if ((theRequest instanceof org.eclipse.gef.requests.DirectEditRequest) && (getEditText().equals(getLabelText()))) {
+							org.eclipse.gef.requests.DirectEditRequest editRequest = (org.eclipse.gef.requests.DirectEditRequest) theRequest;
+							performDirectEdit(editRequest.getLocation());
+						} else {
+							performDirectEdit();
+						}
+					}
+				}
+			});
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+«ENDLET-»	
+«ENDDEFINE»

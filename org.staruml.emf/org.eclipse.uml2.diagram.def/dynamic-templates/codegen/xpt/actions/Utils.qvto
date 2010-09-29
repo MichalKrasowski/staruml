@@ -1,0 +1,38 @@
+import xpt.StringOperations;
+
+modeltype genModel uses "http://www.eclipse.org/gmf/2009/GenModel";
+modeltype u2tAux uses "http://www.eclipse.org/modeling/mdt/uml2tools/gmf/GenModel";
+
+library Utils;
+
+helper changeNotationActionClassName(node : genModel::GenTopLevelNode, substitutableByNode : genModel::GenNode) : String {
+	return 'TurnInto' + getNodeName(substitutableByNode) + 'Action'
+}
+
+helper changeNotationContributionItemProviderClassName(node : genModel::GenTopLevelNode) : String {
+	return getNodeName(node) + 'ContributionItemProvider'
+}
+
+helper genModel::GenDiagram::actionsPackage() : String {
+	return self.editorGen.packageNamePrefix + '.action'
+}
+
+helper genModel::GenCommonBase::actionsPackage() : String {
+	return self.getDiagram().actionsPackage()
+}
+
+helper genModel::GenTopLevelNode::hasAlternativeNotation() : Boolean {
+	return hasAlternationNotation((self.viewmap.attributes)[u2tAux::SubstitutableByAttributes]->first().oclAsType(u2tAux::SubstitutableByAttributes))
+}
+
+helper genModel::GenNode::hasAlternativeNotation() : Boolean {
+	return false
+}
+
+helper getNodeName(node : genModel::GenNode) : String {
+	return node.editPartClassName.substring(1 + 0, node.editPartClassName.xpandLength() - 'EditPart'.xpandLength())
+}
+
+helper hasAlternationNotation(substitutable : u2tAux::SubstitutableByAttributes) : Boolean {
+	return substitutable <> null and not substitutable.requiresAll
+}

@@ -1,0 +1,7 @@
+# Tracing options for the org.eclipse.uml2.diagram.deploy plug-in
+
+# Common issues
+org.eclipse.uml2.diagram.deploy/debug=false
+
+# Visual IDs
+org.eclipse.uml2.diagram.deploy/debug/visualID=false

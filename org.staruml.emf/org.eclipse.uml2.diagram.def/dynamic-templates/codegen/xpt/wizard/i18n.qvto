@@ -1,0 +1,8 @@
+library i18n;
+
+modeltype genModel uses "http://www.eclipse.org/gmf/2009/GenModel";
+
+helper i18nKeyForInitialObjectCreationPage(diagram : genModel::GenDiagram) : String {
+	return diagram.creationWizardClassName + '.InitialObjectCreationPage'
+}
+

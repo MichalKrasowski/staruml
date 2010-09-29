@@ -1,0 +1,20 @@
+modeltype genModel uses "http://www.eclipse.org/gmf/2009/GenModel";
+modeltype u2tAux uses "http://www.eclipse.org/modeling/mdt/uml2tools/gmf/GenModel";
+
+library MultiLayeredSupport;
+
+helper isMultiLayeredDiagram(diagram : genModel::GenDiagram) : Boolean {
+	return diagram.editorGen.plugin.iD = 'org.eclipse.uml2.diagram.sequence'
+}
+
+helper isOnMultiLayeredDiagram(genCommon : genModel::GenCommonBase) : Boolean {
+	return isMultiLayeredDiagram(genCommon.getDiagram())
+}
+
+helper isMultiLayered(genCommon : genModel::GenCommonBase) : Boolean {
+	return findInteractionDiagramAttributes(genCommon)->select(a | a.multiLayered)->size() > 0
+}
+
+helper findInteractionDiagramAttributes(genCommon : genModel::GenCommonBase) : Sequence(u2tAux::InteractionDiagramAttributes) {
+	return (genCommon.viewmap.attributes)[u2tAux::InteractionDiagramAttributes]->asSequence()
+}

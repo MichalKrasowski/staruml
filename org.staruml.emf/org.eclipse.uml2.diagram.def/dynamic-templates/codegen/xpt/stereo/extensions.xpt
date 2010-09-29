@@ -1,0 +1,106 @@
+/*
+ * Copyright (c) 2007, 2008 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Tatiana Fesenko (Borland) - initial API and implementation
+ *    Michael Golubev (Borland) - switch actions for comments/nodes
+  */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«IMPORT 'http://www.eclipse.org/modeling/mdt/uml2tools/gmf/GenModel'»
+
+«EXTENSION xpt::stereo::Utils»  
+
+«DEFINE stereotypeContributionItemProviders FOR gmfgen::GenDiagram»
+«IF supportsStereotypes(self)-»
+<extension point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders" id="contributionItemProviders-stereotypes">
+«EXPAND xpt::Common::xmlGeneratedTag»
+«EXPAND applyProfileContributionItemProvider-»
+«EXPAND applyStereotypeContributionItemProvider-»
+</extension>
+«EXPAND stereotypePropertyTabs-»
+«EXPAND stereotypePropertySection-»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE applyProfileContributionItemProvider FOR gmfgen::GenDiagram-»
+      <contributionItemProvider
+            checkPluginLoaded="true"
+            class="org.eclipse.uml2.diagram.common.stereo.ApplicableProfilesItemProvider">
+         <Priority name="Medium"/>
+		 <popupContribution
+               class="«editorGen.editor.packageName».DiagramEditorContextMenuProvider">
+             <popupMenuGroup
+                  id="ApplyProfileGroup"
+                  path="/propertiesGroup">
+             </popupMenuGroup>
+             <popupMenu
+                  path="/ApplyProfileGroup"
+                  id="menu_apply_unapply_profile">
+             </popupMenu>            
+             <popupStructuredContributionCriteria
+                   objectClass="«self.getEditPartQualifiedClassName()»"
+                   objectCount="1">
+             </popupStructuredContributionCriteria>
+		 </popupContribution>
+      </contributionItemProvider>
+«ENDDEFINE»
+
+«DEFINE applyStereotypeContributionItemProvider FOR gmfgen::GenDiagram»
+      <contributionItemProvider
+            checkPluginLoaded="true"
+            class="org.eclipse.uml2.diagram.common.stereo.ApplicableStereotypesItemProvider">
+         <Priority name="Medium"/>
+		 <popupContribution
+               class="«editorGen.editor.packageName».DiagramEditorContextMenuProvider">
+			 <popupMenuGroup
+                  id="ApplyStereotypeGroup"
+                  path="/propertiesGroup">
+             </popupMenuGroup>
+             <popupMenu
+                  path="/ApplyStereotypeGroup"
+                  id="menu_apply_unapply_stereotype">
+             </popupMenu>      
+             <popupStructuredContributionCriteria
+                   objectClass="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart"
+                   objectCount="1">
+             </popupStructuredContributionCriteria>
+		 </popupContribution>
+      </contributionItemProvider>
+«ENDDEFINE»
+
+«DEFINE stereotypePropertySection FOR gmfgen::GenDiagram»
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections" id="propsections.tagvalues">
+«EXPAND xpt::Common::xmlGeneratedTag»
+      <propertySections contributorId="«editorGen.plugin.iD»">
+         <propertySection
+            id="property.section.domain.taggedvalues" 
+            tab="property.tab.domain.taggedvalues"
+            class="org.eclipse.uml2.diagram.common.sheet.UMLStereotypePropertySection"
+            filter="org.eclipse.uml2.diagram.common.sheet.AppliedStereotypePropertySectionFilter">
+            <input type="org.eclipse.gmf.runtime.notation.View"/>
+            <input type="org.eclipse.gef.EditPart"/>
+            <input type="«editorGen.navigator.packageName».«editorGen.navigator.abstractNavigatorItemClassName»"/>
+         </propertySection>
+      </propertySections>
+   </extension>
+«ENDDEFINE»
+
+«DEFINE stereotypePropertyTabs FOR gmfgen::GenDiagram»
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs" id="proptabs.tagvalues">
+«EXPAND xpt::Common::xmlGeneratedTag»
+      <propertyTabs contributorId="«editorGen.plugin.iD»">
+          <propertyTab
+                afterTab="property.tab.domain"
+                category="domain"
+                id="property.tab.domain.taggedvalues"
+                label="Tagged Values"/>
+      </propertyTabs>
+   </extension>
+«ENDDEFINE»

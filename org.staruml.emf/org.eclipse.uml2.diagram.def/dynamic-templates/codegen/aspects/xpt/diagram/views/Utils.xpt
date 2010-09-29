@@ -1,0 +1,44 @@
+/*
+ * Copyright (c) 2007, 2008 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Michael Golubev (Borland) - #199731, non-canonical mode
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+
+«EXTENSION xpt::diagram::updater::Utils»
+«EXTENSION xpt::async::NonCanonicalDiagram»
+
+«AROUND addCustomStyles(stylesVar : String) FOR gmfgen::GenCommonBase-»
+	«targetDef.proceed()-»
+	«IF self.oclIsKindOf(gmfgen::GenContainerBase)-»
+	«IF supportsNonCanonicalMode(self.getDiagram()) and not getSemanticChildren(self.oclAsType(gmfgen::GenContainerBase))->isEmpty() -»
+		«EXPAND addCanonicalStyle(stylesVar) FOR self-»
+	«ENDIF-»
+	«ENDIF-»
+«ENDAROUND»
+
+«DEFINE addCanonicalStyle(stylesVar : String) FOR gmfgen::GenCommonBase-»
+		org.eclipse.gmf.runtime.notation.CanonicalStyle canonicalStyle_«getUniqueIdentifier()» = org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createCanonicalStyle();
+		canonicalStyle_«getUniqueIdentifier()».setCanonical(true);
+		«stylesVar».add(canonicalStyle_«getUniqueIdentifier()»);	
+«ENDDEFINE»
+
+«DEFINE addCanonicalStyle(stylesVar : String) FOR gmfgen::GenDiagram-»
+		org.eclipse.uml2.diagram.common.notation.u2tnotation.U2TDiagramCanonicalStyle canonicalStyle_«getUniqueIdentifier()» = «-»
+			org.eclipse.uml2.diagram.common.notation.u2tnotation.U2TNotationFactory.eINSTANCE.createU2TDiagramCanonicalStyle();
+		canonicalStyle_«getUniqueIdentifier()».setCanonical(true);
+		canonicalStyle_«getUniqueIdentifier()».setSyncNodes(true);
+		canonicalStyle_«getUniqueIdentifier()».setSyncLinks(true);
+		«stylesVar».add(canonicalStyle_«getUniqueIdentifier()»);	
+«ENDDEFINE»
+
+

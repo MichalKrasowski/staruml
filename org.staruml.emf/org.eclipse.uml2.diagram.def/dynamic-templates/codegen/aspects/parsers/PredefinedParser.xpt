@@ -1,0 +1,163 @@
+/*
+ * Copyright (c) 2009 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Michael Golubev (Borland) - [254190] Localization - ICU4J
+ */
+
+«IMPORT "http://www.eclipse.org/gmf/2009/GenModel"»
+«IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+
+«EXTENSION impl::parsers::i18n»
+
+«AROUND parsers::PredefinedParser::fields FOR gmfgen::PredefinedParser-»
+«IF viewMethod = gmfgen::LabelTextAccessMethod::MESSAGE_FORMAT or viewMethod = gmfgen::LabelTextAccessMethod::PRINTF-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private String defaultPattern;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private String defaultEditablePattern;
+«ENDIF-»
+«IF viewMethod = gmfgen::LabelTextAccessMethod::MESSAGE_FORMAT»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private com.ibm.icu.text.MessageFormat viewProcessor;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private com.ibm.icu.text.MessageFormat editorProcessor;
+«ENDIF-»
+«IF editMethod = gmfgen::LabelTextAccessMethod::MESSAGE_FORMAT»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private com.ibm.icu.text.MessageFormat editProcessor;
+«ENDIF-»
+«ENDAROUND»
+
+«AROUND parsers::PredefinedParser::aux_methods FOR gmfgen::PredefinedParser-»
+«IF viewMethod = gmfgen::LabelTextAccessMethod::MESSAGE_FORMAT-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected String getDefaultPattern() {
+		if (defaultPattern == null) {
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < features.length; i++) {
+				if (i > 0) {
+					sb.append(' ');
+				}
+				sb.append('{');
+				sb.append(i);
+				sb.append('}');
+			}
+			defaultPattern = sb.toString();
+		}
+		return defaultPattern;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void setViewPattern(String viewPattern) {
+		super.setViewPattern(viewPattern);
+		viewProcessor = null;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void setEditorPattern(String editorPattern) {
+		super.setEditorPattern(editorPattern);
+		editorProcessor = null;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected com.ibm.icu.text.MessageFormat getViewProcessor() {
+		if (viewProcessor == null) {
+			viewProcessor = new com.ibm.icu.text.MessageFormat(getViewPattern() == null ? getDefaultPattern() : getViewPattern());
+		}
+		return viewProcessor;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected com.ibm.icu.text.MessageFormat getEditorProcessor() {
+		if (editorProcessor == null) {
+			editorProcessor = new com.ibm.icu.text.MessageFormat(getEditorPattern() == null ? getDefaultEditablePattern() : getEditorPattern());
+		}
+		return editorProcessor;
+	}
+«ELSEIF viewMethod = gmfgen::LabelTextAccessMethod::PRINTF-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected String getDefaultPattern() {
+		if (defaultPattern == null) {
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < features.length; i++) {
+				if (i > 0) {
+					sb.append(' ');
+				}
+				sb.append('%');
+				sb.append(i + 1);
+				sb.append('$');
+				sb.append('s');
+			}
+			defaultPattern = sb.toString();
+		}
+		return defaultPattern;
+	}
+«ENDIF-»
+«IF viewMethod = gmfgen::LabelTextAccessMethod::MESSAGE_FORMAT or editMethod = gmfgen::LabelTextAccessMethod::MESSAGE_FORMAT-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected String getDefaultEditablePattern() {
+		if (defaultEditablePattern == null) {
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < editableFeatures.length; i++) {
+				if (i > 0) {
+					sb.append(' ');
+				}
+				sb.append('{');
+				sb.append(i);
+				sb.append('}');
+			}
+			defaultEditablePattern = sb.toString();
+		}
+		return defaultEditablePattern;
+	}
+«ENDIF-»
+«IF viewMethod = gmfgen::LabelTextAccessMethod::PRINTF or editMethod = gmfgen::LabelTextAccessMethod::PRINTF-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected String getDefaultEditablePattern() {
+		if (defaultEditablePattern == null) {
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < editableFeatures.length; i++) {
+				if (i > 0) {
+					sb.append(' ');
+				}
+				sb.append('%');
+				sb.append(i + 1);
+				sb.append('$');
+				sb.append('s');
+			}
+			defaultEditablePattern = sb.toString();
+		}
+		return defaultEditablePattern;
+	}
+«ENDIF-»
+«IF editMethod = gmfgen::LabelTextAccessMethod::MESSAGE_FORMAT-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void setEditPattern(String editPattern) {
+		super.setEditPattern(editPattern);
+		editProcessor = null;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected com.ibm.icu.text.MessageFormat getEditProcessor() {
+		if (editProcessor == null) {
+			editProcessor = new com.ibm.icu.text.MessageFormat(getEditPattern() == null ? getDefaultEditablePattern() : getEditPattern());
+		}
+		return editProcessor;
+	}
+«ELSEIF editMethod = gmfgen::LabelTextAccessMethod::REGEXP-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public String getEditPattern() {
+		String pattern = super.getEditPattern();
+		return pattern != null ? pattern : " ";«EXPAND xpt::Common::nonNLS»
+	}
+«ENDIF-»
+«ENDAROUND»

@@ -1,0 +1,33 @@
+modeltype genModel uses "http://www.eclipse.org/gmf/2009/GenModel";
+modeltype emfModel uses "http://www.eclipse.org/emf/2002/GenModel";
+
+library LinkUpdateUtil;
+
+helper getOutgoingLinksTypeModelFacets(node : genModel::GenNode) : Sequence(genModel::TypeLinkModelFacet) {
+	return (node.getDiagram().links->select(link | canBeSource(link, node))->collect(link | link.modelFacet))[genModel::TypeLinkModelFacet]
+}
+
+helper getOutgoingLinksFeatureModelFacets(node : genModel::GenNode) : Sequence(genModel::FeatureLinkModelFacet) {
+	return (node.getDiagram().links->select(link | canBeSource(link, node))->collect(link | link.modelFacet))[genModel::FeatureLinkModelFacet]
+}
+
+helper getOutgoingLinkMetaclasses(node : genModel::GenNode, containmentFeature : emfModel::GenFeature) : Set(emfModel::GenClass) {
+	return getOutgoingLinksTypeModelFacets(node)->select(modelFacet | modelFacet.containmentMetaFeature = containmentFeature)->collect(modelFacet | modelFacet.metaClass)->asOrderedSet()
+}
+
+helper getOutgoingLinkTargetFeatures(node : genModel::GenNode, containmentFeature : emfModel::GenFeature, metaClass : emfModel::GenClass) : Set(emfModel::GenFeature) {
+	return getOutgoingLinksTypeModelFacets(node)->select(modelFacet | modelFacet.containmentMetaFeature = containmentFeature)->select(modelFacet | modelFacet.metaClass = metaClass)->collect(modelFacet | modelFacet.targetMetaFeature)->asOrderedSet()
+}
+
+helper getOutgoingAndContainedTypeLinks(node : genModel::GenNode) : Sequence(genModel::GenLink) {
+	return node.getDiagram().links->select(link | canBeSource(link, node))->select(link | (Sequence { link.modelFacet })[genModel::TypeLinkModelFacet]->size() > 0)->select(link | link.modelFacet.oclAsType(genModel::TypeLinkModelFacet).childMetaFeature.ecoreFeature.eContainingClass.isSuperTypeOf(node.modelFacet.metaClass.ecoreClass))->asSequence()
+}
+
+helper canBeSource(link : gmfgen::GenLink, linkEnd : gmfgen::GenLinkEnd) : Boolean {
+	return link.sources->includes(linkEnd)
+}
+
+helper canBeTarget(link : gmfgen::GenLink, linkEnd : gmfgen::GenLinkEnd) : Boolean {
+	return link.targets->includes(linkEnd)
+}
+

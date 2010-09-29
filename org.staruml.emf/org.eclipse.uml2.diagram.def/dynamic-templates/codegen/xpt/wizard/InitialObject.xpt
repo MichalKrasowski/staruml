@@ -1,0 +1,136 @@
+/*
+ * Copyright (c) 2006 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Tatiana Fesenko (Borland) - #268252 'There should be a way to specify exact metaclass of the diagram canvas semantic element"
+ *    							  #230873 'Make diagram file extension shorter', 
+ */
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+
+«EXTENSION MetaModel»
+«EXTENSION xpt::GenModelUtils»
+«EXTENSION xpt::editor::GenDiagram»
+«EXTENSION xpt::wizard::Utils»
+«EXTENSION xpt::editor::Utils»
+«EXTENSION xpt::wizard::i18n»
+
+«DEFINE addInitialObjectPage FOR gmfgen::GenDiagram-»
+
+		initialObjectCreationPage = new org.eclipse.uml2.diagram.common.part.UMLModelWizardInitialObjectCreationPage("InitialObject", «getQualifiedPackageInterfaceName(domainDiagramElement.genPackage)».eINSTANCE.get«getClassifierAccessorName(domainDiagramElement)»()); //$NON-NLS-1$
+		initialObjectCreationPage.setTitle(«EXPAND xpt::Externalizer::accessorCall(titleKey(i18nKeyForInitialObjectCreationPage(self))) FOR editorGen»);
+		initialObjectCreationPage.setDescription(«EXPAND xpt::Externalizer::accessorCall(descriptionKey(i18nKeyForInitialObjectCreationPage(self))) FOR editorGen»);
+		addPage(initialObjectCreationPage);
+«ENDDEFINE»
+
+«DEFINE saveOptions FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static Map getSaveOptions(String encoding) {
+		Map saveOptions = new HashMap();
+		saveOptions.put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_ENCODING, encoding == null ? "UTF-8" : encoding); «EXPAND xpt::Common::nonNLS»
+		saveOptions.put(org.eclipse.emf.ecore.resource.Resource.OPTION_SAVE_ONLY_IF_CHANGED, org.eclipse.emf.ecore.resource.Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
+		return saveOptions;
+	}
+«ENDDEFINE»
+
+«DEFINE getSaveOptions(String varName) FOR gmfgen::GenDiagram»«getDiagramEditorUtilQualifiedClassName()».getSaveOptions(«varName»)«ENDDEFINE»
+
+«DEFINE createInitialModelMethod FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment('Create a new instance of domain element associated with canvas.
+<!-- begin-user-doc -->
+<!-- end-user-doc -->')»
+	private static «EXPAND MetaModel::QualifiedClassName FOR domainDiagramElement» createInitialModel(
+	«IF needInitialObject(self)»org.eclipse.emf.ecore.EClass initialObject«ENDIF-»
+	«IF needInitialObject(self) and needDefaultName(self)», «ENDIF-»
+	«IF needDefaultName(self)»String diagramName«ENDIF-»
+	) {
+	«IF needInitialObject(self)-»
+		«EXPAND MetaModel::QualifiedClassName FOR domainDiagramElement» diagram = («EXPAND MetaModel::QualifiedClassName FOR domainDiagramElement»)«getQualifiedFactoryInterfaceName(domainDiagramElement.genPackage)».eINSTANCE.create(initialObject);
+	«ELSE-»
+	«EXPAND MetaModel::QualifiedClassName FOR domainDiagramElement» diagram = «EXPAND MetaModel::NewInstance FOR domainDiagramElement»;
+	«ENDIF-»
+	«IF needDefaultName(self)-»
+		diagram.setName(diagramName);
+	«ENDIF-»
+		return diagram;
+	}
+«ENDDEFINE»
+
+«DEFINE createDiagramMethod FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment((if editorGen.application = null then 'This method should be called within a workspace modify operation since it creates resources.' else '' endif))»
+	public static org.eclipse.emf.ecore.resource.Resource createDiagram(org.eclipse.emf.common.util.URI diagramURI,«IF standaloneDomainModel(self)» org.eclipse.emf.common.util.URI modelURI,«ENDIF» «IF needInitialObject(self)»final org.eclipse.emf.ecore.EClass initialObject, final String encoding, «ENDIF»org.eclipse.core.runtime.IProgressMonitor progressMonitor) {
+		org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory.INSTANCE.createEditingDomain();
+		progressMonitor.beginTask(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForCreateDiagramProgressTask(self)) FOR editorGen», 3);
+		final org.eclipse.emf.ecore.resource.Resource diagramResource = editingDomain.getResourceSet().createResource(diagramURI);
+«IF standaloneDomainModel(self)-»
+		final org.eclipse.emf.ecore.resource.Resource modelResource = editingDomain.getResourceSet().createResource(modelURI);
+«ELSEIF domainDiagramElement <> null and hasDocumentRoot(self) /*for standalone models, we assume its resourcefactory would be able to set extendedMetaData option*/-»
+		((org.eclipse.emf.ecore.xmi.XMLResource) diagramResource).getDefaultSaveOptions().put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_EXTENDED_META_DATA, Boolean.TRUE);
+		((org.eclipse.emf.ecore.xmi.XMLResource) diagramResource).getDefaultLoadOptions().put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_EXTENDED_META_DATA, Boolean.TRUE);
+«ENDIF-»
+		final String diagramName = diagramURI.lastSegment();
+		«IF needDefaultName(self)-»
+		final String diagramNameWithoutExtension = diagramURI.trimFileExtension().lastSegment();
+		«ENDIF-»
+		org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand command = new org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand(editingDomain, «EXPAND xpt::Externalizer::accessorCall(i18nKeyForCreateDiagramCommandLabel(self)) FOR editorGen», java.util.Collections.EMPTY_LIST) {
+			protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
+«IF domainDiagramElement <> null-»
+				«EXPAND MetaModel::QualifiedClassName FOR domainDiagramElement» model = createInitialModel(«IF needInitialObject(self)»initialObject«ENDIF-»
+				«IF needInitialObject(self) and needDefaultName(self)», «ENDIF-»				
+				«IF needDefaultName(self)»diagramNameWithoutExtension«ENDIF-»
+				);
+				attachModelToResource(model, «IF standaloneDomainModel(self)»model«ELSE»diagram«ENDIF»Resource);
+«ENDIF»
+				org.eclipse.gmf.runtime.notation.Diagram diagram = org.eclipse.gmf.runtime.diagram.core.services.ViewService.createDiagram(
+«IF domainDiagramElement <> null-»
+				«EXPAND MetaModel::DowncastToEObject('model') FOR domainDiagramElement», 
+«ENDIF-»
+					«EXPAND xpt::editor::VisualIDRegistry::modelID», «EXPAND xpt::plugin::Activator::preferenceHintAccess FOR editorGen»);
+				if (diagram != null) {
+					diagramResource.getContents().add(diagram);
+					diagram.setName(diagramName);
+«IF domainDiagramElement <> null-»
+					diagram.setElement(«EXPAND MetaModel::DowncastToEObject('model') FOR domainDiagramElement»);
+«ENDIF-»
+				}
+				
+				try {
+					«IF standaloneDomainModel(self)»modelResource.save(«IF needInitialObject(self)»«EXPAND xpt::wizard::InitialObject::getSaveOptions('encoding')»«ELSE»getSaveOptions()«ENDIF»);
+					«ENDIF-»
+					diagramResource.save(«IF needInitialObject(self)»«EXPAND xpt::wizard::InitialObject::getSaveOptions('encoding')»«ELSE»getSaveOptions()«ENDIF»);
+				} catch (java.io.IOException e) {
+					«/* TODO CommandResult.newErrorCommandResult(e) would be better? Or even throw ExecutionEx?*/»
+					«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to store model and diagram resources", e); «EXPAND xpt::Common::nonNLS»
+				}
+				return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();
+			}
+		};
+		try {
+			org.eclipse.core.commands.operations.OperationHistoryFactory.getOperationHistory().execute(command, new org.eclipse.core.runtime.SubProgressMonitor(progressMonitor, 1), null);
+		} catch (org.eclipse.core.commands.ExecutionException e) {
+			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to create model and diagram", e); «EXPAND xpt::Common::nonNLS»
+		}
+«IF editorGen.application = null-»
+		«IF standaloneDomainModel(self)»setCharset(org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(modelResource));«ENDIF»
+		setCharset(org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(diagramResource));
+«ENDIF-»
+		return diagramResource;
+	}
+«ENDDEFINE»
+
+«DEFINE i18nValues FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Externalizer::messageEntry(titleKey(i18nKeyForInitialObjectCreationPage(self)), editorGen.modelID + ' Model')-»
+«EXPAND xpt::Externalizer::messageEntry(descriptionKey(i18nKeyForInitialObjectCreationPage(self)), 'Select a model object to create.')-»
+«ENDDEFINE»
+
+«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Externalizer::accessorField(titleKey(i18nKeyForInitialObjectCreationPage(self)))-»
+«EXPAND xpt::Externalizer::accessorField(descriptionKey(i18nKeyForInitialObjectCreationPage(self)))-»
+«ENDDEFINE»
+
+

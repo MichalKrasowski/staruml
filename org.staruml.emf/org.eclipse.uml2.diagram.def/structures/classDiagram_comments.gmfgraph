@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmfgraph:Canvas xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:gmfgraph="http://www.eclipse.org/gmf/2006/GraphicalDefinition" name="cnv_comments">
+  <figures
+      name="">
+    <descriptors
+        name="CommentFigure">
+      <actualFigure
+          xsi:type="gmfgraph:CustomFigure"
+          name="CommentFigure"
+          qualifiedClassName="org.eclipse.uml2.diagram.common.draw2d.CommentFigureBase">
+        <attributes
+            name="textLabelWrap"
+            value="true"/>
+        <customChildren
+            accessor="getBodyLabel">
+          <typedFigure
+              xsi:type="gmfgraph:CustomFigure"
+              name="aux_Comment_body"
+              qualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
+        </customChildren>
+      </actualFigure>
+      <accessors
+          figure="//@figures.0/@descriptors.0/@actualFigure/@customChildren.0/@typedFigure"/>
+    </descriptors>
+    <descriptors
+        name="AnnotatedElementLinkFigure">
+      <actualFigure
+          xsi:type="gmfgraph:PolylineConnection"
+          name="AnnotatedElementLinkFigure"
+          lineKind="LINE_DOT"/>
+    </descriptors>
+  </figures>
+  <nodes
+      name="CommentNode"
+      figure="CommentFigure"/>
+  <connections
+      name="AnnotatedElementLink"
+      figure="AnnotatedElementLinkFigure"/>
+  <labels
+      name="Comment_BodySpecification"
+      figure="CommentFigure"
+      accessor="//@figures.0/@descriptors.0/@accessors.0"/>
+</gmfgraph:Canvas>

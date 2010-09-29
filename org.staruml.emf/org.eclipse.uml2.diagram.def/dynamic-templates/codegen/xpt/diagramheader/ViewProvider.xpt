@@ -1,0 +1,16 @@
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+
+«EXTENSION xpt::diagramheader::DiagramHeader»
+
+«DEFINE initCompartment(String nodeVar, String prefStoreVar) FOR gmfgen::GenCompartment-»
+«IF isDiagramHeaderCompartment(self)-»
+org.eclipse.gmf.runtime.notation.DrawerStyle drawerStyle = (org.eclipse.gmf.runtime.notation.DrawerStyle) «getUniqueIdentifier()».getStyle(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getDrawerStyle());
+if (drawerStyle != null) {
+	//#216573 [SecondaryDiagramElement] Collapse imports compartment after creation
+	drawerStyle.setCollapsed(true);
+}
+«ENDIF-» 
+«ENDDEFINE»
+

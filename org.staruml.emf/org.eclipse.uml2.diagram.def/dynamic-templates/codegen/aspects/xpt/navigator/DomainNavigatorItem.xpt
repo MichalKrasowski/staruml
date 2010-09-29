@@ -1,0 +1,33 @@
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«EXTENSION xpt::GenModelUtils»
+
+«AROUND DomainNavigatorItem FOR gmfgen::GenNavigator-»
+	«EXPAND xpt::Common::copyright FOR editorGen-»
+package «packageName»;
+
+	«EXPAND xpt::Common::generatedClassComment»
+public class «domainNavigatorItemClassName» extends org.eclipse.core.runtime.PlatformObject implements org.eclipse.gmf.runtime.common.core.util.IAdaptableSelection{
+
+	«EXPAND xpt::navigator::DomainNavigatorItem::registerAdapterFactory-»
+	
+	«EXPAND xpt::navigator::AbstractNavigatorItem::attributes-»
+	
+	«EXPAND xpt::navigator::DomainNavigatorItem::attributes-»
+	
+	«EXPAND xpt::navigator::DomainNavigatorItem::_constructor-»
+	
+	«EXPAND xpt::navigator::AbstractNavigatorItem::getParent-»
+	
+	«EXPAND xpt::navigator::DomainNavigatorItem::getEObject-»
+	
+	«EXPAND xpt::navigator::DomainNavigatorItem::getPropertySourceProvider-»
+	
+	«EXPAND xpt::navigator::DomainNavigatorItem::equals-»
+	
+	«EXPAND xpt::navigator::DomainNavigatorItem::hashCode-»
+
+	«EXPAND xpt::navigator::DomainNavigatorItem::additions-»
+}
+«ENDAROUND»

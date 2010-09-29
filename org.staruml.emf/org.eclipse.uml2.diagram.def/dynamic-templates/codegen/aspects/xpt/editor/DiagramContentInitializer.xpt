@@ -1,0 +1,49 @@
+/*
+ * Copyright (c) 2008 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Michael Golubev (Borland) - 
+ *        don't assume that all LinkDescriptors are from this particular diagram plugin, 
+ *        use genapi instead 
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+
+«EXTENSION xpt::diagram::updater::Utils»
+«EXTENSION xpt::GenModelUtils»
+«EXTENSION aspects::xpt::diagram::updater::DescriptorsGenApi»
+
+«AROUND createLinks FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+private void createLinks(org.eclipse.gmf.runtime.notation.Diagram diagram) {
+	for (boolean continueLinkCreation = true; continueLinkCreation;) {
+		continueLinkCreation = false;
+		java.util.Collection additionalDescriptors = new java.util.LinkedList();
+		for (java.util.Iterator it = myLinkDescriptors.iterator(); it.hasNext();) {
+			«getGenApiLinkDescriptorQualifiedClassName()» nextLinkDescriptor = («getGenApiLinkDescriptorQualifiedClassName()») it.next();
+			if (!myDomain2NotationMap.containsKey(nextLinkDescriptor.getSource()) || !myDomain2NotationMap.containsKey(nextLinkDescriptor.getDestination())) {
+				continue;
+			}
+			org.eclipse.gmf.runtime.notation.Edge edge = (org.eclipse.gmf.runtime.notation.Edge) org.eclipse.gmf.runtime.diagram.core.services.ViewService.getInstance().createEdge(nextLinkDescriptor.getSemanticAdapter(), diagram, nextLinkDescriptor.getType(), org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.APPEND, «editorGen.plugin.getActivatorQualifiedClassName()».DIAGRAM_PREFERENCES_HINT);
+			if (edge != null) {
+				edge.setSource((org.eclipse.gmf.runtime.notation.View) myDomain2NotationMap.get(nextLinkDescriptor.getSource()));
+				edge.setTarget((org.eclipse.gmf.runtime.notation.View) myDomain2NotationMap.get(nextLinkDescriptor.getDestination()));
+				it.remove();
+				if (nextLinkDescriptor.getModelElement() != null) {
+					myDomain2NotationMap.put(nextLinkDescriptor.getModelElement(), edge);
+				}
+				continueLinkCreation = true;
+				switch (nextLinkDescriptor.getVisualID()) {
+	«EXPAND xpt::editor::DiagramContentInitializer::createLinksCase FOREACH links->select(link | null <> link.getMetaClass())-»
+				}
+			}
+		}
+		myLinkDescriptors.addAll(additionalDescriptors);
+	}
+}
+«ENDAROUND»

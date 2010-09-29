@@ -1,0 +1,30 @@
+/*
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Michael Golubev (Borland) - [252802] U2T specific delete from diagram action
+ * 								  [255532] InsertAction support 
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+
+«EXTENSION xpt::async::NonCanonicalDiagram»  
+
+«AROUND createDefaultEditPoliciesBody FOR gmfgen::GenChildLabelNode-»
+	«targetDef.proceed()-»
+	«EXPAND installComponentEditPolicy-»
+«ENDAROUND»
+
+«DEFINE installComponentEditPolicy FOR gmfgen::GenChildLabelNode-»
+«IF supportsNonCanonicalMode(self.getDiagram())-»	
+	«EXPAND xpt::async::editPolicies::nodeComponentEditPolicy FOR self-»
+«ELSE-»
+	installEditPolicy(org.eclipse.gef.EditPolicy.COMPONENT_ROLE, «-»
+			new org.eclipse.uml2.diagram.common.editpolicies.InsertingComponentEditPolicy(true));
+«ENDIF-»	
+«ENDDEFINE»

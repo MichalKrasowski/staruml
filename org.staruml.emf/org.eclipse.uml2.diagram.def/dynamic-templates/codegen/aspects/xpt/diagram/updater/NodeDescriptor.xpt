@@ -1,0 +1,68 @@
+/*
+ * Copyright (c) 2008 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Michael Golubev (Borland) - 
+ *				#239267 - Provide typed API for common generated GMF statically accessible constructs 
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+
+«AROUND NodeDescriptor FOR gmfgen::GenDiagramUpdater-»
+	«EXPAND xpt::Common::copyright FOR editorGen-»
+package «editorGen.editor.packageName»;
+
+	«EXPAND xpt::Common::generatedClassComment»
+public class «nodeDescriptorClassName» implements «EXPAND aspects::xpt::diagram::updater::NodeDescriptor::implementsList» {
+
+	«EXPAND xpt::diagram::updater::NodeDescriptor::attributes-»
+	
+	«EXPAND xpt::diagram::updater::NodeDescriptor::_constructor-»
+	
+	«EXPAND xpt::diagram::updater::NodeDescriptor::getModelElement-»
+	
+	«EXPAND xpt::diagram::updater::NodeDescriptor::getVisualID-»
+	
+	«EXPAND xpt::diagram::updater::NodeDescriptor::additions-»
+}
+«ENDAROUND»
+
+«AROUND xpt::diagram::updater::NodeDescriptor::additions FOR gmfgen::GenDiagramUpdater»
+	«EXPAND hashSupport»
+«ENDAROUND»
+
+«DEFINE implementsList FOR gmfgen::GenDiagramUpdater»org.eclipse.uml2.diagram.common.genapi.IUpdaterNodeDescriptor «ENDDEFINE»
+
+«DEFINE hashSupport FOR gmfgen::GenDiagramUpdater»
+	«EXPAND xpt::Common::generatedClassComment»
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this){
+			return true;
+		}
+		if (obj instanceof org.eclipse.uml2.diagram.common.genapi.IUpdaterNodeDescriptor){
+			org.eclipse.uml2.diagram.common.genapi.IUpdaterNodeDescriptor that = (org.eclipse.uml2.diagram.common.genapi.IUpdaterNodeDescriptor)obj;
+			return this.getVisualID() == that.getVisualID() && // 
+				safeEquals(this.getModelElement(), that.getModelElement());
+					
+		}
+		return false;
+	}
+	
+	«EXPAND xpt::Common::generatedClassComment»
+	@Override
+	public int hashCode() {
+		return myVisualID + (myModelElement == null ? 0 : myModelElement.hashCode());
+	}
+	
+	«EXPAND xpt::Common::generatedClassComment»
+	protected static boolean safeEquals(Object o1, Object o2){
+		return o1 == null ? o2 == null : o1.equals(o2);
+	}
+	
+«ENDDEFINE»

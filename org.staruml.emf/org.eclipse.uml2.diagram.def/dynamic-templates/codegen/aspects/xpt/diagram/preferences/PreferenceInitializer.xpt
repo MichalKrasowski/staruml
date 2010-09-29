@@ -1,0 +1,50 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Michael Golubev (Borland) - custom icons for diagram elements
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+
+«EXTENSION xpt::diagram::Utils»
+
+«AROUND PreferenceInitializer FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::copyright FOR editorGen-»
+package «preferencesPackageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «EXPAND xpt::diagram::preferences::PreferenceInitializer::className» extends org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer {
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void initializeDefaultPreferences() {
+		org.eclipse.jface.preference.IPreferenceStore store = getPreferenceStore();
+«IF preferences = null-»
+		«EXPAND xpt::diagram::preferences::PreferenceInitializer::initDefaults('store') FOREACH allPreferencePages(self)»
+«ELSE»«REM»default values for predefined pages will be set manually«ENDREM»«-»
+		«EXPAND xpt::diagram::preferences::PreferenceInitializer::initDefaults('store') FOREACH (allPreferencePages(self))[gmfgen::GenCustomPreferencePage]»
+		«EXPAND xpt::diagram::preferences::PreferenceInitializer::initDefaults('store') FOR preferences-»
+«ENDIF-»
+
+		«REM»Additional preferences here«ENDREM»«-»
+		«EXPAND xpt::diagram::preferences::PreferenceInitializer::initDefaultIconStyle('store')»
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected org.eclipse.jface.preference.IPreferenceStore getPreferenceStore() {
+		return «editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore();
+	}
+} 
+«ENDAROUND»
+
+«DEFINE initDefaultIconStyle(storeVar : String) FOR gmfgen::GenDiagram»
+	«EXPAND xpt::preferences::IconStylePreferencePage::qualifiedClassName».initDefaults(«storeVar»);
+	«EXPAND xpt::preferences::IconStylePreferencePage::qualifiedClassName».initConnectorLabelDefaults(«storeVar»);
+«ENDDEFINE»
+

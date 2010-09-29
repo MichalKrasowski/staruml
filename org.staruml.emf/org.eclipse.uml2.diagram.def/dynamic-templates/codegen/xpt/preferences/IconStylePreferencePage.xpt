@@ -1,0 +1,256 @@
+/*
+ * Copyright (c) 2008 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Michael Golubev (Borland) - initial API and implementation
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+«IMPORT 'http://www.eclipse.org/modeling/mdt/uml2tools/gmf/GenModel'»
+
+«EXTENSION xpt::preferences::Utils»
+
+«DEFINE qualifiedClassName FOR gmfgen::GenDiagram»«EXPAND packageName».«EXPAND className»«ENDDEFINE»
+«DEFINE className FOR gmfgen::GenDiagram»DiagramIconStylePreferencePage«ENDDEFINE»
+«DEFINE packageName FOR gmfgen::GenDiagram»«self.preferencesPackageName»«ENDDEFINE»
+
+«DEFINE IconStylePreferencePage FOR gmfgen::GenDiagram»
+package «EXPAND packageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «EXPAND className» extends org.eclipse.uml2.diagram.common.preferences.IconStylePreferencePage {
+
+	«EXPAND registerLinkLabels-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private final java.util.List<org.eclipse.gmf.runtime.common.ui.preferences.CheckBoxFieldEditor> myByVisualIdEditors = new java.util.ArrayList<org.eclipse.gmf.runtime.common.ui.preferences.CheckBoxFieldEditor>();
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.jface.preference.RadioGroupFieldEditor myModeEditor;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.swt.widgets.Composite myCheckBoxesPanel;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.ui.IWorkbench myWorkbench;
+	
+	«EXPAND xpt::Common::generatedMemberComment»
+	public DiagramIconStylePreferencePage() {
+		setPreferenceStore(«editorGen.editor.packageName».«editorGen.plugin.activatorClassName».getInstance().getPreferenceStore());
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	@Override
+	public void init(org.eclipse.ui.IWorkbench workbench) {
+		super.init(workbench);
+		myWorkbench = workbench;
+	}
+	
+	«EXPAND xpt::Common::generatedMemberComment»
+	@Override
+    public boolean performOk() {
+    	super.performOk();
+    	«providersPackageName».«elementTypesClassName».refreshImageRegistry();
+		refreshDiagramEditors();
+    	return true;
+    }
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private void refreshDiagramEditors() {
+		org.eclipse.ui.IEditorReference[] editors = myWorkbench.getActiveWorkbenchWindow().getActivePage().getEditorReferences();
+		for (int i = 0; i < editors.length; i++) {
+			org.eclipse.ui.IEditorPart editor = editors[i].getEditor(false);
+			if (editor != null && editor instanceof «editorGen.editor.getQualifiedClassName()») {
+		    	((«editorGen.editor.getQualifiedClassName()»)editor).refresh();
+			}
+		}
+	}
+    
+    «EXPAND xpt::Common::generatedMemberComment»
+	@Override
+	protected void initHelp() {
+		// TODO Auto-generated method stub
+	}
+	
+	«EXPAND xpt::Common::generatedMemberComment»
+	@Override
+	protected void addFields(org.eclipse.swt.widgets.Composite parent) {
+		super.addFields(parent);
+		createShowHideIconsGroup(parent);
+		createShowHideConnectorIconsGroup(parent);
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected org.eclipse.gmf.runtime.common.ui.preferences.CheckBoxFieldEditor addCheckBoxForVisualIds(org.eclipse.swt.widgets.Composite parent, String commonLabel, int... visualIds) {
+		StringBuffer propertyName = new StringBuffer(org.eclipse.uml2.diagram.common.preferences.UMLPreferencesConstants.PREF_ICONS_SHOW_VISUAL_ID_PREFIX);
+		for (int nextVID : visualIds) {
+			propertyName.append('.').append(nextVID);
+		}
+		org.eclipse.gmf.runtime.common.ui.preferences.CheckBoxFieldEditor result = new org.eclipse.gmf.runtime.common.ui.preferences.CheckBoxFieldEditor(propertyName.toString(), commonLabel, parent);
+
+		addField(result);
+		myByVisualIdEditors.add(result);
+		return result;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	@Override
+	protected void initialize() {
+		super.initialize();
+		boolean stateShowSelected = org.eclipse.uml2.diagram.common.preferences.UMLPreferencesConstants.VALUE_ICONS_SHOW_SELECTED_VISUAL_IDS.equals(getPreferenceStore().getString(«-»
+			org.eclipse.uml2.diagram.common.preferences.UMLPreferencesConstants.PREF_ICONS_SHOW_HIDE_MODE));
+		enableVisualIdChoices(stateShowSelected);
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»	 
+	@Override
+	public void propertyChange(org.eclipse.jface.util.PropertyChangeEvent event) {
+		super.propertyChange(event);
+		if (org.eclipse.jface.preference.FieldEditor.VALUE.equals(event.getProperty())) {
+			boolean nowConfigurable = org.eclipse.uml2.diagram.common.preferences.UMLPreferencesConstants.VALUE_ICONS_SHOW_SELECTED_VISUAL_IDS.equals(event.getNewValue());
+			boolean wasConfigurable = org.eclipse.uml2.diagram.common.preferences.UMLPreferencesConstants.VALUE_ICONS_SHOW_SELECTED_VISUAL_IDS.equals(event.getOldValue());
+
+			if (nowConfigurable || wasConfigurable) {
+				enableVisualIdChoices(nowConfigurable);
+			}
+		}
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private void enableVisualIdChoices(boolean enabled) {
+		for (org.eclipse.gmf.runtime.common.ui.preferences.CheckBoxFieldEditor next : myByVisualIdEditors) {
+			next.setEnabled(enabled, myCheckBoxesPanel);
+		}
+	}
+
+	«EXPAND createShowHideIconsGroup»
+	
+	«EXPAND addAllCheckBoxes»
+	
+	«EXPAND createShowHideConnectorIconsGroup-»
+
+	«EXPAND xpt::preferences::IconStylePreferencePage::additions»
+
+}
+«ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenDiagram-»
+«ENDDEFINE»
+
+«DEFINE createShowHideIconsGroup FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.swt.widgets.Composite createShowHideIconsGroup(org.eclipse.swt.widgets.Composite parent) {
+		org.eclipse.swt.widgets.Composite showHideIconsGroup = new org.eclipse.swt.widgets.Composite(parent, org.eclipse.swt.SWT.NULL);
+		showHideIconsGroup.setLayoutData(new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.GRAB_HORIZONTAL | org.eclipse.swt.layout.GridData.HORIZONTAL_ALIGN_FILL));
+		org.eclipse.swt.layout.GridLayout layout = new org.eclipse.swt.layout.GridLayout();
+		showHideIconsGroup.setLayout(layout);
+		
+		String[][] choices = new String[][] {//
+		//
+				{ LABEL_HIDE_ALL, org.eclipse.uml2.diagram.common.preferences.UMLPreferencesConstants.VALUE_ICONS_HIDE_ALL }, //
+				{ LABEL_SHOW_ALL, org.eclipse.uml2.diagram.common.preferences.UMLPreferencesConstants.VALUE_ICONS_SHOW_ALL }, //
+				{ LABEL_SHOW_BY_VISUAL_ID, org.eclipse.uml2.diagram.common.preferences.UMLPreferencesConstants.VALUE_ICONS_SHOW_SELECTED_VISUAL_IDS }, //
+		};
+		
+		myModeEditor = new org.eclipse.jface.preference.RadioGroupFieldEditor(//
+				org.eclipse.uml2.diagram.common.preferences.UMLPreferencesConstants.PREF_ICONS_SHOW_HIDE_MODE, //
+				LABEL_SHOW_HIDE_MODE, //
+				1, choices, showHideIconsGroup, true);
+
+		addField(myModeEditor);
+
+		org.eclipse.swt.widgets.Composite e = createExpansibleComposite(myModeEditor.getRadioBoxControl(showHideIconsGroup), "Elements") ;
+		myCheckBoxesPanel = new org.eclipse.swt.widgets.Composite(e, org.eclipse.swt.SWT.NULL);
+		myCheckBoxesPanel.setLayout(new org.eclipse.swt.layout.GridLayout());
+		myCheckBoxesPanel.setLayoutData(new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.GRAB_HORIZONTAL | org.eclipse.swt.layout.GridData.HORIZONTAL_ALIGN_FILL));
+		
+		addAllCheckBoxes(myCheckBoxesPanel);
+
+		enableVisualIdChoices(false);
+
+		return showHideIconsGroup;
+	}
+«ENDDEFINE»
+
+«DEFINE createShowHideConnectorIconsGroup FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.swt.widgets.Composite createShowHideConnectorIconsGroup(org.eclipse.swt.widgets.Composite parent) {
+	IconStylePreferencePage.ShowHideConnectorLabelGroup builder = new org.eclipse.uml2.diagram.common.preferences.IconStylePreferencePage.ShowHideConnectorLabelGroup(); 
+	return builder.createShowHideConnectorLabelGroup(parent, ourConnectorLabels2Vids);
+}
+«ENDDEFINE»
+
+
+«DEFINE addAllCheckBoxes FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private void addAllCheckBoxes(org.eclipse.swt.widgets.Composite parent) {
+		«FOREACH getAllNodeGroupingKeys(self) AS nextKey-»
+			«LET getAllLabeledVisualIDsForNodeKey(self, nextKey) AS visualIDS-»
+				«IF not visualIDS->isEmpty()-»
+				addCheckBoxForVisualIds(parent, «-»
+					«EXPAND xpt::Externalizer::accessorCall(i18n_labelForKey(nextKey)) FOR getDiagram().editorGen», «-»
+					«FOREACH visualIDS AS nextVID SEPARATOR ','»«nextVID»«ENDFOREACH»);
+				«ENDIF-»
+			«ENDLET-»
+		«ENDFOREACH»
+	}
+«ENDDEFINE»
+
+«DEFINE registerLinkLabels FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::generatedMemberComment»
+private static java.util.Map<String, Integer> ourConnectorLabels2Vids = new java.util.HashMap<String, Integer>();
+
+«EXPAND xpt::Common::generatedMemberComment»
+static {
+«FOREACH links AS nextLink-»
+«FOREACH nextLink.labels AS nextLabel-»
+«IF needsLabelFilter(nextLabel)-»
+ourConnectorLabels2Vids.put(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForLinkLabelFilterPage(nextLabel)) FOR editorGen», «nextLabel.getEditPartQualifiedClassName()».VISUAL_ID);
+«ENDIF-»	
+«ENDFOREACH-»
+«ENDFOREACH-»
+}
+
+«EXPAND xpt::Common::generatedMemberComment»
+public static void initConnectorLabelDefaults(org.eclipse.jface.preference.IPreferenceStore store) {
+	for (Integer visualId : ourConnectorLabels2Vids.values()) {
+		store.setDefault(«EXPAND xpt::preferences::IconStylePreferencePage::qualifiedClassName».getConnectionLabelPreference(visualId), true);
+	}
+}
+
+«ENDDEFINE»
+
+«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
+«FOREACH getAllNodeGroupingKeys(self) AS nextKey-»
+«EXPAND xpt::Externalizer::accessorField(i18n_labelForKey(nextKey))-»
+«ENDFOREACH-»
+«-»
+«FOREACH links AS nextLink-»
+«FOREACH nextLink.labels AS nextLabel-»
+«IF needsLabelFilter(nextLabel)-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForLinkLabelFilterPage(nextLabel))-»
+«ENDIF-»	
+«ENDFOREACH-»
+«ENDFOREACH-»
+«ENDDEFINE»
+
+«DEFINE i18nValues FOR gmfgen::GenDiagram-»
+«FOREACH getAllNodeGroupingKeys(self) AS nextKey-»
+«EXPAND xpt::Externalizer::messageEntry(i18n_labelForKey(nextKey), nextKey.name)-»
+«ENDFOREACH-»
+«-»
+«FOREACH links AS nextLink-»
+«FOREACH nextLink.labels AS nextLabel-»
+«IF needsLabelFilter(nextLabel)-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForLinkLabelFilterPage(nextLabel), nextLabel.getUniqueIdentifier())-»
+«ENDIF-»	
+«ENDFOREACH-»
+«ENDFOREACH-»
+«ENDDEFINE»

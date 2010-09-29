@@ -1,0 +1,35 @@
+/*
+ * Copyright (c) 2008 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Michael Golubev (Borland) - [255532] - Insert action should work
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«EXTENSION xpt::async::NonCanonicalDiagram»
+
+«AROUND implementsList FOR gmfgen::GenCompartment»«-»
+«IF self.listLayout and self.childNodes->size() = 1-»
+implements org.eclipse.gmf.runtime.diagram.ui.editparts.IInsertableEditPart«-»
+«ENDIF-»
+«ENDAROUND»
+
+«AROUND diagram::editparts::CompartmentEditPart::additions FOR gmfgen::GenCompartment»
+«EXPAND insertableEditPart_getElementType FOR self-»
+«EXPAND xpt::compartments::CompartmentEditPart::hideIfEmptySupport FOR self-»
+«ENDAROUND»
+
+«DEFINE insertableEditPart_getElementType FOR gmfgen::GenCompartment-»
+«IF self.listLayout and self.childNodes->size() = 1-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public org.eclipse.gmf.runtime.emf.type.core.IElementType getElementType() {
+		return «getDiagram().getElementTypesQualifiedClassName()».«childNodes->at(0 + 1).oclAsType(gmfgen::GenCommonBase).getUniqueIdentifier()»;
+	}
+	
+«ENDIF-»
+«ENDDEFINE»

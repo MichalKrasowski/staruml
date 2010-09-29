@@ -1,0 +1,60 @@
+/*
+ * Copyright (c) 2007, 2008 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Michael Golubev (Borland) - #259488 - deletion for multi-view nodes like association class
+ */
+ 
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«IMPORT 'http://www.eclipse.org/modeling/mdt/uml2tools/gmf/GenModel'»
+
+«EXTENSION xpt::diagram::editpolicies::Utils»
+
+«AROUND xpt::diagram::editpolicies::NodeItemSemanticEditPolicy::additions FOR gmfgen::GenNode-»
+«LET (self.viewmap.attributes)[u2tgen::SubstitutableByAttributes]->first().oclAsType(u2tgen::SubstitutableByAttributes) AS group-»
+«IF null <> group and (group.requiresAll and not group.getSubstitutableByNodes()->select(n | n <> self)->isEmpty())-»
+«EXPAND addDeleteViewCommandForGroup(group) FOR self»
+«ENDIF-»
+«ENDLET-»
+«ENDAROUND»
+
+«DEFINE addDeleteViewCommandForGroup(group : u2tgen::SubstitutableByAttributes) FOR gmfgen::GenNode-»
+	«EXPAND xpt::Common::generatedMemberComment»	
+	@Override
+	protected org.eclipse.gef.commands.Command addDeleteViewCommand(org.eclipse.gef.commands.Command mainCommand, org.eclipse.gmf.runtime.emf.type.core.requests.DestroyRequest completedRequest) {
+		org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = ((org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) getHost()).getEditingDomain();
+		org.eclipse.gmf.runtime.notation.View primaryView = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
+		org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand primaryDelete = new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(editingDomain, primaryView);
+		org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand result = new org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand(editingDomain, primaryDelete.getLabel());
+		result.add(primaryDelete);
+		
+		org.eclipse.gmf.runtime.notation.View container = (org.eclipse.gmf.runtime.notation.View)primaryView.eContainer();
+		for (Object nextChild : container.getChildren()){
+			org.eclipse.gmf.runtime.notation.View nextChildView = (org.eclipse.gmf.runtime.notation.View)nextChild;
+			if (nextChildView.getElement() != primaryView.getElement()){
+				continue;
+			}
+			switch («EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR getDiagram()»(nextChildView)){
+			«FOREACH group.getSubstitutableByNodes()->asSequence() AS nextPart-»
+			«IF nextPart <> self-»
+				«EXPAND xpt::Common::caseVisualID FOR nextPart»
+			«ENDIF-»
+			«ENDFOREACH-»
+				{
+					result.add(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(editingDomain, nextChildView));
+					break;
+				}
+				default: 
+					break;
+			}
+		}
+		org.eclipse.gef.commands.Command gefResult = getGEFWrapper(result.reduce());
+		return mainCommand == null ? gefResult : mainCommand.chain(gefResult);
+	}
+«ENDDEFINE»

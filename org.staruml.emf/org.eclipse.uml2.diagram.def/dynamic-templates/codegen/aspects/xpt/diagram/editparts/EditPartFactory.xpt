@@ -1,0 +1,163 @@
+/*
+ * Copyright (c) 2006 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Michael Golubev (Borland) - #246402 rotated labels support
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+
+«EXTENSION xpt::rotatedlabel::RotatedLabelsSupport»
+
+«AROUND EditPartFactory FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
+package «editPartsPackageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «editPartFactoryClassName» implements org.eclipse.gef.EditPartFactory {
+	«EXPAND createEditPartMethod»
+	
+	«EXPAND createUnrecognizedEditPartMethod»
+	
+	«EXPAND getTextCellEditorLocator»
+	
+	«EXPAND TextCellEditorLocator»
+	
+	«EXPAND LabelCellEditorLocator»
+	
+	«EXPAND additions »
+}
+«ENDAROUND»
+
+«DEFINE createEditPartMethod FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public org.eclipse.gef.EditPart createEditPart(org.eclipse.gef.EditPart context, Object model) {
+		if (model instanceof org.eclipse.gmf.runtime.notation.View) {
+			org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) model;
+			switch («EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»(view)) {
+				«EXPAND xpt::diagram::editparts::EditPartFactory::createEditPart FOR self-»
+				«FOREACH ((Sequence {  })[gmfgen::GenTopLevelNode]->union(topLevelNodes->asSequence()))[gmfgen::GenNode]->union(childNodes->asSequence()) AS node-»
+					«EXPAND xpt::diagram::editparts::EditPartFactory::createEditPart FOR node-»
+				 	«FOREACH node.labels->asSequence() AS label-»
+						«EXPAND xpt::diagram::editparts::EditPartFactory::createEditPart FOR label-»
+				 	«ENDFOREACH-»
+				«ENDFOREACH-»
+				«FOREACH compartments->asSequence() AS compartment-»
+					«EXPAND xpt::diagram::editparts::EditPartFactory::createEditPart FOR compartment-»
+				«ENDFOREACH-»
+				«FOREACH links->asSequence() AS link-»
+					«EXPAND xpt::diagram::editparts::EditPartFactory::createEditPart FOR link-»
+					«FOREACH link.labels->asSequence() AS label-»
+						«EXPAND xpt::diagram::editparts::EditPartFactory::createEditPart FOR label-»
+					«ENDFOREACH-»
+				«ENDFOREACH-»
+			}
+		}
+		return createUnrecognizedEditPart(context, model);
+	}
+
+«ENDDEFINE»
+
+«DEFINE createUnrecognizedEditPartMethod FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	 private org.eclipse.gef.EditPart createUnrecognizedEditPart(org.eclipse.gef.EditPart context, Object model) {
+	 	// Handle creation of unrecognized child node EditParts here
+	 	return null;
+	 }
+«ENDDEFINE»
+
+«DEFINE TextCellEditorLocator FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedClassComment»
+	static private class TextCellEditorLocator implements org.eclipse.gef.tools.CellEditorLocator {
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel wrapLabel;
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public TextCellEditorLocator(org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel wrapLabel) {
+			this.wrapLabel = wrapLabel;
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getWrapLabel() {
+			return wrapLabel;
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public void relocate(org.eclipse.jface.viewers.CellEditor celleditor) {
+			org.eclipse.swt.widgets.Text text = (org.eclipse.swt.widgets.Text) celleditor.getControl();
+			org.eclipse.draw2d.geometry.Rectangle rect = getWrapLabel().getTextBounds().getCopy();
+			getWrapLabel().translateToAbsolute(rect);
+			if (getWrapLabel().isTextWrapOn() && getWrapLabel().getText().length() > 0) {
+				rect.setSize(new org.eclipse.draw2d.geometry.Dimension(
+					text.computeSize(rect.width, org.eclipse.swt.SWT.DEFAULT)));
+			} else {
+				int avr = org.eclipse.draw2d.FigureUtilities.getFontMetrics(text.getFont()).getAverageCharWidth();
+				rect.setSize(new org.eclipse.draw2d.geometry.Dimension(
+					text.computeSize(org.eclipse.swt.SWT.DEFAULT, org.eclipse.swt.SWT.DEFAULT)).expand(avr * 2, 0));
+			}
+			if (!rect.equals(new org.eclipse.draw2d.geometry.Rectangle(text.getBounds()))) {
+				text.setBounds(rect.x, rect.y, rect.width, rect.height);
+			}
+		}
+	}
+«ENDDEFINE»
+
+«DEFINE LabelCellEditorLocator FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedClassComment»
+	private static class LabelCellEditorLocator implements org.eclipse.gef.tools.CellEditorLocator {
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		private org.eclipse.draw2d.Label label;
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public LabelCellEditorLocator(org.eclipse.draw2d.Label label) {
+			this.label = label;
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public org.eclipse.draw2d.Label getLabel() {
+			return label;
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public void relocate(org.eclipse.jface.viewers.CellEditor celleditor) {
+			org.eclipse.swt.widgets.Text text = (org.eclipse.swt.widgets.Text) celleditor.getControl();
+			org.eclipse.draw2d.geometry.Rectangle rect = getLabel().getTextBounds().getCopy();
+			getLabel().translateToAbsolute(rect);
+			int avr = org.eclipse.draw2d.FigureUtilities.getFontMetrics(text.getFont()).getAverageCharWidth();
+			rect.setSize(new org.eclipse.draw2d.geometry.Dimension(
+				text.computeSize(org.eclipse.swt.SWT.DEFAULT, org.eclipse.swt.SWT.DEFAULT)).expand(avr * 2, 0));
+			if (!rect.equals(new org.eclipse.draw2d.geometry.Rectangle(text.getBounds()))) {
+				text.setBounds(rect.x, rect.y, rect.width, rect.height);
+			}
+		}
+	}
+«ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenDiagram-»
+«ENDDEFINE»
+
+«REM»The real changes are below this line«ENDREM»
+«DEFINE getTextCellEditorLocator FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static org.eclipse.gef.tools.CellEditorLocator getTextCellEditorLocator(
+			org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart source) {
+        if (source.getFigure() instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) {
+            return new TextCellEditorLocator((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) source.getFigure());
+        } «IF supportsRotatedLabels(self)-»
+        else if (source.getFigure() instanceof org.eclipse.uml2.diagram.common.draw2d.RotatedImageOfString) {
+        	return new org.eclipse.uml2.diagram.common.draw2d.RotatedImageCellEditorLocator((org.eclipse.uml2.diagram.common.draw2d.RotatedImageOfString) source.getFigure());
+        } 
+        «ENDIF-»
+        else {
+            return new LabelCellEditorLocator((org.eclipse.draw2d.Label) source.getFigure());
+        }
+    }
+«ENDDEFINE»

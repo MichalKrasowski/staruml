@@ -1,0 +1,117 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Tatiana Fesenko (Borland) - initial API and implementation
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+«IMPORT 'http://www.eclipse.org/modeling/mdt/uml2tools/gmf/GenModel'»
+
+«EXTENSION xpt::actions::i18n»
+«EXTENSION xpt::actions::Utils»
+
+«DEFINE ChangeNotationAction(substitutableByNode : gmfgen::GenNode) FOR gmfgen::GenTopLevelNode»
+package «EXPAND packageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «EXPAND className(substitutableByNode)» extends org.eclipse.uml2.diagram.common.actions.ChangeNotationAction {
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static final String ACTION_ID = "«EXPAND actionId(substitutableByNode)»"; //$NON-NLS-1$
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private static final int NEW_VID = «substitutableByNode.getEditPartQualifiedClassName()».VISUAL_ID;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public «EXPAND className(substitutableByNode)»(org.eclipse.ui.IWorkbenchPage workbenchPage, String actionId) {
+		super(workbenchPage, actionId);
+	}
+	
+	«EXPAND xpt::Common::generatedMemberComment»
+	@Override
+	public void refresh() {
+		super.refresh();
+		setChecked(calculateChecked());
+	}
+	
+	«EXPAND xpt::Common::generatedMemberComment»
+	@Override
+	public boolean isEnabled() {
+		org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart ep = getSelectedEditPart();
+		return (ep == null) ? false : «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR getDiagram()»(ep.getNotationView()) != NEW_VID;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public boolean calculateChecked() {
+		org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart ep = getSelectedEditPart();
+		return (ep == null) ? false : «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR getDiagram()»(ep.getNotationView()) == NEW_VID;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	@Override
+	protected void updateText() {
+		setText(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForChangeNotationActionText(changeNotationActionClassName(self, substitutableByNode))) FOR getDiagram().editorGen»);
+		setText(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForChangeNotationActionToolTipText(changeNotationActionClassName(self, substitutableByNode))) FOR getDiagram().editorGen»);
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	@Override
+	protected String getSemanticHint(org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart editPart) {
+		return String.valueOf(NEW_VID);
+	}
+
+}
+«ENDDEFINE»
+«DEFINE className(node : gmfgen::GenNode) FOR gmfgen::GenTopLevelNode»«changeNotationActionClassName(self, node)»«ENDDEFINE»
+
+«DEFINE packageName FOR gmfgen::GenTopLevelNode»«self.actionsPackage()»«ENDDEFINE»
+
+«DEFINE qualifiedClassName(node : gmfgen::GenNode) FOR gmfgen::GenTopLevelNode»«EXPAND packageName».«EXPAND className(node)»«ENDDEFINE»
+
+«DEFINE actionId(substitutableByNode : gmfgen::GenNode) FOR gmfgen::GenTopLevelNode»set_«getNodeName(substitutableByNode)»_notation«ENDDEFINE»
+
+«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
+«EXPAND i18nAccessors FOREACH editorGen.diagram.topLevelNodes»
+«ENDDEFINE»
+
+«DEFINE i18nAccessors FOR gmfgen::GenTopLevelNode»
+«LET (viewmap.attributes)[u2tgen::SubstitutableByAttributes]->first() AS subChild-»
+«LET subChild.oclAsType(u2tgen::SubstitutableByAttributes) AS subChildImpl-»
+«IF subChildImpl <> null and not subChildImpl.requiresAll-»
+«FOREACH (subChildImpl.getSubstitutableByNodes())[gmfgen::GenNode]->asSequence() AS newNode»«EXPAND i18nAccessors(newNode)»«ENDFOREACH-»
+«ENDIF-»
+«ENDLET-»
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE i18nAccessors(node : gmfgen::GenNode) FOR gmfgen::GenTopLevelNode-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForChangeNotationActionText(changeNotationActionClassName(self, node)))-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForChangeNotationActionToolTipText(changeNotationActionClassName(self, node)))-»
+«ENDDEFINE»
+
+«DEFINE i18nValues FOR gmfgen::GenDiagram-»
+«EXPAND i18nValues FOREACH editorGen.diagram.topLevelNodes-»
+«ENDDEFINE»
+
+«DEFINE i18nValues FOR gmfgen::GenTopLevelNode-»
+«LET (viewmap.attributes)[u2tgen::SubstitutableByAttributes]->first() AS subChild-»
+«LET subChild.oclAsType(u2tgen::SubstitutableByAttributes) AS subChildImpl-»
+«IF subChildImpl <> null and not subChildImpl.requiresAll-»
+«FOREACH (subChildImpl.getSubstitutableByNodes())[gmfgen::GenNode]->asSequence() AS newNode»«EXPAND i18nValues(newNode)»«ENDFOREACH-»
+«ENDIF-»
+«ENDLET-»
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE i18nValues(node : gmfgen::GenNode) FOR gmfgen::GenTopLevelNode-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForChangeNotationActionText(changeNotationActionClassName(self, node)), getNodeName(node))-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForChangeNotationActionToolTipText(changeNotationActionClassName(self, node)), getNodeName(node))-»
+«ENDDEFINE»

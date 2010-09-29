@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.eclipse.org/mdt/uml2tools/sequence-diagram/notation/2008"
+            class="org.eclipse.uml2.diagram.sequence.model.sdnotation.SDNotationPackage"
+            genModel="model/sequence-diagram-notation.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.eclipse.org/mdt/uml2tools/sequence-diagram/1.0"
+            class="org.eclipse.uml2.diagram.sequence.model.sequenced.SDPackage"
+            genModel="model/sequence-diagram.genmodel"/>
+   </extension>
+
+</plugin>

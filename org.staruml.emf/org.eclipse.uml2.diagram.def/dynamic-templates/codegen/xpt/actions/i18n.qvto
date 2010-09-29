@@ -1,0 +1,17 @@
+library i18n;
+
+helper i18nKeyForChangeNotationActionToolTipText(className : String) : String {
+	return className + '_tooltiptext'
+}
+
+helper i18nKeyForChangeNotationActionText(className : String) : String {
+	return className + '_text'
+}
+
+helper i18nKeyForChangeNotationMenu(className : String) : String {
+	return className + '_menu'
+}
+
+helper i18nKeyForChangeNotationGroup(className : String) : String {
+	return className + '_group'
+}

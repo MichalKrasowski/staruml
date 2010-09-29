@@ -1,0 +1,39 @@
+/*
+ * Copyright (c) 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Tatiana Fesenko (Borland) - initial API and implementation
+ *    [213008] - Layout element content after notation change
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«EXTENSION xpt::actions::Utils»
+
+«AROUND additions FOR gmfgen::GenChildContainer-»
+«EXPAND deferredLayoutContent»
+«EXPAND aspects::xpt::diagram::updater::containerBaseCanonicalMethods::getFactoryHint»
+«ENDAROUND»
+
+«DEFINE deferredLayoutContent FOR gmfgen::GenChildContainer-»
+«ENDDEFINE»
+
+«DEFINE deferredLayoutContent FOR gmfgen::GenCompartment-»
+«IF node.hasAlternativeNotation() and not listLayout-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void refreshSemantic() {
+		java.util.List createdViews = new java.util.LinkedList();
+		createdViews.addAll(refreshSemanticChildren());		
+		if (createdViews.size() > 1) {
+			// perform a layout of the container
+			org.eclipse.gmf.runtime.diagram.ui.commands.DeferredLayoutCommand layoutCmd = new org.eclipse.gmf.runtime.diagram.ui.commands.DeferredLayoutCommand(host().getEditingDomain(), createdViews, host());
+			executeCommand(new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(layoutCmd));
+		}
+		makeViewsImmutable(createdViews);
+	}
+«ENDIF»	
+«ENDDEFINE»

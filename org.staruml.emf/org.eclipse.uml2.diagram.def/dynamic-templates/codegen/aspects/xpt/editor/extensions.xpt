@@ -1,0 +1,105 @@
+/*
+ * Copyright (c) 2007-2009 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Dmitry Stadnik (Borland) - initial API and implementation
+ *    Tatiana Fesenko (Borland) - fix for bugzilla #230873 'Make diagram file extension shorter' 
+ *	  Michael Golubev (Borland) - #271299 - support diagrams for OMG XMIs
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+
+«EXTENSION aspects::xpt::FileExtensionUtils»
+
+«AROUND extensions FOR gmfgen::GenEditorGenerator-»
+   <extension point="org.eclipse.ui.editors">
+      «EXPAND xpt::Common::xmlGeneratedTag»
+«REM» #230873 'Make diagram file extension shorter'
+Change: We iterate over diagramFileExtension _list_ here«ENDREM»«-»
+«FOREACH collectAllExtensions(self) AS dfe-»
+«REM» End of #230873«ENDREM»
+      <editor
+         id="«editor.iD»"
+         name="%editorName"
+         icon="«editor.iconPathX»"
+«REM» #230873: list item is taken here«ENDREM»«-»
+         extensions="«dfe»"
+«REM» End of #230873«ENDREM»«-»
+         default="true"
+         class="«editor.getQualifiedClassName()»"
+         matchingStrategy="«diagram.getMatchingStrategyQualifiedClassName()»"
+         contributorClass="«editor.getActionBarContributorQualifiedClassName()»">
+      </editor>
+«ENDFOREACH»
+   </extension>
+   
+   <extension point="org.eclipse.ui.contexts" id="ui-context">
+      «EXPAND xpt::Common::xmlGeneratedTag»
+      <context
+         description="%context.description"
+         id="«editor.contextID»"
+         name="%context.name"
+         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
+      </context>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards" id="creation-wizard">
+      «EXPAND xpt::Common::xmlGeneratedTag»
+  	  <wizard
+  	     name="%newWizardName"
+  	     icon="«diagram.creationWizardIconPathX»"
+  	     category="«diagram.creationWizardCategoryID»"
+  	     class="«diagram.getCreationWizardQualifiedClassName()»"
+  	     id="«diagram.getCreationWizardQualifiedClassName()»ID">
+  	  	 <description>%newWizardDesc</description>  
+      </wizard>
+   </extension>
+
+«IF diagram.generateInitDiagramAction()-»
+   <extension point="org.eclipse.ui.popupMenus" id="init-diagram-action">
+      «EXPAND xpt::Common::xmlGeneratedTag»
+      <objectContribution
+            id="«plugin.iD».InitDiagram"
+            nameFilter="*.«domainFileExtension»"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               label="%initDiagramActionLabel"
+               class="«diagram.getInitDiagramFileActionQualifiedClassName()»"
+               menubarPath="additions"
+               enablesFor="1"
+               id="«plugin.iD».InitDiagramAction">
+         </action>
+      </objectContribution>
+   </extension>
+  
+«REM» #271299 - Init diagrams for OMG XMI content typed supported by UML2«ENDREM»«-»
+	<extension point="org.eclipse.ui.popupMenus" id="init-diagram-action-xmi">
+		«EXPAND xpt::Common::xmlGeneratedTag»
+		<objectContribution
+            id="«plugin.iD».InitDiagram.xmi"
+            nameFilter="*.xmi"
+            objectClass="org.eclipse.core.resources.IFile">
+			<visibility>
+				<or>
+					<objectState name="contentTypeId" value="org.omg.uml_2_1"/>
+					<objectState name="contentTypeId" value="org.omg.uml_2_1_1"/>
+					<objectState name="contentTypeId" value="org.omg.uml_2_2"/>
+				</or>
+			</visibility>
+			<action
+				label="%initDiagramActionLabel"
+				class="«diagram.getInitDiagramFileActionQualifiedClassName()»"
+				menubarPath="additions"
+				enablesFor="1"
+				id="«plugin.iD».InitDiagramAction.xmi">
+			</action>
+		</objectContribution>
+   </extension>
+«ENDIF-»
+«ENDAROUND»
