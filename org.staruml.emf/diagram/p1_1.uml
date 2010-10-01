@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Package xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_Phvg8LctEd-yn4q7ZdtPmg" name="p1_1">
+  <elementImport xmi:id="_PidSoLctEd-yn4q7ZdtPmg">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+  </elementImport>
+  <elementImport xmi:id="_Pig9ALctEd-yn4q7ZdtPmg">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+  </elementImport>
+  <elementImport xmi:id="_PihkELctEd-yn4q7ZdtPmg">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural"/>
+  </elementImport>
+  <elementImport xmi:id="_PihkEbctEd-yn4q7ZdtPmg">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+  </elementImport>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_6dq0wLctEd-yn4q7ZdtPmg" name="사용자"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_RDbOwLcwEd-yn4q7ZdtPmg" name="대리점 목표 입력">
+    <extensionPoint xmi:id="_lISrQLcwEd-yn4q7ZdtPmg" name="상품권 담당자가 대리점의 목표를 입력한다."/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_BNYGoLcxEd-yn4q7ZdtPmg" memberEnd="_BNYtsLcxEd-yn4q7ZdtPmg _BNZ70rcxEd-yn4q7ZdtPmg" navigableOwnedEnd="_BNZ70rcxEd-yn4q7ZdtPmg">
+    <ownedEnd xmi:id="_BNYtsLcxEd-yn4q7ZdtPmg" name="src" type="_6dq0wLctEd-yn4q7ZdtPmg" association="_BNYGoLcxEd-yn4q7ZdtPmg">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_BNZ70bcxEd-yn4q7ZdtPmg" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_BNZ70LcxEd-yn4q7ZdtPmg" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_BNZ70rcxEd-yn4q7ZdtPmg" name="dst" type="_RDbOwLcwEd-yn4q7ZdtPmg" association="_BNYGoLcxEd-yn4q7ZdtPmg">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_BNZ71LcxEd-yn4q7ZdtPmg" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_BNZ707cxEd-yn4q7ZdtPmg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_QAJXYLcxEd-yn4q7ZdtPmg" name="대리점 목표 입력 시점">
+    <extensionPoint xmi:id="_S2AxQLcxEd-yn4q7ZdtPmg" name="- 월초 1회 일별 목표 입력"/>
+    <extensionPoint xmi:id="_b3HlYLcxEd-yn4q7ZdtPmg" name="- 월초에 입력이 안된 경우는 언제든 입력가능"/>
+    <extensionPoint xmi:id="_erkC8LcxEd-yn4q7ZdtPmg" name="- 목표 수정은 매월 1,3주 월요일에 가능하며, 지난 기간의 목표도 수정 가능"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_hPv28LcxEd-yn4q7ZdtPmg" memberEnd="_hPv28bcxEd-yn4q7ZdtPmg _hPweArcxEd-yn4q7ZdtPmg" navigableOwnedEnd="_hPweArcxEd-yn4q7ZdtPmg">
+    <ownedEnd xmi:id="_hPv28bcxEd-yn4q7ZdtPmg" name="src" type="_6dq0wLctEd-yn4q7ZdtPmg" association="_hPv28LcxEd-yn4q7ZdtPmg">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_hPweAbcxEd-yn4q7ZdtPmg" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_hPweALcxEd-yn4q7ZdtPmg" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_hPweArcxEd-yn4q7ZdtPmg" name="dst" type="_QAJXYLcxEd-yn4q7ZdtPmg" association="_hPv28LcxEd-yn4q7ZdtPmg">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_hPweBLcxEd-yn4q7ZdtPmg" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_hPweA7cxEd-yn4q7ZdtPmg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+</uml:Package>
