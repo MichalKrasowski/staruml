@@ -1,0 +1,7 @@
+# Tracing options for the org.eclipse.uml2.diagram.activity plug-in
+
+# Common issues
+org.eclipse.uml2.diagram.activity/debug=false
+
+# Visual IDs
+org.eclipse.uml2.diagram.activity/debug/visualID=false
