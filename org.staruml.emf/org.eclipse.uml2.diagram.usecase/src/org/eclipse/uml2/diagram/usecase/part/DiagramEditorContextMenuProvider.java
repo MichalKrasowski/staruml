@@ -53,7 +53,6 @@ public class DiagramEditorContextMenuProvider extends DiagramContextMenuProvider
 		getViewer().flush();
 		try {
 			TransactionUtil.getEditingDomain((EObject) getViewer().getContents().getModel()).runExclusive(new Runnable() {
-
 				public void run() {
 					ContributionItemService.getInstance().contributeToPopupMenu(DiagramEditorContextMenuProvider.this, part);
 					menu.remove(ActionIds.ACTION_DELETE_FROM_MODEL);
