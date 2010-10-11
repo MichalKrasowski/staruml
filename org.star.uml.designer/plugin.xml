@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="org.star.uml.designer.ui.perspective.StarUMLPerspective"
+            fixed="true"
+            icon="icons/16.gif"
+            id="org.star.uml.designer.ui.perspective.staruml"
+            name="STAR UML">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.star.uml.designer.ui.perspective.staruml">
+         <view
+               closeable="false"
+               id="org.eclipse.jdt.ui.PackageExplorer"
+               minimized="false"
+               moveable="false"
+               ratio="0.25f"
+               relationship="left"
+               relative="org.eclipse.ui.editorss"
+               showTitle="true"
+               visible="true">
+         </view>
+         <view
+               closeable="false"
+               id="org.star.uml.designer.ui.views.StarPMSModelView"
+               minimized="false"
+               moveable="false"
+               ratio="0.7f"
+               relationship="stack"
+               relative="org.eclipse.jdt.ui.PackageExplorer"
+               showTitle="true"
+               visible="true">
+         </view>
+         <view
+               closeable="false"
+               id="org.eclipse.ui.views.PropertySheet"
+               minimized="false"
+               moveable="false"
+               ratio="0.75f"
+               relationship="bottom"
+               relative="org.eclipse.ui.editorss"
+               showTitle="true"
+               visible="true">
+         </view>
+         <view
+               closeable="false"
+               id="org.star.uml.designer.ui.views.StarPMSRequestTableView"
+               minimized="false"
+               moveable="false"
+               relationship="stack"
+               relative="org.eclipse.ui.views.PropertySheet"
+               showTitle="true"
+               visible="true">
+         </view>
+         <view
+               closeable="false"
+               id="org.star.uml.designer.ui.views.StarPMSBrowersView"
+               minimized="false"
+               moveable="false"
+               relationship="stack"
+               relative="org.eclipse.ui.views.PropertySheet"
+               showTitle="true"
+               visible="true">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="org.star.uml.designer.ui.views.category.views.staruml"
+            name="StarUML View Category">
+      </category>
+      <view
+            category="org.star.uml.designer.ui.views.category.views.staruml"
+            class="org.star.uml.designer.ui.views.StarPMSModelView"
+            icon="icons/sample.gif"
+            id="org.star.uml.designer.ui.views.StarPMSModelView"
+            name="StarPMS Model"
+            restorable="true">
+      </view>
+      <view
+            category="org.star.uml.designer.ui.views.category.views.staruml"
+            class="org.star.uml.designer.ui.views.StarPMSRequestTableView"
+            icon="icons/sample.gif"
+            id="org.star.uml.designer.ui.views.StarPMSRequestTableView"
+            name="StarPMS Request Table"
+            restorable="true">
+      </view>
+      <view
+            category="org.star.uml.designer.ui.views.category.views.staruml"
+            class="org.star.uml.designer.ui.views.StarPMSBrowersView"
+            icon="icons/sample.gif"
+            id="org.star.uml.designer.ui.views.StarPMSBrowersView"
+            name="StarPMS Browser"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="org.star.uml.designer.ui.newWiazrds.category.views.staruml"
+            name="StarUML NewWizard Category">
+      </category>
+      <wizard
+            class="org.star.uml.designer.ui.newWiazrds.ClassSorceCodeGeneration"
+            finalPerspective="org.star.uml.designer.ui.perspective.staruml"
+            icon="icons/16.gif"
+            id="org.star.uml.designer.ui.newWiazrds.classSorceCodeGeneration"
+            name="ClassDiagram Source Code Generation Wizard"
+            project="true">
+      </wizard>
+   </extension>
+
+</plugin>
