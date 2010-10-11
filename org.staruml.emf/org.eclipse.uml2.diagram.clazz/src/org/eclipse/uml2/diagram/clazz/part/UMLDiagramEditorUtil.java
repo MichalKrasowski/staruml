@@ -221,7 +221,6 @@ public class UMLDiagramEditorUtil {
 				try {
 					resource.load(null);
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				Package model = (Package) EcoreUtil.getObjectByType(resource.getContents(), UMLPackage.Literals.PACKAGE);
