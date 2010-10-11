@@ -285,7 +285,6 @@ public class UMLDiagramEditor extends DiagramDocumentEditor implements IGotoMark
 	 */
 	protected void configureGraphicalViewer() {
 		super.configureGraphicalViewer();
-		System.out.println("configureGraphicalViewer");
 		DiagramEditorContextMenuProvider provider = new DiagramEditorContextMenuProvider(this, getDiagramGraphicalViewer());
 		getDiagramGraphicalViewer().setContextMenu(provider);
 		getSite().registerContextMenu(ActionIds.DIAGRAM_EDITOR_CONTEXT_MENU, provider, getDiagramGraphicalViewer());

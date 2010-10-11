@@ -67,7 +67,7 @@ public class UMLEditPartProvider extends AbstractEditPartProvider {
 	public final boolean isAllowCaching() {
 		return allowCaching;
 	}
-
+    
 	/**
 	 * @generated
 	 */

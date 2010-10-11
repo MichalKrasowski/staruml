@@ -52,14 +52,19 @@ import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.util.Diagram
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory;
 import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.runtime.notation.impl.DiagramImpl;
 import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.uml2.diagram.common.pathmap.XMI2UMLSupport;
+import org.eclipse.uml2.uml.Property;
+import org.eclipse.uml2.uml.internal.impl.ClassImpl;
 import org.eclipse.uml2.uml.internal.impl.PackageImpl;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * @generated
@@ -75,14 +80,17 @@ public class UMLDocumentProvider extends AbstractDocumentProvider implements IDi
 					"org.eclipse.ui.part.FileEditorInput", "org.eclipse.emf.common.ui.URIEditorInput" }), //$NON-NLS-1$ //$NON-NLS-2$ 
 					null));
 		}
-		System.out.println("createElementInfo : ");
+//		IFile tempFile = ResourcesPlugin.getWorkspace().getRoot().getProject("Root").getFile("default.umlclass");
+//		FileEditorInput tempInput = new FileEditorInput(tempFile);
+		
 		IEditorInput editorInput = (IEditorInput) element;
-		IDiagramDocument document = (IDiagramDocument) createDocument(editorInput);
-		
+		IDiagramDocument document = (IDiagramDocument)createDocument(editorInput);
 		ResourceSetInfo info = new ResourceSetInfo(document, editorInput);
-		
 		info.setModificationStamp(computeModificationStamp(info));
 		info.fStatus = null;
+		
+		IStorage storage = ((FileEditorInput) editorInput).getStorage();
+		Diagram diagram = DiagramIOUtil.load(document.getEditingDomain(), storage, true, getProgressMonitor());
 		return info;
 	}
 
@@ -191,23 +199,6 @@ public class UMLDocumentProvider extends AbstractDocumentProvider implements IDi
 		if (element instanceof FileEditorInput) {
 			IStorage storage = ((FileEditorInput) element).getStorage();
 			Diagram diagram = DiagramIOUtil.load(domain, storage, true, getProgressMonitor());
-			// Enkisoft : Drawn by comparing the model and view. Make sure the elements in the view
-//			System.out.println("storage.getFullPath() : "+storage.getFullPath());
-//			IFile file = ResourcesPlugin.getWorkspace().getRoot().getProject("Root").getFile("default.umlclass");
-//			try {
-//				DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-//				DocumentBuilder builder = factory.newDocumentBuilder();
-//				Document dom = builder.parse(file.getContents());
-//				System.out.println("dom : "+dom);
-//			} catch (Exception e) {
-//		      e.printStackTrace();
-//			}
-//			System.out.println("file.exists : "+file.getContents());
-//			PackageImpl imple = (PackageImpl) diagram.getElement();
-//			for(int i=0; i<imple.getMembers().size(); i++){
-//				System.out.println(imple.getMembers().get(i));
-//			}
-			
 			document.setContent(diagram);
 		} else if (element instanceof URIEditorInput) {
 			URI uri = ((URIEditorInput) element).getURI();

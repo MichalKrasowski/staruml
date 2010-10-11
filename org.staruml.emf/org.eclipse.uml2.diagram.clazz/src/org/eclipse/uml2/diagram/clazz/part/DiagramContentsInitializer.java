@@ -138,7 +138,6 @@ public class DiagramContentsInitializer {
 	 * @generated
 	 */
 	private void createPackage_2002Children(View viewObject, EObject modelObject) {
-
 		Node nextCompartment = getCompartment(viewObject, UMLVisualIDRegistry.getType(PackagePackagesEditPart.VISUAL_ID));
 		if (nextCompartment != null) {
 			createPackagePackages_7010Children(nextCompartment, modelObject);

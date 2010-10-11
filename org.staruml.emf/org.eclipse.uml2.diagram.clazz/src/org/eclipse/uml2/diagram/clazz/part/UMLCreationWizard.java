@@ -137,19 +137,15 @@ public class UMLCreationWizard extends Wizard implements INewWizard {
 	 */
 	public boolean performFinish() {
 		//Enkisoft : use one resource
-//		System.out.println("diagramModelFilePage.getURI() : "+diagramModelFilePage.getURI());
-//		System.out.println("domainModelFilePage.getURI() : "+domainModelFilePage.getURI());
-//		System.out.println("initialObjectCreationPage.getInitialObject() : "+initialObjectCreationPage.getInitialObject());
-//		System.out.println("initialObjectCreationPage.getEncoding() : "+initialObjectCreationPage.getEncoding());
 //		final URI uri = URI.createDeviceURI("platform:/resource/Root2/default.umlclass");
-//		final URI uri2 = URI.createDeviceURI("platform:/resource/Root/default.uml");
+		final URI uri2 = URI.createDeviceURI("platform:/resource/Root/default.uml");
 		
 		IRunnableWithProgress op = new WorkspaceModifyOperation(null) {
 			protected void execute(IProgressMonitor monitor) throws CoreException, InterruptedException {
-//				diagram = UMLDiagramEditorUtil.createDiagram(diagramModelFilePage.getURI(), uri2, initialObjectCreationPage.getInitialObject(), initialObjectCreationPage
-//						.getEncoding(), monitor);
-				diagram = UMLDiagramEditorUtil.createDiagram(diagramModelFilePage.getURI(), domainModelFilePage.getURI(), initialObjectCreationPage.getInitialObject(), initialObjectCreationPage
+				diagram = UMLDiagramEditorUtil.createDiagram(diagramModelFilePage.getURI(), uri2, initialObjectCreationPage.getInitialObject(), initialObjectCreationPage
 						.getEncoding(), monitor);
+//				diagram = UMLDiagramEditorUtil.createDiagram(diagramModelFilePage.getURI(), domainModelFilePage.getURI(), initialObjectCreationPage.getInitialObject(), initialObjectCreationPage
+//						.getEncoding(), monitor);
 				if (isOpenNewlyCreatedDiagramEditor() && diagram != null) {
 					try {
 						UMLDiagramEditorUtil.openDiagram(diagram);

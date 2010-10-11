@@ -101,6 +101,7 @@ public class UMLViewProvider extends AbstractProvider implements IViewProvider {
 		if (op.getContainerView() == null) {
 			return false;
 		}
+		
 		IElementType elementType = getSemanticElementType(op.getSemanticAdapter());
 		EObject domainElement = getSemanticElement(op.getSemanticAdapter());
 		int visualID;
@@ -218,11 +219,15 @@ public class UMLViewProvider extends AbstractProvider implements IViewProvider {
 					}
 					break;
 				}
+				case Class4EditPart.VISUAL_ID:
+				case ClassEditPart.VISUAL_ID:
+				case Class2EditPart.VISUAL_ID:
+				case Class3EditPart.VISUAL_ID:
+				case Class5EditPart.VISUAL_ID:
 				case ConstraintEditPart.VISUAL_ID:
 				case DependencyEditPart.VISUAL_ID:
 				case GeneralizationSetEditPart.VISUAL_ID:
 				case CommentEditPart.VISUAL_ID:
-				case ClassEditPart.VISUAL_ID:
 				case DataTypeEditPart.VISUAL_ID:
 				case PrimitiveTypeEditPart.VISUAL_ID:
 				case EnumerationEditPart.VISUAL_ID:
@@ -239,13 +244,11 @@ public class UMLViewProvider extends AbstractProvider implements IViewProvider {
 				case LiteralStringEditPart.VISUAL_ID:
 				case LiteralIntegerEditPart.VISUAL_ID:
 				case ExpressionEditPart.VISUAL_ID:
-				case Class2EditPart.VISUAL_ID:
 				case DataType2EditPart.VISUAL_ID:
 				case PrimitiveType2EditPart.VISUAL_ID:
 				case Enumeration2EditPart.VISUAL_ID:
 				case Package4EditPart.VISUAL_ID:
 				case Package3EditPart.VISUAL_ID:
-				case Class3EditPart.VISUAL_ID:
 				case Property2EditPart.VISUAL_ID:
 				case Operation2EditPart.VISUAL_ID:
 				case Property3EditPart.VISUAL_ID:
@@ -256,9 +259,7 @@ public class UMLViewProvider extends AbstractProvider implements IViewProvider {
 				case Operation5EditPart.VISUAL_ID:
 				case Property6EditPart.VISUAL_ID:
 				case Operation6EditPart.VISUAL_ID:
-				case Class4EditPart.VISUAL_ID:
 				case Package6EditPart.VISUAL_ID:
-				case Class5EditPart.VISUAL_ID:
 				case Enumeration3EditPart.VISUAL_ID:
 				case InstanceSpecification3EditPart.VISUAL_ID:
 				case DataType3EditPart.VISUAL_ID:
@@ -330,7 +331,6 @@ public class UMLViewProvider extends AbstractProvider implements IViewProvider {
 	 * @generated NOT
 	 */
 	public Diagram createDiagram(IAdaptable semanticAdapter, String diagramKind, PreferencesHint preferencesHint) {
-		System.out.println("createDiagram");
 		Diagram diagram = createDiagramGen(semanticAdapter, diagramKind, preferencesHint);
 		diagram.getStyles().add(NotationFactory.eINSTANCE.createFilteringStyle()); //[171240]
 		return diagram;
@@ -340,7 +340,6 @@ public class UMLViewProvider extends AbstractProvider implements IViewProvider {
 	 * @generated
 	 */
 	public Node createNode(IAdaptable semanticAdapter, View containerView, String semanticHint, int index, boolean persisted, PreferencesHint preferencesHint) {
-		System.out.println("createNode");
 		final EObject domainElement = getSemanticElement(semanticAdapter);
 		final int visualID;
 		if (semanticHint == null) {
@@ -563,13 +562,16 @@ public class UMLViewProvider extends AbstractProvider implements IViewProvider {
 	 * @generated
 	 */
 	public Node createClass_2001(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
-		
 		Shape node = NotationFactory.eINSTANCE.createShape();
 		CanonicalStyle canonicalStyle_Class_2001 = NotationFactory.eINSTANCE.createCanonicalStyle();
 		canonicalStyle_Class_2001.setCanonical(true);
 		node.getStyles().add(canonicalStyle_Class_2001);
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
 		node.setType(UMLVisualIDRegistry.getType(Class2EditPart.VISUAL_ID));
+		
+		// Enkisoft 뷰에 없으면 그리지 않는다.
+		if(!persisted) node.setVisible(false);
+		
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
 		stampShortcut(containerView, node);
