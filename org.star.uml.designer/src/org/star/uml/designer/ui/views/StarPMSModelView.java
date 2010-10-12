@@ -36,6 +36,7 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IAdaptable;
 import org.osgi.framework.Bundle;
+import org.star.uml.designer.base.utils.CommonUtil;
 import org.star.uml.designer.base.utils.EclipseUtile;
 import org.star.uml.designer.base.utils.XmlUtil;
 import org.star.uml.designer.ui.model.initialization.DefaultModel;
@@ -190,8 +191,6 @@ public class StarPMSModelView extends ViewPart {
 					TreeObject treeObject = (TreeObject)selection.getFirstElement();
 					String nodeText = selection.toString();
 					String nodePath = (String)treeObject.getData("path");
-//					System.out.println("nodeText : "+ nodeText);
-//					System.out.println("nodePath : "+ nodePath);
 					if(nodeText.equals("[192.168.10.102:1521/StarPMS]")){
 						StarPMSModelView.this.fillLoginContextMenu(manager);
 					}else if(nodeText != null && nodeText.equals("[Userecase Diagram]")){
@@ -270,7 +269,7 @@ public class StarPMSModelView extends ViewPart {
 		// Other plug-ins can contribute there actions here
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 	}
-	//김성식
+	
 	private void hookDoubleClickAction() {
 		viewer.addDoubleClickListener(new IDoubleClickListener() {
 			public void doubleClick(DoubleClickEvent event) {
@@ -308,7 +307,7 @@ public class StarPMSModelView extends ViewPart {
 				NamedNodeMap attrMap = node.getAttributes();
 				if(attrMap.getNamedItem("xmi:id") != null && attrMap.getNamedItem("xmi:id").getNodeValue().equals(key)){
 					Element newNode = modelDoc.createElement(eName);
-					newNode.setAttribute("xmi:id", "_" + EclipseUtile.randomKey() + "-GMK-em0Iv_Q");
+					newNode.setAttribute("xmi:id", "_" + CommonUtil.randomKey() + "-GMK-em0Iv_Q");
 					newNode.setAttribute("star:category", "diagram");
 					newNode.setAttribute("path", "diagram");
 					newNode.setAttribute("xmi:type", "uml:Package");
@@ -354,7 +353,6 @@ public class StarPMSModelView extends ViewPart {
 			Node subPkg = pkgeElement.getChildNodes().item(i);
 			if(subPkg.getNodeName().equals("packagedElement")){
 				String attrName = subPkg.getAttributes().getNamedItem("name").getNodeValue();
-				System.out.println("attrName === " + attrName);
 				TreeParent project = new TreeParent(attrName);
 				if(subPkg.getAttributes().getNamedItem("xmi:id") != null){
 					project.setData("key", subPkg.getAttributes().getNamedItem("xmi:id").getNodeValue());
@@ -370,35 +368,11 @@ public class StarPMSModelView extends ViewPart {
 					parent.addChild(project);
 				}
 				
-				System.out.println("getLength ==== " + subPkg.getChildNodes().getLength());
 				if(subPkg.getChildNodes().getLength()>= 1){
 					setTreeFormXML(subPkg,project);
 				}
 			}
 		}
-//		TreeParent project = new TreeParent("회의실 예약 관리 시스템");
-//		root.addChild(project);
-//
-//		TreeParent diagram_2 = new TreeParent("<<analysisModel>>Analysis Model");
-//		project.addChild(diagram_2);
-//		TreeParent diagram_2_1 = new TreeParent("Usecase Diagram");
-//		diagram_2.addChild(diagram_2_1);
-//		diagram_2_1.setData("path", "Analysis/Usecase");
-//		TreeParent diagram_2_2 = new TreeParent("Sequence Diagram");
-//		diagram_2.addChild(diagram_2_2);
-//		diagram_2_2.setData("path", "Analysis/Sequence");
-//		
-//		TreeParent diagram_3 = new TreeParent("<<designModel>>Design Model");
-//		project.addChild(diagram_3);
-//		
-//		TreeParent diagram_4 = new TreeParent("<<implementationModel>>Implementation Model");
-//		TreeParent diagram_4_1 = new TreeParent("Class Diagram");
-//		diagram_4.addChild(diagram_4_1);
-//		diagram_4_1.setData("path", "Implementation/Class");
-//		project.addChild(diagram_4);
-//		
-//		TreeParent diagram_5 = new TreeParent("<<deploymentModel>>Deployment Model");
-//		project.addChild(diagram_5);
 	}
 	
 	class ViewContentProvider implements IStructuredContentProvider,

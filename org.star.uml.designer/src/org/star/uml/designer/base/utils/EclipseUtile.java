@@ -1,7 +1,11 @@
 package org.star.uml.designer.base.utils;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Properties;
 
 import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMSource;
@@ -21,6 +25,8 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.image.ImageFileFormat;
@@ -39,10 +45,12 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor;
+import org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditorUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Document;
 
@@ -76,6 +84,8 @@ public class EclipseUtile {
 					String projectPath = projectHandle.getLocation().toOSString();
 					XmlUtil.writeXmlFile(modelDoc, projectPath+File.separator+"model.xml");
 					XmlUtil.writeXmlFile(umlDoc, projectPath+File.separator+"default.uml");
+					IFile file = projectHandle.getFile("custom-messages.properties");
+					file.create(new ByteArrayInputStream("".getBytes()), true, monitor);
 					projectHandle.refreshLocal(IProject.DEPTH_INFINITE, monitor);
 				} catch (CoreException e) {
 					e.printStackTrace();
@@ -88,28 +98,49 @@ public class EclipseUtile {
 			}
 		};
 	}
-	
-	public static String randomKey(){
-		String key = "";
-		try{
-			String message[]= new String[]{"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p",
-										   "q","r","s","t","u","v","w","x","y","z","a","b","c","d","e","f",
-										   "g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v",
-										   "w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L",
-										   "M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","A","B",
-										   "C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R",
-										   "S","T","U","V","W","X","Y","Z","1","2","3","4","5","6","7","8",
-										   "9","0"};
-			int num = 0;
-			for(int i = 0; i < 10; i++){
-				num = (int)(Math.random() * 113) + 1;
-				key = key + message[num];
-			}
-			System.out.println(key);
-		}catch(Exception e){
+
+	public static IProject createDiagram(String projectName,String fileExtension) {
+		final MultiStatus status = new MultiStatus(DiagramUIRenderPlugin
+				.getPluginId(), DiagramUIRenderStatusCodes.OK,
+				DiagramUIRenderMessages.CopyToImageAction_Label, null);
+		final IProject projectHandle =  ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
+    	IRunnableWithProgress runnable = createDiagramRunable(status,projectHandle,fileExtension);
+    	try {
+    		ProgressMonitorDialog progressMonitorDialog = new ProgressMonitorDialog(
+    				Display.getCurrent().getActiveShell());
+    		progressMonitorDialog.run(false, true, runnable);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return key;
+		return projectHandle;
+	}
+	
+	private static IRunnableWithProgress createDiagramRunable(final MultiStatus status,final IProject projectHandle,final String fileExtension) {
+		return new IRunnableWithProgress() {
+			public void run(IProgressMonitor monitor) {
+				String fileName = "default"+getDefaultUMLIdx()+"."+fileExtension;
+				URI diagramURI = URI.createDeviceURI("platform:/resource/Root/"+fileName);
+				URI modelURI = URI.createDeviceURI("platform:/resource/Root/default.uml");
+				Resource diagram = org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditorUtil.createDiagram(diagramURI, modelURI, null, "UTF-8", monitor);
+				try {
+					UMLDiagramEditorUtil.openDiagram(diagram);
+				} catch (PartInitException e) {
+					e.printStackTrace();
+				}
+				String projectPath = projectHandle.getLocation().toOSString();
+				java.io.File proFile = new java.io.File(projectPath+"/custom-messages.properties");
+				Properties props = new Properties();
+				try {
+					props.load(new FileInputStream(proFile));
+					props.put("diagramName", fileName);
+					props.store(new FileOutputStream(proFile), "");
+					projectHandle.refreshLocal(IProject.DEPTH_ONE, monitor);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		
 	}
 	
 	public static void openDiagram(String path){
@@ -122,5 +153,23 @@ public class EclipseUtile {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+
+	public static String getDefaultUMLIdx(){
+		IProject projectHandle =  ResourcesPlugin.getWorkspace().getRoot().getProject("Root");
+		String projectPath = projectHandle.getLocation().toOSString();
+		java.io.File folder = new java.io.File(projectPath);
+		int defaultIdx = 1;
+		for(int i=0; i<folder.list().length; i++){
+			String fullFileName = folder.list()[i];
+			int endIdx = fullFileName.indexOf(".");
+			if(fullFileName.contains("default") && endIdx > 7){
+				int startIdx = 7;
+				String idx = fullFileName.substring(startIdx,endIdx);
+				Integer intIdx = new Integer(idx);
+				defaultIdx = intIdx.intValue()+1;
+			}
+		}
+		return String.valueOf(defaultIdx);
 	}
 }

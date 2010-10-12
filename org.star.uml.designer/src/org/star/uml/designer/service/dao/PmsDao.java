@@ -156,7 +156,6 @@ public class PmsDao {
 			pstmt.setString(2, inputData.get("REQ_USECASE_SEQ").toString());
 			
 			int resultint = pstmt.executeUpdate();
-			System.out.println("resultint : "+resultint);
 			con.commit();
 		} catch (Exception e) {
 			con.rollback();

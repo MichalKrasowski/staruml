@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
@@ -16,6 +18,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.image.ImageFileFormat;
@@ -59,6 +62,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
 import org.star.uml.designer.Activator;
+import org.star.uml.designer.base.utils.EclipseUtile;
 import org.star.uml.designer.service.dao.PmsDao;
 import org.star.uml.designer.ui.newWiazrds.ClassSorceCodeGeneration;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeObject;
@@ -69,6 +73,7 @@ public class StarPMSModelViewUtil {
 	public static Action makeLoginAction(final IMenuManager manager){
 		Action loginAction = new Action() {
 			public void run() {
+				
 				final Shell shell = new Shell(SWT.TITLE | SWT.BORDER | SWT.APPLICATION_MODAL);
 				shell.setText("StarPMS Login");
 				GridData gridData = new GridData();
@@ -104,7 +109,6 @@ public class StarPMSModelViewUtil {
 				          for(int i = 0; i < item.length; i++){
 				        	  if(item[i] instanceof ActionContributionItem){
 				        		  ActionContributionItem a = (ActionContributionItem)item[i];
-				        		  System.out.println("id ==== " + a.getId());
 				        		  if(a.getId() != null && a.getId().equals("login")){
 				        			  IAction s = a.getAction();
 				        			  s.setEnabled(false);
@@ -196,7 +200,6 @@ public class StarPMSModelViewUtil {
 			          for(int i = 0; i < item.length; i++){
 			        	  if(item[i] instanceof ActionContributionItem){
 			        		  ActionContributionItem a = (ActionContributionItem)item[i];
-			        		  System.out.println("id ==== " + a.getId());
 			        		  if(a.getId() != null && a.getId().equals("login")){
 			        			  IAction s = a.getAction();
 			        			  s.setEnabled(true);
@@ -233,44 +236,65 @@ public class StarPMSModelViewUtil {
 	public static Action makeAnalysisUsecaseAction(final Composite parent,final ISelection selection,final StarPMSModelView starPMSView){
 		Action analysisAction = new Action() {
 			public void run() {
-				org.eclipse.uml2.diagram.usecase.part.UMLCreationWizard wiazrd = new org.eclipse.uml2.diagram.usecase.part.UMLCreationWizard();
-				wiazrd.init(PlatformUI.getWorkbench(), (IStructuredSelection) selection);
-				WizardDialog dlg = new WizardDialog(parent.getShell(),wiazrd);
-				int resultInt = dlg.open();
-				if(resultInt == 0){
-					TreeSelection treeSelection = (TreeSelection)selection;
-					TreeParent parent = (TreeParent)treeSelection.getFirstElement();
-					
-					Bundle bundle = Platform.getBundle("org.star.uml.designer");
-					FileInputStream in = null;
-					String fileName = "";
-					try {
-						URL fileURL = bundle.getEntry("properties/temp.properties"); 
-						File file = new File(FileLocator.resolve(fileURL).toURI());  
-						in = new FileInputStream(file);
-						Properties props = new Properties();
-						props.load(in);
-						fileName = props.getProperty("diagramName");
-						fileName = fileName.substring(0, fileName.lastIndexOf("."));
-					} catch (Exception e) {
-						e.printStackTrace();
-					}finally{
-						try {
-							in.close();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-					}
-					String parentPath = (String)parent.getData("path");
-					HashMap map = new HashMap();
-					map.put("path",parent.toString()+"/diagram");
-					System.out.println("id ====== " + parent.getData("key"));
-					System.out.println("toString ====== " + parent.toString());
-					IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
-					StarPMSModelView modelView = (StarPMSModelView)view_part;
-					modelView.addChildXml("packagedElement",parent.getData("key").toString(),fileName);
-					parent.appendChield(parent, fileName, map);
+				EclipseUtile.createDiagram("Root","umlusc");
+				IProject projectHandle =  ResourcesPlugin.getWorkspace().getRoot().getProject("Root");
+				IFile file = projectHandle.getFile("custom-messages.properties");
+				Properties props = new Properties();
+				try {
+					projectHandle.refreshLocal(IProject.DEPTH_INFINITE, null);
+					props.load(file.getContents());
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
+				String fullFileName = props.getProperty("diagramName");
+				String fileName = fullFileName.substring(0, fullFileName.lastIndexOf("."));
+				
+				TreeSelection treeSelection = (TreeSelection)selection;
+				TreeParent parent = (TreeParent)treeSelection.getFirstElement();
+				String parentPath = (String)parent.getData("path");
+				HashMap map = new HashMap();
+				map.put("path",parent.toString()+"/diagram");
+				IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
+				StarPMSModelView modelView = (StarPMSModelView)view_part;
+				modelView.addChildXml("packagedElement",parent.getData("key").toString(),fileName);
+				parent.appendChield(parent, fileName, map);
+				
+//				org.eclipse.uml2.diagram.usecase.part.UMLCreationWizard wiazrd = new org.eclipse.uml2.diagram.usecase.part.UMLCreationWizard();
+//				wiazrd.init(PlatformUI.getWorkbench(), (IStructuredSelection) selection);
+//				WizardDialog dlg = new WizardDialog(parent.getShell(),wiazrd);
+//				int resultInt = dlg.open();
+//				if(resultInt == 0){
+//					TreeSelection treeSelection = (TreeSelection)selection;
+//					TreeParent parent = (TreeParent)treeSelection.getFirstElement();
+//					
+//					Bundle bundle = Platform.getBundle("org.star.uml.designer");
+//					FileInputStream in = null;
+//					String fileName = "";
+//					try {
+//						URL fileURL = bundle.getEntry("properties/temp.properties"); 
+//						File file = new File(FileLocator.resolve(fileURL).toURI());  
+//						in = new FileInputStream(file);
+//						Properties props = new Properties();
+//						props.load(in);
+//						fileName = props.getProperty("diagramName");
+//						fileName = fileName.substring(0, fileName.lastIndexOf("."));
+//					} catch (Exception e) {
+//						e.printStackTrace();
+//					}finally{
+//						try {
+//							in.close();
+//						} catch (IOException e) {
+//							e.printStackTrace();
+//						}
+//					}
+//					String parentPath = (String)parent.getData("path");
+//					HashMap map = new HashMap();
+//					map.put("path",parent.toString()+"/diagram");
+//					IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
+//					StarPMSModelView modelView = (StarPMSModelView)view_part;
+//					modelView.addChildXml("packagedElement",parent.getData("key").toString(),fileName);
+//					parent.appendChield(parent, fileName, map);
+//				}
 			}
 		};
 		analysisAction.setText("Create Usecase Diagram");
