@@ -125,11 +125,11 @@ public class EclipseUtile {
 		return new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) {
 				Resource diagram = StarUMLDiagramCreationFactory.getResource(actionID, diagramURI, modelURI, monitor);
-				try {
-					UMLDiagramEditorUtil.openDiagram(diagram);
-				} catch (PartInitException e) {
-					e.printStackTrace();
-				}
+//				try {
+//					UMLDiagramEditorUtil.openDiagram(diagram);
+//				} catch (PartInitException e) {
+//					e.printStackTrace();
+//				}
 			}
 		};
 		

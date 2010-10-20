@@ -116,7 +116,7 @@ public class StarPMSModelView extends ViewPart {
 
 	public static final String ID = "org.star.uml.designer.ui.views.StarPMSModelView";
 
-	private TreeViewer viewer;
+	public TreeViewer viewer;
 	private DrillDownAdapter drillDownAdapter;
 	private Action doubleClickAction;
 	private TreeParent root;
@@ -366,6 +366,7 @@ public class StarPMSModelView extends ViewPart {
 		try{
 			String projectPath = rootProject.getLocation().toOSString();
 			String domStr = XmlUtil.getXmlFileToString(projectPath+File.separator+"model.xml");
+			System.out.println("domStr : "+domStr);
 			modelDoc = XmlUtil.getStringToDocument(domStr);
 			NodeList n = modelDoc.getDocumentElement().getElementsByTagName("packagedElement");
 			for(int i = 0; i < n.getLength(); i++){
