@@ -119,20 +119,74 @@
    <extension
          point="org.eclipse.ui.popupMenus">
       <viewerContribution
-            id="org.star.uml.designer.popup.modelview.contribution"
-            targetID="org.star.uml.designer.ui.views.StarPMSModelView1">
+            id="org.star.uml.designer.popup.modelview.loginContribution"
+            targetID="org.star.uml.designer.ui.views.StarPMSModelView">
          <action
-               class="org.star.uml.designer.Action4"
-               icon="icons/16.gif"
-               id="org.star.uml.designer.action4"
-               label="Login Repository"
-               menubarPath="test"
-               state="true">
+               class="org.star.uml.designer.ui.action.LoginAction"
+               icon="icons/login.gif"
+               id="org.star.uml.designer.Login"
+               label="Login"
+               menubarPath="additions">
+         </action>
+         <action
+               class="org.star.uml.designer.ui.action.LogoutAction"
+               icon="icons/logout.gif"
+               id="org.star.uml.designer.Logout"
+               label="Logout"
+               menubarPath="additions">
          </action>
          <menu
-               id="org.star.uml.designer.menu4"
-               label="label">
+               id="org.star.uml.designer.Model"
+               label="Add Model"
+               path="additions">
+            <separator
+                  name="modelGroup">
+            </separator>
          </menu>
+         <action
+               class="org.star.uml.designer.ui.action.UserCaseModelCreateAction"
+               id="org.star.uml.designer.UserCaseModel"
+               label="user Case"
+               menubarPath="org.star.uml.designer.Model/modelGroup">
+         </action>
+         <action
+               class="org.star.uml.designer.ui.action.SequenceModelCreateAction"
+               id="org.star.uml.designer.sequenceModel"
+               label="sequence"
+               menubarPath="org.star.uml.designer.Model/modelGroup">
+         </action>
+         <menu
+               id="org.star.uml.designer.Diagram"
+               label="Add Diagram"
+               path="additions">
+            <separator
+                  name="diagramGroup">
+            </separator>
+         </menu>
+         <action
+               class="org.star.uml.designer.ui.action.UsercaseDiagramCreateAction"
+               id="org.star.uml.designer.UserCaseDiagram"
+               label="user Case Diagram"
+               menubarPath="org.star.uml.designer.Diagram/diagramGroup">
+         </action>
+         <action
+               class="org.star.uml.designer.ui.action.SequenceDiagramCreateAction"
+               id="org.star.uml.designer.SequenceDiagram"
+               label="sequence Diagram"
+               menubarPath="org.star.uml.designer.Diagram/diagramGroup">
+         </action>
+         <action
+               class="org.star.uml.designer.ui.action.ClassDiagramCreateAction"
+               id="org.star.uml.designer.ClassDiagram"
+               label="class Diagram"
+               menubarPath="org.star.uml.designer.Diagram/diagramGroup">
+         </action>
+         <action
+               class="org.star.uml.designer.ui.action.ObjectDeleteAction"
+               id="org.star.uml.designer.ObjectDelete"
+               label="Delete"
+               menubarPath="additions">
+         </action>
       </viewerContribution>
    </extension>
 
