@@ -119,22 +119,19 @@
    <extension
          point="org.eclipse.ui.popupMenus">
       <viewerContribution
-            id="org.star.uml.designer.popup.modelview.loginContribution"
+            id="org.star.uml.designer.popup.modelview.contribution"
             targetID="org.star.uml.designer.ui.views.StarPMSModelView">
          <action
                class="org.star.uml.designer.Action4"
                icon="icons/16.gif"
                id="org.star.uml.designer.action4"
-               label="Login"
+               label="Login Repository"
                menubarPath="test"
                state="true">
          </action>
          <menu
-               id="org.star.uml.designer.menu2"
+               id="org.star.uml.designer.menu4"
                label="label">
-            <separator
-                  name="org.star.uml.designer.separator1">
-            </separator>
          </menu>
       </viewerContribution>
    </extension>

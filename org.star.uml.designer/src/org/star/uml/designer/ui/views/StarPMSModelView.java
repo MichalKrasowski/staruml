@@ -244,24 +244,24 @@ public class StarPMSModelView extends ViewPart {
 			public void menuAboutToShow(IMenuManager manager) {
 				TreeSelection selection = (TreeSelection)viewer.getSelection();
 				if(!selection.isEmpty()){
-//					TreeObject treeObject = (TreeObject)selection.getFirstElement();
-//					String nodeText = selection.toString();
-//					String nodePath = (String)treeObject.getData("path");
-//					if(nodeText.equals("[192.168.10.102:1521/StarPMS]")){
-//						StarPMSModelView.this.fillLoginContextMenu(manager);
-//					}else if(nodeText != null && nodeText.equals("[Userecase Diagram]")){
-//						StarPMSModelView.this.fillAnalysisUseCaseContextMenu(manager,parent,selection);
-//					}else{
-//						StarPMSModelView.this.removeContextMenu(manager,parent,selection);
-//					}
-//					
-//					if(nodePath != null && nodePath.equals("Class Diagram/diagram")){
-//						StarPMSModelView.this.fillImplementationClassDiagramContextMenu(manager,parent,selection);
-//					}else if(nodePath != null && nodePath.equals("Userecase Diagram/diagram")){
-//						StarPMSModelView.this.fillAnalysisUseCaseDiagramContextMenu(manager,parent,selection);
-//					}else if(nodePath != null && nodePath.equals("Sequence Diagram/diagram")){
-//						StarPMSModelView.this.fillSequenceDiagramContextMenu(manager,parent,selection);
-//					}
+					TreeObject treeObject = (TreeObject)selection.getFirstElement();
+					String nodeText = selection.toString();
+					String nodePath = (String)treeObject.getData("path");
+					if(nodeText.equals("[192.168.10.102:1521/StarPMS]")){
+						StarPMSModelView.this.fillLoginContextMenu(manager);
+					}else if(nodeText != null && nodeText.equals("[Userecase Diagram]")){
+						StarPMSModelView.this.fillAnalysisUseCaseContextMenu(manager,parent,selection);
+					}else{
+						StarPMSModelView.this.removeContextMenu(manager,parent,selection);
+					}
+					
+					if(nodePath != null && nodePath.equals("Class Diagram/diagram")){
+						StarPMSModelView.this.fillImplementationClassDiagramContextMenu(manager,parent,selection);
+					}else if(nodePath != null && nodePath.equals("Userecase Diagram/diagram")){
+						StarPMSModelView.this.fillAnalysisUseCaseDiagramContextMenu(manager,parent,selection);
+					}else if(nodePath != null && nodePath.equals("Sequence Diagram/diagram")){
+						StarPMSModelView.this.fillSequenceDiagramContextMenu(manager,parent,selection);
+					}
 				}else{
 					menuMgr.removeAll();
 				}
