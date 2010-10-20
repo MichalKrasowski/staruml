@@ -243,7 +243,6 @@ public class StarPMSModelView extends ViewPart {
 		menuMgr.addMenuListener(new IMenuListener() {
 			public void menuAboutToShow(IMenuManager manager) {
 				TreeSelection selection = (TreeSelection)viewer.getSelection();
-				System.out.println("menuAboutToShow : "+selection.isEmpty());
 				if(!selection.isEmpty()){
 //					TreeObject treeObject = (TreeObject)selection.getFirstElement();
 //					String nodeText = selection.toString();

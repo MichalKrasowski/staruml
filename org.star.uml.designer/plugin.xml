@@ -125,11 +125,17 @@
                class="org.star.uml.designer.Action4"
                icon="icons/16.gif"
                id="org.star.uml.designer.action4"
-               label="test"
+               label="Login"
                menubarPath="test"
-               state="true"
-               style="pulldown">
+               state="true">
          </action>
+         <menu
+               id="org.star.uml.designer.menu2"
+               label="label">
+            <separator
+                  name="org.star.uml.designer.separator1">
+            </separator>
+         </menu>
       </viewerContribution>
    </extension>
 
