@@ -116,5 +116,21 @@
             project="true">
       </wizard>
    </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <viewerContribution
+            id="org.star.uml.designer.popup.modelview.loginContribution"
+            targetID="org.star.uml.designer.ui.views.StarPMSModelView">
+         <action
+               class="org.star.uml.designer.Action4"
+               icon="icons/16.gif"
+               id="org.star.uml.designer.action4"
+               label="test"
+               menubarPath="test"
+               state="true"
+               style="pulldown">
+         </action>
+      </viewerContribution>
+   </extension>
 
 </plugin>

@@ -3,11 +3,13 @@ package org.star.uml.designer.ui.views;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -18,19 +20,66 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.part.*;
+import org.eclipse.emf.common.command.Command;
+import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EcoreFactory;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.edit.command.SetCommand;
+import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.transaction.util.TransactionUtil;
+import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
+import org.eclipse.gmf.runtime.common.core.command.CommandResult;
+import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
+import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
+import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditDomain;
+import org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants;
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities;
+import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
+import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
+import org.eclipse.gmf.runtime.emf.type.core.MetamodelType;
+import org.eclipse.gmf.runtime.emf.type.core.internal.impl.HintedTypeFactory;
+import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
+import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.runtime.notation.FontStyle;
+import org.eclipse.gmf.runtime.notation.Location;
+import org.eclipse.gmf.runtime.notation.NotationFactory;
+import org.eclipse.gmf.runtime.notation.NotationPackage;
+import org.eclipse.gmf.runtime.notation.Shape;
+import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.*;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.jface.action.*;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.*;
+import org.eclipse.uml2.diagram.usecase.edit.commands.ActorCreateCommand;
+import org.eclipse.uml2.diagram.usecase.edit.helpers.ActorEditHelper;
+import org.eclipse.uml2.diagram.usecase.edit.parts.ActorEditPart;
+import org.eclipse.uml2.diagram.usecase.edit.parts.ActorNameEditPart;
+import org.eclipse.uml2.diagram.usecase.edit.parts.PackageEditPart;
+import org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor;
+import org.eclipse.uml2.diagram.usecase.part.UMLVisualIDRegistry;
+import org.eclipse.uml2.uml.UMLFactory;
+import org.eclipse.uml2.uml.internal.impl.ActorImpl;
+import org.eclipse.uml2.uml.internal.impl.UMLFactoryImpl;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.SWT;
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -39,6 +88,8 @@ import org.osgi.framework.Bundle;
 import org.star.uml.designer.base.utils.CommonUtil;
 import org.star.uml.designer.base.utils.EclipseUtile;
 import org.star.uml.designer.base.utils.XmlUtil;
+import org.star.uml.designer.command.InsertActionCommand;
+import org.star.uml.designer.ui.factory.StarUMLActionFactory;
 import org.star.uml.designer.ui.model.initialization.DefaultModel;
 import org.star.uml.designer.ui.model.initialization.DefaultUML;
 import org.w3c.dom.Document;
@@ -50,6 +101,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.swt.widgets.TreeItem;
@@ -146,7 +198,7 @@ public class StarPMSModelView extends ViewPart {
 	}
 	class NameSorter extends ViewerSorter {
 	}
-
+	
 	/**
 	 * The constructor.
 	 */
@@ -179,39 +231,43 @@ public class StarPMSModelView extends ViewPart {
 		hookContextMenu(parent);
 		hookDoubleClickAction();
 		contributeToActionBars();
+		hookSelectAction();
 	}
 
 	private void hookContextMenu(final Composite parent) {
-		MenuManager menuMgr = new MenuManager("#PopupMenu");
+		final MenuManager menuMgr = new MenuManager("#PopupMenu");
 		menuMgr.setRemoveAllWhenShown(true);
-		menuMgr.addMenuListener(new IMenuListener() {
-			public void menuAboutToShow(IMenuManager manager) {
-				TreeSelection selection = (TreeSelection)viewer.getSelection();
-				if(!selection.isEmpty()){
-					TreeObject treeObject = (TreeObject)selection.getFirstElement();
-					String nodeText = selection.toString();
-					String nodePath = (String)treeObject.getData("path");
-					if(nodeText.equals("[192.168.10.102:1521/StarPMS]")){
-						StarPMSModelView.this.fillLoginContextMenu(manager);
-					}else if(nodeText != null && nodeText.equals("[Userecase Diagram]")){
-						StarPMSModelView.this.fillAnalysisUseCaseContextMenu(manager,parent,selection);
-					}else{
-						StarPMSModelView.this.removeContextMenu(manager,parent,selection);
-					}
-					
-					if(nodePath != null && nodePath.equals("Class Diagram/diagram")){
-						StarPMSModelView.this.fillImplementationClassDiagramContextMenu(manager,parent,selection);
-					}else if(nodePath != null && nodePath.equals("Userecase Diagram/diagram")){
-						StarPMSModelView.this.fillAnalysisUseCaseDiagramContextMenu(manager,parent,selection);
-					}else if(nodePath != null && nodePath.equals("Sequence Diagram/diagram")){
-						StarPMSModelView.this.fillSequenceDiagramContextMenu(manager,parent,selection);
-					}
-				}
-			}
-		});
 		Menu menu = menuMgr.createContextMenu(viewer.getControl());
 		viewer.getControl().setMenu(menu);
 		getSite().registerContextMenu(menuMgr, viewer);
+		menuMgr.addMenuListener(new IMenuListener() {
+			public void menuAboutToShow(IMenuManager manager) {
+				TreeSelection selection = (TreeSelection)viewer.getSelection();
+				System.out.println("menuAboutToShow : "+selection.isEmpty());
+				if(!selection.isEmpty()){
+//					TreeObject treeObject = (TreeObject)selection.getFirstElement();
+//					String nodeText = selection.toString();
+//					String nodePath = (String)treeObject.getData("path");
+//					if(nodeText.equals("[192.168.10.102:1521/StarPMS]")){
+//						StarPMSModelView.this.fillLoginContextMenu(manager);
+//					}else if(nodeText != null && nodeText.equals("[Userecase Diagram]")){
+//						StarPMSModelView.this.fillAnalysisUseCaseContextMenu(manager,parent,selection);
+//					}else{
+//						StarPMSModelView.this.removeContextMenu(manager,parent,selection);
+//					}
+//					
+//					if(nodePath != null && nodePath.equals("Class Diagram/diagram")){
+//						StarPMSModelView.this.fillImplementationClassDiagramContextMenu(manager,parent,selection);
+//					}else if(nodePath != null && nodePath.equals("Userecase Diagram/diagram")){
+//						StarPMSModelView.this.fillAnalysisUseCaseDiagramContextMenu(manager,parent,selection);
+//					}else if(nodePath != null && nodePath.equals("Sequence Diagram/diagram")){
+//						StarPMSModelView.this.fillSequenceDiagramContextMenu(manager,parent,selection);
+//					}
+				}else{
+					menuMgr.removeAll();
+				}
+			}
+		});
 	}
 
 	private void contributeToActionBars() {
@@ -258,18 +314,6 @@ public class StarPMSModelView extends ViewPart {
 		}
 	}
 
-	private void fillContextMenu(IMenuManager manager) {
-		drillDownAdapter.addNavigationActions(manager);
-		manager.add(new Separator());
-		manager.add(action1);
-		manager.add(action2);
-		manager.add(action3);
-		manager.add(new Separator());
-		manager.add(action4);
-		// Other plug-ins can contribute there actions here
-		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
-	}
-	
 	private void hookDoubleClickAction() {
 		viewer.addDoubleClickListener(new IDoubleClickListener() {
 			public void doubleClick(DoubleClickEvent event) {
@@ -282,6 +326,29 @@ public class StarPMSModelView extends ViewPart {
 			}
 		});
 	}
+	
+	private void hookSelectAction() {
+//		viewer.addSelectionChangedListener(new ISelectionChangedListener(){
+//			@Override
+//			public void selectionChanged(SelectionChangedEvent event) {
+//				TreeSelection selection = (TreeSelection)viewer.getSelection();
+//				TreeObject treeObject = (TreeObject)selection.getFirstElement();
+//				String nodeText = selection.toString();
+//				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+//				final View view = null;
+//				final TransactionalEditingDomain domain= null;
+//				IDiagramEditDomain editingDomain= null;
+//				if(page.getActiveEditor() !=null && page.getActiveEditor() instanceof org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor){
+//		        	final org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor editor = 
+//		        		(org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor)page.getActiveEditor();
+//		        	Action action = StarUMLActionFactory.getAction(editor, "Actor");
+//		        	action.run();
+//				}
+//			}
+//		});
+	}
+	
+	
 	private void showMessage(String message) {
 		MessageDialog.openInformation(
 			viewer.getControl().getShell(),
@@ -375,8 +442,7 @@ public class StarPMSModelView extends ViewPart {
 		}
 	}
 	
-	class ViewContentProvider implements IStructuredContentProvider,
-			ITreeContentProvider {
+	class ViewContentProvider implements IStructuredContentProvider,ITreeContentProvider {
 		private TreeParent invisibleRoot;
 
 		public void inputChanged(Viewer v, Object oldInput, Object newInput) {

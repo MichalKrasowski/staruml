@@ -18,6 +18,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.MultiStatus;
@@ -36,6 +37,8 @@ import org.eclipse.gmf.runtime.diagram.ui.render.internal.DiagramUIRenderPlugin;
 import org.eclipse.gmf.runtime.diagram.ui.render.internal.DiagramUIRenderStatusCodes;
 import org.eclipse.gmf.runtime.diagram.ui.render.internal.l10n.DiagramUIRenderMessages;
 import org.eclipse.gmf.runtime.diagram.ui.render.util.CopyToImageUtil;
+import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
+import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -51,6 +54,8 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor;
 import org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditorUtil;
+import org.eclipse.uml2.uml.internal.impl.ActorImpl;
+import org.star.uml.designer.command.InsertActionCommand;
 import org.w3c.dom.Document;
 import org.w3c.dom.Document;
 
@@ -122,6 +127,7 @@ public class EclipseUtile {
 				URI diagramURI = URI.createDeviceURI("platform:/resource/Root/"+fileName);
 				URI modelURI = URI.createDeviceURI("platform:/resource/Root/default.uml");
 				Resource diagram = org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditorUtil.createDiagram(diagramURI, modelURI, null, "UTF-8", monitor);
+				System.out.println("diagram : "+diagram);
 				try {
 					UMLDiagramEditorUtil.openDiagram(diagram);
 				} catch (PartInitException e) {
@@ -171,5 +177,36 @@ public class EclipseUtile {
 			}
 		}
 		return String.valueOf(defaultIdx);
+	}
+	
+	public static void runCommand(AbstractTransactionalCommand actorCmd,EObjectAdapter info) {
+		final MultiStatus status = new MultiStatus(DiagramUIRenderPlugin
+				.getPluginId(), DiagramUIRenderStatusCodes.OK,
+				DiagramUIRenderMessages.CopyToImageAction_Label, null);
+    	IRunnableWithProgress runnable = createActionCommandRunable(actorCmd,info);
+    	try {
+    		ProgressMonitorDialog progressMonitorDialog = new ProgressMonitorDialog(
+    				Display.getCurrent().getActiveShell());
+    		progressMonitorDialog.run(false, true, runnable);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private static IRunnableWithProgress createActionCommandRunable(final AbstractTransactionalCommand actorCmd,final EObjectAdapter info) {
+		return new IRunnableWithProgress() {
+			public void run(IProgressMonitor monitor) {
+				try {
+			    	monitor.beginTask("", 6); 
+					monitor.worked(1);
+					monitor.setTaskName("모델을 생성 합니다.");
+					actorCmd.execute(monitor, info);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				} finally {
+					monitor.done();
+				}
+			}
+		};
 	}
 }

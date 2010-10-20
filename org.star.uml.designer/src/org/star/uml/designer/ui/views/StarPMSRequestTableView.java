@@ -227,7 +227,6 @@ public class StarPMSRequestTableView extends ViewPart {
 	        	IDiagramDocument document = editor.getDiagramDocument();
 	        	if (document != null) {
 	        		Diagram diagram = document.getDiagram();
-	        		
 		    		IFile file = WorkspaceSynchronizer.getFile(diagram.eResource());
 		    		if (file != null) {
 		    			UMLNavigatorItem item = new UMLNavigatorItem(diagram, file, false);
