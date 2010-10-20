@@ -21,7 +21,6 @@ public class Test {
 				list.remove(i);
 			}
 			
-			System.out.println(list.size());
 		}catch(Exception e){
 			e.printStackTrace();
 		}

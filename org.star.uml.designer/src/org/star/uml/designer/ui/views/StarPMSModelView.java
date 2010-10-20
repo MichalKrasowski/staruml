@@ -319,9 +319,8 @@ public class StarPMSModelView extends ViewPart {
 				TreeSelection selection = (TreeSelection)viewer.getSelection();
 				TreeObject treeObject = (TreeObject)selection.getFirstElement();
 				String nodeText = selection.toString();
-				String exetension = (String)treeObject.getData("star:exetension");
-				EclipseUtile.openDiagram("/Root/" + treeObject.getName() + exetension);
-//				doubleClickAction.run();
+				String fullName = (String)treeObject.getData("fullName");
+				EclipseUtile.openDiagram("/Root/" + fullName);
 			}
 		});
 	}
@@ -359,14 +358,13 @@ public class StarPMSModelView extends ViewPart {
 		viewer.getControl().setFocus();
 	}
 	
-	public void addChildXml(String eName, String key, String name){
+	public void addChildXml(String eName, String key, String name,String fullName){
 		//Userecase Diagram
 		IProject rootProject = ResourcesPlugin.getWorkspace().getRoot().getProject("Root");
 		Document modelDoc = null;
 		try{
 			String projectPath = rootProject.getLocation().toOSString();
 			String domStr = XmlUtil.getXmlFileToString(projectPath+File.separator+"model.xml");
-			System.out.println("domStr : "+domStr);
 			modelDoc = XmlUtil.getStringToDocument(domStr);
 			NodeList n = modelDoc.getDocumentElement().getElementsByTagName("packagedElement");
 			for(int i = 0; i < n.getLength(); i++){
@@ -379,6 +377,7 @@ public class StarPMSModelView extends ViewPart {
 					newNode.setAttribute("path", "diagram");
 					newNode.setAttribute("xmi:type", "uml:Package");
 					newNode.setAttribute("name", name);
+					newNode.setAttribute("star:fullName", fullName);
 					node.appendChild(newNode);
 					XmlUtil.writeXmlFile(modelDoc, projectPath+File.separator+"model.xml");
 				}
@@ -426,9 +425,9 @@ public class StarPMSModelView extends ViewPart {
 				}
 				
 				if(subPkg.getAttributes().getNamedItem("star:category") != null && subPkg.getAttributes().getNamedItem("star:category").getNodeValue().equals("diagram")){
+					String fullName = subPkg.getAttributes().getNamedItem("star:fullName").getNodeValue();
 					TreeObject projectObject = new TreeObject(attrName);
-					projectObject.setData("star:exetension", ".umlusc");
-					projectObject.setData("star:category", ".umlusc");
+					projectObject.setData("fullName", fullName);
 					projectObject.setData("path",parent.toString()+"/diagram");
 					parent.addChild(projectObject);
 				}else{

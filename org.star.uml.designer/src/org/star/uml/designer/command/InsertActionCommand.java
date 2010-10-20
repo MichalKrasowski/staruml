@@ -63,7 +63,6 @@ public class InsertActionCommand extends AbstractTransactionalCommand{
         	
         	request.setNewElement(actor);
         	request.setLabel("Actor");
-        	System.out.println("request.getElementType() : "+request.getElementType());
         	ActorCreateCommand actorCmd = new ActorCreateCommand(request);
         	actorCmd.execute(monitor, new EObjectAdapter(actor));
 //        	Node node = ViewService.getInstance().createNode(new EObjectAdapter(actor), view,"2002",-1, preferencesHint);

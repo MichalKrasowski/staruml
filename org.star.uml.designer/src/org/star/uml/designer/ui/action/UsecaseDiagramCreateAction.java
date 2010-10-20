@@ -51,23 +51,23 @@ public class UsecaseDiagramCreateAction implements IViewActionDelegate {
 		action.setText(ACTION_TITLE);
 		action.setImageDescriptor(getImageDescriptor());
 		
-		String fileName = "default"+EclipseUtile.getDefaultUMLIdx()+".umlusc";
-		URI diagramURI = URI.createDeviceURI("platform:/resource/Root/"+fileName);
+		String fileName = "default"+EclipseUtile.getDefaultUMLIdx();
+		String fileFullName = "default"+EclipseUtile.getDefaultUMLIdx()+".umlusc";
+		URI diagramURI = URI.createDeviceURI("platform:/resource/Root/"+fileFullName);
 		URI modelURI = URI.createDeviceURI("platform:/resource/Root/default.uml");
 		EclipseUtile.createDiagram("Root",diagramURI,modelURI,ACTION_ID);
-		try{
+		
 		IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
 		StarPMSModelView modelView = (StarPMSModelView)view_part;
 //		StarPMSModelView modelView = (StarPMSModelView)view;
-		System.out.println("1 : "+modelView.viewer.getSelection());
 		TreeSelection treeSelection = (TreeSelection)modelView.viewer.getSelection();
 		TreeParent parent = (TreeParent)treeSelection.getFirstElement();
 		String parentPath = (String)parent.getData("path");
 		HashMap map = new HashMap();
 		map.put("path",parent.toString()+"/diagram");
 		parent.appendChield(parent, fileName, map);
-		modelView.addChildXml("packagedElement",parent.getData("key").toString(),fileName);
-		}catch(Exception e){e.printStackTrace();}
+		parent.setData("fileName", fileFullName);
+		modelView.addChildXml("packagedElement",parent.getData("key").toString(),fileName,fileFullName);
 	}
 	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
