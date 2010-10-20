@@ -1,8 +1,10 @@
 package org.star.uml.designer.ui.action;
 
 import java.net.URL;
+import java.util.HashMap;
 
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
@@ -15,8 +17,12 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.uml2.diagram.usecase.edit.commands.ActorCreateCommand;
+import org.eclipse.uml2.diagram.usecase.edit.helpers.ActorEditHelper;
 import org.eclipse.uml2.diagram.usecase.edit.helpers.UMLBaseEditHelper;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.eclipse.uml2.uml.internal.impl.ActorImpl;
@@ -26,58 +32,43 @@ import org.star.uml.designer.Activator;
 import org.star.uml.designer.base.utils.EclipseUtile;
 import org.star.uml.designer.ui.factory.StarUMLCommandFactory;
 import org.star.uml.designer.ui.factory.StarUMLEditHelperFactory;
+import org.star.uml.designer.ui.views.StarPMSModelView;
+import org.star.uml.designer.ui.views.StarPMSModelView.TreeParent;
 
-public class ActorCreateAction implements IViewActionDelegate{
-	public final String ACTION_ID = "Actor";
-	public final String ACTION_URI = "org.eclipse.uml2.diagram.usecase.Actor_2002";
-	public final String ACTION_TITLE ="Create Actor";
+public class UsecaseDiagramCreateAction implements IViewActionDelegate {
+	public final String ACTION_ID = "UsecaseDiagram";
+	public final String ACTION_URI = "org.eclipse.uml2.diagram.usecase.UsecaseDiagram";
+	public final String ACTION_TITLE ="Create UsecaseDiagram";
 	public final String ICON_PATH = "/icons/login.gif";
+	public IViewPart view = null;
 	
-	public TransactionalEditingDomain domain = null;
-	public DiagramDocumentEditor editor = null;
-	public View view = null;
-	
-	public ActorCreateAction(DiagramDocumentEditor editor){
-		this.editor = editor;
-		this.domain = editor.getEditingDomain();
-		this.view = (View)editor.getDiagramEditPart().getModel();
-	}
-	
-	public EObject createNode(){
-		UMLFactory factoryImple = UMLFactoryImpl.init();
-		final ActorImpl actor = (ActorImpl)factoryImple.createActor();
-		actor.setName("Park Yong Cheon");
-		return actor;
-	}
-
 	@Override
 	public void init(IViewPart view) {
-		// TODO Auto-generated method stub
-		
+		this.view = view;
 	}
-
 	@Override
 	public void run(IAction action) {
 		action.setText(ACTION_TITLE);
 		action.setImageDescriptor(getImageDescriptor());
 		
-		URL fileURL = getImageURL(); 
-		UMLBaseEditHelper helper = StarUMLEditHelperFactory.getEditHelper(ACTION_ID);
-    	MetamodelType modelType = new MetamodelType(ACTION_URI,fileURL, ACTION_ID,null,helper);
-    	
-    	CreateElementRequest request = new CreateElementRequest(domain,view, modelType);
-    	EObject eObj = createNode();
-    	request.setNewElement(eObj);
-    	request.setLabel(ACTION_ID);
-    	
-    	AbstractTransactionalCommand actorCmd = StarUMLCommandFactory.getCommand(request);
-    	EObjectAdapter info = new EObjectAdapter(eObj);
-    	EclipseUtile.runCommand(actorCmd, info);
+		String fileName = "default"+EclipseUtile.getDefaultUMLIdx()+".umlusc";
+		URI diagramURI = URI.createDeviceURI("platform:/resource/Root/"+fileName);
+		URI modelURI = URI.createDeviceURI("platform:/resource/Root/default.uml");
+		EclipseUtile.createDiagram("Root",diagramURI,modelURI,ACTION_ID);
+		
+		IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
+		StarPMSModelView modelView = (StarPMSModelView)view_part;
+//		StarPMSModelView modelView = (StarPMSModelView)view;
+		TreeSelection treeSelection = (TreeSelection)view.getViewSite().getSelectionProvider().getSelection();
+		TreeParent parent = (TreeParent)treeSelection.getFirstElement();
+		String parentPath = (String)parent.getData("path");
+		HashMap map = new HashMap();
+		map.put("path",parent.toString()+"/diagram");
+		modelView.addChildXml("packagedElement",parent.getData("key").toString(),fileName);
+		parent.appendChield(parent, fileName, map);
 	}
-
 	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
-		// TODO Auto-generated method stub
 		
 	}
 	
@@ -89,4 +80,6 @@ public class ActorCreateAction implements IViewActionDelegate{
 	public ImageDescriptor getImageDescriptor(){
 		return Activator.getImageDescriptor(ICON_PATH);
 	}
+	
+	
 }

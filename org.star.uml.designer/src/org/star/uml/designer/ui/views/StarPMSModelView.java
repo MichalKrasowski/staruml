@@ -89,6 +89,7 @@ import org.star.uml.designer.base.utils.CommonUtil;
 import org.star.uml.designer.base.utils.EclipseUtile;
 import org.star.uml.designer.base.utils.XmlUtil;
 import org.star.uml.designer.command.InsertActionCommand;
+import org.star.uml.designer.ui.action.UsecaseDiagramCreateAction;
 import org.star.uml.designer.ui.factory.StarUMLActionFactory;
 import org.star.uml.designer.ui.model.initialization.DefaultModel;
 import org.star.uml.designer.ui.model.initialization.DefaultUML;
@@ -117,7 +118,6 @@ public class StarPMSModelView extends ViewPart {
 
 	private TreeViewer viewer;
 	private DrillDownAdapter drillDownAdapter;
-	private Action action1,action2,action3,action4;
 	private Action doubleClickAction;
 	private TreeParent root;
 	private Boolean flag = true;
@@ -155,7 +155,7 @@ public class StarPMSModelView extends ViewPart {
 		}
 	}
 	
-	class TreeParent extends TreeObject {
+	public class TreeParent extends TreeObject {
 		private ArrayList children;
 		public TreeParent(String name) {
 			super(name);

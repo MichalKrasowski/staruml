@@ -56,6 +56,7 @@ import org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor;
 import org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditorUtil;
 import org.eclipse.uml2.uml.internal.impl.ActorImpl;
 import org.star.uml.designer.command.InsertActionCommand;
+import org.star.uml.designer.ui.factory.StarUMLDiagramCreationFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Document;
 
@@ -104,12 +105,12 @@ public class EclipseUtile {
 		};
 	}
 
-	public static IProject createDiagram(String projectName,String fileExtension) {
+	public static IProject createDiagram(String projectName,URI diagramURI,URI modelURI,String actionID) {
 		final MultiStatus status = new MultiStatus(DiagramUIRenderPlugin
 				.getPluginId(), DiagramUIRenderStatusCodes.OK,
 				DiagramUIRenderMessages.CopyToImageAction_Label, null);
 		final IProject projectHandle =  ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
-    	IRunnableWithProgress runnable = createDiagramRunable(status,projectHandle,fileExtension);
+    	IRunnableWithProgress runnable = createDiagramRunable(status,projectHandle,diagramURI,modelURI,actionID);
     	try {
     		ProgressMonitorDialog progressMonitorDialog = new ProgressMonitorDialog(
     				Display.getCurrent().getActiveShell());
@@ -120,28 +121,13 @@ public class EclipseUtile {
 		return projectHandle;
 	}
 	
-	private static IRunnableWithProgress createDiagramRunable(final MultiStatus status,final IProject projectHandle,final String fileExtension) {
+	private static IRunnableWithProgress createDiagramRunable(final MultiStatus status,final IProject projectHandle,final URI diagramURI,final URI modelURI,final String actionID) {
 		return new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) {
-				String fileName = "default"+getDefaultUMLIdx()+"."+fileExtension;
-				URI diagramURI = URI.createDeviceURI("platform:/resource/Root/"+fileName);
-				URI modelURI = URI.createDeviceURI("platform:/resource/Root/default.uml");
-				Resource diagram = org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditorUtil.createDiagram(diagramURI, modelURI, null, "UTF-8", monitor);
-				System.out.println("diagram : "+diagram);
+				Resource diagram = StarUMLDiagramCreationFactory.getResource(actionID, diagramURI, modelURI, monitor);
 				try {
 					UMLDiagramEditorUtil.openDiagram(diagram);
 				} catch (PartInitException e) {
-					e.printStackTrace();
-				}
-				String projectPath = projectHandle.getLocation().toOSString();
-				java.io.File proFile = new java.io.File(projectPath+"/custom-messages.properties");
-				Properties props = new Properties();
-				try {
-					props.load(new FileInputStream(proFile));
-					props.put("diagramName", fileName);
-					props.store(new FileOutputStream(proFile), "");
-					projectHandle.refreshLocal(IProject.DEPTH_ONE, monitor);
-				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}

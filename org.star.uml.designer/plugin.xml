@@ -120,7 +120,7 @@
          point="org.eclipse.ui.popupMenus">
       <viewerContribution
             id="org.star.uml.designer.popup.modelview.contribution"
-            targetID="org.star.uml.designer.ui.views.StarPMSModelView">
+            targetID="org.star.uml.designer.ui.views.StarPMSModelView1">
          <action
                class="org.star.uml.designer.Action4"
                icon="icons/16.gif"

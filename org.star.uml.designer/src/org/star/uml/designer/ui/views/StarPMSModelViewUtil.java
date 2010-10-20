@@ -64,6 +64,7 @@ import org.osgi.framework.Bundle;
 import org.star.uml.designer.Activator;
 import org.star.uml.designer.base.utils.EclipseUtile;
 import org.star.uml.designer.service.dao.PmsDao;
+import org.star.uml.designer.ui.action.UsecaseDiagramCreateAction;
 import org.star.uml.designer.ui.newWiazrds.ClassSorceCodeGeneration;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeObject;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeParent;
@@ -236,28 +237,30 @@ public class StarPMSModelViewUtil {
 	public static Action makeAnalysisUsecaseAction(final Composite parent,final ISelection selection,final StarPMSModelView starPMSView){
 		Action analysisAction = new Action() {
 			public void run() {
-				EclipseUtile.createDiagram("Root","umlusc");
-				IProject projectHandle =  ResourcesPlugin.getWorkspace().getRoot().getProject("Root");
-				IFile file = projectHandle.getFile("custom-messages.properties");
-				Properties props = new Properties();
-				try {
-					projectHandle.refreshLocal(IProject.DEPTH_INFINITE, null);
-					props.load(file.getContents());
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				String fullFileName = props.getProperty("diagramName");
-				String fileName = fullFileName.substring(0, fullFileName.lastIndexOf("."));
-				
-				TreeSelection treeSelection = (TreeSelection)selection;
-				TreeParent parent = (TreeParent)treeSelection.getFirstElement();
-				String parentPath = (String)parent.getData("path");
-				HashMap map = new HashMap();
-				map.put("path",parent.toString()+"/diagram");
-				IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
-				StarPMSModelView modelView = (StarPMSModelView)view_part;
-				modelView.addChildXml("packagedElement",parent.getData("key").toString(),fileName);
-				parent.appendChield(parent, fileName, map);
+				UsecaseDiagramCreateAction aaa = new UsecaseDiagramCreateAction();
+				aaa.run(this);
+//				EclipseUtile.createDiagram("Root","umlusc");
+//				IProject projectHandle =  ResourcesPlugin.getWorkspace().getRoot().getProject("Root");
+//				IFile file = projectHandle.getFile("custom-messages.properties");
+//				Properties props = new Properties();
+//				try {
+//					projectHandle.refreshLocal(IProject.DEPTH_INFINITE, null);
+//					props.load(file.getContents());
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//				String fullFileName = props.getProperty("diagramName");
+//				String fileName = fullFileName.substring(0, fullFileName.lastIndexOf("."));
+//				
+//				TreeSelection treeSelection = (TreeSelection)selection;
+//				TreeParent parent = (TreeParent)treeSelection.getFirstElement();
+//				String parentPath = (String)parent.getData("path");
+//				HashMap map = new HashMap();
+//				map.put("path",parent.toString()+"/diagram");
+//				IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
+//				StarPMSModelView modelView = (StarPMSModelView)view_part;
+//				modelView.addChildXml("packagedElement",parent.getData("key").toString(),fileName);
+//				parent.appendChield(parent, fileName, map);
 				
 //				org.eclipse.uml2.diagram.usecase.part.UMLCreationWizard wiazrd = new org.eclipse.uml2.diagram.usecase.part.UMLCreationWizard();
 //				wiazrd.init(PlatformUI.getWorkbench(), (IStructuredSelection) selection);
