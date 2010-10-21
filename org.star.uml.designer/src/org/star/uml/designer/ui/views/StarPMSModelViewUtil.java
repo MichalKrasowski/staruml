@@ -31,10 +31,12 @@ import org.eclipse.gmf.runtime.diagram.ui.render.util.CopyToImageUtil;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
+import org.eclipse.jface.action.ContributionItem;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -64,7 +66,11 @@ import org.osgi.framework.Bundle;
 import org.star.uml.designer.Activator;
 import org.star.uml.designer.base.utils.EclipseUtile;
 import org.star.uml.designer.service.dao.PmsDao;
-import org.star.uml.designer.ui.action.UsecaseDiagramCreateAction;
+import org.star.uml.designer.ui.action.ModelDeleteAction;
+import org.star.uml.designer.ui.action.PMSLoginAction;
+import org.star.uml.designer.ui.action.PMSLogoutAction;
+import org.star.uml.designer.ui.diagram.action.ActorCreateAction;
+import org.star.uml.designer.ui.diagram.action.UsecaseDiagramCreateAction;
 import org.star.uml.designer.ui.newWiazrds.ClassSorceCodeGeneration;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeObject;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeParent;
@@ -238,7 +244,6 @@ public class StarPMSModelViewUtil {
 		Action analysisAction = new Action() {
 			public void run() {
 				UsecaseDiagramCreateAction aaa = new UsecaseDiagramCreateAction();
-				aaa.run(this);
 //				EclipseUtile.createDiagram("Root","umlusc");
 //				IProject projectHandle =  ResourcesPlugin.getWorkspace().getRoot().getProject("Root");
 //				IFile file = projectHandle.getFile("custom-messages.properties");
@@ -534,6 +539,32 @@ public class StarPMSModelViewUtil {
 		implrmrnysyionAction.setText("Generate Source Code");
 		implrmrnysyionAction.setImageDescriptor(Activator.getImageDescriptor("/icons/login.gif"));
 		return implrmrnysyionAction;
+	}
+	
+	public static void initContextMenu(MenuManager menuMgr){
+		PMSLoginAction login = new PMSLoginAction();
+		PMSLogoutAction logout = new PMSLogoutAction();
+		ModelDeleteAction delete = new ModelDeleteAction();
+		
+		MenuManager diagramGroup = new MenuManager("Diagram");
+		UsecaseDiagramCreateAction usecaseDiagram = new UsecaseDiagramCreateAction();
+		
+		MenuManager modelGroup = new MenuManager("Model");
+		ActorCreateAction actor = new ActorCreateAction();
+		
+		menuMgr.add(login);
+		menuMgr.add(logout);
+		menuMgr.add(new Separator());
+		menuMgr.add(delete);
+		menuMgr.add(new Separator());
+		menuMgr.add(diagramGroup);
+		menuMgr.add(modelGroup);
+		
+		
+		diagramGroup.add(usecaseDiagram);
+		
+		modelGroup.add(actor);
+		
 	}
 	
 }

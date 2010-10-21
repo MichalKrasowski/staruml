@@ -5,13 +5,13 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IViewActionDelegate;
 import org.star.uml.designer.Activator;
-import org.star.uml.designer.ui.action.ActorCreateAction;
+import org.star.uml.designer.ui.diagram.action.ActorCreateAction;
 
 public class StarUMLActionFactory {
 	
-	public static IViewActionDelegate getAction(DiagramDocumentEditor editor , String actionID){
+	public static Action getAction(DiagramDocumentEditor editor , String actionID){
 		if(actionID.equals("Actor")){
-			return new ActorCreateAction(editor);
+			return new ActorCreateAction();
 		}
 		return null;
 	}

@@ -89,10 +89,11 @@ import org.star.uml.designer.base.utils.CommonUtil;
 import org.star.uml.designer.base.utils.EclipseUtile;
 import org.star.uml.designer.base.utils.XmlUtil;
 import org.star.uml.designer.command.InsertActionCommand;
-import org.star.uml.designer.ui.action.UsecaseDiagramCreateAction;
+import org.star.uml.designer.ui.diagram.action.UsecaseDiagramCreateAction;
 import org.star.uml.designer.ui.factory.StarUMLActionFactory;
 import org.star.uml.designer.ui.model.initialization.DefaultModel;
 import org.star.uml.designer.ui.model.initialization.DefaultUML;
+import org.star.uml.designer.ui.views.linstener.StarPMSModelViewMenuListener;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -116,13 +117,14 @@ public class StarPMSModelView extends ViewPart {
 
 	public static final String ID = "org.star.uml.designer.ui.views.StarPMSModelView";
 
-	public TreeViewer viewer;
 	private DrillDownAdapter drillDownAdapter;
-	private Action doubleClickAction;
 	private TreeParent root;
 	private Boolean flag = true;
-	Action loginAction = null;
-	Action logoutAction = null;
+	private HashMap actionMap;
+	
+	public TreeViewer viewer;
+	
+	
 	class TreeObject implements IAdaptable {
 		private String name;
 		private TreeParent parent;
@@ -226,8 +228,7 @@ public class StarPMSModelView extends ViewPart {
 		viewer.setLabelProvider(new ViewLabelProvider());
 		viewer.setSorter(new NameSorter());
 		viewer.setInput(getViewSite());
-		// Create the help context id for the viewer's control
-		PlatformUI.getWorkbench().getHelpSystem().setHelp(viewer.getControl(), "org.star.uml.designer");
+		
 		hookContextMenu(parent);
 		hookDoubleClickAction();
 		contributeToActionBars();
@@ -235,38 +236,15 @@ public class StarPMSModelView extends ViewPart {
 	}
 
 	private void hookContextMenu(final Composite parent) {
-		final MenuManager menuMgr = new MenuManager("#PopupMenu");
-		menuMgr.setRemoveAllWhenShown(true);
-		Menu menu = menuMgr.createContextMenu(viewer.getControl());
+		final MenuManager manager = new MenuManager("#PopupMenu");
+//		manager.setRemoveAllWhenShown(true);
+		Menu menu = manager.createContextMenu(viewer.getControl());
 		viewer.getControl().setMenu(menu);
-		getSite().registerContextMenu(menuMgr, viewer);
-		menuMgr.addMenuListener(new IMenuListener() {
-			public void menuAboutToShow(IMenuManager manager) {
-				TreeSelection selection = (TreeSelection)viewer.getSelection();
-				if(!selection.isEmpty()){
-					TreeObject treeObject = (TreeObject)selection.getFirstElement();
-					String nodeText = selection.toString();
-					String nodePath = (String)treeObject.getData("path");
-					if(nodeText.equals("[192.168.10.102:1521/StarPMS]")){
-						StarPMSModelView.this.fillLoginContextMenu(manager);
-					}else if(nodeText != null && nodeText.equals("[Userecase Diagram]")){
-						StarPMSModelView.this.fillAnalysisUseCaseContextMenu(manager,parent,selection);
-					}else{
-						StarPMSModelView.this.removeContextMenu(manager,parent,selection);
-					}
-					
-					if(nodePath != null && nodePath.equals("Class Diagram/diagram")){
-						StarPMSModelView.this.fillImplementationClassDiagramContextMenu(manager,parent,selection);
-					}else if(nodePath != null && nodePath.equals("Userecase Diagram/diagram")){
-						StarPMSModelView.this.fillAnalysisUseCaseDiagramContextMenu(manager,parent,selection);
-					}else if(nodePath != null && nodePath.equals("Sequence Diagram/diagram")){
-						StarPMSModelView.this.fillSequenceDiagramContextMenu(manager,parent,selection);
-					}
-				}else{
-					menuMgr.removeAll();
-				}
-			}
-		});
+		getSite().registerContextMenu(manager, viewer);
+		StarPMSModelViewUtil.initContextMenu(manager);
+		StarPMSModelViewMenuListener menuListener = new StarPMSModelViewMenuListener();
+		manager.addMenuListener(menuListener);
+		actionMap = EclipseUtile.getActionMap((MenuManager)manager);
 	}
 
 	private void contributeToActionBars() {
@@ -302,6 +280,8 @@ public class StarPMSModelView extends ViewPart {
 	}
 	
 	private void fillLoginContextMenu(IMenuManager manager) {
+		Action loginAction = null;
+		Action logoutAction = null;
 		
 		if(flag){
 			loginAction = StarPMSModelViewUtil.makeLoginAction(manager);
@@ -439,6 +419,10 @@ public class StarPMSModelView extends ViewPart {
 				}
 			}
 		}
+	}
+	
+	public HashMap getActionMap(){
+		return actionMap;
 	}
 	
 	class ViewContentProvider implements IStructuredContentProvider,ITreeContentProvider {

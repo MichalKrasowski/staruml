@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.Properties;
 
 import javax.xml.transform.Source;
@@ -39,6 +40,9 @@ import org.eclipse.gmf.runtime.diagram.ui.render.internal.l10n.DiagramUIRenderMe
 import org.eclipse.gmf.runtime.diagram.ui.render.util.CopyToImageUtil;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.ActionContributionItem;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -61,6 +65,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Document;
 
 public class EclipseUtile {
+	static HashMap actionMap = new HashMap();
 	
 	public static IProject createNewProject(String projectName,Document modelDoc,Document umlDoc) {
 		final MultiStatus status = new MultiStatus(DiagramUIRenderPlugin
@@ -194,5 +199,19 @@ public class EclipseUtile {
 				}
 			}
 		};
+	}
+	
+	public static HashMap getActionMap(MenuManager manager){
+		for(int i=0 ; i < manager.getItems().length; i++){
+			if(manager.getItems()[i] instanceof ActionContributionItem){
+				ActionContributionItem item = (ActionContributionItem)manager.getItems()[i];
+				Action action = (Action) item.getAction();
+				actionMap.put(action.getText(), action);
+			}
+			if(manager.getItems()[i] instanceof MenuManager){
+				getActionMap((MenuManager)manager.getItems()[i]);
+			}
+		}
+		return actionMap;
 	}
 }
