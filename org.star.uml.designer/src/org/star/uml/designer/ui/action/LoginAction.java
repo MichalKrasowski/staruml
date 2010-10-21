@@ -29,6 +29,7 @@ public class LoginAction implements IViewActionDelegate{
 	public final String Action_Title ="Login Action";
 	private StarPMSModelView view;
     private IStructuredSelection sel;
+    private Boolean loginFlag = false; 
 	@Override
 	public void init(IViewPart view) {
 		this.view = (StarPMSModelView)view;
@@ -62,7 +63,7 @@ public class LoginAction implements IViewActionDelegate{
 	        public void handleEvent(Event event) {
 	          shell.setVisible(false);
 	          PmsDao pd = new PmsDao();
-	          Boolean loginFlag = pd.loginValidation(textUser.getText(),textPass.getText());
+	          loginFlag = pd.loginValidation(textUser.getText(),textPass.getText());
 	          if(!loginFlag){
 	        	  MessageDialog.openInformation(shell.getShell(),"StarUML View","사용자 ID와 암호를 확인하여 주시기 바랍니다");
 	        	  return;  
@@ -84,7 +85,15 @@ public class LoginAction implements IViewActionDelegate{
 
 	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
+		System.out.println("loginFlag ======= " + loginFlag);
+		if(loginFlag){
+			System.out.println("selection ======= " + loginFlag);
+			action.setEnabled(false);
+		}else{
+			action.setEnabled(true);
+		}
 		sel = (IStructuredSelection)selection;
+		
 		
 	}
 }
