@@ -13,6 +13,7 @@ import org.eclipse.ui.PlatformUI;
 import org.star.uml.designer.base.constance.GlobalConstants;
 import org.star.uml.designer.base.utils.EclipseUtile;
 import org.star.uml.designer.ui.views.StarPMSModelView;
+import org.star.uml.designer.ui.views.StarPMSModelView.TreeObject;
 import org.star.uml.designer.ui.views.policy.StarPMSModelViewPopupPolicy;
 
 public class StarPMSModelViewMenuListener implements IMenuListener{
@@ -26,8 +27,12 @@ public class StarPMSModelViewMenuListener implements IMenuListener{
 		IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
 		StarPMSModelView modelView = (StarPMSModelView)view_part;
 		TreeSelection treeSelection = (TreeSelection)modelView.viewer.getSelection();
+		TreeObject treeObject = (TreeObject)treeSelection.getFirstElement();
 		HashMap actionMap = modelView.getActionMap();
 		if(!treeSelection.isEmpty()){
+			String name = (String)treeObject.getData("name");
+			String category = (String)treeObject.getData("star:category");
+			String id = (String)treeObject.getData("xmi:id");
 			// Login , Logout 상태를 확인한다.
 			StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_1, actionMap);
 			if(modelView.getLoginFlag()){
@@ -35,20 +40,14 @@ public class StarPMSModelViewMenuListener implements IMenuListener{
 			}else{
 				StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_2, actionMap);
 			}
-			// Root 노드인지 확인 한다.
-			if(treeSelection.getPaths()[0].getParentPath().getFirstSegment() == null){
-				
-			}else{
-				
+			// Category가 "rootModel"인 경우 다이어 그램과 모델을 생성 할 수 있다.
+			if(category != null && category.equals("rootModel")){
+				StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_4, actionMap);
 			}
 		}else{
 			StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_1, actionMap);
 		}
 		
-		for(int i=0 ; i < treeSelection.getPaths().length; i++){
-			System.out.println(treeSelection.getPaths()[i].getFirstSegment());
-			System.out.println(treeSelection.getPaths()[i].getParentPath().getFirstSegment());
-		}
 		}catch(Exception e){e.printStackTrace();}
 //		menuMgr.addMenuListener(new IMenuListener() {
 //		public void menuAboutToShow(IMenuManager manager) {

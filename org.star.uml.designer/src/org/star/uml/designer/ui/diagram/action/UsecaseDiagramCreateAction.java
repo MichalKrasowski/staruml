@@ -36,7 +36,7 @@ import org.star.uml.designer.ui.views.StarPMSModelView;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeParent;
 
 public class UsecaseDiagramCreateAction extends Action{
-	public static final String ACTION_ID = "UsecaseDiagram";
+	public static final String ACTION_ID = "USECASE_DIAGRAM";
 	public static final String ACTION_URI = "org.eclipse.uml2.diagram.usecase.UsecaseDiagram";
 	public static final String ACTION_TITLE ="Create UsecaseDiagram";
 	public static final String ICON_PATH = "/icons/login.gif";

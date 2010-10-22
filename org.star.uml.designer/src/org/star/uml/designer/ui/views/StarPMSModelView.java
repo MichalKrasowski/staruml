@@ -126,7 +126,7 @@ public class StarPMSModelView extends ViewPart {
 	public TreeViewer viewer;
 	
 	
-	class TreeObject implements IAdaptable {
+	public class TreeObject implements IAdaptable {
 		private String name;
 		private TreeParent parent;
 		private HashMap data;
@@ -387,20 +387,19 @@ public class StarPMSModelView extends ViewPart {
 			if(subPkg.getNodeName().equals("packagedElement")){
 				String attrName = subPkg.getAttributes().getNamedItem("name").getNodeValue();
 				TreeParent project = new TreeParent(attrName);
-				if(subPkg.getAttributes().getNamedItem("xmi:id") != null){
-					project.setData("key", subPkg.getAttributes().getNamedItem("xmi:id").getNodeValue());
+				for(int y=0; y< subPkg.getAttributes().getLength() ;y++){
+					String key = subPkg.getAttributes().item(y).getNodeName();
+					String value = subPkg.getAttributes().item(y).getNodeValue();
+					project.setData(key, value);
 				}
-				
-				if(subPkg.getAttributes().getNamedItem("star:category") != null && subPkg.getAttributes().getNamedItem("star:category").getNodeValue().equals("diagram")){
+				String category = subPkg.getAttributes().getNamedItem("star:category").getNodeValue();
+				if(category.equals("diagram") || category.equals("model")){
 					String fullName = subPkg.getAttributes().getNamedItem("star:fullName").getNodeValue();
 					TreeObject projectObject = new TreeObject(attrName);
-					projectObject.setData("fullName", fullName);
-					projectObject.setData("path",parent.toString()+"/diagram");
 					parent.addChild(projectObject);
 				}else{
 					parent.addChild(project);
 				}
-				
 				if(subPkg.getChildNodes().getLength()>= 1){
 					setTreeFormXML(subPkg,project);
 				}

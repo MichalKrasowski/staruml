@@ -7,6 +7,8 @@ import org.eclipse.jface.action.Action;
 import org.star.uml.designer.base.constance.GlobalConstants;
 import org.star.uml.designer.ui.action.PMSLoginAction;
 import org.star.uml.designer.ui.action.PMSLogoutAction;
+import org.star.uml.designer.ui.diagram.action.ActorCreateAction;
+import org.star.uml.designer.ui.diagram.action.UsecaseDiagramCreateAction;
 
 public class StarPMSModelViewPopupPolicy {
 	
@@ -20,6 +22,9 @@ public class StarPMSModelViewPopupPolicy {
 			break;
 			case GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_3:
 				setPolicy_3(actionMap);
+			break;
+			case GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_4:
+				setPolicy_4(actionMap);
 			break;
 			default:
 		}
@@ -42,5 +47,12 @@ public class StarPMSModelViewPopupPolicy {
 	static void setPolicy_3(HashMap actionMap){
 		Action action = (Action)actionMap.get(PMSLogoutAction.ACTION_TITLE);
 		action.setEnabled(true);
+	}
+	
+	static void setPolicy_4(HashMap actionMap){
+		Action action = (Action)actionMap.get(ActorCreateAction.ACTION_TITLE);
+		action.setEnabled(true);
+		Action action2 = (Action)actionMap.get(UsecaseDiagramCreateAction.ACTION_TITLE);
+		action2.setEnabled(true);
 	}
 }
