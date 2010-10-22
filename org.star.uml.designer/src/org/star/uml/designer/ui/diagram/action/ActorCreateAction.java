@@ -31,10 +31,10 @@ import org.star.uml.designer.ui.factory.StarUMLEditHelperFactory;
 import org.star.uml.designer.ui.views.StarPMSModelView;
 
 public class ActorCreateAction extends Action{
-	public final String ACTION_ID = "Actor";
-	public final String ACTION_URI = "org.eclipse.uml2.diagram.usecase.Actor_2002";
-	public final String ACTION_TITLE ="Create Actor";
-	public final String ICON_PATH = "/icons/login.gif";
+	public static final String ACTION_ID = "Actor";
+	public static final String ACTION_URI = "org.eclipse.uml2.diagram.usecase.Actor_2002";
+	public static final String ACTION_TITLE ="Create Actor";
+	public static final String ICON_PATH = "/icons/login.gif";
 	
 	public TransactionalEditingDomain domain = null;
 	public DiagramDocumentEditor editor = null;

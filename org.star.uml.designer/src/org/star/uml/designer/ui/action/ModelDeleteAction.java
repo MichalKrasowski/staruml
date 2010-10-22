@@ -9,10 +9,10 @@ import org.osgi.framework.Bundle;
 import org.star.uml.designer.Activator;
 
 public class ModelDeleteAction extends Action {
-	public final String ACTION_ID = "DELETE";
-	public final String ACTION_URI = "org.star.uml.designer.ui.action.DeleteAction";
-	public final String ACTION_TITLE ="Delete";
-	public final String ICON_PATH = "/icons/login.gif";
+	public static final String ACTION_ID = "DELETE";
+	public static final String ACTION_URI = "org.star.uml.designer.ui.action.DeleteAction";
+	public static final String ACTION_TITLE ="Delete";
+	public static final String ICON_PATH = "/icons/login.gif";
 
 	public ModelDeleteAction() {
 		super();

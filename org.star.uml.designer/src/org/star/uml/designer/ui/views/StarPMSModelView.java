@@ -85,6 +85,7 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IAdaptable;
 import org.osgi.framework.Bundle;
+import org.star.uml.designer.base.constance.GlobalConstants;
 import org.star.uml.designer.base.utils.CommonUtil;
 import org.star.uml.designer.base.utils.EclipseUtile;
 import org.star.uml.designer.base.utils.XmlUtil;
@@ -119,7 +120,7 @@ public class StarPMSModelView extends ViewPart {
 
 	private DrillDownAdapter drillDownAdapter;
 	private TreeParent root;
-	private Boolean flag = true;
+	private Boolean loginFlag = true;
 	private HashMap actionMap;
 	
 	public TreeViewer viewer;
@@ -279,20 +280,6 @@ public class StarPMSModelView extends ViewPart {
 		manager.add(implementationAction);
 	}
 	
-	private void fillLoginContextMenu(IMenuManager manager) {
-		Action loginAction = null;
-		Action logoutAction = null;
-		
-		if(flag){
-			loginAction = StarPMSModelViewUtil.makeLoginAction(manager);
-			logoutAction = StarPMSModelViewUtil.makeLogoutAction(manager);
-			flag = false;
-		}else{
-			manager.add(loginAction);
-			manager.add(logoutAction);
-		}
-	}
-
 	private void hookDoubleClickAction() {
 		viewer.addDoubleClickListener(new IDoubleClickListener() {
 			public void doubleClick(DoubleClickEvent event) {
@@ -425,6 +412,10 @@ public class StarPMSModelView extends ViewPart {
 		return actionMap;
 	}
 	
+	public boolean getLoginFlag(){
+		return loginFlag;
+	}
+	
 	class ViewContentProvider implements IStructuredContentProvider,ITreeContentProvider {
 		private TreeParent invisibleRoot;
 
@@ -465,6 +456,7 @@ public class StarPMSModelView extends ViewPart {
 		
 		private void initialize() {
 			root = new TreeParent("192.168.10.102:1521/StarPMS");
+			root.setData(GlobalConstants.TREE_PATH, "root");
 			invisibleRoot = new TreeParent("");
 			invisibleRoot.addChild(root);
 		}

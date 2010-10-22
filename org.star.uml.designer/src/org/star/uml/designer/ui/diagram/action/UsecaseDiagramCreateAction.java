@@ -36,10 +36,10 @@ import org.star.uml.designer.ui.views.StarPMSModelView;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeParent;
 
 public class UsecaseDiagramCreateAction extends Action{
-	public final String ACTION_ID = "UsecaseDiagram";
-	public final String ACTION_URI = "org.eclipse.uml2.diagram.usecase.UsecaseDiagram";
-	public final String ACTION_TITLE ="Create UsecaseDiagram";
-	public final String ICON_PATH = "/icons/login.gif";
+	public static final String ACTION_ID = "UsecaseDiagram";
+	public static final String ACTION_URI = "org.eclipse.uml2.diagram.usecase.UsecaseDiagram";
+	public static final String ACTION_TITLE ="Create UsecaseDiagram";
+	public static final String ICON_PATH = "/icons/login.gif";
 	public IViewPart view = null;
 	
 	public UsecaseDiagramCreateAction() {

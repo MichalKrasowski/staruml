@@ -10,10 +10,10 @@ import org.star.uml.designer.Activator;
 
 public class PMSLogoutAction extends Action {
 	
-	public final String ACTION_ID = "PMS_LOGOUT";
-	public final String ACTION_URI = "org.star.uml.designer.ui.action.PMSLogoutAction";
-	public final String ACTION_TITLE ="Logout Repository";
-	public final String ICON_PATH = "/icons/login.gif";
+	public static final String ACTION_ID = "PMS_LOGOUT";
+	public static final String ACTION_URI = "org.star.uml.designer.ui.action.PMSLogoutAction";
+	public static final String ACTION_TITLE ="Logout Repository";
+	public static final String ICON_PATH = "/icons/login.gif";
 	
 	public PMSLogoutAction() {
 		super();
