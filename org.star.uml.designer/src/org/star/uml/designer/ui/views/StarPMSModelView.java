@@ -119,12 +119,10 @@ public class StarPMSModelView extends ViewPart {
 	public static final String ID = "org.star.uml.designer.ui.views.StarPMSModelView";
 
 	private DrillDownAdapter drillDownAdapter;
-	private TreeParent root;
 	private Boolean loginFlag = false;
 	private HashMap actionMap;
-	
-	public TreeViewer viewer;
-	
+	private TreeViewer viewer;
+	private TreeParent root;
 	
 	public class TreeObject implements IAdaptable {
 		private String name;
@@ -178,10 +176,16 @@ public class StarPMSModelView extends ViewPart {
 		public boolean hasChildren() {
 			return children.size()>0;
 		}
-		public void appendChield(TreeParent parent, String string, HashMap data) {
-			TreeObject chield = new TreeObject(string);
-			chield.setData("path", (String)data.get("path"));
-			chield.setData("req_usecase_seq", (String)data.get("req_usecase_seq"));
+		public void appendChield(TreeParent parent, String name) {
+			TreeObject chield = new TreeObject(name);
+//			chield.setData("path", (String)data.get("path"));
+//			chield.setData("req_usecase_seq", (String)data.get("req_usecase_seq"));
+			addChild(chield);
+			viewer.refresh();
+		}
+		public void appendChield(TreeParent parent, String name, String key, String value) {
+			TreeObject chield = new TreeObject(name);
+			chield.setData(key, value);
 			addChild(chield);
 			viewer.refresh();
 		}
@@ -321,91 +325,7 @@ public class StarPMSModelView extends ViewPart {
 			message);
 	}
 
-	public void setFocus() {
-		viewer.getControl().setFocus();
-	}
-	
-	public void addChildXml(String eName, String key, String name,String fullName){
-		//Userecase Diagram
-		IProject rootProject = ResourcesPlugin.getWorkspace().getRoot().getProject("Root");
-		Document modelDoc = null;
-		try{
-			String projectPath = rootProject.getLocation().toOSString();
-			String domStr = XmlUtil.getXmlFileToString(projectPath+File.separator+"model.xml");
-			modelDoc = XmlUtil.getStringToDocument(domStr);
-			NodeList n = modelDoc.getDocumentElement().getElementsByTagName("packagedElement");
-			for(int i = 0; i < n.getLength(); i++){
-				Node node = n.item(i);
-				NamedNodeMap attrMap = node.getAttributes();
-				if(attrMap.getNamedItem("xmi:id") != null && attrMap.getNamedItem("xmi:id").getNodeValue().equals(key)){
-					Element newNode = modelDoc.createElement(eName);
-					newNode.setAttribute("xmi:id", "_" + CommonUtil.randomKey() + "-GMK-em0Iv_Q");
-					newNode.setAttribute("star:category", "diagram");
-					newNode.setAttribute("path", "diagram");
-					newNode.setAttribute("xmi:type", "uml:Package");
-					newNode.setAttribute("name", name);
-					newNode.setAttribute("star:fullName", fullName);
-					node.appendChild(newNode);
-					XmlUtil.writeXmlFile(modelDoc, projectPath+File.separator+"model.xml");
-				}
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	}
-	
-	public void loadModel(){
-		IProject rootProject = ResourcesPlugin.getWorkspace().getRoot().getProject("Root");
-		Document modelDoc = null;
-		if(rootProject.exists()){
-			try {
-				String projectPath = rootProject.getLocation().toOSString();
-				String domStr = XmlUtil.getXmlFileToString(projectPath+File.separator+"model.xml");
-				modelDoc = XmlUtil.getStringToDocument(domStr);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}else{
-			try {
-				modelDoc = XmlUtil.getStringToDocument(DefaultModel.getXML());
-				Document umlDoc = XmlUtil.getStringToDocument(DefaultUML.getXML());
-				IProject newProjectHandle = EclipseUtile.createNewProject("Root",modelDoc,umlDoc);
-				String projectPath = newProjectHandle.getLocation().toOSString();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		Node rootNode = modelDoc.getChildNodes().item(0);
-		Node subPkgNode = rootNode.getChildNodes().item(9);
-		setTreeFormXML(subPkgNode,root);
-		viewer.refresh();
-	}
-	
-	public void setTreeFormXML(Node pkgeElement,TreeParent parent){
-		for(int i=0; i<pkgeElement.getChildNodes().getLength(); i++){
-			Node subPkg = pkgeElement.getChildNodes().item(i);
-			if(subPkg.getNodeName().equals("packagedElement")){
-				String attrName = subPkg.getAttributes().getNamedItem("name").getNodeValue();
-				TreeParent project = new TreeParent(attrName);
-				for(int y=0; y< subPkg.getAttributes().getLength() ;y++){
-					String key = subPkg.getAttributes().item(y).getNodeName();
-					String value = subPkg.getAttributes().item(y).getNodeValue();
-					project.setData(key, value);
-				}
-				String category = subPkg.getAttributes().getNamedItem("star:category").getNodeValue();
-				if(category.equals("diagram") || category.equals("model")){
-					String fullName = subPkg.getAttributes().getNamedItem("star:fullName").getNodeValue();
-					TreeObject projectObject = new TreeObject(attrName);
-					parent.addChild(projectObject);
-				}else{
-					parent.addChild(project);
-				}
-				if(subPkg.getChildNodes().getLength()>= 1){
-					setTreeFormXML(subPkg,project);
-				}
-			}
-		}
-	}
+	public void setFocus() { viewer.getControl().setFocus(); }
 	
 	public HashMap getActionMap(){
 		return actionMap;
@@ -417,6 +337,22 @@ public class StarPMSModelView extends ViewPart {
 	
 	public void setLoginFlag(boolean loginFlag){
 		this.loginFlag = loginFlag;
+	}
+	
+	public TreeViewer getTreeViewer(){
+		return viewer;
+	}
+	
+	public TreeParent getTreeParent(){
+		return root;
+	}
+	
+	public TreeParent createTreeParent(String name){
+		return new TreeParent(name);
+	}
+	
+	public TreeObject createTreeObject(String name){
+		return new TreeObject(name);
 	}
 	
 	class ViewContentProvider implements IStructuredContentProvider,ITreeContentProvider {

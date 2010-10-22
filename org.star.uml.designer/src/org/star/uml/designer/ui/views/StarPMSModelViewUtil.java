@@ -64,62 +64,131 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
 import org.star.uml.designer.Activator;
+import org.star.uml.designer.base.constance.GlobalConstants;
+import org.star.uml.designer.base.utils.CommonUtil;
 import org.star.uml.designer.base.utils.EclipseUtile;
+import org.star.uml.designer.base.utils.XmlUtil;
 import org.star.uml.designer.service.dao.PmsDao;
 import org.star.uml.designer.ui.action.ModelDeleteAction;
 import org.star.uml.designer.ui.action.PMSLoginAction;
 import org.star.uml.designer.ui.action.PMSLogoutAction;
 import org.star.uml.designer.ui.diagram.action.ActorCreateAction;
 import org.star.uml.designer.ui.diagram.action.UsecaseDiagramCreateAction;
+import org.star.uml.designer.ui.model.initialization.DefaultModel;
+import org.star.uml.designer.ui.model.initialization.DefaultUML;
 import org.star.uml.designer.ui.newWiazrds.ClassSorceCodeGeneration;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeObject;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeParent;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class StarPMSModelViewUtil {
 	
-	
-	
-	public static Action makeLogoutAction(final IMenuManager manager){
-		Action logoutAction = new Action() {
-			public void run() {
-				try{
-			          IContributionItem[] item = manager.getItems();
-			          for(int i = 0; i < item.length; i++){
-			        	  if(item[i] instanceof ActionContributionItem){
-			        		  ActionContributionItem a = (ActionContributionItem)item[i];
-			        		  if(a.getId() != null && a.getId().equals("login")){
-			        			  IAction s = a.getAction();
-			        			  s.setEnabled(true);
-			        		  }else if(a.getId() != null && a.getId().equals("logout")){
-			        			  IAction s = a.getAction();
-			        			  s.setEnabled(false);
-			        		  }
-			        	  }
-			          }
-			          //StarPMSRequestTableView stv = new StarPMSRequestTableView();
-			          //stv.removeTable();
-			          IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSRequestTableView");
-			          StarPMSRequestTableView tableView = (StarPMSRequestTableView)view_part;
-			          tableView.removeTable();
-			          
-			          IViewPart request_view = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
-			          StarPMSModelView requestView = (StarPMSModelView)request_view;
-			          requestView.removeTree();
-			          //requestView
-			          
-		          }catch(Exception e){
-		        	  e.printStackTrace();
-		          }
+	public static void loadModel(String project){
+		// ModelView를 가져온다.
+		IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+								.findView(GlobalConstants.PluinID.STAR_PMS_MODEL_VIEW);
+		StarPMSModelView modelView = (StarPMSModelView)view_part;
+		// 처음 PMS에 로그인 했을 때 프로젝트가 있을 경우 로드하고 없을 경우 생성해서 로드한다.
+		IProject rootProject = ResourcesPlugin.getWorkspace().getRoot().getProject(project);
+		Document modelDoc = null;
+		// 모델 파일 정보를 가져온다.
+		String projectPath = "";
+		String modelPath = "";
+		if(rootProject.exists()){
+			try {
+				projectPath = rootProject.getLocation().toOSString();
+				modelPath =  projectPath+File.separator+GlobalConstants.DEFAULT_VIEW_MODEL_FILE;
+				String domStr = XmlUtil.getXmlFileToString(modelPath);
+				modelDoc = XmlUtil.getStringToDocument(domStr);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		};
-		logoutAction.setId("logout");
-		logoutAction.setText("Logout Repository");
-		logoutAction.setToolTipText("Login Repository tooltip");
-		logoutAction.setImageDescriptor(Activator.getImageDescriptor("/icons/logout.gif"));
-		logoutAction.setEnabled(false);
-		return logoutAction;
+		}else{
+			try {
+				modelDoc = XmlUtil.getStringToDocument(DefaultModel.getXML());
+				Document umlDoc = XmlUtil.getStringToDocument(DefaultUML.getXML());
+				IProject newProjectHandle = EclipseUtile.createNewProject(project,modelDoc,umlDoc);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		// XML를 로드한 후 Import 페키지는 제외하고 루트를 가져온다.
+		Node rootNode = modelDoc.getChildNodes().item(0);
+		Node subPkgNode = rootNode.getChildNodes().item(9);
+		setTreeFormXML(subPkgNode,modelView.getTreeParent());
+		modelView.getTreeViewer().refresh();
 	}
-
+	
+	public static void setTreeFormXML(Node pkgeElement,TreeParent parent){
+		// ModelView를 가져온다.
+		IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+								.findView(GlobalConstants.PluinID.STAR_PMS_MODEL_VIEW);
+		StarPMSModelView modelView = (StarPMSModelView)view_part;
+		for(int i=0; i<pkgeElement.getChildNodes().getLength(); i++){
+			Node subPkg = pkgeElement.getChildNodes().item(i);
+			if(subPkg.getNodeName().equals("packagedElement")){
+				NamedNodeMap attMap = subPkg.getAttributes();
+				String attrName = attMap.getNamedItem(GlobalConstants.StarMoedl.STAR_MODEL_NAME).getNodeValue();
+				String category = attMap.getNamedItem(GlobalConstants.StarMoedl.STAR_MODEL_CATEGORY).getNodeValue();
+				TreeParent project = modelView.createTreeParent(attrName);
+				TreeObject projectObject = modelView.createTreeObject(attrName);
+				for(int y=0; y< subPkg.getAttributes().getLength() ;y++){
+					String key = subPkg.getAttributes().item(y).getNodeName();
+					String value = subPkg.getAttributes().item(y).getNodeValue();
+					project.setData(key, value);
+					projectObject.setData(key, value);
+				}
+				// 다이어 그램이나 모델인 경우 TreeObject로 추가한다.
+				if(category.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM) || 
+				   category.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL)){
+					parent.addChild(projectObject);
+				}else{
+					parent.addChild(project);
+				}
+				if(subPkg.getChildNodes().getLength()>= 1){
+					setTreeFormXML(subPkg,project);
+				}
+			}
+		}
+	}
+	public static void addDiagramToModel(String project,String parentId, String name, 
+										 String extension,String category){
+		// 모델 파일이 있는 프로젝트를 가져온다.
+		IProject rootProject = ResourcesPlugin.getWorkspace().getRoot().getProject(project);
+		Document modelDoc = null;
+		try{
+			// 파일을 Document로 로드한다.
+			String projectPath = rootProject.getLocation().toOSString();
+			String modelPath = projectPath+File.separator+GlobalConstants.DEFAULT_VIEW_MODEL_FILE;
+			String domStr = XmlUtil.getXmlFileToString(modelPath);
+			modelDoc = XmlUtil.getStringToDocument(domStr);
+			// Document 있는 Element 중  TagName이 "package"를 가져와서 ID를 비교해 부모가 될 Node를 선택한다.
+			NodeList n = modelDoc.getDocumentElement().getElementsByTagName("packagedElement");
+			for(int i = 0; i < n.getLength(); i++){
+				Node node = n.item(i);
+				NamedNodeMap attrMap = node.getAttributes();
+				String id = attrMap.getNamedItem(GlobalConstants.StarMoedl.STAR_MODEL_ID).getNodeValue();
+				if(id.equals(parentId)){
+					Element newNode = modelDoc.createElement(name);
+					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_ID, 
+										 "_" + CommonUtil.randomKey() + "-GMK-em0Iv_Q");
+					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_CATEGORY, 
+								         GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM);
+					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_TYPE, "uml:Package");
+					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_NAME, name);
+					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION, extension);
+					node.appendChild(newNode);
+					XmlUtil.writeXmlFile(modelDoc, modelPath);
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 	public static Action makeAnalysisUsecaseAction(final Composite parent,final ISelection selection,final StarPMSModelView starPMSView){
 		Action analysisAction = new Action() {
 			public void run() {
@@ -242,7 +311,7 @@ public class StarPMSModelViewUtil {
 					}
 					String parentPath = (String)parent.getData("path");
 					inputData.put("path",parent.toString()+"/diagram");
-					parent.appendChield(parent,fileName, inputData);
+//					parent.appendChield(parent,fileName, inputData);
 					
 				}
 				}catch(Exception e){

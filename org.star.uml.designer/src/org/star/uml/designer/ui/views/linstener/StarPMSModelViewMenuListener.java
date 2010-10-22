@@ -24,15 +24,15 @@ public class StarPMSModelViewMenuListener implements IMenuListener{
 	@Override
 	public void menuAboutToShow(IMenuManager manager) {
 		try{
-		IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
+		IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView(GlobalConstants.PluinID.STAR_PMS_MODEL_VIEW);
 		StarPMSModelView modelView = (StarPMSModelView)view_part;
-		TreeSelection treeSelection = (TreeSelection)modelView.viewer.getSelection();
+		TreeSelection treeSelection = (TreeSelection)modelView.getTreeViewer().getSelection();
 		TreeObject treeObject = (TreeObject)treeSelection.getFirstElement();
 		HashMap actionMap = modelView.getActionMap();
 		if(!treeSelection.isEmpty()){
-			String name = (String)treeObject.getData("name");
-			String category = (String)treeObject.getData("star:category");
-			String id = (String)treeObject.getData("xmi:id");
+			String name = (String)treeObject.getData(GlobalConstants.StarMoedl.STAR_MODEL_NAME);
+			String id = (String)treeObject.getData(GlobalConstants.StarMoedl.STAR_MODEL_ID);
+			String category = (String)treeObject.getData(GlobalConstants.StarMoedl.STAR_MODEL_CATEGORY);
 			// Login , Logout 상태를 확인한다.
 			StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_1, actionMap);
 			if(modelView.getLoginFlag()){
@@ -41,7 +41,7 @@ public class StarPMSModelViewMenuListener implements IMenuListener{
 				StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_2, actionMap);
 			}
 			// Category가 "rootModel"인 경우 다이어 그램과 모델을 생성 할 수 있다.
-			if(category != null && category.equals("rootModel")){
+			if(category != null && category.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_MODEL_ROOT)){
 				StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_4, actionMap);
 			}
 		}else{

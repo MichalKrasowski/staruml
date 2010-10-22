@@ -129,12 +129,12 @@ public class EclipseUtile {
 	private static IRunnableWithProgress createDiagramRunable(final MultiStatus status,final IProject projectHandle,final URI diagramURI,final URI modelURI,final String actionID) {
 		return new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) {
-				Resource diagram = StarUMLDiagramCreationFactory.getResource(actionID, diagramURI, modelURI, monitor);
-//				try {
-//					UMLDiagramEditorUtil.openDiagram(diagram);
-//				} catch (PartInitException e) {
-//					e.printStackTrace();
-//				}
+				try {
+					Resource diagram = StarUMLDiagramCreationFactory.getResource(actionID, diagramURI, modelURI, monitor);
+					UMLDiagramEditorUtil.openDiagram(diagram);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		};
 		
