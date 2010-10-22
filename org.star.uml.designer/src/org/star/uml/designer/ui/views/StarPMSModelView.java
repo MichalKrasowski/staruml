@@ -120,7 +120,7 @@ public class StarPMSModelView extends ViewPart {
 
 	private DrillDownAdapter drillDownAdapter;
 	private TreeParent root;
-	private Boolean loginFlag = true;
+	private Boolean loginFlag = false;
 	private HashMap actionMap;
 	
 	public TreeViewer viewer;
@@ -414,6 +414,10 @@ public class StarPMSModelView extends ViewPart {
 	
 	public boolean getLoginFlag(){
 		return loginFlag;
+	}
+	
+	public void setLoginFlag(boolean loginFlag){
+		this.loginFlag = loginFlag;
 	}
 	
 	class ViewContentProvider implements IStructuredContentProvider,ITreeContentProvider {

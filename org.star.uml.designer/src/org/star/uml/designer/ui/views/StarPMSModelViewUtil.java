@@ -77,54 +77,7 @@ import org.star.uml.designer.ui.views.StarPMSModelView.TreeParent;
 
 public class StarPMSModelViewUtil {
 	
-	public static void openProjectDialog(final Shell parentShell){
-		final Shell shell = new Shell(SWT.TITLE | SWT.BORDER | SWT.APPLICATION_MODAL);
-		shell.setText("Select StarPMS Project");
-		GridData gridData = new GridData();
-		GridLayout layout = new GridLayout(2, false);
-	    shell.setLayout(layout);
-	    shell.setLayoutData(gridData);
-	    shell.setBounds(500, 200,240, 100);
-	    
-	    Label labelProject = new Label(shell, SWT.NULL);
-	    labelProject.setText("프로젝트 : ");
-	    final Combo combo = new Combo(shell, SWT.DROP_DOWN |SWT.READ_ONLY );
-	    combo.add("실적이상관리 시스템");
-        combo.add("회의실 예약 관리 시스템");
-	    
-	    final Button buttonLogin = new Button(shell, SWT.PUSH);
-	    buttonLogin.setText("접속");
-	    buttonLogin.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_END));
-	    buttonLogin.addListener(SWT.Selection, new Listener() {
-	        public void handleEvent(Event event) {
-	            try {
-	            	PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("org.star.uml.designer.ui.views.StarPMSRequestTableView");	
-	            	IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSRequestTableView");
-					StarPMSRequestTableView tableView = (StarPMSRequestTableView)view_part;
-					tableView.loadTable();
-					//Load Model View
-	            	IViewPart model_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
-	            	StarPMSModelView modelView = (StarPMSModelView)model_part;
-	            	modelView.loadModel();
-					shell.dispose();
-			        parentShell.dispose();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-	        }
-	      });
-	    
-	    Button buttonClose = new Button(shell, SWT.PUSH);
-	    buttonClose.setText("닫기");
-	    buttonClose.addListener(SWT.Selection, new Listener() {
-	        public void handleEvent(Event event) {
-	          parentShell.setVisible(true);
-	          shell.dispose();
-	        }
-	      });
-	    
-	    shell.open();
-	}
+	
 	
 	public static Action makeLogoutAction(final IMenuManager manager){
 		Action logoutAction = new Action() {

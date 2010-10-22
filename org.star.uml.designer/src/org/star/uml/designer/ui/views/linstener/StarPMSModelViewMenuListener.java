@@ -31,9 +31,9 @@ public class StarPMSModelViewMenuListener implements IMenuListener{
 			// Login , Logout 상태를 확인한다.
 			StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_1, actionMap);
 			if(modelView.getLoginFlag()){
-				StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_2, actionMap);
-			}else{
 				StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_3, actionMap);
+			}else{
+				StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_2, actionMap);
 			}
 			// Root 노드인지 확인 한다.
 			if(treeSelection.getPaths()[0].getParentPath().getFirstSegment() == null){

@@ -18,6 +18,9 @@ public class StarPMSModelViewPopupPolicy {
 			case GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_2:
 				setPolicy_2(actionMap);
 			break;
+			case GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_3:
+				setPolicy_3(actionMap);
+			break;
 			default:
 		}
 	}
@@ -30,10 +33,12 @@ public class StarPMSModelViewPopupPolicy {
 			action.setEnabled(false);
 		}
 	}
+	
 	static void setPolicy_2(HashMap actionMap){
 		Action action = (Action)actionMap.get(PMSLoginAction.ACTION_TITLE);
 		action.setEnabled(true);
 	}
+	
 	static void setPolicy_3(HashMap actionMap){
 		Action action = (Action)actionMap.get(PMSLogoutAction.ACTION_TITLE);
 		action.setEnabled(true);

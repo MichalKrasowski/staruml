@@ -13,15 +13,20 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
 import org.star.uml.designer.Activator;
 import org.star.uml.designer.service.dao.PmsDao;
+import org.star.uml.designer.ui.views.StarPMSModelView;
 import org.star.uml.designer.ui.views.StarPMSModelViewUtil;
+import org.star.uml.designer.ui.views.StarPMSRequestTableView;
 
 public class PMSLoginAction extends Action {
 	
@@ -68,7 +73,7 @@ public class PMSLoginAction extends Action {
 	        	  MessageDialog.openInformation(shell.getShell(),"StarUML View","사용자 ID와 암호를 확인하여 주시기 바랍니다");
 	        	  return;  
 	          }
-	          StarPMSModelViewUtil.openProjectDialog(shell);			          
+	          openProjectDialog(shell);			          
 	        }
 	      });
 	    
@@ -89,5 +94,55 @@ public class PMSLoginAction extends Action {
 	
 	public ImageDescriptor getImageDescriptor(){
 		return Activator.getImageDescriptor(ICON_PATH);
+	}
+	
+	public void openProjectDialog(final Shell parentShell){
+		final Shell shell = new Shell(SWT.TITLE | SWT.BORDER | SWT.APPLICATION_MODAL);
+		shell.setText("Select StarPMS Project");
+		GridData gridData = new GridData();
+		GridLayout layout = new GridLayout(2, false);
+	    shell.setLayout(layout);
+	    shell.setLayoutData(gridData);
+	    shell.setBounds(500, 200,240, 100);
+	    
+	    Label labelProject = new Label(shell, SWT.NULL);
+	    labelProject.setText("프로젝트 : ");
+	    final Combo combo = new Combo(shell, SWT.DROP_DOWN |SWT.READ_ONLY );
+	    combo.add("실적이상관리 시스템");
+        combo.add("회의실 예약 관리 시스템");
+	    
+	    final Button buttonLogin = new Button(shell, SWT.PUSH);
+	    buttonLogin.setText("접속");
+	    buttonLogin.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_END));
+	    buttonLogin.addListener(SWT.Selection, new Listener() {
+	        public void handleEvent(Event event) {
+	            try {
+	            	PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("org.star.uml.designer.ui.views.StarPMSRequestTableView");	
+	            	IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSRequestTableView");
+					StarPMSRequestTableView tableView = (StarPMSRequestTableView)view_part;
+					tableView.loadTable();
+					//Load Model View
+	            	IViewPart model_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
+	            	StarPMSModelView modelView = (StarPMSModelView)model_part;
+	            	modelView.loadModel();
+	            	modelView.setLoginFlag(true);
+					shell.dispose();
+			        parentShell.dispose();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+	        }
+	      });
+	    
+	    Button buttonClose = new Button(shell, SWT.PUSH);
+	    buttonClose.setText("닫기");
+	    buttonClose.addListener(SWT.Selection, new Listener() {
+	        public void handleEvent(Event event) {
+	          parentShell.setVisible(true);
+	          shell.dispose();
+	        }
+	      });
+	    
+	    shell.open();
 	}
 }
