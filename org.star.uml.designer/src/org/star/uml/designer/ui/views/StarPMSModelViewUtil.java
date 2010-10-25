@@ -176,8 +176,7 @@ public class StarPMSModelViewUtil {
 					Element newNode = modelDoc.createElement("packagedElement");
 					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_ID, 
 										 "_" + CommonUtil.randomKey() + "-GMK-em0Iv_Q");
-					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_CATEGORY, 
-								         GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM);
+					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_CATEGORY, category);
 					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_TYPE, "uml:Package");
 					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_NAME, name+"("+diagramName+")");
 					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_FILE, name);

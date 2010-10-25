@@ -96,6 +96,7 @@ import org.star.uml.designer.ui.factory.StarUMLActionFactory;
 import org.star.uml.designer.ui.factory.StarUMLImageCreateFactory;
 import org.star.uml.designer.ui.model.initialization.DefaultModel;
 import org.star.uml.designer.ui.model.initialization.DefaultUML;
+import org.star.uml.designer.ui.views.linstener.StarPMSModelViewMenuDoubleClickListener;
 import org.star.uml.designer.ui.views.linstener.StarPMSModelViewMenuListener;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -185,11 +186,12 @@ public class StarPMSModelView extends ViewPart {
 			addChild(chield);
 			viewer.refresh();
 		}
-		public void appendChield(TreeParent parent, String name, String key, String value) {
+		public TreeObject appendChield(TreeParent parent, String name, String key, String value) {
 			TreeObject chield = new TreeObject(name);
 			chield.setData(key, value);
 			addChild(chield);
-			viewer.refresh();
+//			viewer.refresh();
+			return chield;
 		}
 	}
 
@@ -245,7 +247,6 @@ public class StarPMSModelView extends ViewPart {
 		hookContextMenu(parent);
 		hookDoubleClickAction();
 		contributeToActionBars();
-		hookSelectAction();
 	}
 
 	private void hookContextMenu(final Composite parent) {
@@ -293,39 +294,10 @@ public class StarPMSModelView extends ViewPart {
 	}
 	
 	private void hookDoubleClickAction() {
-		viewer.addDoubleClickListener(new IDoubleClickListener() {
-			public void doubleClick(DoubleClickEvent event) {
-				TreeSelection selection = (TreeSelection)viewer.getSelection();
-				TreeObject treeObject = (TreeObject)selection.getFirstElement();
-				String extension = (String)treeObject.getData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION);
-				String fileName = (String)treeObject.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE);
-				System.out.println("/Root/" + fileName+"."+extension);
-				EclipseUtile.openDiagram("/Root/" + fileName+"."+extension);
-			}
-		});
+		StarPMSModelViewMenuDoubleClickListener lisnener = 
+			new StarPMSModelViewMenuDoubleClickListener();
+		viewer.addDoubleClickListener(lisnener);
 	}
-	
-	private void hookSelectAction() {
-//		viewer.addSelectionChangedListener(new ISelectionChangedListener(){
-//			@Override
-//			public void selectionChanged(SelectionChangedEvent event) {
-//				TreeSelection selection = (TreeSelection)viewer.getSelection();
-//				TreeObject treeObject = (TreeObject)selection.getFirstElement();
-//				String nodeText = selection.toString();
-//				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-//				final View view = null;
-//				final TransactionalEditingDomain domain= null;
-//				IDiagramEditDomain editingDomain= null;
-//				if(page.getActiveEditor() !=null && page.getActiveEditor() instanceof org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor){
-//		        	final org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor editor = 
-//		        		(org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor)page.getActiveEditor();
-//		        	Action action = StarUMLActionFactory.getAction(editor, "Actor");
-//		        	action.run();
-//				}
-//			}
-//		});
-	}
-	
 	
 	private void showMessage(String message) {
 		MessageDialog.openInformation(

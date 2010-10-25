@@ -38,7 +38,7 @@ import org.star.uml.designer.ui.views.StarPMSModelViewUtil;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeObject;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeParent;
 
-public class UsecaseDiagramCreateAction extends Action{
+public class UsecaseDiagramCreateAction extends Action implements IStarUMLAction{
 	public static final String ACTION_ID = "USECASE_DIAGRAM";
 	public static final String ACTION_URI = "org.eclipse.uml2.diagram.usecase.UsecaseDiagram";
 	public static final String ACTION_TITLE ="Create UsecaseDiagram";
@@ -70,15 +70,17 @@ public class UsecaseDiagramCreateAction extends Action{
 		// 선택된 Tree를 가져온다.
 		TreeSelection treeSelection = (TreeSelection)modelView.getTreeViewer().getSelection();
 		TreeParent parent = (TreeParent)treeSelection.getFirstElement();
-		String id = (String)parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_ID);
-		HashMap map = new HashMap();
+		String parentId = (String)parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_ID);
 		// 추가된 Node에 필요한 값들을 설정한다.
-		parent.appendChield(parent,fileName+"("+ACTION_ID+")");
-		parent.setData(GlobalConstants.StarMoedl.STAR_MODEL_FILE, fileName);
-		parent.setData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION, DIAGRAM_EXTENSION);
+		TreeObject treeObject = parent.appendChield(parent,fileName+"("+ACTION_ID+")"
+								,GlobalConstants.StarMoedl.STAR_MODEL_FILE, fileName);
+		treeObject.setData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION, DIAGRAM_EXTENSION);
+		treeObject.setData(GlobalConstants.StarMoedl.STAR_MODEL_CATEGORY, 
+					       GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM);
+		modelView.getTreeViewer().refresh();
 		// 모델 파일에 추가된 다이어 그램을 추가한다.
-		StarPMSModelViewUtil.addDiagramToModel("Root",id,fileName,DIAGRAM_EXTENSION,
-							  				   GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL,ACTION_ID);
+		StarPMSModelViewUtil.addDiagramToModel("Root",parentId,fileName,DIAGRAM_EXTENSION,
+							  				   GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM,ACTION_ID);
 	}
 	
 	public URL getImageURL(){
@@ -88,6 +90,18 @@ public class UsecaseDiagramCreateAction extends Action{
 	
 	public ImageDescriptor getImageDescriptor(){
 		return Activator.getImageDescriptor(ICON_PATH);
+	}
+
+	@Override
+	public EObject createNode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void insertNode() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

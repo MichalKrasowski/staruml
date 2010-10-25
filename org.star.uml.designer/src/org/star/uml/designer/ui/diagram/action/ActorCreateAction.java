@@ -1,6 +1,7 @@
 package org.star.uml.designer.ui.diagram.action;
 
 import java.net.URL;
+import java.util.HashMap;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EObject;
@@ -15,6 +16,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
@@ -25,16 +27,22 @@ import org.eclipse.uml2.uml.internal.impl.ActorImpl;
 import org.eclipse.uml2.uml.internal.impl.UMLFactoryImpl;
 import org.osgi.framework.Bundle;
 import org.star.uml.designer.Activator;
+import org.star.uml.designer.base.constance.GlobalConstants;
+import org.star.uml.designer.base.utils.CommonUtil;
 import org.star.uml.designer.base.utils.EclipseUtile;
 import org.star.uml.designer.ui.factory.StarUMLCommandFactory;
 import org.star.uml.designer.ui.factory.StarUMLEditHelperFactory;
 import org.star.uml.designer.ui.views.StarPMSModelView;
+import org.star.uml.designer.ui.views.StarPMSModelViewUtil;
+import org.star.uml.designer.ui.views.StarPMSModelView.TreeObject;
+import org.star.uml.designer.ui.views.StarPMSModelView.TreeParent;
 
-public class ActorCreateAction extends Action{
+public class ActorCreateAction extends Action implements IStarUMLAction{
 	public static final String ACTION_ID = "ACTOR";
 	public static final String ACTION_URI = "org.eclipse.uml2.diagram.usecase.Actor_2002";
 	public static final String ACTION_TITLE ="Create Actor";
-	public static final String ICON_PATH = "/icons/login.gif";
+	public static final String ICON_PATH = "/icons/diagram/Actor.gif";
+	public static final String[] ACTOR_NAMES= {"Park Yong Cheon","Kim Sung Sik"};
 	
 	public TransactionalEditingDomain domain = null;
 	public DiagramDocumentEditor editor = null;
@@ -46,15 +54,28 @@ public class ActorCreateAction extends Action{
 		this.setImageDescriptor(getImageDescriptor());
 	}
 	
-	public EObject createNode(){
-		UMLFactory factoryImple = UMLFactoryImpl.init();
-		final ActorImpl actor = (ActorImpl)factoryImple.createActor();
-		actor.setName("Park Yong Cheon");
-		return actor;
-	}
-
 	@Override
 	public void run() {
+		// 모델 Tree에 Actorfmf 추가한다.
+		IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+								.findView(GlobalConstants.PluinID.STAR_PMS_MODEL_VIEW);
+		StarPMSModelView modelView = (StarPMSModelView)view_part;
+		// 선택된 Tree를 가져온다.
+		TreeSelection treeSelection = (TreeSelection)modelView.getTreeViewer().getSelection();
+		TreeParent parent = (TreeParent)treeSelection.getFirstElement();
+		String parentId = (String)parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_ID);
+		// 추가된 Node에 필요한 값들을 설정한다.
+		TreeObject treeObject = parent.appendChield(parent,ACTOR_NAMES[0]+"("+ACTION_ID+")",
+					GlobalConstants.StarMoedl.STAR_MODEL_CATEGORY, GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL);
+		treeObject.setData(GlobalConstants.StarMoedl.STAR_MODEL_FILE, ACTOR_NAMES[0]);
+		treeObject.setData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION, ACTION_ID);
+		modelView.getTreeViewer().refresh();
+		StarPMSModelViewUtil.addDiagramToModel("Root",parentId,ACTOR_NAMES[0],ACTION_ID,
+							  				   GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL,ACTION_ID);
+	}
+	
+	public void insertNode(){
+		// Node를 삽입하기 위한  정보를 가져온다.
 		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 		this.editor = (DiagramDocumentEditor) page.getActiveEditor();
 		this.domain = editor.getEditingDomain();
@@ -72,6 +93,13 @@ public class ActorCreateAction extends Action{
     	AbstractTransactionalCommand actorCmd = StarUMLCommandFactory.getCommand(request);
     	EObjectAdapter info = new EObjectAdapter(eObj);
     	EclipseUtile.runCommand(actorCmd, info);
+	}
+	
+	public EObject createNode(){
+		UMLFactory factoryImple = UMLFactoryImpl.init();
+		final ActorImpl actor = (ActorImpl)factoryImple.createActor();
+		actor.setName(ACTOR_NAMES[0]);
+		return actor;
 	}
 
 	public URL getImageURL(){
