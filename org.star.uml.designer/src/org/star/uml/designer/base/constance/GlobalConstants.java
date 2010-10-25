@@ -12,9 +12,6 @@ public class GlobalConstants {
 	//variable
 	public static final String TREE_PATH = "path";
 	
-	//UML Extension
-	public static final String USECASE_DIAGRAM_EXTENSION = "umlusc";
-	
 	//Policy
 	public class StarPMSModelViewPopupPolicy{
 		public static final int POLICY_1 = 1; // Tree not selected
@@ -43,5 +40,10 @@ public class GlobalConstants {
 	//Policy
 	public class PluinID{
 		public static final String STAR_PMS_MODEL_VIEW = "org.star.uml.designer.ui.views.StarPMSModelView";
+	}
+	
+	//Diagram Name
+	public class Diagram{
+		public static final String USECASE_DIAGRAM = "Usecase Diagram";
 	}
 }

@@ -42,7 +42,8 @@ public class UsecaseDiagramCreateAction extends Action{
 	public static final String ACTION_ID = "USECASE_DIAGRAM";
 	public static final String ACTION_URI = "org.eclipse.uml2.diagram.usecase.UsecaseDiagram";
 	public static final String ACTION_TITLE ="Create UsecaseDiagram";
-	public static final String ICON_PATH = "/icons/login.gif";
+	public static final String ICON_PATH = "/icons/16.gif";
+	public static final String DIAGRAM_EXTENSION = "umlusc";
 	public IViewPart view = null;
 	
 	public UsecaseDiagramCreateAction() {
@@ -56,8 +57,7 @@ public class UsecaseDiagramCreateAction extends Action{
 		// "default" 다이어그램을 생성하기 위해 기존 "default" 이름을 사용하는 파일이 있는지 확인 한 후 
 		// Index를 +1 해서 다이어 그램을 생성한다.  
 		String fileName = "default"+EclipseUtile.getDefaultUMLIdx();
-		String fileFullName = "default"+EclipseUtile.getDefaultUMLIdx()+"."
-								+GlobalConstants.USECASE_DIAGRAM_EXTENSION;
+		String fileFullName = "default"+EclipseUtile.getDefaultUMLIdx()+"."+DIAGRAM_EXTENSION;
 		URI diagramURI = URI.createDeviceURI(GlobalConstants.PATH_PREFIX+"/Root/"+fileFullName);
 		URI modelURI = URI.createDeviceURI(GlobalConstants.PATH_PREFIX+"/Root/"+GlobalConstants.DEFAULT_MODEL_FILE);
 		
@@ -73,12 +73,12 @@ public class UsecaseDiagramCreateAction extends Action{
 		String id = (String)parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_ID);
 		HashMap map = new HashMap();
 		// 추가된 Node에 필요한 값들을 설정한다.
-		parent.appendChield(parent,fileName);
+		parent.appendChield(parent,fileName+"("+ACTION_ID+")");
 		parent.setData(GlobalConstants.StarMoedl.STAR_MODEL_FILE, fileName);
-		parent.setData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION, GlobalConstants.USECASE_DIAGRAM_EXTENSION);
+		parent.setData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION, DIAGRAM_EXTENSION);
 		// 모델 파일에 추가된 다이어 그램을 추가한다.
-		StarPMSModelViewUtil.addDiagramToModel("Root",id,fileName,GlobalConstants.USECASE_DIAGRAM_EXTENSION,
-							  				   GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL);
+		StarPMSModelViewUtil.addDiagramToModel("Root",id,fileName,DIAGRAM_EXTENSION,
+							  				   GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL,ACTION_ID);
 	}
 	
 	public URL getImageURL(){

@@ -85,6 +85,7 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IAdaptable;
 import org.osgi.framework.Bundle;
+import org.star.uml.designer.Activator;
 import org.star.uml.designer.base.constance.GlobalConstants;
 import org.star.uml.designer.base.utils.CommonUtil;
 import org.star.uml.designer.base.utils.EclipseUtile;
@@ -92,6 +93,7 @@ import org.star.uml.designer.base.utils.XmlUtil;
 import org.star.uml.designer.command.InsertActionCommand;
 import org.star.uml.designer.ui.diagram.action.UsecaseDiagramCreateAction;
 import org.star.uml.designer.ui.factory.StarUMLActionFactory;
+import org.star.uml.designer.ui.factory.StarUMLImageCreateFactory;
 import org.star.uml.designer.ui.model.initialization.DefaultModel;
 import org.star.uml.designer.ui.model.initialization.DefaultUML;
 import org.star.uml.designer.ui.views.linstener.StarPMSModelViewMenuListener;
@@ -192,14 +194,20 @@ public class StarPMSModelView extends ViewPart {
 	}
 
 	class ViewLabelProvider extends LabelProvider {
-
 		public String getText(Object obj) {
 			return obj.toString();
 		}
 		public Image getImage(Object obj) {
-			String imageKey = ISharedImages.IMG_OBJ_ELEMENT;
-			if (obj instanceof TreeParent)
+			String imageKey = null;
+			if (obj instanceof TreeParent){
 			   imageKey = ISharedImages.IMG_OBJ_FOLDER;
+			}else{
+				TreeObject treeObj = (TreeObject)obj;
+				String category = (String)treeObj.getData(GlobalConstants.StarMoedl.STAR_MODEL_CATEGORY);
+				String extension = (String)treeObj.getData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION);
+				return StarUMLImageCreateFactory.getImage(category, extension);
+//				imageKey = ISharedImages.IMG_OBJ_ELEMENT;
+			}
 			return PlatformUI.getWorkbench().getSharedImages().getImage(imageKey);
 		}
 	}
@@ -289,9 +297,10 @@ public class StarPMSModelView extends ViewPart {
 			public void doubleClick(DoubleClickEvent event) {
 				TreeSelection selection = (TreeSelection)viewer.getSelection();
 				TreeObject treeObject = (TreeObject)selection.getFirstElement();
-				String nodeText = selection.toString();
-				String fullName = (String)treeObject.getData("fullName");
-				EclipseUtile.openDiagram("/Root/" + fullName);
+				String extension = (String)treeObject.getData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION);
+				String fileName = (String)treeObject.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE);
+				System.out.println("/Root/" + fileName+"."+extension);
+				EclipseUtile.openDiagram("/Root/" + fileName+"."+extension);
 			}
 		});
 	}

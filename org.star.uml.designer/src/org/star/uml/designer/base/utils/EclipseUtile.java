@@ -60,7 +60,7 @@ import org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor;
 import org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditorUtil;
 import org.eclipse.uml2.uml.internal.impl.ActorImpl;
 import org.star.uml.designer.command.InsertActionCommand;
-import org.star.uml.designer.ui.factory.StarUMLDiagramCreationFactory;
+import org.star.uml.designer.ui.factory.StarUMLDiagramCreateFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Document;
 
@@ -130,8 +130,8 @@ public class EclipseUtile {
 		return new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) {
 				try {
-					Resource diagram = StarUMLDiagramCreationFactory.getResource(actionID, diagramURI, modelURI, monitor);
-					UMLDiagramEditorUtil.openDiagram(diagram);
+					Resource diagram = StarUMLDiagramCreateFactory.getResource(actionID, diagramURI, modelURI, monitor);
+//					UMLDiagramEditorUtil.openDiagram(diagram);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

@@ -136,9 +136,9 @@ public class StarPMSModelViewUtil {
 				String category = attMap.getNamedItem(GlobalConstants.StarMoedl.STAR_MODEL_CATEGORY).getNodeValue();
 				TreeParent project = modelView.createTreeParent(attrName);
 				TreeObject projectObject = modelView.createTreeObject(attrName);
-				for(int y=0; y< subPkg.getAttributes().getLength() ;y++){
-					String key = subPkg.getAttributes().item(y).getNodeName();
-					String value = subPkg.getAttributes().item(y).getNodeValue();
+				for(int y=0; y< attMap.getLength() ;y++){
+					String key = attMap.item(y).getNodeName();
+					String value = attMap.item(y).getNodeValue();
 					project.setData(key, value);
 					projectObject.setData(key, value);
 				}
@@ -156,7 +156,7 @@ public class StarPMSModelViewUtil {
 		}
 	}
 	public static void addDiagramToModel(String project,String parentId, String name, 
-										 String extension,String category){
+										 String extension,String category,String diagramName){
 		// 모델 파일이 있는 프로젝트를 가져온다.
 		IProject rootProject = ResourcesPlugin.getWorkspace().getRoot().getProject(project);
 		Document modelDoc = null;
@@ -173,13 +173,14 @@ public class StarPMSModelViewUtil {
 				NamedNodeMap attrMap = node.getAttributes();
 				String id = attrMap.getNamedItem(GlobalConstants.StarMoedl.STAR_MODEL_ID).getNodeValue();
 				if(id.equals(parentId)){
-					Element newNode = modelDoc.createElement(name);
+					Element newNode = modelDoc.createElement("packagedElement");
 					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_ID, 
 										 "_" + CommonUtil.randomKey() + "-GMK-em0Iv_Q");
 					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_CATEGORY, 
 								         GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM);
 					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_TYPE, "uml:Package");
-					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_NAME, name);
+					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_NAME, name+"("+diagramName+")");
+					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_FILE, name);
 					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION, extension);
 					node.appendChild(newNode);
 					XmlUtil.writeXmlFile(modelDoc, modelPath);

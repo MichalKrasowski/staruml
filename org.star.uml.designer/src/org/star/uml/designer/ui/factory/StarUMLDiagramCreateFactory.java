@@ -6,7 +6,7 @@ import org.eclipse.emf.ecore.resource.*;
 import org.star.uml.designer.ui.diagram.action.UsecaseDiagramCreateAction;
 
 
-public class StarUMLDiagramCreationFactory {
+public class StarUMLDiagramCreateFactory {
 	
 	public static Resource getResource(String actionID,URI diagramURI,URI modelURI,IProgressMonitor monitor){
 		Resource diagram = null;
