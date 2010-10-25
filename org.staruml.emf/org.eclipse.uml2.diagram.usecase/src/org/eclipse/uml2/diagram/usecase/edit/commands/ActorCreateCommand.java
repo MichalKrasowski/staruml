@@ -55,9 +55,9 @@ public class ActorCreateCommand extends EditElementCommand {
 
 		Package owner = (Package) getElementToEdit();
 		owner.getPackagedElements().add(newElement);
-
+		
 		UMLElementTypes.init_Actor_2002(newElement);
-
+		
 		doConfigure(newElement, monitor, info);
 
 		((CreateElementRequest) getRequest()).setNewElement(newElement);

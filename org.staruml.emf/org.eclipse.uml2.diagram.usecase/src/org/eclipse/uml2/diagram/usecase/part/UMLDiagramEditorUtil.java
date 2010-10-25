@@ -1,6 +1,8 @@
 package org.eclipse.uml2.diagram.usecase.part;
 
 import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -9,9 +11,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.operations.OperationHistoryFactory;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -26,6 +39,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
@@ -54,7 +68,11 @@ import org.eclipse.uml2.diagram.usecase.edit.parts.PackageEditPart;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.UMLFactory;
+import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.resource.UMLResource;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.xml.sax.InputSource;
 
 /**
  * @generated
@@ -155,16 +173,52 @@ public class UMLDiagramEditorUtil {
 	 * @generated
 	 */
 	public static Resource createDiagram(URI diagramURI, URI modelURI, final EClass initialObject, final String encoding, IProgressMonitor progressMonitor) {
-		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
+		final TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
 		progressMonitor.beginTask(Messages.UMLDiagramEditorUtil_CreateDiagramProgressTask, 3);
 		final Resource diagramResource = editingDomain.getResourceSet().createResource(diagramURI);
 		final Resource modelResource = editingDomain.getResourceSet().createResource(modelURI);
 		final String diagramName = diagramURI.lastSegment();
 		final String diagramNameWithoutExtension = diagramURI.trimFileExtension().lastSegment();
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, Messages.UMLDiagramEditorUtil_CreateDiagramCommandLabel, Collections.EMPTY_LIST) {
-
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-				Package model = createInitialModel(initialObject, diagramNameWithoutExtension);
+				try {
+//				Package model = createInitialModel(initialObject, diagramNameWithoutExtension);
+//				attachModelToResource(model, modelResource);
+				
+				//Enkisoft : use one resource
+				try {
+					IProject rootProject = ResourcesPlugin.getWorkspace().getRoot().getProject("Root");
+					String projectPath = rootProject.getLocation().toOSString();
+					java.io.File xmlFile = new java.io.File(projectPath+"/default.uml");
+			    	StringWriter writer = new StringWriter(); 
+					TransformerFactory fac = TransformerFactory.newInstance();
+					Transformer x = fac.newTransformer();
+					x.transform(new StreamSource(xmlFile), new StreamResult(writer));
+					DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+					DocumentBuilder builder = dbFactory.newDocumentBuilder();
+					Document document = builder.parse(new InputSource(new StringReader(writer.toString())));
+					Node rootEl = document.getFirstChild();
+					for(int i=0; i<rootEl.getChildNodes().getLength(); i++){
+						if(rootEl.getChildNodes().item(i).getNodeName().equals("elementImport")){
+							rootEl.removeChild(rootEl.getChildNodes().item(i));
+						}
+					}
+					Source source = new DOMSource(document);
+			        Result result = new StreamResult(xmlFile);
+			        x.transform(source, result);
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
+				
+				IFile file = ResourcesPlugin.getWorkspace().getRoot().getProject("Root").getFile("default.uml");
+				URI uri = URI.createFileURI(file.getFullPath().toString());
+				Resource resource = editingDomain.getResourceSet().createResource(uri);
+				try {
+					resource.load(null);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				Package model = (Package) EcoreUtil.getObjectByType(resource.getContents(), UMLPackage.Literals.PACKAGE);
 				attachModelToResource(model, modelResource);
 
 				Diagram diagram = ViewService.createDiagram(model, PackageEditPart.MODEL_ID, UMLDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
@@ -173,7 +227,7 @@ public class UMLDiagramEditorUtil {
 					diagram.setName(diagramName);
 					diagram.setElement(model);
 				}
-
+				} catch (Exception e) {e.printStackTrace();}
 				try {
 					modelResource.save(org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditorUtil.getSaveOptions(encoding));
 					diagramResource.save(org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditorUtil.getSaveOptions(encoding));

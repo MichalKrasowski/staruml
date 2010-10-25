@@ -163,7 +163,7 @@ public class UMLCreationWizard extends Wizard implements INewWizard {
 			return false;
 		}
 		//Enkisoft 2010-09-11 Park Yong Cheon
-		Bundle bundle = Platform.getBundle("org.StarUML");
+		Bundle bundle = Platform.getBundle("org.star.uml.designer");
 		if(bundle !=null){
 			UMLCreationWizardPage wizPate = (UMLCreationWizardPage)this.getPages()[0];
 			FileInputStream in = null;
@@ -171,7 +171,6 @@ public class UMLCreationWizard extends Wizard implements INewWizard {
 			try {
 				URL fileURL = bundle.getEntry("properties/temp.properties"); 
 				File file = new File(FileLocator.resolve(fileURL).toURI());  
-				System.out.println(file.exists());
 				in = new FileInputStream(file);
 				Properties props = new Properties();
 				props.load(in);
