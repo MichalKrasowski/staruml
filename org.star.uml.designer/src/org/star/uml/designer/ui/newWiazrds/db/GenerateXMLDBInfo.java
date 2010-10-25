@@ -30,8 +30,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
-
 public class GenerateXMLDBInfo {
 	File file = new File(ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString() + "/xml/connection.xml");
 	public void addConnection(String ConnectionName, String ConnectionType,
@@ -206,7 +204,7 @@ public class GenerateXMLDBInfo {
 		
 		try {
 			// XML 사용을 위해 Factory , Builder 생성
-			DocumentBuilderFactory factory = new DocumentBuilderFactoryImpl();
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			
 			// Eclipse에서 커낵션 정보가 들어있는 Plug-in ID를 BundleUtility를 통해 경로를 가져돈다.
@@ -236,7 +234,7 @@ public class GenerateXMLDBInfo {
 		
 		try {
 			// XML 사용을 위해 Factory , Builder 생성
-			DocumentBuilderFactory factory = new DocumentBuilderFactoryImpl();
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			
 			// Eclipse에서 커낵션 정보가 들어있는 Plug-in ID를 BundleUtility를 통해 경로를 가져돈다.
