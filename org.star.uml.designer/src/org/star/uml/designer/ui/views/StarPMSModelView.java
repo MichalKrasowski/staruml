@@ -126,6 +126,9 @@ public class StarPMSModelView extends ViewPart {
 	private HashMap actionMap;
 	private TreeViewer viewer;
 	private TreeParent root;
+	private TreeParent invisibleRoot;
+	Action createConnectionAction = null;
+	
 	
 	public class TreeObject implements IAdaptable {
 		private String name;
@@ -240,6 +243,7 @@ public class StarPMSModelView extends ViewPart {
 		viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 		drillDownAdapter = new DrillDownAdapter(viewer);
 		viewer.setContentProvider(new ViewContentProvider());
+		
 		viewer.setLabelProvider(new ViewLabelProvider());
 		viewer.setSorter(new NameSorter());
 		viewer.setInput(getViewSite());
@@ -247,8 +251,17 @@ public class StarPMSModelView extends ViewPart {
 		hookContextMenu(parent);
 		hookDoubleClickAction();
 		contributeToActionBars();
-	}
+		createToolBar();
+		
 
+	}
+	
+	private void createToolBar() {
+		IToolBarManager mgr = getViewSite().getActionBars().getToolBarManager();
+		createConnectionAction = StarPMSModelViewUtil.createConnectionAction(mgr);
+		mgr.add(createConnectionAction);
+	}
+	
 	private void hookContextMenu(final Composite parent) {
 		final MenuManager manager = new MenuManager("#PopupMenu");
 //		manager.setRemoveAllWhenShown(true);
@@ -293,6 +306,7 @@ public class StarPMSModelView extends ViewPart {
 		manager.add(implementationAction);
 	}
 	
+
 	private void hookDoubleClickAction() {
 		StarPMSModelViewMenuDoubleClickListener lisnener = 
 			new StarPMSModelViewMenuDoubleClickListener();
@@ -328,6 +342,10 @@ public class StarPMSModelView extends ViewPart {
 		return root;
 	}
 	
+	public TreeParent getInvisibleRoot(){
+		return invisibleRoot;
+	}
+	
 	public TreeParent createTreeParent(String name){
 		return new TreeParent(name);
 	}
@@ -338,7 +356,6 @@ public class StarPMSModelView extends ViewPart {
 	
 	class ViewContentProvider implements IStructuredContentProvider,ITreeContentProvider {
 		private TreeParent invisibleRoot;
-
 		public void inputChanged(Viewer v, Object oldInput, Object newInput) {
 		}
 
@@ -374,11 +391,11 @@ public class StarPMSModelView extends ViewPart {
 			return false;
 		}
 		
-		private void initialize() {
-			root = new TreeParent("192.168.10.102:1521/StarPMS");
-			root.setData(GlobalConstants.TREE_PATH, "root");
+		public void initialize() {
+//			root = new TreeParent("192.168.10.102:1521/StarPMS");
+//			root.setData(GlobalConstants.TREE_PATH, "root");
 			invisibleRoot = new TreeParent("");
-			invisibleRoot.addChild(root);
+//			invisibleRoot.addChild(root);
 		}
 		
 	}
