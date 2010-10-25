@@ -355,7 +355,6 @@ public class StarPMSModelView extends ViewPart {
 	}
 	
 	class ViewContentProvider implements IStructuredContentProvider,ITreeContentProvider {
-		private TreeParent invisibleRoot;
 		public void inputChanged(Viewer v, Object oldInput, Object newInput) {
 		}
 

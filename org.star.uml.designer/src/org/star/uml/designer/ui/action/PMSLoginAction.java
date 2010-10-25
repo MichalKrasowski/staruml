@@ -73,7 +73,19 @@ public class PMSLoginAction extends Action {
 	        	  MessageDialog.openInformation(shell.getShell(),"StarUML View","사용자 ID와 암호를 확인하여 주시기 바랍니다");
 	        	  return;  
 	          }
-	          openProjectDialog(shell);			          
+	          openProjectDialog(shell);	
+	          
+	          IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSRequestTableView");
+	          StarPMSRequestTableView tableView = (StarPMSRequestTableView)view_part;
+	          tableView.loadTable();
+	          //Load Model View
+	          StarPMSModelViewUtil.loadModel("Root");
+	          IViewPart model_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
+	          StarPMSModelView modelView = (StarPMSModelView)model_part;
+	          modelView.setLoginFlag(true);
+	          shell.dispose();
+	          //parentShell.dispose();
+		        
 	        }
 	      });
 	    

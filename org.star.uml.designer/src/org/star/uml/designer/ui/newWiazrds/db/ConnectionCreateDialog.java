@@ -193,12 +193,15 @@ public class ConnectionCreateDialog extends Dialog {
 						CustomMessages.LOGIN_INVALID_FIELD_AUTHENTICATE_ERR_MESSAGE);
 				return;
 			}
-			
+			try{
 			IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
 			StarPMSModelView model = (StarPMSModelView)view_part;
 			TreeParent parent = model.createTreeParent(connectionName + "/StarPMS/" + ProjectText.getText());
 			model.getInvisibleRoot().addChild(parent);
 			model.getTreeViewer().refresh();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		} else if (IDialogConstants.HELP_ID == buttonId) {
 
 			DBConnectionWizard dbConnectionWizard = new DBConnectionWizard();

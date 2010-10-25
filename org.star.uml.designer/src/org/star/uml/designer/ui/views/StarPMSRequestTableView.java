@@ -78,7 +78,7 @@ public class StarPMSRequestTableView extends ViewPart {
 	public void loadTable(){
 		PmsDao pd = new PmsDao();
 		
-	    List projectList = pd.projectList();
+	    List projectList = pd.usecaseList();
 	    for(int i = 0; i < projectList.size(); i++){
 	    	Map data = (HashMap)projectList.get(i);
 	    		    	
