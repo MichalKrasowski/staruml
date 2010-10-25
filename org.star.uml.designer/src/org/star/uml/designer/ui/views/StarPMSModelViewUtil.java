@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -18,7 +17,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.image.ImageFileFormat;
@@ -35,6 +33,7 @@ import org.eclipse.jface.action.ContributionItem;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -64,6 +63,8 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
 import org.star.uml.designer.Activator;
+
+
 import org.star.uml.designer.base.constance.GlobalConstants;
 import org.star.uml.designer.base.utils.CommonUtil;
 import org.star.uml.designer.base.utils.EclipseUtile;
@@ -77,6 +78,7 @@ import org.star.uml.designer.ui.diagram.action.UsecaseDiagramCreateAction;
 import org.star.uml.designer.ui.model.initialization.DefaultModel;
 import org.star.uml.designer.ui.model.initialization.DefaultUML;
 import org.star.uml.designer.ui.newWiazrds.ClassSorceCodeGeneration;
+import org.star.uml.designer.ui.newWiazrds.db.ConnectionCreateDialog;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeObject;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeParent;
 import org.w3c.dom.Document;
@@ -512,6 +514,20 @@ public class StarPMSModelViewUtil {
 		return implrmrnysyionAction;
 	}
 	
+
+	public static Action createConnectionAction(IToolBarManager manager){
+		Action createConnectionAction = new Action() {
+			public void run() {
+				ConnectionCreateDialog connectionDialog = new ConnectionCreateDialog(null);
+				connectionDialog.open();
+			}
+		};
+		createConnectionAction.setId("connection");
+		createConnectionAction.setToolTipText("Create Connection tooltip");
+		createConnectionAction.setImageDescriptor(Activator.getImageDescriptor("/icons/login.gif"));
+		return createConnectionAction;
+	}
+
 	public static void initContextMenu(MenuManager menuMgr){
 		PMSLoginAction login = new PMSLoginAction();
 		PMSLogoutAction logout = new PMSLogoutAction();
@@ -537,5 +553,5 @@ public class StarPMSModelViewUtil {
 		modelGroup.add(actor);
 		
 	}
-	
+
 }
