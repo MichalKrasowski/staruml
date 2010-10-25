@@ -36,14 +36,22 @@ public class GlobalConstants {
 		public static final String STAR_CATEGORY_DIAGRAM = "diagram";
 		public static final String STAR_CATEGORY_DIAGRAM_MODEL = "diagramModel";
 	}
-
+	
+	// Star Model
+	public class UMLMoedl{
+		// Star Model Attribute
+		public static final String UML_MODEL_ID = "xmi:id";
+		public static final String UML_MODEL_TYPE = "xmi:type";
+		public static final String UML_MODEL_NAME = "name";
+		
+		// Star Model Cetegory
+		public static final String UML_TYPE_PACKAGE = "uml:Package";
+		public static final String UML_TYPE_PACKAGE_Element = "packagedElement";
+	}
+	
 	//Policy
 	public class PluinID{
 		public static final String STAR_PMS_MODEL_VIEW = "org.star.uml.designer.ui.views.StarPMSModelView";
 	}
 	
-	//Diagram Name
-	public class Diagram{
-		public static final String USECASE_DIAGRAM = "Usecase Diagram";
-	}
 }

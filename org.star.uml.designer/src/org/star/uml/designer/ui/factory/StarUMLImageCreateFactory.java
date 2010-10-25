@@ -15,7 +15,6 @@ public class StarUMLImageCreateFactory {
 			}
 		}else if(category.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL)){
 			if(extension.equals(ActorCreateAction.ACTION_ID)){
-				System.out.println("ACTOR");
 				return Activator.getImageDescriptor(ActorCreateAction.ICON_PATH).createImage();
 			}
 		}

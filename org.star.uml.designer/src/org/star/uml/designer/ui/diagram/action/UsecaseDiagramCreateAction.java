@@ -30,6 +30,7 @@ import org.eclipse.uml2.uml.internal.impl.UMLFactoryImpl;
 import org.osgi.framework.Bundle;
 import org.star.uml.designer.Activator;
 import org.star.uml.designer.base.constance.GlobalConstants;
+import org.star.uml.designer.base.utils.CommonUtil;
 import org.star.uml.designer.base.utils.EclipseUtile;
 import org.star.uml.designer.ui.factory.StarUMLCommandFactory;
 import org.star.uml.designer.ui.factory.StarUMLEditHelperFactory;
@@ -71,16 +72,19 @@ public class UsecaseDiagramCreateAction extends Action implements IStarUMLAction
 		TreeSelection treeSelection = (TreeSelection)modelView.getTreeViewer().getSelection();
 		TreeParent parent = (TreeParent)treeSelection.getFirstElement();
 		String parentId = (String)parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_ID);
+		// ID를 생성한다.
+		String objId = "_" + CommonUtil.randomKey() + "-GMK-em0Iv_Q";
 		// 추가된 Node에 필요한 값들을 설정한다.
 		TreeObject treeObject = parent.appendChield(parent,fileName+"("+ACTION_ID+")"
 								,GlobalConstants.StarMoedl.STAR_MODEL_FILE, fileName);
 		treeObject.setData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION, DIAGRAM_EXTENSION);
 		treeObject.setData(GlobalConstants.StarMoedl.STAR_MODEL_CATEGORY, 
 					       GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM);
+		treeObject.setData(GlobalConstants.StarMoedl.STAR_MODEL_ID, objId);
 		modelView.getTreeViewer().refresh();
 		// 모델 파일에 추가된 다이어 그램을 추가한다.
 		StarPMSModelViewUtil.addDiagramToModel("Root",parentId,fileName,DIAGRAM_EXTENSION,
-							  				   GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM,ACTION_ID);
+							  				   GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM,ACTION_ID,objId);
 	}
 	
 	public URL getImageURL(){

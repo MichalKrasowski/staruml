@@ -214,4 +214,41 @@ public class EclipseUtile {
 		}
 		return actionMap;
 	}
+	
+	public static IProject refreshProject(String projectName) {
+		final MultiStatus status = new MultiStatus(DiagramUIRenderPlugin
+				.getPluginId(), DiagramUIRenderStatusCodes.OK,
+				DiagramUIRenderMessages.CopyToImageAction_Label, null);
+		final IProject newProjectHandle =  ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
+		IRunnableWithProgress runnable = refreshProjectRunable(status,newProjectHandle);
+		try {
+    		ProgressMonitorDialog progressMonitorDialog = new ProgressMonitorDialog(
+    				Display.getCurrent().getActiveShell());
+    		progressMonitorDialog.run(false, true, runnable);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return newProjectHandle;
+	}
+	
+	private static IRunnableWithProgress refreshProjectRunable(final MultiStatus status,final IProject projectHandle) {
+		return new IRunnableWithProgress() {
+			public void run(IProgressMonitor monitor) {
+				try {
+			    	monitor.beginTask("", 6); 
+					monitor.worked(1);
+					monitor.setTaskName("Sync Project");
+					projectHandle.open(monitor);
+					projectHandle.refreshLocal(IProject.DEPTH_INFINITE, monitor);
+				} catch (CoreException e) {
+					e.printStackTrace();
+					status.add(e.getStatus());
+				}catch (Exception e1) {
+					e1.printStackTrace();
+				} finally {
+					monitor.done();
+				}
+			}
+		};
+	}
 }

@@ -156,7 +156,7 @@ public class StarPMSModelViewUtil {
 		}
 	}
 	public static void addDiagramToModel(String project,String parentId, String name, 
-										 String extension,String category,String diagramName){
+										 String extension,String category,String diagramName,String objId){
 		// 모델 파일이 있는 프로젝트를 가져온다.
 		IProject rootProject = ResourcesPlugin.getWorkspace().getRoot().getProject(project);
 		Document modelDoc = null;
@@ -174,8 +174,7 @@ public class StarPMSModelViewUtil {
 				String id = attrMap.getNamedItem(GlobalConstants.StarMoedl.STAR_MODEL_ID).getNodeValue();
 				if(id.equals(parentId)){
 					Element newNode = modelDoc.createElement("packagedElement");
-					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_ID, 
-										 "_" + CommonUtil.randomKey() + "-GMK-em0Iv_Q");
+					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_ID, objId);
 					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_CATEGORY, category);
 					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_TYPE, "uml:Package");
 					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_NAME, name+"("+diagramName+")");
@@ -185,6 +184,29 @@ public class StarPMSModelViewUtil {
 					XmlUtil.writeXmlFile(modelDoc, modelPath);
 				}
 			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public static void addModelToUML(String project,String objId, String type, String name){
+		// UML 파일이 있는 프로젝트를 가져온다.
+		IProject rootProject = ResourcesPlugin.getWorkspace().getRoot().getProject(project);
+		Document modelDoc = null;
+		try{
+			// 파일을 Document로 로드한다.
+			String projectPath = rootProject.getLocation().toOSString();
+			String modelPath = projectPath+File.separator+GlobalConstants.DEFAULT_MODEL_FILE;
+			String domStr = XmlUtil.getXmlFileToString(modelPath);
+			modelDoc = XmlUtil.getStringToDocument(domStr);
+			// Document 있는 Element 중  TagName이 "package"를 가져와서 ID를 비교해 부모가 될 Node를 선택한다.
+			Node rootEl = modelDoc.getDocumentElement();
+			Element newNode = modelDoc.createElement(GlobalConstants.UMLMoedl.UML_TYPE_PACKAGE_Element);
+			newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_ID, objId);
+			newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_TYPE, type);
+			newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_NAME, name);
+			rootEl.appendChild(newNode);
+			XmlUtil.writeXmlFile(modelDoc, modelPath);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

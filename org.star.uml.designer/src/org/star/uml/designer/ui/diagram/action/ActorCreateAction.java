@@ -41,6 +41,7 @@ public class ActorCreateAction extends Action implements IStarUMLAction{
 	public static final String ACTION_ID = "ACTOR";
 	public static final String ACTION_URI = "org.eclipse.uml2.diagram.usecase.Actor_2002";
 	public static final String ACTION_TITLE ="Create Actor";
+	public static final String ACTION_TYPE ="uml:Actor";
 	public static final String ICON_PATH = "/icons/diagram/Actor.gif";
 	public static final String[] ACTOR_NAMES= {"Park Yong Cheon","Kim Sung Sik"};
 	
@@ -64,14 +65,22 @@ public class ActorCreateAction extends Action implements IStarUMLAction{
 		TreeSelection treeSelection = (TreeSelection)modelView.getTreeViewer().getSelection();
 		TreeParent parent = (TreeParent)treeSelection.getFirstElement();
 		String parentId = (String)parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_ID);
+		// ID를 생성한다.
+		String objId = "_" + CommonUtil.randomKey() + "-GMK-em0Iv_Q";
 		// 추가된 Node에 필요한 값들을 설정한다.
 		TreeObject treeObject = parent.appendChield(parent,ACTOR_NAMES[0]+"("+ACTION_ID+")",
-					GlobalConstants.StarMoedl.STAR_MODEL_CATEGORY, GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL);
+					GlobalConstants.StarMoedl.STAR_MODEL_CATEGORY, 
+					GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL					);
 		treeObject.setData(GlobalConstants.StarMoedl.STAR_MODEL_FILE, ACTOR_NAMES[0]);
 		treeObject.setData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION, ACTION_ID);
+		treeObject.setData(GlobalConstants.StarMoedl.STAR_MODEL_ID, objId);
 		modelView.getTreeViewer().refresh();
+		// Model.xml 파일에 노드를 추가한다.
 		StarPMSModelViewUtil.addDiagramToModel("Root",parentId,ACTOR_NAMES[0],ACTION_ID,
-							  				   GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL,ACTION_ID);
+							  			GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL,ACTION_ID,objId);
+		// Default.xml 파일에 노드를 추가한다.
+		StarPMSModelViewUtil.addModelToUML("Root",objId,ACTION_TYPE,ACTOR_NAMES[0]);
+		EclipseUtile.refreshProject("Root");
 	}
 	
 	public void insertNode(){
