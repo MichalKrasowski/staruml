@@ -342,6 +342,10 @@ public class StarPMSModelView extends ViewPart {
 		return root;
 	}
 	
+	public void setTreeParent(TreeParent root){
+		this.root=root;;
+	}
+	
 	public TreeParent getInvisibleRoot(){
 		return invisibleRoot;
 	}

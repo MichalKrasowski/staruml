@@ -194,11 +194,12 @@ public class ConnectionCreateDialog extends Dialog {
 				return;
 			}
 			try{
-			IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
-			StarPMSModelView model = (StarPMSModelView)view_part;
-			TreeParent parent = model.createTreeParent(connectionName + "/StarPMS/" + ProjectText.getText());
-			model.getInvisibleRoot().addChild(parent);
-			model.getTreeViewer().refresh();
+				IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
+				StarPMSModelView model = (StarPMSModelView)view_part;
+				TreeParent parent = model.createTreeParent(connectionName + "/StarPMS/" + ProjectText.getText());
+				model.setTreeParent(parent);
+				model.getInvisibleRoot().addChild(parent);
+				model.getTreeViewer().refresh();
 			}catch(Exception e){
 				e.printStackTrace();
 			}
