@@ -229,7 +229,6 @@ public class ConnectionCreateDialog extends Dialog {
 
 			if (conn != null) {
 				LoginInfo.conn = conn;
-				System.out.println("Connected!");
 				return true;
 			} else {
 				return false;
@@ -246,7 +245,6 @@ public class ConnectionCreateDialog extends Dialog {
 		try {
 			if (conn != null) {
 				conn.close();
-				System.out.println("Disconnected!");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

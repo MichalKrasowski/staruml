@@ -156,7 +156,6 @@ public class DBConnectionWizardPage_1 extends WizardPage implements
 	}
 
 	private void initContents() {
-		System.out.println("DBConnectionWizardPage_1 init");
 	}
 
 	public String getConnectionName() {

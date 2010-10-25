@@ -234,7 +234,6 @@ public class StarPMSModelViewUtil {
 		boolean loofFlag = true;
 		while(loofFlag){ // 기존 이름과 기본 이름을 비교하고, 이름에 인덱스를 추가하면서 비교한다.
 			for(int i=0; i<GlobalConstants.NODE_NAMES.length; i++){
-				System.out.println("namelist.contains(GlobalConstants.NODE_NAMES[i]) : "+namelist.contains(GlobalConstants.NODE_NAMES[i]));
 				if(nameIdx == 0 && !namelist.contains(GlobalConstants.NODE_NAMES[i])){
 					nodeName = GlobalConstants.NODE_NAMES[i];
 					loofFlag = false;

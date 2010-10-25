@@ -75,11 +75,6 @@ public class PMSLoginAction extends Action {
 	          }
 	          openProjectDialog(shell);	
 	          
-	          IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSRequestTableView");
-	          StarPMSRequestTableView tableView = (StarPMSRequestTableView)view_part;
-	          tableView.loadTable();
-	          //Load Model View
-	          StarPMSModelViewUtil.loadModel("Root");
 	          IViewPart model_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
 	          StarPMSModelView modelView = (StarPMSModelView)model_part;
 	          modelView.setLoginFlag(true);
