@@ -69,7 +69,7 @@ public class LoginAction implements IViewActionDelegate{
 	        	  return;  
 	          }
 	          
-	          StarPMSModelViewUtil.openProjectDialog(shell);			          
+	          //StarPMSModelViewUtil.openProjectDialog(shell);			          
 	        }
 	      });
 	    
@@ -86,6 +86,7 @@ public class LoginAction implements IViewActionDelegate{
 	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
 		System.out.println("loginFlag ======= " + loginFlag);
+		System.out.println("action ======= " + action.getId());
 		if(loginFlag){
 			System.out.println("selection ======= " + loginFlag);
 			action.setEnabled(false);

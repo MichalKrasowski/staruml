@@ -19,11 +19,9 @@ import java.util.Map;
 import org.star.uml.designer.base.constance.CustomMessages;
 import org.star.uml.designer.base.db.DBConnectionMgr;
 import org.star.uml.designer.base.utils.ResultUtil;
+import org.star.uml.designer.service.uvo.LoginInfo;
 
 public class PmsDao {
-	private Connection conn;
-	private PreparedStatement pstmt;
-	private ResultSet rs;
 	//private static DBConnectionMgr pool = null;
 	private static DBConnectionMgr pool = new DBConnectionMgr();
 	
@@ -47,20 +45,20 @@ public class PmsDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			pool.freeConnection(con, pstmt, rs);
+			freeConnection(con, pstmt, rs);
 		}
 		
 		return flag;
 	}
 	
-	public List projectList(){
+	public List usecaseList(){
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List list = new ArrayList();
 		try {
 			con = pool.getConnection();
-			String sql = CustomMessages.PROJECT_LIST_SQL;
+			String sql = CustomMessages.USECASE_LIST_SQL;
 			pstmt = con.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
@@ -68,7 +66,7 @@ public class PmsDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			pool.freeConnection(con, pstmt, rs);
+			freeConnection(con, pstmt, rs);
 		}
 		return list;
 	}
@@ -91,7 +89,7 @@ public class PmsDao {
 			con.rollback();
 			e.printStackTrace();
 		}finally{
-			pool.freeConnection(con, pstmt, rs);
+			freeConnection(con, pstmt, rs);
 		}
 		
 	}
@@ -115,7 +113,7 @@ public class PmsDao {
 			con.rollback();
 			e.printStackTrace();
 		}finally{
-			pool.freeConnection(con, pstmt, rs);
+			freeConnection(con, pstmt, rs);
 		}
 		
 	}
@@ -137,7 +135,7 @@ public class PmsDao {
 			con.rollback();
 			e.printStackTrace();
 		}finally{
-			pool.freeConnection(con, pstmt, rs);
+			freeConnection(con, pstmt, rs);
 		}
 		
 	}
@@ -161,7 +159,41 @@ public class PmsDao {
 			con.rollback();
 			e.printStackTrace();
 		}finally{
-			pool.freeConnection(con, pstmt, rs);
+			freeConnection(con, pstmt, rs);
+		}
+		
+	}
+	
+	public List projectList(){
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List list = new ArrayList();
+		try {
+			con = pool.getConnection();
+			String sql = CustomMessages.PROJECT_LIST_SQL;
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			list = ResultUtil.transDatasList(rs);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			freeConnection(con, pstmt, rs);
+		}
+		return list;
+	}
+	
+	public static void freeConnection(Connection con, PreparedStatement pstmt, ResultSet rs){
+		try{
+			if(!con.isClosed())
+				con.close();
+			if(pstmt != null)
+				pstmt.close();
+			if(rs != null)
+				rs.close();
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 		
 	}

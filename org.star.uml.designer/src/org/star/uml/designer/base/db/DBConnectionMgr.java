@@ -11,10 +11,10 @@ public class DBConnectionMgr {
 //  private String _user = "root";
 //  private String _password = "12345";
 
-  private String _driver = "oracle.jdbc.driver.OracleDriver";
-  private String _url = "jdbc:oracle:thin:@192.168.10.62:1522:orcl10g";
-  private String _user = "Star_PMS";
-  private String _password = "sjdznf";
+  public static String _driver = "";
+  public static String _url = "";
+  public static String _user = "";
+  public static String _password = "";
   
   private boolean _traceOn = false;
   private boolean initialized = false;
@@ -23,7 +23,7 @@ public class DBConnectionMgr {
 
   public DBConnectionMgr() {
   }
-
+  
   public static DBConnectionMgr getInstance() {
       if (instance == null) {
           synchronized (DBConnectionMgr.class) {
