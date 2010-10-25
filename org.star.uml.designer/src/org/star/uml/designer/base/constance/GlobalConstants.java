@@ -2,6 +2,9 @@ package org.star.uml.designer.base.constance;
 
 public class GlobalConstants {
 	
+	//Default Node Name
+	public static final String[] NODE_NAMES = {"Park,Yong Cheon","Lee,Kung Chul","Kim,Sung Sik","Park,Hee Chul"};
+	
 	//Default File Name
 	public static final String DEFAULT_MODEL_FILE = "default.uml";
 	public static final String DEFAULT_VIEW_MODEL_FILE = "model.xml";
