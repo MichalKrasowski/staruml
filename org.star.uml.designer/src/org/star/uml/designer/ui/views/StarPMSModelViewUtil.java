@@ -4,10 +4,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import javax.xml.transform.TransformerException;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -201,6 +204,7 @@ public class StarPMSModelViewUtil {
 			String modelPath = projectPath+File.separator+GlobalConstants.DEFAULT_MODEL_FILE;
 			String domStr = XmlUtil.getXmlFileToString(modelPath);
 			modelDoc = XmlUtil.getStringToDocument(domStr);
+			NodeList n = modelDoc.getDocumentElement().getElementsByTagName("packagedElement");
 			// Document 있는 Element 중  TagName이 "package"를 가져와서 ID를 비교해 부모가 될 Node를 선택한다.
 			Node rootEl = modelDoc.getDocumentElement();
 			Element newNode = modelDoc.createElement(GlobalConstants.UMLMoedl.UML_TYPE_PACKAGE_Element);
@@ -213,6 +217,39 @@ public class StarPMSModelViewUtil {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * 노드 생성 시 기본 이름을 지정합니다. GlobalConstants.NODE_NAMES를 기준으로 인덱스를 추가하면서 진행합니다.
+	 * @param list
+	 * @return
+	 */
+	public static String genNodeName(TreeParent parent){
+		TreeObject[] treeObj = parent.getChildren();
+		ArrayList<String> namelist = new ArrayList();
+		for(int i=0; i<treeObj.length; i++){ // 기존 이름들을 다 가져온다.
+			namelist.add((String)treeObj[i].getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE));
+		}
+		String nodeName = "";
+		int nameIdx = 0;
+		boolean loofFlag = true;
+		while(loofFlag){ // 기존 이름과 기본 이름을 비교하고, 이름에 인덱스를 추가하면서 비교한다.
+			for(int i=0; i<GlobalConstants.NODE_NAMES.length; i++){
+				System.out.println("namelist.contains(GlobalConstants.NODE_NAMES[i]) : "+namelist.contains(GlobalConstants.NODE_NAMES[i]));
+				if(nameIdx == 0 && !namelist.contains(GlobalConstants.NODE_NAMES[i])){
+					nodeName = GlobalConstants.NODE_NAMES[i];
+					loofFlag = false;
+					break;
+				}else if(nameIdx != 0 && !namelist.contains(GlobalConstants.NODE_NAMES[i]+nameIdx)){
+					nodeName = GlobalConstants.NODE_NAMES[i]+nameIdx;
+					loofFlag = false;
+					break;
+				}
+			}
+			nameIdx++;
+		}
+		return nodeName;
+	}
+	
 	public static Action makeAnalysisUsecaseAction(final Composite parent,final ISelection selection,final StarPMSModelView starPMSView){
 		Action analysisAction = new Action() {
 			public void run() {
