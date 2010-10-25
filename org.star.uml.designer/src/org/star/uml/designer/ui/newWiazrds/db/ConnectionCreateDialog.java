@@ -40,6 +40,7 @@ import org.star.uml.designer.service.dao.UserMgtDao;
 import org.star.uml.designer.service.uvo.LoginInfo;
 import org.star.uml.designer.service.uvo.RepositoryDetails;
 import org.star.uml.designer.ui.views.StarPMSModelView;
+import org.star.uml.designer.ui.views.StarPMSModelView.TreeObject;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeParent;
 
 public class ConnectionCreateDialog extends Dialog {
@@ -193,16 +194,30 @@ public class ConnectionCreateDialog extends Dialog {
 						CustomMessages.LOGIN_INVALID_FIELD_AUTHENTICATE_ERR_MESSAGE);
 				return;
 			}
-			try{
-				IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
-				StarPMSModelView model = (StarPMSModelView)view_part;
-				TreeParent parent = model.createTreeParent(connectionName + "/StarPMS/" + ProjectText.getText());
-				model.setTreeParent(parent);
-				model.getInvisibleRoot().addChild(parent);
-				model.getTreeViewer().refresh();
-			}catch(Exception e){
-				e.printStackTrace();
+			
+			IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
+			StarPMSModelView model = (StarPMSModelView)view_part;
+			TreeParent root = model.getTreeParent();
+			System.out.println("root ===== " + root);
+			if(root != null){
+				TreeObject[] parents = model.getTreeParent().getParent().getChildren();
+				for(int i = 0; i < parents.length; i++){
+					TreeObject temp = (TreeObject)parents[i];
+					System.out.println("temp.getName() === " + temp.getName());
+					System.out.println("connectionName === " + connectionName + "/StarPMS/" + ProjectText.getText());
+					if(temp.getName().equals(connectionName + "/StarPMS/" + ProjectText.getText())){
+						MessageDialog.openWarning(getShell(), CustomMessages.DIALOG_WARNING,
+								CustomMessages.PROJECT_INVALID_NAME_MESSAGE);
+						return;
+					}
+				}
 			}
+			
+			model.setTreeParent(model.createTreeParent(connectionName + "/StarPMS/" + ProjectText.getText()));
+			
+			model.getInvisibleRoot().addChild(model.getTreeParent());
+			model.getTreeViewer().refresh();
+			
 		} else if (IDialogConstants.HELP_ID == buttonId) {
 
 			DBConnectionWizard dbConnectionWizard = new DBConnectionWizard();

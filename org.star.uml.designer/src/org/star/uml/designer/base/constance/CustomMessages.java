@@ -69,4 +69,5 @@ public class CustomMessages {
 	public static String LOGIN_CHOICE_REPOSITORY;
 	public static String LOGIN_INVALID_FIELD_AUTHENTICATE_ERR_MESSAGE;
 	public static String PROJECT_SELECT;
+	public static String PROJECT_INVALID_NAME_MESSAGE;
 }
