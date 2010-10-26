@@ -34,7 +34,7 @@ public class StarPMSModelViewMenuDoubleClickListener implements IDoubleClickList
 		String extension = (String)treeObject.getData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION);
 		String fileName = (String)treeObject.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE);
 		if(catetory.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM)){ // 다이어그램일 경우 파일을 연다.
-			EclipseUtile.openDiagram("/Root/" + fileName+"."+extension);
+			EclipseUtile.openDiagram("/Root/" + fileName+"."+extension,extension);
 		}else if(catetory.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL)){ 
 			// 모델일 경우 다이어그램에 모델을 추가한다.
 			IStarUMLAction action = null;

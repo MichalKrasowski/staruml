@@ -60,6 +60,8 @@ import org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor;
 import org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditorUtil;
 import org.eclipse.uml2.uml.internal.impl.ActorImpl;
 import org.star.uml.designer.command.InsertActionCommand;
+import org.star.uml.designer.ui.diagram.action.ClazzDiagramCreateAction;
+import org.star.uml.designer.ui.diagram.action.UsecaseDiagramCreateAction;
 import org.star.uml.designer.ui.factory.StarUMLDiagramCreateFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Document;
@@ -140,12 +142,16 @@ public class EclipseUtile {
 		
 	}
 	
-	public static void openDiagram(String path){
+	public static void openDiagram(String path, String extension){
 		try{
 			IResource workspaceResource = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(path));
 			if (workspaceResource instanceof IFile) {
 				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-				page.openEditor(new FileEditorInput((IFile) workspaceResource), UMLDiagramEditor.ID);
+				if(extension.equals(ClazzDiagramCreateAction.DIAGRAM_EXTENSION)){
+					page.openEditor(new FileEditorInput((IFile) workspaceResource), org.eclipse.uml2.diagram.clazz.part.UMLDiagramEditor.ID);
+				}else if(extension.equals(UsecaseDiagramCreateAction.DIAGRAM_EXTENSION)){
+					page.openEditor(new FileEditorInput((IFile) workspaceResource), org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor.ID);
+				}
 			}
 		}catch(Exception e){
 			e.printStackTrace();
