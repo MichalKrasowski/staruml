@@ -40,6 +40,7 @@ import org.star.uml.designer.service.dao.UserMgtDao;
 import org.star.uml.designer.service.uvo.LoginInfo;
 import org.star.uml.designer.service.uvo.RepositoryDetails;
 import org.star.uml.designer.ui.views.StarPMSModelView;
+import org.star.uml.designer.ui.views.StarPMSRequestTableView;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeObject;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeParent;
 
@@ -65,7 +66,6 @@ public class ConnectionCreateDialog extends Dialog {
 	protected Control createDialogArea(Composite parent) {
 
 		Composite composite = new Composite(parent, SWT.NONE);
-		try{
 		GridLayout layout = new GridLayout(3, false);
 		GridData gridData = new GridData(400, 150);
 
@@ -136,9 +136,7 @@ public class ConnectionCreateDialog extends Dialog {
 				.getEntry("icons/64.gif"));
 
 		getShell().setImage(img.createImage());
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+		
 		return composite;
 	}
 	
@@ -195,29 +193,32 @@ public class ConnectionCreateDialog extends Dialog {
 				return;
 			}
 			
-			IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
-			StarPMSModelView model = (StarPMSModelView)view_part;
+			
+			IViewPart model_view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
+			StarPMSModelView model = (StarPMSModelView)model_view_part;
 			TreeParent root = model.getTreeParent();
 			System.out.println("root ===== " + root);
 			if(root != null){
-				TreeObject[] parents = model.getTreeParent().getParent().getChildren();
+				TreeParent parent = model.getTreeParent().getParent();
+				TreeObject[] parents = parent.getChildren();
+				
 				for(int i = 0; i < parents.length; i++){
-					TreeObject temp = (TreeObject)parents[i];
-					System.out.println("temp.getName() === " + temp.getName());
-					System.out.println("connectionName === " + connectionName + "/StarPMS/" + ProjectText.getText());
-					if(temp.getName().equals(connectionName + "/StarPMS/" + ProjectText.getText())){
+					if(parents[i].getName().equals(connectionName + "/StarPMS/" + ProjectText.getText())){
 						MessageDialog.openWarning(getShell(), CustomMessages.DIALOG_WARNING,
 								CustomMessages.PROJECT_INVALID_NAME_MESSAGE);
 						return;
 					}
+					parent.removeChild(parents[i]);
 				}
+				IViewPart table_view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSRequestTableView");
+		        StarPMSRequestTableView tableView = (StarPMSRequestTableView)table_view_part;
+		        tableView.removeTable();
 			}
-			
+			model.setLoginFlag(false);
 			model.setTreeParent(model.createTreeParent(connectionName + "/StarPMS/" + ProjectText.getText()));
 			
 			model.getInvisibleRoot().addChild(model.getTreeParent());
 			model.getTreeViewer().refresh();
-			
 		} else if (IDialogConstants.HELP_ID == buttonId) {
 
 			DBConnectionWizard dbConnectionWizard = new DBConnectionWizard();
