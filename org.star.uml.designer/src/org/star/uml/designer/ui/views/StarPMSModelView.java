@@ -252,8 +252,6 @@ public class StarPMSModelView extends ViewPart {
 		hookDoubleClickAction();
 		contributeToActionBars();
 		createToolBar();
-		
-
 	}
 	
 	private void createToolBar() {

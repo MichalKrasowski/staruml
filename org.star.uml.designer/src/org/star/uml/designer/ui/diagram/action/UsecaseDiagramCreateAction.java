@@ -101,12 +101,5 @@ public class UsecaseDiagramCreateAction extends Action implements IStarUMLAction
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public void insertNode() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	
 }

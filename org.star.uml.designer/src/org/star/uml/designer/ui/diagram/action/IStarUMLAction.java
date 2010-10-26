@@ -25,8 +25,6 @@ import org.star.uml.designer.ui.factory.StarUMLEditHelperFactory;
 
 public interface IStarUMLAction {
 	
-	public void insertNode();
-	
 	public EObject createNode();
 	
 	public URL getImageURL();

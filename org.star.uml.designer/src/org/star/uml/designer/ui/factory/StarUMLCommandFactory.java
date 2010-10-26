@@ -2,19 +2,16 @@ package org.star.uml.designer.ui.factory;
 
 import java.net.URL;
 
-import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
-import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
-import org.eclipse.jface.action.Action;
-import org.eclipse.uml2.diagram.usecase.edit.commands.ActorCreateCommand;
-import org.eclipse.uml2.diagram.usecase.edit.helpers.ActorEditHelper;
-import org.eclipse.uml2.uml.internal.impl.ActorImpl;
+import org.eclipse.emf.common.command.AbstractCommand;
+import org.star.uml.designer.command.InsertActorCommand;
+import org.star.uml.designer.ui.diagram.action.ActorInsertAction;
 
 public class StarUMLCommandFactory {
 	
-	public static AbstractTransactionalCommand getCommand(CreateElementRequest request){
+	public static AbstractCommand getCommand(String actionID){
 		
-		if(request.getNewElement() instanceof ActorImpl){
-			return new ActorCreateCommand(request);
+		if(actionID.equals(ActorInsertAction.ACTION_ID)){
+			return new InsertActorCommand();
 		}
 		return null;
 	}

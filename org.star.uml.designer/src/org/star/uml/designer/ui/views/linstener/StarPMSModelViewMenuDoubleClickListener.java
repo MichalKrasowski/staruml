@@ -10,6 +10,7 @@ import org.eclipse.ui.PlatformUI;
 import org.star.uml.designer.base.constance.GlobalConstants;
 import org.star.uml.designer.base.utils.EclipseUtile;
 import org.star.uml.designer.ui.diagram.action.ActorCreateAction;
+import org.star.uml.designer.ui.diagram.action.ActorInsertAction;
 import org.star.uml.designer.ui.diagram.action.IStarUMLAction;
 import org.star.uml.designer.ui.diagram.action.UsecaseDiagramCreateAction;
 import org.star.uml.designer.ui.views.StarPMSModelView;
@@ -38,9 +39,10 @@ public class StarPMSModelViewMenuDoubleClickListener implements IDoubleClickList
 			// 모델일 경우 다이어그램에 모델을 추가한다.
 			IStarUMLAction action = null;
 			if(extension.equals(ActorCreateAction.ACTION_ID)){
-				action = (IStarUMLAction)actionMap.get(ActorCreateAction.ACTION_TITLE);
+//				action = (IStarUMLAction)actionMap.get(ActorCreateAction.ACTION_TITLE);
+				ActorInsertAction action2 = new ActorInsertAction();
+				action2.run();
 			}
-			action.insertNode();
 		}
 	}
 	
