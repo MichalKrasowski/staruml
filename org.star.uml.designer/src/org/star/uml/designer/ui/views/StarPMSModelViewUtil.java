@@ -73,11 +73,10 @@ import org.star.uml.designer.base.utils.CommonUtil;
 import org.star.uml.designer.base.utils.EclipseUtile;
 import org.star.uml.designer.base.utils.XmlUtil;
 import org.star.uml.designer.service.dao.PmsDao;
-import org.star.uml.designer.ui.action.ModelDeleteAction;
 import org.star.uml.designer.ui.action.PMSLoginAction;
 import org.star.uml.designer.ui.action.PMSLogoutAction;
 import org.star.uml.designer.ui.diagram.action.ActorCreateAction;
-import org.star.uml.designer.ui.diagram.action.ClazzDiagramCreateAction;
+import org.star.uml.designer.ui.diagram.action.DeleteFromDiagramAction;
 import org.star.uml.designer.ui.diagram.action.UsecaseDiagramCreateAction;
 import org.star.uml.designer.ui.model.initialization.DefaultModel;
 import org.star.uml.designer.ui.model.initialization.DefaultUML;
@@ -568,11 +567,10 @@ public class StarPMSModelViewUtil {
 	public static void initContextMenu(MenuManager menuMgr){
 		PMSLoginAction login = new PMSLoginAction();
 		PMSLogoutAction logout = new PMSLogoutAction();
-		ModelDeleteAction delete = new ModelDeleteAction();
+		DeleteFromDiagramAction delete = new DeleteFromDiagramAction();
 		
 		MenuManager diagramGroup = new MenuManager("Diagram");
 		UsecaseDiagramCreateAction usecaseDiagram = new UsecaseDiagramCreateAction();
-		ClazzDiagramCreateAction clazzDiagram = new ClazzDiagramCreateAction();
 		
 		MenuManager modelGroup = new MenuManager("Model");
 		ActorCreateAction actor = new ActorCreateAction();
@@ -587,7 +585,6 @@ public class StarPMSModelViewUtil {
 		
 		
 		diagramGroup.add(usecaseDiagram);
-		diagramGroup.add(clazzDiagram);
 		modelGroup.add(actor);
 		
 	}

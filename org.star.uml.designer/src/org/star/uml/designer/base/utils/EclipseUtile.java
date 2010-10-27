@@ -30,8 +30,10 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.image.ImageFileFormat;
+import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramCommandStack;
 import org.eclipse.gmf.runtime.diagram.ui.render.clipboard.DiagramGenerator;
 import org.eclipse.gmf.runtime.diagram.ui.render.clipboard.DiagramImageGenerator;
 import org.eclipse.gmf.runtime.diagram.ui.render.internal.DiagramUIRenderPlugin;
@@ -60,7 +62,7 @@ import org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor;
 import org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditorUtil;
 import org.eclipse.uml2.uml.internal.impl.ActorImpl;
 import org.star.uml.designer.command.InsertActionCommand;
-import org.star.uml.designer.ui.diagram.action.ClazzDiagramCreateAction;
+//import org.star.uml.designer.ui.diagram.action.ClazzDiagramCreateAction;
 import org.star.uml.designer.ui.diagram.action.UsecaseDiagramCreateAction;
 import org.star.uml.designer.ui.factory.StarUMLDiagramCreateFactory;
 import org.w3c.dom.Document;
@@ -147,9 +149,7 @@ public class EclipseUtile {
 			IResource workspaceResource = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(path));
 			if (workspaceResource instanceof IFile) {
 				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-				if(extension.equals(ClazzDiagramCreateAction.DIAGRAM_EXTENSION)){
-					page.openEditor(new FileEditorInput((IFile) workspaceResource), org.eclipse.uml2.diagram.clazz.part.UMLDiagramEditor.ID);
-				}else if(extension.equals(UsecaseDiagramCreateAction.DIAGRAM_EXTENSION)){
+				if(extension.equals(UsecaseDiagramCreateAction.DIAGRAM_EXTENSION)){
 					page.openEditor(new FileEditorInput((IFile) workspaceResource), org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor.ID);
 				}
 			}
@@ -257,6 +257,4 @@ public class EclipseUtile {
 			}
 		};
 	}
-	
-	
 }

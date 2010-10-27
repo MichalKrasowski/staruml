@@ -8,7 +8,7 @@ import org.star.uml.designer.base.constance.GlobalConstants;
 import org.star.uml.designer.ui.action.PMSLoginAction;
 import org.star.uml.designer.ui.action.PMSLogoutAction;
 import org.star.uml.designer.ui.diagram.action.ActorCreateAction;
-import org.star.uml.designer.ui.diagram.action.ClazzDiagramCreateAction;
+import org.star.uml.designer.ui.diagram.action.DeleteFromDiagramAction;
 import org.star.uml.designer.ui.diagram.action.UsecaseDiagramCreateAction;
 
 public class StarPMSModelViewPopupPolicy {
@@ -26,6 +26,9 @@ public class StarPMSModelViewPopupPolicy {
 			break;
 			case GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_4:
 				setPolicy_4(actionMap);
+			break;
+			case GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_5:
+				setPolicy_5(actionMap);
 			break;
 			default:
 		}
@@ -55,7 +58,10 @@ public class StarPMSModelViewPopupPolicy {
 		action.setEnabled(true);
 		Action action2 = (Action)actionMap.get(UsecaseDiagramCreateAction.ACTION_TITLE);
 		action2.setEnabled(true);
-		Action action3 = (Action)actionMap.get(ClazzDiagramCreateAction.ACTION_TITLE);
-		action3.setEnabled(true);
+	}
+	
+	static void setPolicy_5(HashMap actionMap){
+		Action action2 = (Action)actionMap.get(DeleteFromDiagramAction.ACTION_TITLE);
+		action2.setEnabled(true);
 	}
 }
