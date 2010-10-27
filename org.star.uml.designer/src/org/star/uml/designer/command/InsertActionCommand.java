@@ -23,7 +23,6 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.eclipse.uml2.uml.internal.impl.ActorImpl;
 import org.eclipse.uml2.uml.internal.impl.UMLFactoryImpl;
 import org.osgi.framework.Bundle;
-
 public class InsertActionCommand extends AbstractTransactionalCommand{
 	public TransactionalEditingDomain domain = null;
 	public InsertActionCommand(TransactionalEditingDomain domain,String label, List affectedFiles) {
@@ -70,5 +69,22 @@ public class InsertActionCommand extends AbstractTransactionalCommand{
 		}
 		return CommandResult.newOKCommandResult();
 	}
-	
+//	// Node를 삽입하기 위한  정보를 가져온다.
+//	IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+//	this.editor = (DiagramDocumentEditor) page.getActiveEditor();
+//	this.domain = editor.getEditingDomain();
+//	this.view = (View)editor.getDiagramEditPart().getModel();
+//	
+//	URL fileURL = getImageURL(); 
+//	UMLBaseEditHelper helper = StarUMLEditHelperFactory.getEditHelper(ACTION_ID);
+//	MetamodelType modelType = new MetamodelType(ACTION_URI,fileURL, ACTION_ID,null,helper);
+//	
+//	CreateElementRequest request = new CreateElementRequest(domain,view, modelType);
+//	EObject eObj = createNode();
+//	request.setNewElement(eObj);
+//	request.setLabel(ACTION_ID);
+//	
+//	AbstractTransactionalCommand actorCmd = StarUMLCommandFactory.getCommand(request);
+//	EObjectAdapter info = new EObjectAdapter(eObj);
+//	EclipseUtile.runCommand(actorCmd, info);
 }

@@ -2,23 +2,33 @@ package org.star.uml.designer.ui.diagram.action;
 
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.emf.common.command.Command;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
+import org.eclipse.gef.EditPart;
+import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
+import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 import org.eclipse.gmf.runtime.emf.type.core.MetamodelType;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.runtime.notation.Location;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.runtime.notation.impl.DiagramImpl;
 import org.eclipse.gmf.runtime.notation.impl.ShapeImpl;
@@ -31,8 +41,14 @@ import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.uml2.diagram.common.async.ApplySynchronizationCommand;
+import org.eclipse.uml2.diagram.common.async.SyncModelContext;
+import org.eclipse.uml2.diagram.common.async.SyncModelNode;
 import org.eclipse.uml2.diagram.usecase.edit.helpers.UMLBaseEditHelper;
+import org.eclipse.uml2.diagram.usecase.edit.parts.PackageEditPart;
 import org.eclipse.uml2.diagram.usecase.navigator.UMLNavigatorItem;
+import org.eclipse.uml2.diagram.usecase.part.UMLDiagramUpdater;
+import org.eclipse.uml2.diagram.usecase.part.UMLVisualIDRegistry;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.eclipse.uml2.uml.VisibilityKind;
 import org.eclipse.uml2.uml.internal.impl.ActorImpl;
@@ -43,7 +59,8 @@ import org.star.uml.designer.Activator;
 import org.star.uml.designer.base.constance.GlobalConstants;
 import org.star.uml.designer.base.utils.CommonUtil;
 import org.star.uml.designer.base.utils.EclipseUtile;
-import org.star.uml.designer.command.InsertActorCommand;
+import org.star.uml.designer.command.MoveShapeCommand;
+import org.star.uml.designer.ui.diagram.action.interfaces.IStarUMLModelAction;
 import org.star.uml.designer.ui.factory.StarUMLCommandFactory;
 import org.star.uml.designer.ui.factory.StarUMLEditHelperFactory;
 import org.star.uml.designer.ui.views.StarPMSModelView;
@@ -51,17 +68,15 @@ import org.star.uml.designer.ui.views.StarPMSModelViewUtil;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeObject;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeParent;
 
-public class ActorInsertAction extends Action implements IStarUMLAction{
+public class ActorInsertAction extends Action implements IStarUMLModelAction{
 	public static final String ACTION_ID = "ACTOR INSERT";
 	public static final String ACTION_URI = "";
 	public static final String ACTION_TITLE ="Insert Actor";
 	public static final String ACTION_TYPE ="";
 	public static final String ICON_PATH = "/icons/diagram/Actor.gif";
-	public String nodeName = "";
 	
-	public TransactionalEditingDomain domain = null;
-	public DiagramDocumentEditor editor = null;
-	public View view = null;
+	private String selectedNodeName = "";
+	private DiagramDocumentEditor editor = null;
 	
 	public ActorInsertAction() {
 		super();
@@ -71,6 +86,7 @@ public class ActorInsertAction extends Action implements IStarUMLAction{
 	
 	@Override
 	public void run() {
+		try{
 			// 모델 Tree에 Actor를 추가한다.
 			IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 									.findView(GlobalConstants.PluinID.STAR_PMS_MODEL_VIEW);
@@ -78,59 +94,71 @@ public class ActorInsertAction extends Action implements IStarUMLAction{
 			// 선택된 Tree를 가져온다.
 			TreeSelection treeSelection = (TreeSelection)modelView.getTreeViewer().getSelection();
 			TreeObject parent = (TreeObject)treeSelection.getFirstElement();
-			String selectedNodeName = (String)parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE);
-			// 모델에 이미 Actor가 추가되어 있기 때문에 모델에 선택 된 Actor하고 이름이 같은 것을 찾아서 Visility를 변경한다.
+			selectedNodeName = (String)parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE);
+			// 모델에 이미 Actor가 추가되어 있기 때문에 모델과 Snyc가능한 Actor중 원하는 것을 선택 한 후 추가한다.
 			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-	        if(page.getActiveEditor() !=null && page.getActiveEditor() instanceof org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor){
+			if(page.getActiveEditor() !=null && page.getActiveEditor() instanceof org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor){
 	        	org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor editor = 
 	        		(org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor)page.getActiveEditor();
-	        	// 에디터에서 다이어그램이 그려진 영역을 가져온다.
+	        	// 다이어 그램을 수정하기 위한 환경 정보들을 가져온다.
 	        	IDiagramDocument document = editor.getDiagramDocument();
 	        	Diagram diagram = document.getDiagram();
-	        	// 보이거나 , 보이지 않거나 다이어그램에 등록 된 모든 자식들을 가져온다.
-	        	for(int i=0; i<diagram.getTransientChildren().size(); i++){
-	        		ShapeImpl shapeImple = (ShapeImpl)diagram.getTransientChildren().get(i);
-	        		// 보이지 않으면서 , 모델 뷰에서 선택된 Actor와 같은 이름의 노드가 등록되어 있으면 보이도록 변경한다.
-	        		if(shapeImple.getElement() instanceof ActorImpl && !shapeImple.isVisible()){
+	        	TransactionalEditingDomain editingDomain = editor.getEditingDomain();
+	        	// 모델 파일과 Sync한 결과가 저장될 다이어그램을 생성한다.
+	        	IGraphicalEditPart ep = (IGraphicalEditPart)editor.getDiagramGraphicalViewer().getContents();
+	        	View myRootDiagramView = ep.getNotationView();
+	        	Diagram syncDiagram = ViewService.createDiagram(document.getDiagram().getElement(),"UMLUseCase", ep.getDiagramPreferencesHint());
+	        	// 모델과 싱크를 진행 할 Context를 가져온다.
+	        	UMLVisualIDRegistry myVisualIDRegistry = new UMLVisualIDRegistry();
+	        	UMLDiagramUpdater myDiagramUpdater= new UMLDiagramUpdater();
+	        	SyncModelContext context = 
+	        		new SyncModelContext(myDiagramUpdater.TYPED_ADAPTER, myVisualIDRegistry.TYPED_ADAPTER, ep.getDiagramPreferencesHint(), editingDomain);
+	        	// 트리에서 선택된 모델을 Sync 모델에서 찾는다.
+	        	SyncModelNode result = new SyncModelNode(syncDiagram, myRootDiagramView, context);
+	        	for(int i=1; i<result.getChildren().size(); i++){
+	        		ActorImpl imple = (ActorImpl)result.getChildren().get(i).getSyncModelView().getElement();
+	        		if(selectedNodeName.equals(imple.getName())){
+	        			result.getChildren().get(i).setChecked(true);
+	        		}
+	        	}
+	        	// Sync 설정이 true로 설정된 노드를 화면에 표시한다.
+	    		ApplySynchronizationCommand applyCommand = new ApplySynchronizationCommand(result);
+	    		context.runCommand(applyCommand);
+	        	// 표시된 Node를 화면 가운데로 이동한다.
+	    		// Actor를 기본 위치에서 가운데로 이동한다.
+	        	for(int i=0; i<diagram.getPersistedChildren().size(); i++){
+	        		ShapeImpl shapeImple = (ShapeImpl)diagram.getPersistedChildren().get(i);
+	        		if(shapeImple.getElement() instanceof ActorImpl){
 	        			ActorImpl actorImpl = (ActorImpl)shapeImple.getElement();
 	        			String name = actorImpl.getName();
 	        			if(selectedNodeName.equals(name)){
-	        				InsertActorCommand cmd = (InsertActorCommand) StarUMLCommandFactory.getCommand(ACTION_ID);
-	        				cmd.setActorImpl(actorImpl);
+	        				MoveShapeCommand cmd = (MoveShapeCommand) StarUMLCommandFactory.getCommand(MoveShapeCommand.ID);
 	        				cmd.setShapeImpl(shapeImple);
-	                    	editor.getEditingDomain().getCommandStack().execute(cmd);
+	                    	// 0,0 위치에 있을 경우 기본 위치에 표시하고 , 기본위치에 다른 모델이 있는 경우 그 모델 다음에 표시한다.
+	        				boolean locationFlag = true;
+	        				int modelX = GlobalConstants.DEFAULT_MODEL_X;
+	        				int modelY = GlobalConstants.DEFAULT_MODEL_Y;
+	        				while(locationFlag){
+		        				DiagramEditPart diagramEditPart = editor.getDiagramEditPart();
+		        				Point defaultPoint = new Point(modelX,modelY);
+		        				EditPart editPart = diagramEditPart.getViewer().findObjectAt(defaultPoint);
+		        				if(editPart instanceof PackageEditPart){
+		        					locationFlag = false;
+		        				}else{
+		        					modelX = modelX+10;
+		        					modelY = modelY+10;
+		        				}
+	        				}
+	        				// 위치를 지정한 후 모델을 이동한다.
+	        				cmd.setLocation(modelX, modelY);
+	        				editor.getEditingDomain().getCommandStack().execute(cmd);
 	        			}
 	        		}
 	        	}
 	        }
-//			// Node를 삽입하기 위한  정보를 가져온다.
-//			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-//			this.editor = (DiagramDocumentEditor) page.getActiveEditor();
-//			this.domain = editor.getEditingDomain();
-//			this.view = (View)editor.getDiagramEditPart().getModel();
-//			
-//			URL fileURL = getImageURL(); 
-//			UMLBaseEditHelper helper = StarUMLEditHelperFactory.getEditHelper(ACTION_ID);
-//	    	MetamodelType modelType = new MetamodelType(ACTION_URI,fileURL, ACTION_ID,null,helper);
-//	    	
-//	    	CreateElementRequest request = new CreateElementRequest(domain,view, modelType);
-//	    	EObject eObj = createNode();
-//	    	request.setNewElement(eObj);
-//	    	request.setLabel(ACTION_ID);
-//	    	
-//	    	AbstractTransactionalCommand actorCmd = StarUMLCommandFactory.getCommand(request);
-//	    	EObjectAdapter info = new EObjectAdapter(eObj);
-//	    	EclipseUtile.runCommand(actorCmd, info);
-		
+		}catch(Exception e){e.printStackTrace();}
 	}
 	
-	public EObject createNode(){
-		UMLFactory factoryImple = UMLFactoryImpl.init();
-		final ActorImpl actor = (ActorImpl)factoryImple.createActor();
-		actor.setName(nodeName);
-		return actor;
-	}
-
 	public URL getImageURL(){
 		Bundle bundle = Platform.getBundle(Activator.PLUGIN_ID);
 		return bundle.getEntry(ICON_PATH);

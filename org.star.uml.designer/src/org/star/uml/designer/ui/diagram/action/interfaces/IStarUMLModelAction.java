@@ -1,4 +1,4 @@
-package org.star.uml.designer.ui.diagram.action;
+package org.star.uml.designer.ui.diagram.action.interfaces;
 
 import java.net.URL;
 
@@ -23,11 +23,10 @@ import org.star.uml.designer.base.utils.EclipseUtile;
 import org.star.uml.designer.ui.factory.StarUMLCommandFactory;
 import org.star.uml.designer.ui.factory.StarUMLEditHelperFactory;
 
-public interface IStarUMLAction {
-	
-	public EObject createNode();
+public interface IStarUMLModelAction {
 	
 	public URL getImageURL();
 	
 	public ImageDescriptor getImageDescriptor();
+	
 }

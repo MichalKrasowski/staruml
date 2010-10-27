@@ -14,6 +14,8 @@ public class GlobalConstants {
 	
 	//variable
 	public static final String TREE_PATH = "path";
+	public static final int DEFAULT_MODEL_X = 200;
+	public static final int DEFAULT_MODEL_Y = 200;
 	
 	//Policy
 	public class StarPMSModelViewPopupPolicy{
@@ -52,7 +54,7 @@ public class GlobalConstants {
 		public static final String UML_TYPE_PACKAGE_Element = "packagedElement";
 	}
 	
-	//Policy
+	//PluinID
 	public class PluinID{
 		public static final String STAR_PMS_MODEL_VIEW = "org.star.uml.designer.ui.views.StarPMSModelView";
 	}

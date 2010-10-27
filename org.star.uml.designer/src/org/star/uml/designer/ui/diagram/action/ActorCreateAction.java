@@ -41,6 +41,7 @@ import org.star.uml.designer.Activator;
 import org.star.uml.designer.base.constance.GlobalConstants;
 import org.star.uml.designer.base.utils.CommonUtil;
 import org.star.uml.designer.base.utils.EclipseUtile;
+import org.star.uml.designer.ui.diagram.action.interfaces.IStarUMLModelAction;
 import org.star.uml.designer.ui.factory.StarUMLCommandFactory;
 import org.star.uml.designer.ui.factory.StarUMLEditHelperFactory;
 import org.star.uml.designer.ui.views.StarPMSModelView;
@@ -48,7 +49,7 @@ import org.star.uml.designer.ui.views.StarPMSModelViewUtil;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeObject;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeParent;
 
-public class ActorCreateAction extends Action implements IStarUMLAction{
+public class ActorCreateAction extends Action implements IStarUMLModelAction{
 	public static final String ACTION_ID = "ACTOR";
 	public static final String ACTION_URI = "org.eclipse.uml2.diagram.usecase.Actor_2002";
 	public static final String ACTION_TITLE ="Create Actor";
@@ -96,12 +97,12 @@ public class ActorCreateAction extends Action implements IStarUMLAction{
 		EclipseUtile.refreshProject("Root");
 	}
 	
-	public EObject createNode(){
-		UMLFactory factoryImple = UMLFactoryImpl.init();
-		final ActorImpl actor = (ActorImpl)factoryImple.createActor();
-		actor.setName(nodeName);
-		return actor;
-	}
+//	public EObject createNode(){
+//		UMLFactory factoryImple = UMLFactoryImpl.init();
+//		final ActorImpl actor = (ActorImpl)factoryImple.createActor();
+//		actor.setName(nodeName);
+//		return actor;
+//	}
 
 	public URL getImageURL(){
 		Bundle bundle = Platform.getBundle(Activator.PLUGIN_ID);

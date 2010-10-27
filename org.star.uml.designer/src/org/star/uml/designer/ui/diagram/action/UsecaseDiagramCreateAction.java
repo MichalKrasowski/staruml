@@ -32,6 +32,7 @@ import org.star.uml.designer.Activator;
 import org.star.uml.designer.base.constance.GlobalConstants;
 import org.star.uml.designer.base.utils.CommonUtil;
 import org.star.uml.designer.base.utils.EclipseUtile;
+import org.star.uml.designer.ui.diagram.action.interfaces.IStarUMLDiagramAction;
 import org.star.uml.designer.ui.factory.StarUMLCommandFactory;
 import org.star.uml.designer.ui.factory.StarUMLEditHelperFactory;
 import org.star.uml.designer.ui.views.StarPMSModelView;
@@ -39,7 +40,7 @@ import org.star.uml.designer.ui.views.StarPMSModelViewUtil;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeObject;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeParent;
 
-public class UsecaseDiagramCreateAction extends Action implements IStarUMLAction{
+public class UsecaseDiagramCreateAction extends Action implements IStarUMLDiagramAction{
 	public static final String ACTION_ID = "USECASE_DIAGRAM";
 	public static final String ACTION_URI = "org.eclipse.uml2.diagram.usecase.UsecaseDiagram";
 	public static final String ACTION_TITLE ="Create UsecaseDiagram";
@@ -94,12 +95,6 @@ public class UsecaseDiagramCreateAction extends Action implements IStarUMLAction
 	
 	public ImageDescriptor getImageDescriptor(){
 		return Activator.getImageDescriptor(ICON_PATH);
-	}
-
-	@Override
-	public EObject createNode() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 }
