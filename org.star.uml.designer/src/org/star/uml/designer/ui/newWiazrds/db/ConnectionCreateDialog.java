@@ -197,7 +197,6 @@ public class ConnectionCreateDialog extends Dialog {
 			IViewPart model_view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
 			StarPMSModelView model = (StarPMSModelView)model_view_part;
 			TreeParent root = model.getTreeParent();
-			System.out.println("root ===== " + root);
 			if(root != null){
 				TreeParent parent = model.getTreeParent().getParent();
 				TreeObject[] parents = parent.getChildren();
