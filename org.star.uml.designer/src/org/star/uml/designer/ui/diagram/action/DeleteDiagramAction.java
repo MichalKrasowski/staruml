@@ -9,6 +9,8 @@ import java.util.List;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramCommandStack;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.command.AbstractCommand;
@@ -38,9 +40,11 @@ import org.eclipse.gmf.runtime.notation.impl.DiagramImpl;
 import org.eclipse.gmf.runtime.notation.impl.ShapeImpl;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.TreeSelection;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
@@ -66,6 +70,7 @@ import org.star.uml.designer.Activator;
 import org.star.uml.designer.base.constance.GlobalConstants;
 import org.star.uml.designer.base.utils.CommonUtil;
 import org.star.uml.designer.base.utils.EclipseUtile;
+import org.star.uml.designer.base.utils.XmlUtil;
 import org.star.uml.designer.command.MoveShapeCommand;
 import org.star.uml.designer.ui.diagram.action.interfaces.IStarUMLModelAction;
 import org.star.uml.designer.ui.factory.StarUMLCommandFactory;
@@ -74,6 +79,10 @@ import org.star.uml.designer.ui.views.StarPMSModelView;
 import org.star.uml.designer.ui.views.StarPMSModelViewUtil;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeObject;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeParent;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class DeleteDiagramAction extends Action implements IStarUMLModelAction{
 	public static final String ACTION_ID = "DELETE DIATRAM";
@@ -105,13 +114,42 @@ public class DeleteDiagramAction extends Action implements IStarUMLModelAction{
 			String folderPaht = ResourcesPlugin.getWorkspace().getRoot().getProject("Root").getLocation().toString();
 			//ResourcesPlugin.getWorkspace().getRoot().getProject("Root").getLocation().
 			File diagram = new File(folderPaht + "/" + parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE) + "." + parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION));
+			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+			IProgressMonitor monitor = new NullProgressMonitor();
+			monitor.beginTask("Save content...", 1);
+			page.getActiveEditor().doSave(monitor);
 			if(diagram.isFile()){
 				diagram.delete();
 			}
 			
 			selectedNodeName = (String)parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE);
 			// 열린 화면 중에 Usecase Diagram Editor가 있는 지 확인 하고 있을 경우 모델이 그려져 있으면 삭제한다.
-			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+			
+			String modelPath = folderPaht+File.separator+GlobalConstants.DEFAULT_VIEW_MODEL_FILE;
+			System.out.println(modelPath);
+			String domStr = XmlUtil.getXmlFileToString(modelPath);
+			System.out.println("domStr ====== " + domStr);
+			Document modelDoc = XmlUtil.getStringToDocument(domStr);
+			
+			NodeList nodes = modelDoc.getElementsByTagName("packagedElement");
+			System.out.println("length ===== " + nodes.getLength());
+			for(int i = 0; i < nodes.getLength(); i++){
+				NamedNodeMap attMap = nodes.item(i).getAttributes();
+				
+				for(int a = 0; a < attMap.getLength(); a++){
+					
+					
+					if(attMap.item(a).getNodeName().equals(GlobalConstants.StarMoedl.STAR_MODEL_ID) 
+							&& attMap.item(a).getNodeValue().equals(parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_ID))){
+						System.out.println("name ==== " + attMap.item(a).getNodeName());
+						System.out.println("value ==== " + attMap.item(a).getNodeValue());
+						System.out.println("parent value ==== " + parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_ID));
+						nodes.item(i).getParentNode().removeChild(nodes.item(i));
+					}
+				}
+			}
+			
+			XmlUtil.writeXmlFile(modelDoc, modelPath);
 			parent.getParent().removeChild(parent);
 			modelView.getTreeViewer().refresh();
 			EclipseUtile.refreshProject("Root");
