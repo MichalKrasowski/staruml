@@ -550,10 +550,10 @@ public class StarPMSModelViewUtil {
 		PMSLogoutAction logout = new PMSLogoutAction();
 		DeleteFromDiagramAction delete = new DeleteFromDiagramAction();
 		DeleteDiagramAction deleteDiagram = new DeleteDiagramAction();
-		MenuManager diagramGroup = new MenuManager("Diagram");
+		MenuManager diagramGroup = new MenuManager("Add Diagram");
 		UsecaseDiagramCreateAction usecaseDiagram = new UsecaseDiagramCreateAction();
 		
-		MenuManager modelGroup = new MenuManager("Model");
+		MenuManager modelGroup = new MenuManager("Add Model");
 		ActorCreateAction actor = new ActorCreateAction();
 		
 		menuMgr.add(login);
