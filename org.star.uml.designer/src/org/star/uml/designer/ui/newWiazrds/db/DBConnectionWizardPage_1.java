@@ -99,14 +99,14 @@ public class DBConnectionWizardPage_1 extends WizardPage implements
 			userName_label.setText("User  Name : ");
 			userNameField = new Text(container, SWT.BORDER);
 			userNameField.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-			userNameField.setText("orabpel");
+			userNameField.setText("star_pms");
 
 			// Password 설정
 			Label password_label = new Label(container, SWT.NONE);
 			password_label.setText("Password : ");
 			passwordField = new Text(container, SWT.BORDER | SWT.PASSWORD);
 			passwordField.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-			passwordField.setText("welcome1");
+			passwordField.setText("sjdznf");
 
 			// Driver 설정
 			// thin,oci8

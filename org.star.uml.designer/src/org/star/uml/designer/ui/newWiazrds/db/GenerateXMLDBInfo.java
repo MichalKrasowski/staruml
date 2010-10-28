@@ -33,77 +33,78 @@ import org.xml.sax.InputSource;
 public class GenerateXMLDBInfo {
 	File file = new File(ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString() + "/xml/connection.xml");
 	public void addConnection(String ConnectionName, String ConnectionType,
-			String UserName, String Password, String Driver, String HostName,
-			String JDBCPort, String SID, String ServiceName,
-			String ConnectionUrl, String DriverClass, String DatabaseType) {
-		
-		System.setProperty("file.encoding", "UTF-8");
-		
-		try {
+		String UserName, String Password, String Driver, String HostName,
+		String JDBCPort, String SID, String ServiceName,
+		String ConnectionUrl, String DriverClass, String DatabaseType) {
+	
+		try{
 			if(!file.isFile()){
 				file.getParentFile().mkdirs();
 				file.createNewFile();
 				Document doc = XmlUtil.getStringToDocument(DefaultConnection.getXML());
 				XmlUtil.writeXmlFile(doc, file.getPath());
 			}
-			Document document = getDocumnetByFile(file);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		Document document = getDocumnetByFile(file);
 
-			Element connectionEL = document.createElement("Connection");
-			Element ConnectionNameEL = document.createElement("ConnectionName");
-			Element ConnectionTypeEL = document.createElement("ConnectionType");
-			Element DatabaseTypeEL = document.createElement("DatabaseType");
-			Element ConnectionUrlEL = document.createElement("ConnectionUrl");
-			Element UserNameEL = document.createElement("UserName");
-			Element PasswordEL = document.createElement("Password");
-			Element DriverEL = document.createElement("Driver");
-			Element DriverClassEL = document.createElement("DriverClass");
-			Element HostNameEL = document.createElement("HostName");
-			Element JDBCPortEL = document.createElement("JDBCPort");
-			Element SIDEL = document.createElement("SID");
-			Element ServiceNameEL = document.createElement("ServiceName");
+		Element connectionEL = document.createElement("Connection");
+		Element ConnectionNameEL = document.createElement("ConnectionName");
+		Element ConnectionTypeEL = document.createElement("ConnectionType");
+		Element DatabaseTypeEL = document.createElement("DatabaseType");
+		Element ConnectionUrlEL = document.createElement("ConnectionUrl");
+		Element UserNameEL = document.createElement("UserName");
+		Element PasswordEL = document.createElement("Password");
+		Element DriverEL = document.createElement("Driver");
+		Element DriverClassEL = document.createElement("DriverClass");
+		Element HostNameEL = document.createElement("HostName");
+		Element JDBCPortEL = document.createElement("JDBCPort");
+		Element SIDEL = document.createElement("SID");
+		Element ServiceNameEL = document.createElement("ServiceName");
 
-			ConnectionNameEL.setTextContent(ConnectionName);
-			ConnectionTypeEL.setTextContent(ConnectionType);
-			DatabaseTypeEL.setTextContent(DatabaseType);
-			ConnectionUrlEL.setTextContent(ConnectionUrl);
-			UserNameEL.setTextContent(UserName);
-			PasswordEL.setTextContent(Password);
-			DriverEL.setTextContent(Driver);
-			DriverClassEL.setTextContent(DriverClass);
-			HostNameEL.setTextContent(HostName);
-			JDBCPortEL.setTextContent(JDBCPort);
-			SIDEL.setTextContent(SID);
-			ServiceNameEL.setTextContent(ServiceName);
+		ConnectionNameEL.setTextContent(ConnectionName);
+		ConnectionTypeEL.setTextContent(ConnectionType);
+		DatabaseTypeEL.setTextContent(DatabaseType);
+		ConnectionUrlEL.setTextContent(ConnectionUrl);
+		UserNameEL.setTextContent(UserName);
+		PasswordEL.setTextContent(Password);
+		DriverEL.setTextContent(Driver);
+		DriverClassEL.setTextContent(DriverClass);
+		HostNameEL.setTextContent(HostName);
+		JDBCPortEL.setTextContent(JDBCPort);
+		SIDEL.setTextContent(SID);
+		ServiceNameEL.setTextContent(ServiceName);
 
-			connectionEL.appendChild(ConnectionNameEL);
-			connectionEL.appendChild(ConnectionTypeEL);
-			connectionEL.appendChild(DatabaseTypeEL);
-			connectionEL.appendChild(ConnectionUrlEL);
-			connectionEL.appendChild(ConnectionTypeEL);
-			connectionEL.appendChild(UserNameEL);
-			connectionEL.appendChild(PasswordEL);
-			connectionEL.appendChild(DriverEL);
-			connectionEL.appendChild(DriverClassEL);
-			connectionEL.appendChild(HostNameEL);
-			connectionEL.appendChild(JDBCPortEL);
-			connectionEL.appendChild(SIDEL);
-			connectionEL.appendChild(ServiceNameEL);
+		connectionEL.appendChild(ConnectionNameEL);
+		connectionEL.appendChild(ConnectionTypeEL);
+		connectionEL.appendChild(DatabaseTypeEL);
+		connectionEL.appendChild(ConnectionUrlEL);
+		connectionEL.appendChild(ConnectionTypeEL);
+		connectionEL.appendChild(UserNameEL);
+		connectionEL.appendChild(PasswordEL);
+		connectionEL.appendChild(DriverEL);
+		connectionEL.appendChild(DriverClassEL);
+		connectionEL.appendChild(HostNameEL);
+		connectionEL.appendChild(JDBCPortEL);
+		connectionEL.appendChild(SIDEL);
+		connectionEL.appendChild(ServiceNameEL);
 
-			Node ConnectionsEL = document.getElementsByTagName(
-					"DatabaseConnections").item(0);
-			ConnectionsEL.appendChild(connectionEL);
-			
-			// Transformer를 통해 XML을 저장한다.
-			Source domSource = new DOMSource(document);
-			Result result = new StreamResult(file);
+		Node ConnectionsEL = document.getElementsByTagName(
+				"DatabaseConnections").item(0);
+		ConnectionsEL.appendChild(connectionEL);
+		
+		// Transformer를 통해 XML을 저장한다.
+		Source domSource = new DOMSource(document);
+		Result result = new StreamResult(file);
+		try{
 			Transformer xformer = TransformerFactory.newInstance()
 					.newTransformer();
 			xformer.transform(domSource, result);
-
-		} catch (Exception e) {
+		}catch(Exception e){
 			e.printStackTrace();
-		} finally {
 		}
+
 	}
 
 	public Map<String, Object> getConnections() {
@@ -115,7 +116,16 @@ public class GenerateXMLDBInfo {
 		if(file.isFile()){
 			document = getDocumnetByFile(file);
 		}else{
-			return null;
+			try{
+				System.out.println("file.getParentFile().mkdirs();");
+				file.getParentFile().mkdirs();
+				file.createNewFile();
+				Document doc = XmlUtil.getStringToDocument(DefaultConnection.getXML());
+				XmlUtil.writeXmlFile(doc, file.getPath());
+				document = getDocumnetByFile(file);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		}
 		
 		Node database = document.getElementsByTagName("DatabaseConnections").item(0);

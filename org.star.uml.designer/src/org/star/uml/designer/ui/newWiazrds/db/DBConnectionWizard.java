@@ -25,10 +25,10 @@ public class DBConnectionWizard extends Wizard {
 	@Override
 	public boolean performFinish() {
 		addConnection();
-		LoginDialog dialog = (LoginDialog) parentDialog;
+		ConnectionCreateDialog dialog = (ConnectionCreateDialog) parentDialog;
 		dialog.reLoadConnection();
 		this.getContainer().getShell().close();
-		return false;
+		return true;
 	}
 
 	public void addConnection() {
