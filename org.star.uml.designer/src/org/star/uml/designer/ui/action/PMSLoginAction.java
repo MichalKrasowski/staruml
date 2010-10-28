@@ -10,6 +10,8 @@ import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -28,7 +30,7 @@ import org.star.uml.designer.ui.views.StarPMSModelView;
 import org.star.uml.designer.ui.views.StarPMSModelViewUtil;
 import org.star.uml.designer.ui.views.StarPMSRequestTableView;
 
-public class PMSLoginAction extends Action {
+public class PMSLoginAction extends Action {   
 	
 	public static final String ACTION_ID = "PMS_LOGIN";
 	public static final String ACTION_URI = "org.star.uml.designer.ui.action.PMSLoginAction";
@@ -43,27 +45,65 @@ public class PMSLoginAction extends Action {
 	@Override
 	public void run() {
 		super.run();
+		
 		final Shell shell = new Shell(SWT.TITLE | SWT.BORDER | SWT.APPLICATION_MODAL);
 		shell.setText("StarPMS Login");
-		GridData gridData = new GridData();
 		GridLayout layout = new GridLayout(2, true);
+		GridData gridData = new GridData(400, 150);
 	    shell.setLayout(layout);
 	    shell.setLayoutData(gridData);
-	    shell.setBounds(500, 200,200, 125);
+	    shell.setBounds(500, 200,200, 150);
 	    
-	    Label labelUser = new Label(shell, SWT.NULL);
-	    labelUser.setText("사용자 아이디 : ");
-	    final Text textUser = new Text(shell, SWT.SINGLE | SWT.BORDER);
-	    Label labelPass = new Label(shell, SWT.NULL);
-	    labelPass.setText("사용자 암호 : " );
-	    final Text textPass = new Text(shell, SWT.SINGLE | SWT.BORDER);
+	    Label labelUser = new Label(shell, SWT.NONE);
+	    labelUser.setText("사용자 아이디");
+	    gridData = new GridData(GridData.FILL, GridData.FILL, true, false);
+	    gridData.widthHint = 50;
+	    labelUser.setLayoutData(gridData);
 	    
-	    textUser.setText("041986");
-	    textPass.setText("1234");
+	    final Text textUser = new Text(shell, SWT.BORDER);
+	    gridData = new GridData(GridData.FILL, GridData.FILL, true, false);
+	    gridData.widthHint = 100;
+	    //gridData.horizontalSpan = 2;
+	    textUser.setLayoutData(gridData);
 	    
-	    final Button buttonLogin = new Button(shell, SWT.PUSH);
+	    
+	    Label labelPass = new Label(shell, SWT.NONE);
+	    labelPass.setText("사용자 암호");
+	    gridData = new GridData(GridData.FILL, GridData.FILL,false, false);
+	    gridData.widthHint = 50;
+	    labelPass.setLayoutData(gridData);
+	    
+	    final Text textPass = new Text(shell, SWT.BORDER | SWT.PASSWORD);
+	    gridData = new GridData(GridData.FILL, GridData.FILL, true, false);
+	    gridData.widthHint = 100;
+		textPass.setLayoutData(gridData);
+		
+		textUser.setText("041986");
+		textPass.setText("1234");
+		
+		Label empty = new Label(shell, SWT.NONE);
+	    gridData = new GridData(GridData.FILL, GridData.FILL, true, false);
+		gridData.horizontalSpan = 2;
+		empty.setText("");
+		empty.setLayoutData(gridData);
+		
+		Label empty1 = new Label(shell, SWT.NONE);
+	    gridData = new GridData(GridData.FILL, GridData.FILL, true, false);
+		gridData.horizontalSpan = 2;
+		empty1.setText("");
+		empty1.setLayoutData(gridData);
+		
+	    final Button buttonLogin = new Button(shell, SWT.NONE);
+	    //buttonLogin.setSize(100,100);
 	    buttonLogin.setText("접속");
-	    buttonLogin.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_END));
+	    
+	    gridData = new GridData(GridData.HORIZONTAL_ALIGN_END);
+	    
+	    //gridData.verticalAlignment = SWT.CENTER; 
+	    
+	    gridData.widthHint = 80;
+	    gridData.heightHint = 20;
+	    buttonLogin.setLayoutData(gridData);
 	    buttonLogin.addListener(SWT.Selection, new Listener() {
 	        public void handleEvent(Event event) {
 	          shell.setVisible(false);
@@ -73,24 +113,30 @@ public class PMSLoginAction extends Action {
 	        	  MessageDialog.openInformation(shell.getShell(),"StarUML View","사용자 ID와 암호를 확인하여 주시기 바랍니다");
 	        	  return;  
 	          }
-	          openProjectDialog(shell);	
+	          //openProjectDialog(shell);	
 	          
 	          IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSRequestTableView");
 	          StarPMSRequestTableView tableView = (StarPMSRequestTableView)view_part;
 	          tableView.loadTable();
-	          //Load Model View
+				//Load Model View
 	          StarPMSModelViewUtil.loadModel("Root");
 	          IViewPart model_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
 	          StarPMSModelView modelView = (StarPMSModelView)model_part;
 	          modelView.setLoginFlag(true);
-	          shell.dispose();
 	          //parentShell.dispose();
 		        
 	        }
 	      });
 	    
+	    
 	    Button buttonClose = new Button(shell, SWT.PUSH);
+	    //buttonClose.setSize(100, 100);
 	    buttonClose.setText("닫기");
+	    gridData = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
+	    gridData.widthHint = 80;
+	    gridData.heightHint = 20;
+	    gridData.verticalAlignment = SWT.BOTTOM; 
+	    buttonClose.setLayoutData(gridData);
 	    shell.open();
 	    buttonClose.addListener(SWT.Selection, new Listener() {
 	        public void handleEvent(Event event) {
