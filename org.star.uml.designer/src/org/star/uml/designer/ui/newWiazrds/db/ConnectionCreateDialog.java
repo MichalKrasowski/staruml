@@ -144,7 +144,6 @@ public class ConnectionCreateDialog extends Dialog {
 			List list = pms.projectList();
 			for (int i = 0; i < list.size(); i++) {
 				Map content = (HashMap)list.get(i);
-				System.out.println("content ====== " + content);
 				ProjectText.add((String)content.get("PROJECT_NAME"));
 				ProjectText.setData("seq", content.get("PROJECT_SEQ"));
 			}

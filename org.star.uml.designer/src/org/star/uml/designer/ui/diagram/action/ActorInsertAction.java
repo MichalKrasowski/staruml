@@ -18,6 +18,7 @@ import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
+import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
@@ -64,6 +65,7 @@ import org.star.uml.designer.base.constance.GlobalConstants;
 import org.star.uml.designer.base.utils.CommonUtil;
 import org.star.uml.designer.base.utils.EclipseUtile;
 import org.star.uml.designer.command.MoveShapeCommand;
+import org.star.uml.designer.command.VisibleShapeCommand;
 import org.star.uml.designer.ui.diagram.action.interfaces.IStarUMLModelAction;
 import org.star.uml.designer.ui.factory.StarUMLCommandFactory;
 import org.star.uml.designer.ui.factory.StarUMLEditHelperFactory;
@@ -108,93 +110,91 @@ public class ActorInsertAction extends Action implements IStarUMLModelAction{
 	        	IDiagramDocument document = editor.getDiagramDocument();
 	        	Diagram diagram = document.getDiagram();
 	        	TransactionalEditingDomain editingDomain = editor.getEditingDomain();
-	        	// 모델 Sync를 위한 정보를 가져온다. 모델 파일과 Sync한 결과가 저장될 다이어그램을 생성한다.
-	        	IGraphicalEditPart ep = (IGraphicalEditPart)editor.getDiagramGraphicalViewer().getContents();
-	        	View myRootDiagramView = ep.getNotationView();
-	        	Diagram syncDiagram = ViewService.createDiagram(document.getDiagram().getElement(),"UMLUseCase", ep.getDiagramPreferencesHint());
-	        	// 모델과 싱크를 진행 할 Context를 가져온다.
-	        	UMLVisualIDRegistry myVisualIDRegistry = new UMLVisualIDRegistry();
-	        	UMLDiagramUpdater myDiagramUpdater= new UMLDiagramUpdater();
-	        	SyncModelContext context = 
-	        		new SyncModelContext(myDiagramUpdater.TYPED_ADAPTER, myVisualIDRegistry.TYPED_ADAPTER, ep.getDiagramPreferencesHint(), editingDomain);
-	        	// 트리에서 선택된 모델을 Sync 모델에서 찾는다.
-	        	SyncModelNode result = new SyncModelNode(syncDiagram, myRootDiagramView, context);
-	        	// 모델을 같이 사용하기 때문에 최초 Editor로드 시 않보이는 노드들이 생성 되는데 이 노드들을 삭제한다.
+	        	// 모델을 같이 사용하기 때문에 최초 Editor로드 시 않보이는 노드들이 생성 되는데 모델에서 선택 한 값이 
+	        	// 이 값일 경우 Visible 속성을 통해 보이고 않보이고를 정한다.
+	        	boolean visilityFlag = true;
+	        	for(int i=0; i<diagram.getTransientChildren().size(); i++){
+	        		ShapeImpl shapeImple = (ShapeImpl)diagram.getTransientChildren().get(i);
+	        		if(shapeImple.getElement() instanceof ActorImpl){
+	        			ActorImpl actorImpl = (ActorImpl)shapeImple.getElement();
+	        			if(!shapeImple.isVisible()){
+	        				if(selectedNodeName.equals(actorImpl.getName())){
+	        					VisibleShapeCommand viCmd = new VisibleShapeCommand();
+	        					viCmd.setShapeImpl(shapeImple);
+	        					editor.getEditingDomain().getCommandStack().execute(viCmd);
+	        					visilityFlag = false;
+	        				}
+	        			}
+	        		}
+	        	}
 	        	for(int i=0; i<diagram.getPersistedChildren().size(); i++){
 	        		ShapeImpl shapeImple = (ShapeImpl)diagram.getPersistedChildren().get(i);
 	        		if(shapeImple.getElement() instanceof ActorImpl){
 	        			ActorImpl actorImpl = (ActorImpl)shapeImple.getElement();
 	        			if(!shapeImple.isVisible()){
-	        				for(int y=1; y<result.getChildren().size(); y++){
-	                			ShapeImpl shapeImple2 = (ShapeImpl)result.getChildren().get(y).getSyncModelView();
-	                			ActorImpl actorImpl2= (ActorImpl)result.getChildren().get(y).getSyncModelView().getElement();
-	                			if(actorImpl.getName().equals(actorImpl2.getName())){
-	                				result.getChildren().get(y).setChecked(false);
-	                				System.out.println("0 : "+actorImpl.getName()+" : "+result.getChildren().get(y).isChecked());
-	                			}
-	        	        	}
+	        				if(selectedNodeName.equals(actorImpl.getName())){
+	        					VisibleShapeCommand viCmd = new VisibleShapeCommand();
+	        					viCmd.setShapeImpl(shapeImple);
+	        					editor.getEditingDomain().getCommandStack().execute(viCmd);
+	        					visilityFlag = false;
+	        				}
 	        			}
 	        		}
 	        	}
-//	        	 Sync를 통해 저장 되지 않은 노드들을 삭제한다.
-	    		ApplySynchronizationCommand applyCommand = new ApplySynchronizationCommand(result);
-	    		context.runCommand(applyCommand);
-	    		List<?> editPolicies = CanonicalEditPolicy.getRegisteredEditPolicies(result.getDiagramView().getDiagram().getElement());
-	    		for (Iterator<?> it = editPolicies.iterator(); it.hasNext();) {
-	    			CanonicalEditPolicy nextEditPolicy = (CanonicalEditPolicy) it.next();
-	    			nextEditPolicy.refresh();
-	    		}
-	    		for(int y=1; y<result.getChildren().size(); y++){
-	    			ShapeImpl shapeImple = (ShapeImpl)result.getChildren().get(y).getSyncModelView();
-	    			ActorImpl actorImpl= (ActorImpl)result.getChildren().get(y).getSyncModelView().getElement();
-	    			System.out.println("2 : "+actorImpl.getName()+" : "+result.getChildren().get(y).isChecked());
+	        	// Visible 속성을 통하여 화면에 표시된 경우 지나간다.
+	        	if(visilityFlag){
+		        	// 모델 Sync를 위한 정보를 가져온다. 모델 파일과 Sync한 결과가 저장될 다이어그램을 생성한다.
+		        	IGraphicalEditPart ep = (IGraphicalEditPart)editor.getDiagramGraphicalViewer().getContents();
+		        	View myRootDiagramView = ep.getNotationView();
+		        	Diagram syncDiagram = ViewService.createDiagram(document.getDiagram().getElement(),"UMLUseCase", ep.getDiagramPreferencesHint());
+		    		UMLVisualIDRegistry myVisualIDRegistry = new UMLVisualIDRegistry();
+		        	UMLDiagramUpdater myDiagramUpdater= new UMLDiagramUpdater();
+		    		SyncModelContext context = 
+		        		new SyncModelContext(myDiagramUpdater.TYPED_ADAPTER, myVisualIDRegistry.TYPED_ADAPTER, ep.getDiagramPreferencesHint(), editingDomain);
+		        	// 트리에서 선택된 모델을 Sync 모델에서 찾는다.
+		        	SyncModelNode result = new SyncModelNode(syncDiagram, myRootDiagramView, context);
+		        	for(int i=1; i<result.getChildren().size(); i++){
+		        		ActorImpl imple = (ActorImpl)result.getChildren().get(i).getSyncModelView().getElement();
+		        		if(selectedNodeName.equals(imple.getName())){
+		        			result.getChildren().get(i).setChecked(true);
+		        		}
+		        	}
+		        	ApplySynchronizationCommand cmd = new ApplySynchronizationCommand(result);
+		        	context.runCommand(cmd);
+		        	context.dispose();
 	        	}
-	        	System.out.println("getPersistedChildren : "+diagram.getPersistedChildren().size());
-//	        	System.out.println("getTransientChildren : "+diagram.getTransientChildren().size());
-	        	// 모델 Tree에서 선택한 모델을 Sync를 통해 화면에 표시한다.
-//	        	for(int i=1; i<result.getChildren().size(); i++){
-//	        		ActorImpl imple = (ActorImpl)result.getChildren().get(i).getSyncModelView().getElement();
-//	        		if(selectedNodeName.equals(imple.getName())){
-//	        			result.getChildren().get(i).setChecked(true);
-//	        			System.out.println("selectedNodeName : "+selectedNodeName);
-//	        		}
-//	        	}
-	        	// Sync 설정이 true로 설정된 노드를 화면에 표시한다.
-//	        	ApplySynchronizationCommand applyCommand2 = new ApplySynchronizationCommand(result);
-//	    		context.runCommand(applyCommand2);
 	        	// 표시된 Node를 화면 가운데로 이동한다.
 	    		// Actor를 기본 위치에서 가운데로 이동한다.
-//	        	for(int i=0; i<diagram.getPersistedChildren().size(); i++){
-//	        		ShapeImpl shapeImple = (ShapeImpl)diagram.getPersistedChildren().get(i);
-//	        		if(shapeImple.getElement() instanceof ActorImpl){
-//	        			Location location= (Location) shapeImple.getLayoutConstraint();
-//	        			ActorImpl actorImpl = (ActorImpl)shapeImple.getElement();
-//	        			String name = actorImpl.getName();
-//	        			if(selectedNodeName.equals(name)){
-//	        				MoveShapeCommand cmd = (MoveShapeCommand) StarUMLCommandFactory.getCommand(MoveShapeCommand.ID);
-//	        				cmd.setShapeImpl(shapeImple);
-//	                    	// 0,0 위치에 있을 경우 기본 위치에 표시하고 , 기본위치에 다른 모델이 있는 경우 그 모델 다음에 표시한다.
-//	        				boolean locationFlag = true;
-//	        				int modelX = GlobalConstants.DEFAULT_MODEL_X;
-//	        				int modelY = GlobalConstants.DEFAULT_MODEL_Y;
-//	        				while(locationFlag){
-//		        				DiagramEditPart diagramEditPart = editor.getDiagramEditPart();
-//		        				Point defaultPoint = new Point(modelX,modelY);
-//		        				EditPart editPart = diagramEditPart.getViewer().findObjectAt(defaultPoint);
-//		        				if(editPart instanceof PackageEditPart){
-//		        					locationFlag = false;
-//		        				}else{
-//		        					modelX = modelX+10;
-//		        					modelY = modelY+10;
-//		        				}
-//	        				}
-//	        				// 위치를 지정한 후 모델을 이동한다.
-//	        				cmd.setLocation(modelX, modelY);
-//	        				editor.getEditingDomain().getCommandStack().execute(cmd);
-//	        			}
-//	        		}
-//	        	}
-	        	context.dispose();
+	        	for(int i=0; i<diagram.getPersistedChildren().size(); i++){
+	        		ShapeImpl shapeImple = (ShapeImpl)diagram.getPersistedChildren().get(i);
+	        		if(shapeImple.getElement() instanceof ActorImpl){
+	        			Location location= (Location) shapeImple.getLayoutConstraint();
+	        			ActorImpl actorImpl = (ActorImpl)shapeImple.getElement();
+	        			String name = actorImpl.getName();
+	        			if(selectedNodeName.equals(name)){
+	        				MoveShapeCommand cmd = (MoveShapeCommand) StarUMLCommandFactory.getCommand(MoveShapeCommand.ID);
+	        				cmd.setShapeImpl(shapeImple);
+	                    	// 0,0 위치에 있을 경우 기본 위치에 표시하고 , 기본위치에 다른 모델이 있는 경우 그 모델 다음에 표시한다.
+	        				boolean locationFlag = true;
+	        				int modelX = GlobalConstants.DEFAULT_MODEL_X;
+	        				int modelY = GlobalConstants.DEFAULT_MODEL_Y;
+	        				while(locationFlag){
+		        				DiagramEditPart diagramEditPart = editor.getDiagramEditPart();
+		        				Point defaultPoint = new Point(modelX,modelY);
+		        				EditPart editPart = diagramEditPart.getViewer().findObjectAt(defaultPoint);
+		        				if(editPart instanceof PackageEditPart){
+		        					locationFlag = false;
+		        				}else{
+		        					modelX = modelX+10;
+		        					modelY = modelY+10;
+		        				}
+	        				}
+	        				// 위치를 지정한 후 모델을 이동한다.
+	        				cmd.setLocation(modelX, modelY);
+	        				editor.getEditingDomain().getCommandStack().execute(cmd);
+	        			}
+	        		}
+	        	}
 	        }
 	       
 		}catch(Exception e){e.printStackTrace();}

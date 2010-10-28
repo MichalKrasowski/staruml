@@ -117,7 +117,6 @@ public class GenerateXMLDBInfo {
 			document = getDocumnetByFile(file);
 		}else{
 			try{
-				System.out.println("file.getParentFile().mkdirs();");
 				file.getParentFile().mkdirs();
 				file.createNewFile();
 				Document doc = XmlUtil.getStringToDocument(DefaultConnection.getXML());
