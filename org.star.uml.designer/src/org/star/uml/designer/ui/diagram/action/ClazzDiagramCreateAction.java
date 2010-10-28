@@ -32,6 +32,7 @@ import org.star.uml.designer.Activator;
 import org.star.uml.designer.base.constance.GlobalConstants;
 import org.star.uml.designer.base.utils.CommonUtil;
 import org.star.uml.designer.base.utils.EclipseUtile;
+import org.star.uml.designer.ui.diagram.action.interfaces.IStarUMLModelAction;
 import org.star.uml.designer.ui.factory.StarUMLCommandFactory;
 import org.star.uml.designer.ui.factory.StarUMLEditHelperFactory;
 import org.star.uml.designer.ui.views.StarPMSModelView;
@@ -39,9 +40,9 @@ import org.star.uml.designer.ui.views.StarPMSModelViewUtil;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeObject;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeParent;
 
-public class ClazzDiagramCreateAction extends Action implements IStarUMLAction{
+public class ClazzDiagramCreateAction extends Action implements IStarUMLModelAction{
 	public static final String ACTION_ID = "CLAZZ_DIAGRAM";
-	public static final String ACTION_URI = "org.eclipse.uml2.diagram.usecase.ClazzDiagram";
+	public static final String ACTION_URI = "org.eclipse.uml2.diagram.clazz.ClazzDiagram";
 	public static final String ACTION_TITLE ="Create Class Diagram";
 	public static final String ICON_PATH = "/icons/16.gif";
 	public static final String DIAGRAM_EXTENSION = "umlclass";
@@ -95,11 +96,4 @@ public class ClazzDiagramCreateAction extends Action implements IStarUMLAction{
 	public ImageDescriptor getImageDescriptor(){
 		return Activator.getImageDescriptor(ICON_PATH);
 	}
-
-	@Override
-	public EObject createNode() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 }
