@@ -48,6 +48,10 @@ public class StarPMSModelViewMenuListener implements IMenuListener{
 			if(category != null && category.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL)){
 				StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_5, actionMap);
 			}
+			
+			if(category != null && category.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM)){
+				StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_6, actionMap);
+			}
 		}else{
 			StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_1, actionMap);
 		}

@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.xml.transform.TransformerException;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -31,11 +29,6 @@ import org.eclipse.gmf.runtime.diagram.ui.render.internal.l10n.DiagramUIRenderMe
 import org.eclipse.gmf.runtime.diagram.ui.render.util.CopyToImageUtil;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.ActionContributionItem;
-import org.eclipse.jface.action.ContributionItem;
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.action.IContributionItem;
-import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
@@ -46,36 +39,24 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
 import org.star.uml.designer.Activator;
-
-
 import org.star.uml.designer.base.constance.GlobalConstants;
-import org.star.uml.designer.base.utils.CommonUtil;
 import org.star.uml.designer.base.utils.EclipseUtile;
 import org.star.uml.designer.base.utils.XmlUtil;
 import org.star.uml.designer.service.dao.PmsDao;
 import org.star.uml.designer.ui.action.PMSLoginAction;
 import org.star.uml.designer.ui.action.PMSLogoutAction;
 import org.star.uml.designer.ui.diagram.action.ActorCreateAction;
+import org.star.uml.designer.ui.diagram.action.DeleteDiagramAction;
 import org.star.uml.designer.ui.diagram.action.DeleteFromDiagramAction;
 import org.star.uml.designer.ui.diagram.action.UsecaseDiagramCreateAction;
 import org.star.uml.designer.ui.model.initialization.DefaultModel;
@@ -568,7 +549,7 @@ public class StarPMSModelViewUtil {
 		PMSLoginAction login = new PMSLoginAction();
 		PMSLogoutAction logout = new PMSLogoutAction();
 		DeleteFromDiagramAction delete = new DeleteFromDiagramAction();
-		
+		DeleteDiagramAction deleteDiagram = new DeleteDiagramAction();
 		MenuManager diagramGroup = new MenuManager("Diagram");
 		UsecaseDiagramCreateAction usecaseDiagram = new UsecaseDiagramCreateAction();
 		
@@ -579,6 +560,7 @@ public class StarPMSModelViewUtil {
 		menuMgr.add(logout);
 		menuMgr.add(new Separator());
 		menuMgr.add(delete);
+		menuMgr.add(deleteDiagram);
 		menuMgr.add(new Separator());
 		menuMgr.add(diagramGroup);
 		menuMgr.add(modelGroup);
