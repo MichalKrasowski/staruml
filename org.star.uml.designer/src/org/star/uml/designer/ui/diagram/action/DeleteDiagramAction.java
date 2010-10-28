@@ -87,7 +87,7 @@ public class DeleteDiagramAction extends Action implements IStarUMLModelAction{
 	
 	public DeleteDiagramAction() {
 		super();
-		this.setText(ACTION_TITLE);
+		this.setText(ACTION_TITLE);     
 		this.setImageDescriptor(getImageDescriptor());
 	}
 	
