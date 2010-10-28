@@ -87,9 +87,9 @@ public class ConnectionCreateDialog extends Dialog {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-
 				if (repositoryText.getSelectionIndex() != 0) {
 					setCombo();
+					projectList();
 				}
 
 			}
@@ -125,35 +125,34 @@ public class ConnectionCreateDialog extends Dialog {
 		gridData = new GridData(GridData.FILL_HORIZONTAL);
 		ProjectText.setLayoutData(gridData);
 		ProjectText.setVisibleItemCount(20);
-		
 		projectList();
-		
 		getShell().setText(CustomMessages.LOGIN_TITLE);
-
 		Bundle bundle = Platform.getBundle("sobis.bpa.designer");
-
 		ImageDescriptor img = ImageDescriptor.createFromURL(bundle
 				.getEntry("icons/64.gif"));
 
 		getShell().setImage(img.createImage());
-		
 		return composite;
 	}
 	
 	public void projectList(){
-		ProjectText.removeAll();
-		PmsDao pms = new PmsDao();
-		List list = pms.projectList();
-		for (int i = 0; i < list.size(); i++) {
-			Map content = (HashMap)list.get(i);
-			ProjectText.add((String)content.get("PROJECT_NAME"));
-			ProjectText.setData("seq", content.get("PROJECT_SEQ"));
+		if(ProjectText != null && ProjectText.getItemCount() > 0){
+			ProjectText.removeAll();
 		}
-		
-		if(list != null && list.size() > 0){
-			ProjectText.select(0);
+		if(!DBConnectionMgr._driver.equals("")){
+			PmsDao pms = new PmsDao();
+			List list = pms.projectList();
+			for (int i = 0; i < list.size(); i++) {
+				Map content = (HashMap)list.get(i);
+				System.out.println("content ====== " + content);
+				ProjectText.add((String)content.get("PROJECT_NAME"));
+				ProjectText.setData("seq", content.get("PROJECT_SEQ"));
+			}
+			
+			if(list != null && list.size() > 0){
+				ProjectText.select(0);
+			}
 		}
-		
 	}
 	
 	// 버튼 넣기
@@ -341,7 +340,6 @@ public class ConnectionCreateDialog extends Dialog {
 	public void reLoadConnection() {
 		// Connection 정보를 담당하는 DatabaseConnection Class 생성
 		GenerateXMLDBInfo generateXMLDBInfo = new GenerateXMLDBInfo();
-
 		Map<String, Object> contents = generateXMLDBInfo.getConnections();
 
 		if (contents != null) {
@@ -350,7 +348,6 @@ public class ConnectionCreateDialog extends Dialog {
 					.get("ConnectionName");
 
 			if (connList != null) {
-
 				repositoryText.removeAll();
 				repositoryText.setData("list", contents.get("ConnectionList"));
 				repositoryText.add("----------------------------------");
@@ -359,7 +356,7 @@ public class ConnectionCreateDialog extends Dialog {
 				}
 				repositoryText.select(connList.size());
 
-				if (connList.size() != 0) {
+				if (connList.size() > 0) {
 					setCombo();
 				}
 			}
@@ -383,6 +380,7 @@ public class ConnectionCreateDialog extends Dialog {
 		DBConnectionMgr._url = (String) contents.get("ConnectionUrl");
 		DBConnectionMgr._user = (String) contents.get("UserName");
 		DBConnectionMgr._password = (String) contents.get("Password");
+		
 	}
 
 	public void deleteDirectory(String path) {
