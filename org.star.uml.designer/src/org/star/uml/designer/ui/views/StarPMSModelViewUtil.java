@@ -55,6 +55,7 @@ import org.star.uml.designer.base.utils.XmlUtil;
 import org.star.uml.designer.service.dao.PmsDao;
 import org.star.uml.designer.ui.action.PMSLoginAction;
 import org.star.uml.designer.ui.action.PMSLogoutAction;
+import org.star.uml.designer.ui.diagram.action.ActivityDiagramCreateAction;
 import org.star.uml.designer.ui.diagram.action.ActorCreateAction;
 import org.star.uml.designer.ui.diagram.action.DeleteDiagramAction;
 import org.star.uml.designer.ui.diagram.action.DeleteFromDiagramAction;
@@ -551,7 +552,9 @@ public class StarPMSModelViewUtil {
 		DeleteFromDiagramAction delete = new DeleteFromDiagramAction();
 		DeleteDiagramAction deleteDiagram = new DeleteDiagramAction();
 		MenuManager diagramGroup = new MenuManager("Add Diagram");
+		
 		UsecaseDiagramCreateAction usecaseDiagram = new UsecaseDiagramCreateAction();
+		ActivityDiagramCreateAction activityDiagram = new ActivityDiagramCreateAction();
 		
 		MenuManager modelGroup = new MenuManager("Add Model");
 		ActorCreateAction actor = new ActorCreateAction();
@@ -565,8 +568,8 @@ public class StarPMSModelViewUtil {
 		menuMgr.add(diagramGroup);
 		menuMgr.add(modelGroup);
 		
-		
 		diagramGroup.add(usecaseDiagram);
+		diagramGroup.add(activityDiagram);
 		modelGroup.add(actor);
 		
 	}
