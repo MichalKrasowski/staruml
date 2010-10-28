@@ -40,7 +40,7 @@
          <view
                closeable="false"
                id="org.eclipse.ui.views.PropertySheet"
-               minimized="false"
+               minimized="true"
                moveable="false"
                ratio="0.75f"
                relationship="bottom"
