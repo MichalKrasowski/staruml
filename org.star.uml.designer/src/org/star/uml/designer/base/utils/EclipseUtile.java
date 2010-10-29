@@ -116,8 +116,6 @@ public class EclipseUtile {
 				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 				if(extension.equals(UsecaseDiagramCreateAction.DIAGRAM_EXTENSION)){
 					page.openEditor(new FileEditorInput((IFile) workspaceResource), org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor.ID);
-				}else if(extension.equals(ActivityDiagramCreateAction.DIAGRAM_EXTENSION)){
-					page.openEditor(new FileEditorInput((IFile) workspaceResource), org.eclipse.uml2.diagram.activity.part.UMLDiagramEditor.ID);
 				}
 			}
 		}catch(Exception e){
