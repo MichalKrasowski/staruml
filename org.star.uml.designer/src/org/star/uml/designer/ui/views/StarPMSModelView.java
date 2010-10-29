@@ -175,6 +175,7 @@ public class StarPMSModelView extends ViewPart {
 		public void removeChild(TreeObject child) {
 			children.remove(child);
 			child.setParent(null);
+			viewer.refresh();
 		}
 		public TreeObject [] getChildren() {
 			return (TreeObject [])children.toArray(new TreeObject[children.size()]);
@@ -193,7 +194,7 @@ public class StarPMSModelView extends ViewPart {
 			TreeObject chield = new TreeObject(name);
 			chield.setData(key, value);
 			addChild(chield);
-//			viewer.refresh();
+			viewer.refresh();
 			return chield;
 		}
 	}
