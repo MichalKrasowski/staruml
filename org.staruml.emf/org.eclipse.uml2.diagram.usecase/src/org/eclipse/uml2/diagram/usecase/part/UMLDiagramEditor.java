@@ -1,5 +1,6 @@
 package org.eclipse.uml2.diagram.usecase.part;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -16,6 +17,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -37,9 +39,12 @@ import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocument
 import org.eclipse.gmf.runtime.diagram.ui.services.palette.PaletteService;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.runtime.notation.impl.ShapeImpl;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.util.LocalSelectionTransfer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -48,11 +53,13 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.dnd.TransferData;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorMatchingStrategy;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.SaveAsDialog;
 import org.eclipse.ui.ide.IGotoMarker;
@@ -61,6 +68,8 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.IShowInTargetList;
 import org.eclipse.ui.part.ShowInContext;
 import org.eclipse.uml2.diagram.usecase.navigator.UMLNavigatorItem;
+import org.eclipse.uml2.uml.internal.impl.BehavioredClassifierImpl;
+import org.eclipse.emf.common.command.AbstractCommand;
 
 /**
  * @generated
@@ -290,25 +299,48 @@ public class UMLDiagramEditor extends DiagramDocumentEditor implements IGotoMark
 	protected void initializeGraphicalViewer() {
 		super.initializeGraphicalViewer();
 		getDiagramGraphicalViewer().addDropTargetListener(new DropTargetListener(getDiagramGraphicalViewer(), LocalSelectionTransfer.getTransfer()) {
-
 			protected Object getJavaObject(TransferData data) {
 				return LocalSelectionTransfer.getTransfer().nativeToJava(data);
 			}
-
 		});
 		getDiagramGraphicalViewer().addDropTargetListener(new DropTargetListener(getDiagramGraphicalViewer(), LocalTransfer.getInstance()) {
 
 			protected Object getJavaObject(TransferData data) {
 				return LocalTransfer.getInstance().nativeToJava(data);
 			}
-
 		});
+		// Enkisoft 로드 될때 모델에 삭제된 노드들은 삭제한다.
+		System.out.println("initializeGraphicalViewer");
+		IDiagramDocument document = getDiagramDocument();
+    	Diagram diagram = document.getDiagram();
+    	TransactionalEditingDomain editingDomain = getEditingDomain();
+    	for(int i=0; i<diagram.getPersistedChildren().size(); i++){
+    		final ShapeImpl shapeImple = (ShapeImpl)diagram.getPersistedChildren().get(i);
+    		BehavioredClassifierImpl beImple = null;
+    		if(shapeImple.getElement() instanceof BehavioredClassifierImpl){
+    			beImple = (BehavioredClassifierImpl)shapeImple.getElement();
+    			// 이름과 라벨이 Null일경우 삭제된 노드로 처리한다.
+    			if(beImple.getLabel() == null && beImple.getName() == null){
+    				VisibleShapeCommand viCmd = new VisibleShapeCommand();
+					viCmd.setShapeImpl(shapeImple);
+					editingDomain.getCommandStack().execute(viCmd);
+    			}
+    		}
+    	}
+    	// 처리가 끝난 후 파일을 저장한다.
+//    	try{
+//	    	IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+//	    	if(page == null){
+//	    		Thread.sleep(1500);
+//				IProgressMonitor monitor = new NullProgressMonitor();
+//				monitor.beginTask("Save content...", 1);
+//				page.getActiveEditor().doSave(monitor);
+//	    	}
+//    	}catch(Exception e){
+//    		e.printStackTrace();
+//    	}
 	}
-
-	/**
-	 * @generated
-	 */
-
+	
 	private abstract class DropTargetListener extends DiagramDropTargetListener {
 
 		/**
@@ -401,5 +433,45 @@ public class UMLDiagramEditor extends DiagramDocumentEditor implements IGotoMark
 			paletteRoot.remove(paletteEntry);
 		}
 	}
+	
+	/**
+	 * Enkisoft 로드 될때 모델에 삭제된 노드들은 삭제한다.
+	 * @author Enkisoft
+	 *
+	 */
+	class VisibleShapeCommand extends AbstractCommand{
+		
+		public static final String ID="org.star.uml.designer.command.VisibleShapeCommand";
+		
+		private ShapeImpl shapeImple;
+		
+		public VisibleShapeCommand() {
+			this.setLabel("Insert Shape");
+		}
+		
+		public void execute() {
+			System.out.println("setVisible");
+			shapeImple.setVisible(false);
+		}
+
+		public void redo() {
+			shapeImple.setVisible(false);
+		}
+		
+		public void undo() {
+			shapeImple.setVisible(false);
+		}
+		
+		public boolean canExecute() {
+			return true;
+		}
+		
+		
+		public void setShapeImpl(ShapeImpl shapeImple){
+			this.shapeImple = shapeImple;
+		}
+		
+	}
+
 
 }
