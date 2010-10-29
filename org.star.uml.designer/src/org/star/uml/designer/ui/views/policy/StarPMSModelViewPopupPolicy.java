@@ -7,10 +7,10 @@ import org.eclipse.jface.action.Action;
 import org.star.uml.designer.base.constance.GlobalConstants;
 import org.star.uml.designer.ui.action.PMSLoginAction;
 import org.star.uml.designer.ui.action.PMSLogoutAction;
-import org.star.uml.designer.ui.diagram.action.ActivityDiagramCreateAction;
 import org.star.uml.designer.ui.diagram.action.ActorCreateAction;
 import org.star.uml.designer.ui.diagram.action.DeleteDiagramAction;
 import org.star.uml.designer.ui.diagram.action.DeleteFromDiagramAction;
+import org.star.uml.designer.ui.diagram.action.DeleteFromModelAction;
 import org.star.uml.designer.ui.diagram.action.UsecaseDiagramCreateAction;
 
 public class StarPMSModelViewPopupPolicy {
@@ -63,13 +63,13 @@ public class StarPMSModelViewPopupPolicy {
 		action.setEnabled(true);
 		Action action2 = (Action)actionMap.get(UsecaseDiagramCreateAction.ACTION_TITLE);
 		action2.setEnabled(true);
-		Action action3 = (Action)actionMap.get(ActivityDiagramCreateAction.ACTION_TITLE);
-		action3.setEnabled(true);
 	}
 	
 	static void setPolicy_5(HashMap actionMap){
 		Action action2 = (Action)actionMap.get(DeleteFromDiagramAction.ACTION_TITLE);
 		action2.setEnabled(true);
+		Action action3 = (Action)actionMap.get(DeleteFromModelAction.ACTION_TITLE);
+		action3.setEnabled(true);
 	}
 	
 	static void setPolicy_6(HashMap actionMap){
