@@ -69,7 +69,7 @@ public class ActorCreateAction extends Action implements IStarUMLModelAction{
 	
 	@Override
 	public void run() {
-		// 모델 Tree에 Actorfmf 추가한다.
+		// 모델 Tree에 Actor를 추가한다.
 		IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 								.findView(GlobalConstants.PluinID.STAR_PMS_MODEL_VIEW);
 		StarPMSModelView modelView = (StarPMSModelView)view_part;

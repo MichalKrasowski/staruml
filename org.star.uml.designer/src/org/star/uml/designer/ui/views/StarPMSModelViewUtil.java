@@ -562,7 +562,7 @@ public class StarPMSModelViewUtil {
 		menuMgr.add(login);
 		menuMgr.add(logout);
 		menuMgr.add(new Separator());
-		menuMgr.add(delete);
+//		menuMgr.add(delete);
 		menuMgr.add(deletFromModel);
 		menuMgr.add(deleteDiagram);
 		menuMgr.add(new Separator());

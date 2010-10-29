@@ -126,13 +126,10 @@ public class DeleteDiagramAction extends Action implements IStarUMLModelAction{
 			// 열린 화면 중에 Usecase Diagram Editor가 있는 지 확인 하고 있을 경우 모델이 그려져 있으면 삭제한다.
 			
 			String modelPath = folderPaht+File.separator+GlobalConstants.DEFAULT_VIEW_MODEL_FILE;
-			System.out.println(modelPath);
 			String domStr = XmlUtil.getXmlFileToString(modelPath);
-			System.out.println("domStr ====== " + domStr);
 			Document modelDoc = XmlUtil.getStringToDocument(domStr);
 			
 			NodeList nodes = modelDoc.getElementsByTagName("packagedElement");
-			System.out.println("length ===== " + nodes.getLength());
 			for(int i = 0; i < nodes.getLength(); i++){
 				NamedNodeMap attMap = nodes.item(i).getAttributes();
 				
@@ -141,9 +138,6 @@ public class DeleteDiagramAction extends Action implements IStarUMLModelAction{
 					
 					if(attMap.item(a).getNodeName().equals(GlobalConstants.StarMoedl.STAR_MODEL_ID) 
 							&& attMap.item(a).getNodeValue().equals(parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_ID))){
-						System.out.println("name ==== " + attMap.item(a).getNodeName());
-						System.out.println("value ==== " + attMap.item(a).getNodeValue());
-						System.out.println("parent value ==== " + parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_ID));
 						nodes.item(i).getParentNode().removeChild(nodes.item(i));
 					}
 				}

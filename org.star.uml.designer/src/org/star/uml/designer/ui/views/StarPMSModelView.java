@@ -194,7 +194,6 @@ public class StarPMSModelView extends ViewPart {
 			TreeObject chield = new TreeObject(name);
 			chield.setData(key, value);
 			addChild(chield);
-			viewer.refresh();
 			return chield;
 		}
 	}

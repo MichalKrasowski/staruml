@@ -147,6 +147,36 @@ public class DeleteFromModelAction extends Action implements IStarUMLModelAction
 	        			}
 	        		}
 	        	}
+	        }else{
+	        	// 에디터가 열려 있지 않다면 UML 파일에서 직접 삭제한다.
+	        	Document modelDoc = null;
+				String modelPath = "";
+				// 삭제할 노드 ID를 가져온다.
+				String id = (String)selectedTree.getData(GlobalConstants.StarMoedl.STAR_MODEL_ID);
+				try {
+					IProject rootProject = ResourcesPlugin.getWorkspace().getRoot().getProject("Root");
+					String projectPath = rootProject.getLocation().toOSString();
+					modelPath =  projectPath+File.separator+GlobalConstants.DEFAULT_MODEL_FILE;
+					String domStr = XmlUtil.getXmlFileToString(modelPath);
+					modelDoc = XmlUtil.getStringToDocument(domStr);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				// 노드 리스트에서 ID가 같은 노드를 찾아 삭제한다.
+				NodeList nodeList = modelDoc.getElementsByTagName("packagedElement");
+				for(int i=0; i<nodeList.getLength(); i++){
+					NamedNodeMap appMap = nodeList.item(i).getAttributes();
+					String attId = (String)appMap.getNamedItem(GlobalConstants.StarMoedl.STAR_MODEL_ID).getNodeValue();
+					if(id.equals(attId)){
+						nodeList.item(i).getParentNode().removeChild(nodeList.item(i));
+					}
+				}
+				// 변경된 XML를 다시 저장한다.
+				try {
+					XmlUtil.writeXmlFile(modelDoc,modelPath);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 	        }
 			// Model Tree에서 Model를 삭제한다.
 			selectedTree.getParent().removeChild(selectedTree);

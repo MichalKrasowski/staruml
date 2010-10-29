@@ -66,8 +66,8 @@ public class StarPMSModelViewPopupPolicy {
 	}
 	
 	static void setPolicy_5(HashMap actionMap){
-		Action action2 = (Action)actionMap.get(DeleteFromDiagramAction.ACTION_TITLE);
-		action2.setEnabled(true);
+//		Action action2 = (Action)actionMap.get(DeleteFromDiagramAction.ACTION_TITLE);
+//		action2.setEnabled(true);
 		Action action3 = (Action)actionMap.get(DeleteFromModelAction.ACTION_TITLE);
 		action3.setEnabled(true);
 	}
