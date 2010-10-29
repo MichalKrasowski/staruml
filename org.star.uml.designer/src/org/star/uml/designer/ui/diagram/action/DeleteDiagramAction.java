@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramCommandStack;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -102,7 +105,6 @@ public class DeleteDiagramAction extends Action implements IStarUMLModelAction{
 	
 	@Override
 	public void run() {
-			try{
 			// 모델 Tree에 Actor를 추가한다.
 			IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 													.findView(GlobalConstants.PluinID.STAR_PMS_MODEL_VIEW);
@@ -123,19 +125,20 @@ public class DeleteDiagramAction extends Action implements IStarUMLModelAction{
 			}
 			
 			selectedNodeName = (String)parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE);
-			// 열린 화면 중에 Usecase Diagram Editor가 있는 지 확인 하고 있을 경우 모델이 그려져 있으면 삭제한다.
 			
 			String modelPath = folderPaht+File.separator+GlobalConstants.DEFAULT_VIEW_MODEL_FILE;
-			String domStr = XmlUtil.getXmlFileToString(modelPath);
-			Document modelDoc = XmlUtil.getStringToDocument(domStr);
-			
+			String domStr = null;
+			Document modelDoc = null;
+			try {
+				domStr = XmlUtil.getXmlFileToString(modelPath);
+				modelDoc = XmlUtil.getStringToDocument(domStr);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 			NodeList nodes = modelDoc.getElementsByTagName("packagedElement");
 			for(int i = 0; i < nodes.getLength(); i++){
 				NamedNodeMap attMap = nodes.item(i).getAttributes();
-				
 				for(int a = 0; a < attMap.getLength(); a++){
-					
-					
 					if(attMap.item(a).getNodeName().equals(GlobalConstants.StarMoedl.STAR_MODEL_ID) 
 							&& attMap.item(a).getNodeValue().equals(parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_ID))){
 						nodes.item(i).getParentNode().removeChild(nodes.item(i));
@@ -143,13 +146,14 @@ public class DeleteDiagramAction extends Action implements IStarUMLModelAction{
 				}
 			}
 			
-			XmlUtil.writeXmlFile(modelDoc, modelPath);
+			try {
+				XmlUtil.writeXmlFile(modelDoc, modelPath);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			parent.getParent().removeChild(parent);
 			modelView.getTreeViewer().refresh();
 			EclipseUtile.refreshProject("Root");
-			}catch(Exception e){
-				e.printStackTrace();
-			}
 			
 	}
 	

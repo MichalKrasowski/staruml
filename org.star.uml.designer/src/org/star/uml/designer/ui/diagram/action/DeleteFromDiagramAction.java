@@ -101,9 +101,8 @@ public class DeleteFromDiagramAction extends Action implements IStarUMLModelActi
 			selectedNodeName = (String)parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE);
 			// 열린 화면 중에 Usecase Diagram Editor가 있는 지 확인 하고 있을 경우 모델이 그려져 있으면 삭제한다.
 			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-			if(page.getActiveEditor() !=null && page.getActiveEditor() instanceof org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor){
-	        	org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor editor = 
-	        		(org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor)page.getActiveEditor();
+			if(page.getActiveEditor() !=null && page.getActiveEditor() instanceof DiagramDocumentEditor){
+				DiagramDocumentEditor editor = (DiagramDocumentEditor)page.getActiveEditor();
 	        	// 다이어 그램을 수정하기 위한 환경 정보들을 가져온다.
 	        	IDiagramDocument document = editor.getDiagramDocument();
 	        	Diagram diagram = document.getDiagram();
