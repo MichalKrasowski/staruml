@@ -60,8 +60,8 @@ import org.star.uml.designer.Activator;
 import org.star.uml.designer.service.dao.PmsDao;
 
 public class StarPMSRequestTableView extends ViewPart {
-
-	public static final String ID = "org.staruml.views.StarPMSRequestTableView";
+	                                 
+	public static final String ID = "org.star.uml.designer.ui.views.StarPMSRequestTableView";
 	private Composite shell;
 	private Table table;
 	private java.util.List<TableEditor> editors = new ArrayList<TableEditor>();

@@ -55,6 +55,7 @@ import org.star.uml.designer.base.utils.XmlUtil;
 import org.star.uml.designer.service.dao.PmsDao;
 import org.star.uml.designer.ui.action.PMSLoginAction;
 import org.star.uml.designer.ui.action.PMSLogoutAction;
+import org.star.uml.designer.ui.action.ViewReportAction;
 import org.star.uml.designer.ui.diagram.action.ActorCreateAction;
 import org.star.uml.designer.ui.diagram.action.ClazzDiagramCreateAction;
 import org.star.uml.designer.ui.diagram.action.DeleteDiagramAction;
@@ -401,7 +402,7 @@ public class StarPMSModelViewUtil {
 			    		ProgressMonitorDialog progressMonitorDialog = new ProgressMonitorDialog(
 			    				Display.getCurrent().getActiveShell());
 			    		progressMonitorDialog.run(false, true, runnable);
-			    		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("org.star.uml.designer.ui.views.StarPMSRequestTableView");
+			    		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("org.staruml.views.StarPMSRequestTableView");
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -554,11 +555,13 @@ public class StarPMSModelViewUtil {
 		DeleteFromDiagramAction delete = new DeleteFromDiagramAction();
 		DeleteDiagramAction deleteDiagram = new DeleteDiagramAction();
 		MenuManager diagramGroup = new MenuManager("Add Diagram");
+		MenuManager viewGroup = new MenuManager("View");
 		
 		UsecaseDiagramCreateAction usecaseDiagram = new UsecaseDiagramCreateAction();
 		SequenceDiagramCreateAction sequenceDiagram = new SequenceDiagramCreateAction();
 		ClazzDiagramCreateAction clazzDiagram = new ClazzDiagramCreateAction();
 		
+		ViewReportAction viewReportAction = new ViewReportAction();
 		DeleteFromModelAction deletFromModel = new DeleteFromModelAction();
 		
 		MenuManager modelGroup = new MenuManager("Add Model");
@@ -574,12 +577,15 @@ public class StarPMSModelViewUtil {
 		menuMgr.add(diagramGroup);
 		menuMgr.add(modelGroup);
 		
-		
 		diagramGroup.add(usecaseDiagram);
 		diagramGroup.add(sequenceDiagram);
 		diagramGroup.add(clazzDiagram);
 		
 		modelGroup.add(actor);
+		menuMgr.add(new Separator());
+		menuMgr.add(viewGroup);
+		viewGroup.add(viewReportAction);
+		
 		
 	}
 

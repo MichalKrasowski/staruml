@@ -7,6 +7,7 @@ import org.eclipse.jface.action.Action;
 import org.star.uml.designer.base.constance.GlobalConstants;
 import org.star.uml.designer.ui.action.PMSLoginAction;
 import org.star.uml.designer.ui.action.PMSLogoutAction;
+import org.star.uml.designer.ui.action.ViewReportAction;
 import org.star.uml.designer.ui.diagram.action.ActorCreateAction;
 import org.star.uml.designer.ui.diagram.action.ClazzDiagramCreateAction;
 import org.star.uml.designer.ui.diagram.action.DeleteDiagramAction;
@@ -48,6 +49,9 @@ public class StarPMSModelViewPopupPolicy {
 			case GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_10:
 				setPolicy_10(actionMap);
 			break;
+			case GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_11:
+				setPolicy_11(actionMap);
+			break;
 			default:
 		}
 	}
@@ -87,19 +91,29 @@ public class StarPMSModelViewPopupPolicy {
 		Action action2 = (Action)actionMap.get(DeleteDiagramAction.ACTION_TITLE);
 		action2.setEnabled(true);
 	}
+	
 	static void setPolicy_7(HashMap actionMap){
 		Action action = (Action)actionMap.get(UsecaseDiagramCreateAction.ACTION_TITLE);
 		action.setEnabled(true);
 	}
+	
 	static void setPolicy_8(HashMap actionMap){
 		Action action = (Action)actionMap.get(SequenceDiagramCreateAction.ACTION_TITLE);
 		action.setEnabled(true);
 	}
+	
 	static void setPolicy_9(HashMap actionMap){
-		Action action = (Action)actionMap.get(ClazzDiagramCreateAction.ACTION_TITLE);
-		action.setEnabled(true);
+		
 	}
+	
 	static void setPolicy_10(HashMap actionMap){
 		
+	}
+	
+	static void setPolicy_11(HashMap actionMap){
+		Action action = (Action)actionMap.get(ClazzDiagramCreateAction.ACTION_TITLE);
+		action.setEnabled(true);
+		Action action2 = (Action)actionMap.get(ViewReportAction.ACTION_TITLE);
+		action2.setEnabled(true);
 	}
 }

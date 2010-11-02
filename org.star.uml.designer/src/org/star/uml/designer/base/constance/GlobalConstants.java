@@ -29,6 +29,7 @@ public class GlobalConstants {
 		public static final int POLICY_8 = 8; // Tree designModel selected
 		public static final int POLICY_9 = 9; // Tree implementationModel selected
 		public static final int POLICY_10 = 10; // Tree deploymentModel selected
+		public static final int POLICY_11 = 11; // Tree sequence diagram selected
 	}
 	
 	// Star Model
@@ -46,10 +47,19 @@ public class GlobalConstants {
 		public static final String STAR_CATEGORY_MODEL_ROOT = "rootModel";
 		public static final String STAR_CATEGORY_DIAGRAM = "diagram";
 		public static final String STAR_CATEGORY_DIAGRAM_MODEL = "diagramModel";
-		public static final String STAR_CATEGORY_ANALYSIS_MODEL = "<<analysisModel>>Analysis Model";
-		public static final String STAR_CATEGORY_DESIGN_MODEL = "<<designModel>>Design Model";
-		public static final String STAR_CATEGORY_IMPLEMENTATION_MODEL = "<<implementationModel>>Implementation Model";
-		public static final String STAR_CATEGORY_DEPLOYMENT_MODEL = "<<deploymentModel>>Deployment Model";
+		
+		// Star Model Name
+		public static final String STAR_NAME_ANALYSIS_MODEL = "<<analysisModel>>Analysis Model";
+		public static final String STAR_NAME_DESIGN_MODEL = "<<designModel>>Design Model";
+		public static final String STAR_NAME_IMPLEMENTATION_MODEL = "<<implementationModel>>Implementation Model";
+		public static final String STAR_NAME_DEPLOYMENT_MODEL = "<<deploymentModel>>Deployment Model";
+		
+		// Star Diagram extension
+		public static final String STAR_EXTENSION_USECASE_DIAGRAM = "umlusc";
+		public static final String STAR_EXTENSION_SEQUENCE_DIAGRAM = "umlseq";
+		public static final String STAR_EXTENSION_CLASS_DIAGRAM = "umlclass";
+		
+		
 	}
 	
 	// Star Model

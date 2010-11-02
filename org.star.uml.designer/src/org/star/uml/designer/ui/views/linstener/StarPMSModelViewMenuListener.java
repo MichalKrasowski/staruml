@@ -43,26 +43,29 @@ public class StarPMSModelViewMenuListener implements IMenuListener{
 			// Category가 "rootModel"인 경우 다이어 그램과 모델을 생성 할 수 있다.
 			if(category != null && category.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_MODEL_ROOT)){
 				//StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_4, actionMap);
-				System.out.println("name ==== " + name);
-				if(name != null && name.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_ANALYSIS_MODEL)){
+				if(name != null && name.equals(GlobalConstants.StarMoedl.STAR_NAME_ANALYSIS_MODEL)){
 					StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_7, actionMap);
 				}
 				
-				if(name != null && name.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_DESIGN_MODEL)){
+				if(name != null && name.equals(GlobalConstants.StarMoedl.STAR_NAME_DESIGN_MODEL)){
 					StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_8, actionMap);
 				}
 				
-				if(name != null && name.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_IMPLEMENTATION_MODEL)){
+				if(name != null && name.equals(GlobalConstants.StarMoedl.STAR_NAME_IMPLEMENTATION_MODEL)){
 					StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_9, actionMap);
 				}
 				
-				if(name != null && name.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_DEPLOYMENT_MODEL)){
+				if(name != null && name.equals(GlobalConstants.StarMoedl.STAR_NAME_DEPLOYMENT_MODEL)){
 					StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_10, actionMap);
 				}
 			}
 			// Category가 "rootModel"인 경우 다이어 그램과 모델을 생성 할 수 있다.
 			if(category != null && category.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL)){
 				StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_5, actionMap);
+				String extension = (String)treeObject.getData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION);
+				if(extension != null && extension.equals(GlobalConstants.StarMoedl.STAR_EXTENSION_SEQUENCE_DIAGRAM)){
+					StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_11, actionMap);
+				}
 			}
 			
 			if(category != null && category.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM)){
