@@ -116,5 +116,11 @@
             project="true">
       </wizard>
    </extension>
+   <extension
+         point="org.eclipse.uml2.diagram.usecase.org_eclipse_uml2_diagram_usecase_extension_starUML">
+      <client
+            class="org.eclipse.uml2.diagram.extension.imple.StarUMLExtensionImple">
+      </client>
+   </extension>
 
 </plugin>
