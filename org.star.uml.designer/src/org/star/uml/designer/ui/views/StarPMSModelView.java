@@ -217,6 +217,13 @@ public class StarPMSModelView extends ViewPart {
 		}
 	}
 	class NameSorter extends ViewerSorter {
+		public NameSorter() {
+			super();
+		}
+		@Override
+		public int compare(Viewer viewer, Object e1, Object e2) {
+			return super.compare(viewer, e1, e1);
+		}
 	}
 	
 	/**
@@ -341,7 +348,7 @@ public class StarPMSModelView extends ViewPart {
 	}
 	
 	public void setTreeParent(TreeParent root){
-		this.root=root;;
+		this.root=root;
 	}
 	
 	public TreeParent getInvisibleRoot(){
