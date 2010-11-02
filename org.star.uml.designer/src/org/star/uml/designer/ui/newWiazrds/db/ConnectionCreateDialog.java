@@ -127,9 +127,8 @@ public class ConnectionCreateDialog extends Dialog {
 		ProjectText.setVisibleItemCount(20);
 		projectList();
 		getShell().setText(CustomMessages.LOGIN_TITLE);
-		Bundle bundle = Platform.getBundle("sobis.bpa.designer");
-		ImageDescriptor img = ImageDescriptor.createFromURL(bundle
-				.getEntry("icons/64.gif"));
+		Bundle bundle = Platform.getBundle("org.star.uml.designer");
+		ImageDescriptor img = ImageDescriptor.createFromURL(bundle.getEntry("icons/64.gif"));
 
 		getShell().setImage(img.createImage());
 		return composite;
