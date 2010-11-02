@@ -538,12 +538,15 @@ public class UMLDocumentProvider extends AbstractDocumentProvider implements IDi
 			if (!overwrite && !info.isSynchronized()) {
 				throw new CoreException(new Status(IStatus.ERROR, UMLDiagramEditorPlugin.ID, IResourceStatus.OUT_OF_SYNC_LOCAL, Messages.UMLDocumentProvider_UnsynchronizedFileSaveError, null));
 			}
-			// Enkisoft 추가된 모델을 Tree에 추가한다.
+			// Enkisoft 추가된 모델이 있는지 확인한다.
 			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 			IProject rootProject = ResourcesPlugin.getWorkspace().getRoot().getProject("Root");
 			ArrayList<String> newNameList = new ArrayList<String>();
 			Document modelDoc = null;
 			DiagramDocumentEditor editor = null;
+			// 모델을 트리에 추가하기 위한 위치를 다이어그램 이름 기준으로 찾는다.
+			FileEditorInput fileInput = (FileEditorInput)element;
+			String diagramName = fileInput.getName();
 			if(page.getActiveEditor() !=null && page.getActiveEditor() instanceof DiagramDocumentEditor){
 				editor = (DiagramDocumentEditor)page.getActiveEditor();
 	        	// 다이어 그램을 수정하기 위한 환경 정보들을 가져온다.
@@ -611,55 +614,32 @@ public class UMLDocumentProvider extends AbstractDocumentProvider implements IDi
 			} finally {
 				info.startResourceListening();
 			}
-			// Enkisoft 추가된 이름 키로 ID를 조회해서 Tree에 추가한다.
-			try{
-    			// 파일을 Document로 로드한다.
-    			String projectPath = rootProject.getLocation().toOSString();
-    			String modelPath = projectPath+File.separator+"default.uml";
-    			File xmlFile = new File(modelPath);
-    	    	StringWriter writer = new StringWriter(); 
-    			TransformerFactory fac = TransformerFactory.newInstance();
-    			Transformer x = fac.newTransformer();
-    			x.transform(new StreamSource(xmlFile), new StreamResult(writer));
-    			String domStr = writer.toString();
-    			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-    			DocumentBuilder builder = dbFactory.newDocumentBuilder();
-    			modelDoc = builder.parse(new InputSource(new StringReader(domStr)));
-    		}catch(Exception e){
-    			e.printStackTrace();
-    		}
-    		// Document 있는 Element 중  TagName이 "package"를 가져와서 name들을 저장한다.
-			NodeList nodeList = modelDoc.getDocumentElement().getElementsByTagName("packagedElement");
-			for(int i=0; i<nodeList.getLength(); i++){
-    			String name = nodeList.item(i).getAttributes().getNamedItem("name").getNodeValue();
-    			String id = nodeList.item(i).getAttributes().getNamedItem("xmi:id").getNodeValue();
-    			// 새로추가된 노드인 경우 모델 다이얼 로그에도 추가해 준다.
-    			if(newNameList.contains(name)){
-    				IConfigurationElement[] config = Platform.getExtensionRegistry()
-    				.getConfigurationElementsFor("org.eclipse.uml2.diagram.usecase.org_eclipse_uml2_diagram_usecase_extension_starUML");
-		    		try {
-		    			for (IConfigurationElement e : config) {
-		    				final Object o = e.createExecutableExtension("class");
-		    				if (o instanceof StarUMLExtension) {
-		    					ISafeRunnable runnable = new ISafeRunnable() {
-		    						public void handleException(Throwable exception) {
-		    							System.out.println("Exception in client");
-		    						}
-		
-		    						public void run() throws Exception {
-		    							HashMap map = new HashMap();
-		    							map.put("a", "A");
-		    							((StarUMLExtension) o).modelAdd(map);
-		    						}
-		    					};
-		    					SafeRunner.run(runnable);
-		    				}
-		    			}
-		    		} catch (CoreException ex) {
-		    			System.out.println(ex.getMessage());
-		    		}
-
-    			}
+			// Enkisoft 새로 추가된 노드가 있을 경우 Enkisoft 추가된 노드를 저장하고 Extension point를 호출한다.
+			if(newNameList.size() > 0){
+				final HashMap map = new HashMap();
+				map.put("newNameList", newNameList);
+				map.put("diagramName", diagramName);
+				// 새로추가된 노드가 있는경우 extension point를 통하여 모델을 추가한다.
+				IConfigurationElement[] config = Platform.getExtensionRegistry()
+				.getConfigurationElementsFor("org.eclipse.uml2.diagram.usecase.org_eclipse_uml2_diagram_usecase_extension_starUML");
+	    		try {
+	    			for (IConfigurationElement e : config) {
+	    				final Object o = e.createExecutableExtension("class");
+	    				if (o instanceof StarUMLExtension) {
+	    					ISafeRunnable runnable = new ISafeRunnable() {
+	    						public void handleException(Throwable exception) {
+	    							System.out.println("Exception in client");
+	    						}
+	    						public void run() throws Exception {
+	    							((StarUMLExtension) o).modelAdd(map);
+	    						}
+	    					};
+	    					SafeRunner.run(runnable);
+	    				}
+	    			}
+	    		} catch (CoreException ex) {
+	    			System.out.println(ex.getMessage());
+	    		}
 			}
 			
 		} else {

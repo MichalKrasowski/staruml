@@ -12,11 +12,14 @@ public class GlobalConstants {
 	// Eclipse Attribute
 	public static final String PATH_PREFIX = "platform:/resource";
 	
-	//variable
+	// variable
 	public static final String TREE_PATH = "path";
-	public static final String NEW_NODE_LIST ="newNameList";
 	public static final int DEFAULT_MODEL_X = 200;
 	public static final int DEFAULT_MODEL_Y = 200;
+	
+	// parameter 
+	public static final String PARAM_DIAGRAM_NAME = "diagramName";
+	public static final String PARAM_NEW_NODE_LIST = "newNameList";
 	
 	//Policy
 	public class StarPMSModelViewPopupPolicy{
@@ -59,8 +62,6 @@ public class GlobalConstants {
 		public static final String STAR_EXTENSION_USECASE_DIAGRAM = "umlusc";
 		public static final String STAR_EXTENSION_SEQUENCE_DIAGRAM = "umlseq";
 		public static final String STAR_EXTENSION_CLASS_DIAGRAM = "umlclass";
-		
-		
 	}
 	
 	// Star Model
@@ -73,6 +74,9 @@ public class GlobalConstants {
 		// Star Model Cetegory
 		public static final String UML_TYPE_PACKAGE = "uml:Package";
 		public static final String UML_TYPE_PACKAGE_Element = "packagedElement";
+		
+		// Model Type
+		public static final String UML_MODEL_TYPE_ACTOR = "uml:Actor";
 	}
 	
 	//PluinID

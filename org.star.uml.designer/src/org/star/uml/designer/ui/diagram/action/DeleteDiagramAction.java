@@ -105,27 +105,28 @@ public class DeleteDiagramAction extends Action implements IStarUMLModelAction{
 	
 	@Override
 	public void run() {
-			// 모델 Tree에 Actor를 추가한다.
 			IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 													.findView(GlobalConstants.PluinID.STAR_PMS_MODEL_VIEW);
 			StarPMSModelView modelView = (StarPMSModelView)view_part;
 			// 선택된 Tree를 가져온다.
 			TreeSelection treeSelection = (TreeSelection)modelView.getTreeViewer().getSelection();
-			
-			TreeObject parent = (TreeObject)treeSelection.getFirstElement();
-			String folderPaht = ResourcesPlugin.getWorkspace().getRoot().getProject("Root").getLocation().toString();
-			//ResourcesPlugin.getWorkspace().getRoot().getProject("Root").getLocation().
+			TreeObject parent = null;
+			String folderPaht = null;
+			try{
+			parent = (TreeObject)treeSelection.getFirstElement();
+			folderPaht = ResourcesPlugin.getWorkspace().getRoot().getProject("Root").getLocation().toString();
 			File diagram = new File(folderPaht + "/" + parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE) + "." + parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION));
 			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 			IProgressMonitor monitor = new NullProgressMonitor();
 			monitor.beginTask("Save content...", 1);
-			page.getActiveEditor().doSave(monitor);
+			if(page.getActiveEditor() != null){
+				page.getActiveEditor().doSave(monitor);
+			}
 			if(diagram.isFile()){
 				diagram.delete();
 			}
-			
+			}catch(Exception e){e.printStackTrace();}
 			selectedNodeName = (String)parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE);
-			
 			String modelPath = folderPaht+File.separator+GlobalConstants.DEFAULT_VIEW_MODEL_FILE;
 			String domStr = null;
 			Document modelDoc = null;
@@ -145,7 +146,6 @@ public class DeleteDiagramAction extends Action implements IStarUMLModelAction{
 					}
 				}
 			}
-			
 			try {
 				XmlUtil.writeXmlFile(modelDoc, modelPath);
 			} catch (Exception e) {

@@ -40,9 +40,13 @@ public class StarPMSModelViewMenuListener implements IMenuListener{
 			}else{
 				StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_2, actionMap);
 			}
-			// Category가 "rootModel"인 경우 다이어 그램과 모델을 생성 할 수 있다.
+			// Category가 "rootModel"인 경우 모델을 생성 할 수 있다.
 			if(category != null && category.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_MODEL_ROOT)){
-				//StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_4, actionMap);
+				// Category가 "rootModel"인 경우 모델을 생성 할 수 있다.
+				StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_4, actionMap);
+			}
+			// Category가 "rootModel"인 경우 각 모델별로 생성할 수 있는 다이어그램이 다르다.
+			if(category != null && category.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_MODEL_ROOT)){
 				if(name != null && name.equals(GlobalConstants.StarMoedl.STAR_NAME_ANALYSIS_MODEL)){
 					StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_7, actionMap);
 				}
@@ -59,15 +63,18 @@ public class StarPMSModelViewMenuListener implements IMenuListener{
 					StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_10, actionMap);
 				}
 			}
-			// Category가 "rootModel"인 경우 다이어 그램과 모델을 생성 할 수 있다.
+			// Category가 "diagramModel"인 경우 모델을 삭제할 수 있다
 			if(category != null && category.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL)){
 				StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_5, actionMap);
+			}
+			// Category가 "diagram"인 경우 다이어 그램의 종류에 따라 연관된 다이어 그램을 생성 할 수 있다
+			if(category != null && category.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM)){
 				String extension = (String)treeObject.getData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION);
 				if(extension != null && extension.equals(GlobalConstants.StarMoedl.STAR_EXTENSION_SEQUENCE_DIAGRAM)){
 					StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_11, actionMap);
 				}
 			}
-			
+			// Category가 "diagram"인 경우 다이어그램을 살제할 수 있다
 			if(category != null && category.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM)){
 				StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_6, actionMap);
 			}

@@ -20,7 +20,7 @@ public class StarUMLImageCreateFactory {
 				return Activator.getImageDescriptor(ClazzDiagramCreateAction.ICON_PATH).createImage();
 			}
 		}else if(category.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL)){
-			if(extension.equals(ActorCreateAction.ACTION_ID)){
+			if(extension.equals(ActorCreateAction.ACTION_ID) || extension.equals(GlobalConstants.UMLMoedl.UML_MODEL_TYPE_ACTOR)){
 				return Activator.getImageDescriptor(ActorCreateAction.ICON_PATH).createImage();
 			}
 		}
