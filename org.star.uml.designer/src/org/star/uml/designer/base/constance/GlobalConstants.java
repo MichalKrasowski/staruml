@@ -14,6 +14,7 @@ public class GlobalConstants {
 	
 	//variable
 	public static final String TREE_PATH = "path";
+	public static final String NEW_NODE_LIST ="newNameList";
 	public static final int DEFAULT_MODEL_X = 200;
 	public static final int DEFAULT_MODEL_Y = 200;
 	
@@ -47,19 +48,10 @@ public class GlobalConstants {
 		public static final String STAR_CATEGORY_MODEL_ROOT = "rootModel";
 		public static final String STAR_CATEGORY_DIAGRAM = "diagram";
 		public static final String STAR_CATEGORY_DIAGRAM_MODEL = "diagramModel";
-		
-		// Star Model Name
-		public static final String STAR_NAME_ANALYSIS_MODEL = "<<analysisModel>>Analysis Model";
-		public static final String STAR_NAME_DESIGN_MODEL = "<<designModel>>Design Model";
-		public static final String STAR_NAME_IMPLEMENTATION_MODEL = "<<implementationModel>>Implementation Model";
-		public static final String STAR_NAME_DEPLOYMENT_MODEL = "<<deploymentModel>>Deployment Model";
-		
-		// Star Diagram extension
-		public static final String STAR_EXTENSION_USECASE_DIAGRAM = "umlusc";
-		public static final String STAR_EXTENSION_SEQUENCE_DIAGRAM = "umlseq";
-		public static final String STAR_EXTENSION_CLASS_DIAGRAM = "umlclass";
-		
-		
+		public static final String STAR_CATEGORY_ANALYSIS_MODEL = "<<analysisModel>>Analysis Model";
+		public static final String STAR_CATEGORY_DESIGN_MODEL = "<<designModel>>Design Model";
+		public static final String STAR_CATEGORY_IMPLEMENTATION_MODEL = "<<implementationModel>>Implementation Model";
+		public static final String STAR_CATEGORY_DEPLOYMENT_MODEL = "<<deploymentModel>>Deployment Model";
 	}
 	
 	// Star Model
