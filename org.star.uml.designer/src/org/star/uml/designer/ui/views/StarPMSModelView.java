@@ -91,6 +91,7 @@ import org.star.uml.designer.base.utils.CommonUtil;
 import org.star.uml.designer.base.utils.EclipseUtile;
 import org.star.uml.designer.base.utils.XmlUtil;
 import org.star.uml.designer.command.InsertActionCommand;
+import org.star.uml.designer.ui.action.CreateConnectionAction;
 import org.star.uml.designer.ui.diagram.action.UsecaseDiagramCreateAction;
 import org.star.uml.designer.ui.factory.StarUMLActionFactory;
 import org.star.uml.designer.ui.factory.StarUMLImageCreateFactory;
@@ -263,7 +264,7 @@ public class StarPMSModelView extends ViewPart {
 	
 	private void createToolBar() {
 		IToolBarManager mgr = getViewSite().getActionBars().getToolBarManager();
-		createConnectionAction = StarPMSModelViewUtil.createConnectionAction(mgr);
+		createConnectionAction = new CreateConnectionAction();
 		mgr.add(createConnectionAction);
 	}
 	
