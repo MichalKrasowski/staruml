@@ -402,7 +402,7 @@ public class StarPMSModelViewUtil {
 			    		ProgressMonitorDialog progressMonitorDialog = new ProgressMonitorDialog(
 			    				Display.getCurrent().getActiveShell());
 			    		progressMonitorDialog.run(false, true, runnable);
-			    		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("org.staruml.views.StarPMSRequestTableView");
+			    		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("org.star.uml.designer.ui.views.StarPMSRequestTableView");
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -535,20 +535,6 @@ public class StarPMSModelViewUtil {
 		return implrmrnysyionAction;
 	}
 	
-
-	public static Action createConnectionAction(IToolBarManager manager){
-		Action createConnectionAction = new Action() {
-			public void run() {
-				ConnectionCreateDialog connectionDialog = new ConnectionCreateDialog(null);
-				connectionDialog.open();
-			}
-		};
-		createConnectionAction.setId("connection");
-		createConnectionAction.setToolTipText("Create Connection tooltip");
-		createConnectionAction.setImageDescriptor(Activator.getImageDescriptor("/icons/login.gif"));
-		return createConnectionAction;
-	}
-
 	public static void initContextMenu(MenuManager menuMgr){
 		PMSLoginAction login = new PMSLoginAction();
 		PMSLogoutAction logout = new PMSLogoutAction();
