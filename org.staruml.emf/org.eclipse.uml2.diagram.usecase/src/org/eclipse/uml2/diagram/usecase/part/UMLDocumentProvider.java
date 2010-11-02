@@ -1,6 +1,9 @@
 package org.eclipse.uml2.diagram.usecase.part;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -9,17 +12,29 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.core.resources.IStorage;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.ISafeRunnable;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.MultiRule;
@@ -38,6 +53,7 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.core.DiagramEditingDomainFactory;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.AbstractDocumentProvider;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
@@ -45,15 +61,29 @@ import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocu
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.EditorStatusCodes;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.util.DiagramIOUtil;
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory;
 import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.runtime.notation.impl.ShapeImpl;
 import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.ui.part.ViewPart;
 import org.eclipse.uml2.diagram.common.pathmap.XMI2UMLSupport;
+import org.eclipse.uml2.uml.internal.impl.ActorImpl;
+import org.eclipse.uml2.uml.internal.impl.BehavioredClassifierImpl;
+import org.eclipse.uml2.uml.internal.resource.UMLResourceImpl;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.eclipse.uml2.diagram.common.extension.StarUMLExtension;;
 
 /**
  * @generated
@@ -508,6 +538,54 @@ public class UMLDocumentProvider extends AbstractDocumentProvider implements IDi
 			if (!overwrite && !info.isSynchronized()) {
 				throw new CoreException(new Status(IStatus.ERROR, UMLDiagramEditorPlugin.ID, IResourceStatus.OUT_OF_SYNC_LOCAL, Messages.UMLDocumentProvider_UnsynchronizedFileSaveError, null));
 			}
+			// Enkisoft 추가된 모델을 Tree에 추가한다.
+			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+			IProject rootProject = ResourcesPlugin.getWorkspace().getRoot().getProject("Root");
+			ArrayList<String> newNameList = new ArrayList<String>();
+			Document modelDoc = null;
+			DiagramDocumentEditor editor = null;
+			if(page.getActiveEditor() !=null && page.getActiveEditor() instanceof DiagramDocumentEditor){
+				editor = (DiagramDocumentEditor)page.getActiveEditor();
+	        	// 다이어 그램을 수정하기 위한 환경 정보들을 가져온다.
+	        	IDiagramDocument iDocument = editor.getDiagramDocument();
+	        	Diagram diagram = iDocument.getDiagram();
+	        	// 모델에 파일에 있는 페키지 엘리먼트에 이름을 다 가져와 비교해서 없을 경우 추가한다.
+	    		try{
+	    			// 파일을 Document로 로드한다.
+	    			String projectPath = rootProject.getLocation().toOSString();
+	    			String modelPath = projectPath+File.separator+"default.uml";
+	    			File xmlFile = new File(modelPath);
+	    	    	StringWriter writer = new StringWriter(); 
+	    			TransformerFactory fac = TransformerFactory.newInstance();
+	    			Transformer x = fac.newTransformer();
+	    			x.transform(new StreamSource(xmlFile), new StreamResult(writer));
+	    			String domStr = writer.toString();
+	    			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+	    			DocumentBuilder builder = dbFactory.newDocumentBuilder();
+	    			modelDoc = builder.parse(new InputSource(new StringReader(domStr)));
+	    		}catch(Exception e){
+	    			e.printStackTrace();
+	    		}
+	    		// Document 있는 Element 중  TagName이 "package"를 가져와서 name들을 저장한다.
+    			NodeList nodeList = modelDoc.getDocumentElement().getElementsByTagName("packagedElement");
+	        	ArrayList<String> savedNameList = new ArrayList<String>();
+	        	// 저장되는 Editor에 있는 Element와 비교할 수 있도록 UML에 저장된 이름들을 가져온다.
+	        	for(int i=0; i<nodeList.getLength(); i++){
+        			String name = nodeList.item(i).getAttributes().getNamedItem("name").getNodeValue();
+        			savedNameList.add(name);
+				}
+	        	// 새롭게 저장되는 엘리먼트 이름을 저장한다.
+    			for(int i=0; i<diagram.getPersistedChildren().size(); i++){
+	        		ShapeImpl shapeImple = (ShapeImpl)diagram.getPersistedChildren().get(i);
+	        		if(shapeImple.getElement() instanceof ActorImpl){
+	        			ActorImpl actorImple = (ActorImpl)shapeImple.getElement();
+	        			if(actorImple.getName() != null && !savedNameList.contains(actorImple.getName())){
+	        				newNameList.add(actorImple.getName());
+	        			}
+	        		}
+	        	}
+			}
+			
 			info.stopResourceListening();
 			fireElementStateChanging(element);
 			try {
@@ -533,6 +611,57 @@ public class UMLDocumentProvider extends AbstractDocumentProvider implements IDi
 			} finally {
 				info.startResourceListening();
 			}
+			// Enkisoft 추가된 이름 키로 ID를 조회해서 Tree에 추가한다.
+			try{
+    			// 파일을 Document로 로드한다.
+    			String projectPath = rootProject.getLocation().toOSString();
+    			String modelPath = projectPath+File.separator+"default.uml";
+    			File xmlFile = new File(modelPath);
+    	    	StringWriter writer = new StringWriter(); 
+    			TransformerFactory fac = TransformerFactory.newInstance();
+    			Transformer x = fac.newTransformer();
+    			x.transform(new StreamSource(xmlFile), new StreamResult(writer));
+    			String domStr = writer.toString();
+    			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+    			DocumentBuilder builder = dbFactory.newDocumentBuilder();
+    			modelDoc = builder.parse(new InputSource(new StringReader(domStr)));
+    		}catch(Exception e){
+    			e.printStackTrace();
+    		}
+    		// Document 있는 Element 중  TagName이 "package"를 가져와서 name들을 저장한다.
+			NodeList nodeList = modelDoc.getDocumentElement().getElementsByTagName("packagedElement");
+			for(int i=0; i<nodeList.getLength(); i++){
+    			String name = nodeList.item(i).getAttributes().getNamedItem("name").getNodeValue();
+    			String id = nodeList.item(i).getAttributes().getNamedItem("xmi:id").getNodeValue();
+    			// 새로추가된 노드인 경우 모델 다이얼 로그에도 추가해 준다.
+    			if(newNameList.contains(name)){
+    				IConfigurationElement[] config = Platform.getExtensionRegistry()
+    				.getConfigurationElementsFor("org.eclipse.uml2.diagram.usecase.org_eclipse_uml2_diagram_usecase_extension_starUML");
+		    		try {
+		    			for (IConfigurationElement e : config) {
+		    				final Object o = e.createExecutableExtension("class");
+		    				if (o instanceof StarUMLExtension) {
+		    					ISafeRunnable runnable = new ISafeRunnable() {
+		    						public void handleException(Throwable exception) {
+		    							System.out.println("Exception in client");
+		    						}
+		
+		    						public void run() throws Exception {
+		    							HashMap map = new HashMap();
+		    							map.put("a", "A");
+		    							((StarUMLExtension) o).modelAdd(map);
+		    						}
+		    					};
+		    					SafeRunner.run(runnable);
+		    				}
+		    			}
+		    		} catch (CoreException ex) {
+		    			System.out.println(ex.getMessage());
+		    		}
+
+    			}
+			}
+			
 		} else {
 			URI newResoruceURI;
 			List affectedFiles = null;
