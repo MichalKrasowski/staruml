@@ -28,7 +28,8 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
-import org.star.uml.designer.ui.diagram.action.ActivityDiagramCreateAction;
+import org.star.uml.designer.ui.diagram.action.ClazzDiagramCreateAction;
+import org.star.uml.designer.ui.diagram.action.SequenceDiagramCreateAction;
 import org.star.uml.designer.ui.diagram.action.UsecaseDiagramCreateAction;
 import org.star.uml.designer.ui.factory.StarUMLDiagramCreateFactory;
 import org.w3c.dom.Document;
@@ -116,6 +117,10 @@ public class EclipseUtile {
 				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 				if(extension.equals(UsecaseDiagramCreateAction.DIAGRAM_EXTENSION)){
 					page.openEditor(new FileEditorInput((IFile) workspaceResource), org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor.ID);
+				}else if(extension.equals(SequenceDiagramCreateAction.DIAGRAM_EXTENSION)){
+					page.openEditor(new FileEditorInput((IFile) workspaceResource), org.eclipse.uml2.diagram.sequence.part.UMLDiagramEditor.ID);
+				}else if(extension.equals(ClazzDiagramCreateAction.DIAGRAM_EXTENSION)){
+					page.openEditor(new FileEditorInput((IFile) workspaceResource), org.eclipse.uml2.diagram.clazz.part.UMLDiagramEditor.ID);
 				}
 			}
 		}catch(Exception e){

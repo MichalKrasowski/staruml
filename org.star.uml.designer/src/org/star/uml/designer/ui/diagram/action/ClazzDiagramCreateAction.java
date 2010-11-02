@@ -41,7 +41,7 @@ import org.star.uml.designer.ui.views.StarPMSModelView.TreeObject;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeParent;
 
 public class ClazzDiagramCreateAction extends Action implements IStarUMLModelAction{
-	public static final String ACTION_ID = "CLAZZ_DIAGRAM";
+	public static final String ACTION_ID = "CLASS_DIAGRAM";
 	public static final String ACTION_URI = "org.eclipse.uml2.diagram.clazz.ClazzDiagram";
 	public static final String ACTION_TITLE ="Create Class Diagram";
 	public static final String ICON_PATH = "/icons/16.gif";

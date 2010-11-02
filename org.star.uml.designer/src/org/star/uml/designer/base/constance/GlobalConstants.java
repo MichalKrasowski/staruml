@@ -22,9 +22,13 @@ public class GlobalConstants {
 		public static final int POLICY_1 = 1; // Tree not selected
 		public static final int POLICY_2 = 2; // Tree login status 
 		public static final int POLICY_3 = 3; // Tree logout status
-		public static final int POLICY_4 = 4; // Tree rootModel selected
+		public static final int POLICY_4 = 4; // Tree root selected
 		public static final int POLICY_5 = 5; // Tree diagramModel selected
 		public static final int POLICY_6 = 6; // Tree diagramModel selected
+		public static final int POLICY_7 = 7; // Tree analysisModel selected
+		public static final int POLICY_8 = 8; // Tree designModel selected
+		public static final int POLICY_9 = 9; // Tree implementationModel selected
+		public static final int POLICY_10 = 10; // Tree deploymentModel selected
 	}
 	
 	// Star Model
@@ -42,6 +46,10 @@ public class GlobalConstants {
 		public static final String STAR_CATEGORY_MODEL_ROOT = "rootModel";
 		public static final String STAR_CATEGORY_DIAGRAM = "diagram";
 		public static final String STAR_CATEGORY_DIAGRAM_MODEL = "diagramModel";
+		public static final String STAR_CATEGORY_ANALYSIS_MODEL = "<<analysisModel>>Analysis Model";
+		public static final String STAR_CATEGORY_DESIGN_MODEL = "<<designModel>>Design Model";
+		public static final String STAR_CATEGORY_IMPLEMENTATION_MODEL = "<<implementationModel>>Implementation Model";
+		public static final String STAR_CATEGORY_DEPLOYMENT_MODEL = "<<deploymentModel>>Deployment Model";
 	}
 	
 	// Star Model
