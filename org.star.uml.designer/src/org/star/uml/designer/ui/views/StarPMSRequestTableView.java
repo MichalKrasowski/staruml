@@ -175,32 +175,33 @@ public class StarPMSRequestTableView extends ViewPart {
 	     });
 
 	    table.addListener(SWT.MouseDown, new Listener() {
-		      public void handleEvent(Event event) {
-		        Point pt = new Point(event.x, event.y);
+	    	public void handleEvent(Event event) {
+	    		Point pt = new Point(event.x, event.y);
 		        int index = table.getTopIndex();
 		        MenuManager popupMenu = new MenuManager();
 		        while (index < table.getItemCount()) {
-		          TableItem item = table.getItem(index);
-		          for (int i = 0; i < 4; i++) {
-		            Rectangle rect = item.getBounds(i);
-		            if (rect.contains(pt)) {
-		            	if(i == 1){
-				            IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.staruml.views.StarPMSBrowersView");
-				            StarPMSBrowersView brower = (StarPMSBrowersView)view_part;
-				            brower.setURL("http://192.168.10.193:8080/starPMS/processMgt/requirementsInfoSimple.do?seq=" + item.getData("seq"));
-				            try {
-								PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("org.staruml.views.StarPMSBrowersView");
-							} catch (PartInitException e) {
-								e.printStackTrace();
-							}
-				    	    return;
-		            	}
-		            }
-		          }
-		          index++;
+		        	TableItem item = table.getItem(index);
+		          
+		        	for (int i = 0; i < 4; i++) {
+		        		Rectangle rect = item.getBounds(i);
+		        		if (rect.contains(pt)) {
+		        			if(i == 1){
+		        				IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSBrowersView");
+		        				StarPMSBrowersView brower = (StarPMSBrowersView)view_part;
+		        				brower.setURL("http://192.168.10.193:8080/starPMS/processMgt/requirementsInfoSimple.do?usecaseSeq=" + item.getData("seq"));
+		        				try {
+		        					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("org.star.uml.designer.ui.views.StarPMSBrowersView");
+		        				} catch (PartInitException e) {
+		        					e.printStackTrace();
+		        				}
+		        				return;
+		        			}
+		        		}
+		        	}
+		        	index++;
 		        }
-		      }
-		    });
+	    	}
+	    });
 	    
 		}catch(Exception e){
 			e.printStackTrace();
@@ -210,16 +211,17 @@ public class StarPMSRequestTableView extends ViewPart {
 
 	public void addButtonListener(Button button){
 		button.addSelectionListener(new SelectionListener() {
-	      public void widgetSelected(SelectionEvent event) {
-	        Button srcBtuuton = (Button)event.getSource();
+			public void widgetSelected(SelectionEvent event) {
+				System.out.println("addButtonListener");
+				Button srcBtuuton = (Button)event.getSource();
 	        
-	        IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-	        if(page.getActiveEditor() !=null && page.getActiveEditor() instanceof org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor){
-	        	org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor editor = 
-	        		(org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor)page.getActiveEditor();
-	        	DiagramEditPart diagramEditPart = editor.getDiagramEditPart();
-	        	EditPart focusEdit = diagramEditPart.getViewer().getFocusEditPart();
-	        	org.eclipse.draw2d.geometry.Point point = null;
+				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+				if(page.getActiveEditor() !=null && page.getActiveEditor() instanceof org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor){
+					org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor editor = 
+						(org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor)page.getActiveEditor();
+					DiagramEditPart diagramEditPart = editor.getDiagramEditPart();
+					EditPart focusEdit = diagramEditPart.getViewer().getFocusEditPart();
+					org.eclipse.draw2d.geometry.Point point = null;
 	        	if(focusEdit instanceof UseCaseEditPart){
 	        		UseCaseEditPart useCaseEditPart = (UseCaseEditPart)focusEdit;
 	        		point = useCaseEditPart.getLocation();
