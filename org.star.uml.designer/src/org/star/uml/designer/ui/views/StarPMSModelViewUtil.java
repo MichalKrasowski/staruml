@@ -55,11 +55,12 @@ import org.star.uml.designer.base.utils.XmlUtil;
 import org.star.uml.designer.service.dao.PmsDao;
 import org.star.uml.designer.ui.action.PMSLoginAction;
 import org.star.uml.designer.ui.action.PMSLogoutAction;
-import org.star.uml.designer.ui.diagram.action.ActivityDiagramCreateAction;
 import org.star.uml.designer.ui.diagram.action.ActorCreateAction;
+import org.star.uml.designer.ui.diagram.action.ClazzDiagramCreateAction;
 import org.star.uml.designer.ui.diagram.action.DeleteDiagramAction;
 import org.star.uml.designer.ui.diagram.action.DeleteFromDiagramAction;
 import org.star.uml.designer.ui.diagram.action.DeleteFromModelAction;
+import org.star.uml.designer.ui.diagram.action.SequenceDiagramCreateAction;
 import org.star.uml.designer.ui.diagram.action.UsecaseDiagramCreateAction;
 import org.star.uml.designer.ui.model.initialization.DefaultModel;
 import org.star.uml.designer.ui.model.initialization.DefaultUML;
@@ -553,7 +554,11 @@ public class StarPMSModelViewUtil {
 		DeleteFromDiagramAction delete = new DeleteFromDiagramAction();
 		DeleteDiagramAction deleteDiagram = new DeleteDiagramAction();
 		MenuManager diagramGroup = new MenuManager("Add Diagram");
+		
 		UsecaseDiagramCreateAction usecaseDiagram = new UsecaseDiagramCreateAction();
+		SequenceDiagramCreateAction sequenceDiagram = new SequenceDiagramCreateAction();
+		ClazzDiagramCreateAction clazzDiagram = new ClazzDiagramCreateAction();
+		
 		DeleteFromModelAction deletFromModel = new DeleteFromModelAction();
 		
 		MenuManager modelGroup = new MenuManager("Add Model");
@@ -571,6 +576,9 @@ public class StarPMSModelViewUtil {
 		
 		
 		diagramGroup.add(usecaseDiagram);
+		diagramGroup.add(sequenceDiagram);
+		diagramGroup.add(clazzDiagram);
+		
 		modelGroup.add(actor);
 		
 	}
