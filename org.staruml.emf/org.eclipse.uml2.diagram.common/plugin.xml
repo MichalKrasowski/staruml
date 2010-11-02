@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ Copyright (c) 2006 Borland Software Corporation
+ 
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License v1.0
+ which accompanies this distribution, and is available at
+ http://www.eclipse.org/legal/epl-v10.html
+
+ Contributors:
+ 	Michael Golubev (Borland) - initial API and implementation
+-->
+
+<plugin>
+
+   <extension
+           point="org.eclipse.core.expressions.propertyTesters">
+        <propertyTester
+              class="org.eclipse.uml2.diagram.common.actions.NewDiagramPropertyTester"
+              id="org.eclipse.uml2.diagram.packagePropertyTester"
+              properties="isPackage"
+              namespace="org.eclipse.uml2.diagram"
+              type="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+        </propertyTester>
+     </extension>
+
+	<extension point="org.eclipse.ui.menus" id="context-menus">
+      <?gmfgen generated="false"?>
+      <menuContribution locationURI="popup:org.eclipse.gmf.runtime.diagram.ui.DiagramEditorContextMenu">
+          <menu 
+              id="org.eclipse.uml2.diagram.new" 
+         	  label="%UML2ToolsEditor_NewDiagramMenu_label">
+         <separator name="newDiagram" visible="true"/>
+         <visibleWhen>
+               <or>
+                  <with variable="activePartId"><equals value="org.eclipse.uml2.diagram.clazz.part.UMLDiagramEditorID"/></with>
+                  <with variable="activePartId"><equals value="org.eclipse.uml2.diagram.component.part.UMLDiagramEditorID"/></with>
+                  <with variable="activePartId"><equals value="org.eclipse.uml2.diagram.csd.part.UMLDiagramEditorID"/></with>
+                  <with variable="activePartId"><equals value="org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditorID"/></with>
+                  <with variable="activePartId"><equals value="org.eclipse.uml2.diagram.deploy.part.UMLDiagramEditorID"/></with>
+                  <with variable="activePartId"><equals value="org.eclipse.uml2.diagram.profile.part.UMLDiagramEditorID"/></with>
+               </or>
+         </visibleWhen>
+         <command commandId="org.eclipse.uml2.diagram.NewClassDiagramAction"/>
+         <command commandId="org.eclipse.uml2.diagram.NewComponentDiagramAction">
+            <visibleWhen checkEnabled="false">
+            	<and>            	
+                  <with variable="selection"><iterate ifEmpty="false"> 
+               			<test property="org.eclipse.uml2.diagram.isPackage"/>
+                  </iterate></with>
+                  <count value="1"/>
+            	</and>            	
+            </visibleWhen>
+         </command>
+         <command commandId="org.eclipse.uml2.diagram.NewCompositeStructureDiagramAction">
+            <visibleWhen checkEnabled="false">
+            	<and>            	
+                  <with variable="selection"><iterate ifEmpty="false"> 
+               			<test property="org.eclipse.uml2.diagram.isPackage"/>
+                  </iterate></with>
+                  <count value="1"/>
+            	</and>            	
+            </visibleWhen>
+         </command>
+         <command commandId="org.eclipse.uml2.diagram.NewDeployDiagramAction">
+            <visibleWhen checkEnabled="false">
+            	<and>            	
+                  <with variable="selection"><iterate ifEmpty="false"> 
+               			<test property="org.eclipse.uml2.diagram.isPackage"/>
+                  </iterate></with>
+                  <count value="1"/>
+            	</and>            	
+            </visibleWhen>
+         </command>
+         <command commandId="org.eclipse.uml2.diagram.NewProfileDiagramAction">
+            <visibleWhen checkEnabled="false">
+            	<and>            	
+                  <with variable="selection"><iterate ifEmpty="false"> 
+               			<test property="org.eclipse.uml2.diagram.isPackage"/>
+                  </iterate></with>
+                  <count value="1"/>
+            	</and>            	
+            </visibleWhen>
+         </command>
+         <command commandId="org.eclipse.uml2.diagram.NewUseCaseDiagramAction">
+            <visibleWhen checkEnabled="false">
+            	<and>            	
+                  <with variable="selection"><iterate ifEmpty="false"> 
+               			<test property="org.eclipse.uml2.diagram.isPackage"/>
+                  </iterate></with>
+                  <count value="1"/>
+            	</and>            	
+            </visibleWhen>
+         </command>
+       </menu>         
+       </menuContribution>
+
+      <menuContribution locationURI="popup:org.eclipse.uml2.uml.editor.presentation.UMLEditorID">
+      <menu 
+              id="org.eclipse.uml2.uml2editor.new" 
+         	  label="%UMLEditor_NewDiagramMenu_label">
+         <separator name="newDiagram" visible="true"/>
+         <command commandId="org.eclipse.uml2.diagram.NewClassDiagramAction"/>
+         <command commandId="org.eclipse.uml2.diagram.NewComponentDiagramAction">
+            <visibleWhen checkEnabled="false">
+            	<and>            	
+                  <with variable="selection"><iterate ifEmpty="false"> 
+                     <instanceof value="org.eclipse.uml2.uml.Package"/>
+                  </iterate></with>
+                  <count value="1"/>
+            	</and>            	
+            </visibleWhen>
+         </command>
+         <command commandId="org.eclipse.uml2.diagram.NewCompositeStructureDiagramAction">
+            <visibleWhen checkEnabled="false">
+            	<and>            	
+                  <with variable="selection"><iterate ifEmpty="false"> 
+                     <instanceof value="org.eclipse.uml2.uml.Package"/>
+                  </iterate></with>
+                  <count value="1"/>
+            	</and>            	
+            </visibleWhen>
+         </command>
+         <command commandId="org.eclipse.uml2.diagram.NewDeployDiagramAction">
+            <visibleWhen checkEnabled="false">
+            	<and>            	
+                  <with variable="selection"><iterate ifEmpty="false"> 
+                     <instanceof value="org.eclipse.uml2.uml.Package"/>
+                  </iterate></with>
+                  <count value="1"/>
+            	</and>            	
+            </visibleWhen>
+         </command>
+         <command commandId="org.eclipse.uml2.diagram.NewProfileDiagramAction">
+            <visibleWhen checkEnabled="false">
+            	<and>            	
+                  <with variable="selection"><iterate ifEmpty="false"> 
+                     <instanceof value="org.eclipse.uml2.uml.Package"/>
+                  </iterate></with>
+                  <count value="1"/>
+            	</and>            	
+            </visibleWhen>
+         </command>
+         <command commandId="org.eclipse.uml2.diagram.NewUseCaseDiagramAction">
+            <visibleWhen checkEnabled="false">
+            	<and>            	
+                  <with variable="selection"><iterate ifEmpty="false"> 
+                     <instanceof value="org.eclipse.uml2.uml.Package"/>
+                  </iterate></with>
+                  <count value="1"/>
+            	</and>            	
+            </visibleWhen>
+         </command>
+       </menu>
+       </menuContribution>
+   </extension>
+   
+   <extension point="org.eclipse.ui.commands" id="menu-commands">
+      <?gmfgen generated="false"?>
+      <category id="org.eclipse.uml2.diagram.NewUMLDiagrams" name="%cmdcategory.name" description="%cmdcategory.desc"/>
+      <command id="org.eclipse.uml2.diagram.NewClassDiagramAction"
+         name="%UMLEditor_NewDiagramMenu_Class_label"
+         categoryId="org.eclipse.uml2.diagram.NewUMLDiagrams"/>
+      <command id="org.eclipse.uml2.diagram.NewComponentDiagramAction"
+         name="%UMLEditor_NewDiagramMenu_Component_label"
+         categoryId="org.eclipse.uml2.diagram.NewUMLDiagrams"/>
+      <command id="org.eclipse.uml2.diagram.NewUseCaseDiagramAction"
+         name="%UMLEditor_NewDiagramMenu_UseCase_label"
+         categoryId="org.eclipse.uml2.diagram.NewUMLDiagrams"/>
+      <command id="org.eclipse.uml2.diagram.NewDeployDiagramAction"
+         name="%UMLEditor_NewDiagramMenu_Deploy_label"
+         categoryId="org.eclipse.uml2.diagram.NewUMLDiagrams"/>
+      <command id="org.eclipse.uml2.diagram.NewProfileDiagramAction"
+         name="%UMLEditor_NewDiagramMenu_Profile_label"
+         categoryId="org.eclipse.uml2.diagram.NewUMLDiagrams"/>
+      <command id="org.eclipse.uml2.diagram.NewCompositeStructureDiagramAction"
+         name="%UMLEditor_NewDiagramMenu_CompositeStructure_label"
+         categoryId="org.eclipse.uml2.diagram.NewUMLDiagrams"/>
+   </extension>
+
+
+   <extension point="org.eclipse.ui.newWizards">
+      <category
+  	     name="%org.eclipse.uml2.diagram.NewWizardGroup"
+  	     id="org.eclipse.uml2.diagram.New">
+      </category>
+   </extension>
+   
+   <extension point="org.eclipse.ui.preferencePages">
+      <page
+            id="org.eclipse.uml2.uml.diagram"
+            name="UML2 Diagrams"
+            class="org.eclipse.uml2.diagram.common.preferences.MainPreferencePage">
+      </page>
+
+   </extension>
+      <extension point="org.eclipse.ui.menus">
+      <?gmfgen generated="false"?>
+      <menuContribution locationURI="popup:org.eclipse.gmf.runtime.diagram.ui.DiagramEditorContextMenu">
+         <command commandId="org.eclipse.uml2.diagram.TurnCommentIntoNoteAction">
+          <visibleWhen checkEnabled="true"/>
+         </command>
+      </menuContribution>
+      <menuContribution locationURI="popup:org.eclipse.gmf.runtime.diagram.ui.DiagramEditorContextMenu">
+         <command commandId="org.eclipse.uml2.diagram.TurnNoteIntoCommentAction">
+          <visibleWhen checkEnabled="true"/>
+         </command>
+      </menuContribution>
+   </extension>
+   
+   <extension point="org.eclipse.ui.commands">
+      <?gmfgen generated="false"?>
+      <category
+            description="%cmdcategory.desc"
+            id="org.eclipse.uml2.diagram.part.UMLDiagramEditorID"
+            name="%cmdcategory.name">
+      </category>
+      <command
+            categoryId="org.eclipse.uml2.diagram.part.UMLDiagramEditorID"
+            id="org.eclipse.uml2.diagram.TurnCommentIntoNoteAction"
+            name="%TurnCommentIntoNote_label">
+      </command>
+      <command
+            categoryId="org.eclipse.uml2.diagram.part.UMLDiagramEditorID"
+            id="org.eclipse.uml2.diagram.TurnNoteIntoCommentAction"
+            name="%TurnNoteIntoComment_label">
+      </command>
+   </extension>
+   
+    <extension point="org.eclipse.ui.startup">
+      <startup class="org.eclipse.uml2.diagram.common.Startup"/>
+   </extension>
+   
+   <extension
+         point="org.eclipse.emf.validation.constraintProviders">
+      <category
+            name="UML2 Tools Constraints"
+            id="org.eclipse.uml2.uml2tools.constraints"/>
+      <constraintProvider
+             cache="true"
+             mode="Batch">
+         <package namespaceUri="http://www.eclipse.org/uml2/3.0.0/UML"/>
+         <constraints categories="org.eclipse.uml2.uml2tools.constraints">
+            <constraint
+                  lang="Java"
+                  class="org.eclipse.uml2.diagram.common.validation.OCLFromStereoConstraint"
+                  severity="ERROR"
+                  mode="Batch"
+                  name="OCL Constraints from the Applied Stereotypes"
+                  id="org.eclipse.uml2.diagram.uml2tools.stereo"
+                  statusCode="1">
+               <description>
+                  Constraints defined in the applied stereotypes should be respected.
+               </description>
+               <message>
+                  A {0} violates constraint {2}, defined in {1}.
+               </message>
+            </constraint>
+         </constraints>
+      </constraintProvider>
+   </extension>
+   
+   <extension
+         point="org.eclipse.emf.validation.constraintBindings">         
+    <clientContext
+            default="false"
+            id="org.eclipse.uml2.uml2tools.constraints">
+         <enablement>
+            <test
+               property="org.eclipse.gmf.runtime.emf.core.editingDomain"
+               value="org.eclipse.uml2.diagram.clazz.EditingDomain"/>
+         </enablement>
+      </clientContext>
+      <binding
+            context="org.eclipse.uml2.uml2tools.constraints"
+            category="org.eclipse.uml2.uml2tools.constraints"/>         
+   </extension>      
+   
+</plugin>

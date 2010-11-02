@@ -1,0 +1,3303 @@
+Manifest-Version: 1.0
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-SymbolicName: org.eclipse.uml2.diagram.common;singleton:=true
+Require-Bundle: org.eclipse.core.runtime,org.eclipse.uml2.uml;visibili
+ ty:=reexport,org.eclipse.uml2.uml.edit;visibility:=reexport,org.eclip
+ se.uml2.uml.resources,org.eclipse.emf.ecore;visibility:=reexport,org.
+ eclipse.emf.ecore.edit;visibility:=reexport,org.eclipse.emf.query.ocl
+ ;visibility:=reexport,org.eclipse.emf.ocl;visibility:=reexport,org.ec
+ lipse.draw2d;visibility:=reexport,org.eclipse.gmf.runtime.diagram.ui;
+ visibility:=reexport,org.eclipse.uml2.diagram.parser;visibility:=reex
+ port,org.eclipse.gmf.runtime.emf.ui.properties,org.eclipse.ui.ide,org
+ .eclipse.uml2.diagram.common.notation;visibility:=reexport,org.eclips
+ e.gmf.runtime.diagram.ui.properties,org.eclipse.gmf.runtime.diagram.u
+ i.resources.editor;bundle-version="1.2.0",org.eclipse.ocl.uml,com.ibm
+ .icu;bundle-version="4.0.0",org.eclipse.core.expressions;bundle-versi
+ on="3.4.100"
+Bundle-Activator: org.eclipse.uml2.diagram.common.UMLCommonPlugin
+Export-Package: org.eclipse.uml2.diagram.common,
+ org.eclipse.uml2.diagram.common.actions,
+ org.eclipse.uml2.diagram.common.async,
+ org.eclipse.uml2.diagram.common.commands,
+ org.eclipse.uml2.diagram.common.compartments,
+ org.eclipse.uml2.diagram.common.constraint,
+ org.eclipse.uml2.diagram.common.conventions,
+ org.eclipse.uml2.diagram.common.details,
+ org.eclipse.uml2.diagram.common.draw2d,
+ org.eclipse.uml2.diagram.common.draw2d.decoration,
+ org.eclipse.uml2.diagram.common.editparts,
+ org.eclipse.uml2.diagram.common.editpolicies,
+ org.eclipse.uml2.diagram.common.extension,
+ org.eclipse.uml2.diagram.common.genapi,
+ org.eclipse.uml2.diagram.common.layered,
+ org.eclipse.uml2.diagram.common.links,
+ org.eclipse.uml2.diagram.common.parameter,
+ org.eclipse.uml2.diagram.common.parameter.celleditors,
+ org.eclipse.uml2.diagram.common.parser,
+ org.eclipse.uml2.diagram.common.parser.association,
+ org.eclipse.uml2.diagram.common.parser.association.end,
+ org.eclipse.uml2.diagram.common.parser.association.name,
+ org.eclipse.uml2.diagram.common.parser.events,
+ org.eclipse.uml2.diagram.common.parser.imports,
+ org.eclipse.uml2.diagram.common.parser.instance,
+ org.eclipse.uml2.diagram.common.parser.operation,
+ org.eclipse.uml2.diagram.common.parser.port;x-friends:="org.eclipse.uml2.diagram.clazz,org.eclipse.uml2.diagram.component,org.eclipse.uml2.diagram.csd",
+ org.eclipse.uml2.diagram.common.parser.property,
+ org.eclipse.uml2.diagram.common.parser.slot,
+ org.eclipse.uml2.diagram.common.parser.stereotype,
+ org.eclipse.uml2.diagram.common.parser.valuespec,
+ org.eclipse.uml2.diagram.common.part,
+ org.eclipse.uml2.diagram.common.pathmap,
+ org.eclipse.uml2.diagram.common.preferences,
+ org.eclipse.uml2.diagram.common.providers,
+ org.eclipse.uml2.diagram.common.sheet,
+ org.eclipse.uml2.diagram.common.sheet.chooser,
+ org.eclipse.uml2.diagram.common.stereo,
+ org.eclipse.uml2.diagram.common.view
+Bundle-Version: 0.9.0.v200906190654
+Bundle-ClassPath: .
+Bundle-ActivationPolicy: lazy
+Bundle-Vendor: %providerName
+Bundle-Name: %pluginName
+Bundle-ManifestVersion: 2
+
+Name: org/eclipse/uml2/diagram/common/commands/ChangeAssociationKindCo
+ mmand$SetAggregationKindRequest.class
+SHA1-Digest: LrIc7B1hVzN9G2J9wDo9L+kVNIw=
+
+Name: icons/obj16/DeploymentSpecification.gif
+SHA1-Digest: SQF03IN0Cxu7+288VQpwybOim1s=
+
+Name: icons/obj16/ElementImport.gif
+SHA1-Digest: kxnSZ48g9IZlH+fxdWekgF28Lb0=
+
+Name: icons/obj16/Stereotype.gif
+SHA1-Digest: bUkbSqAYwbqh7DD7QWbn6B3VfZI=
+
+Name: org/eclipse/uml2/diagram/common/part/CreationToolConstants.class
+SHA1-Digest: D2PVsfwyh9DF7enMmABDbxeE/Ek=
+
+Name: org/eclipse/uml2/diagram/common/part/UMLElementChooserDialog$Mod
+ elElementsTreeContentProvider.class
+SHA1-Digest: /sD/mf4VbMah1DRvXaLCwK+IBwM=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$6.class
+SHA1-Digest: H6vg3sa1JdZILoYqAWSPgF95AQQ=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/CoveredFreeformLayer$Tran
+ slatableInsets.class
+SHA1-Digest: WqWQEkNEnm8mCmJT/NPCte9yLxg=
+
+Name: org/eclipse/uml2/diagram/common/parser/property/PropertyToString
+ $VIEW.class
+SHA1-Digest: NCzPMcj4KYxLzmuIkzpYzDhEuf8=
+
+Name: org/eclipse/uml2/diagram/common/async/SynchronizeDiagramAction.c
+ lass
+SHA1-Digest: o8KVZmkDIgyzXXxgI/ikyQHKlL8=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/PileLayout$2.class
+SHA1-Digest: 7xvlwfuKmgFVYypJh3gZWSlz7bg=
+
+Name: org/eclipse/uml2/diagram/common/parser/imports/ElementImportPars
+ er.class
+SHA1-Digest: nuOAgjuwkdWszvnbyTa8n3dsAno=
+
+Name: icons/obj16/MergeNode.gif
+SHA1-Digest: yVmypvwqpC2MHQx+eRCEaR5bDRQ=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/ConstraintFigureBase.clas
+ s
+SHA1-Digest: suWSxlt5yJsba48ESPedWozdHeY=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/end/TokenMgrE
+ rror.class
+SHA1-Digest: lQyGRFf45UNVZMI5XknhIU4TMSM=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$12.class
+SHA1-Digest: 5w0loiBbVd9+RtHt04zbE/Q/5vE=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$110.class
+SHA1-Digest: 60AGTlCVYICaShUIX4i1O1KqEk0=
+
+Name: icons/obj16/DestroyLinkAction.gif
+SHA1-Digest: /5wx+v7TRY9PxIp+XyNmMlhUFe0=
+
+Name: org/eclipse/uml2/diagram/common/parser/slot/SlotLookupSuite.clas
+ s
+SHA1-Digest: 0bdG7L6hd4CHBSE/U8IQuoe8P0U=
+
+Name: icons/obj16/Message_synchCall.gif
+SHA1-Digest: 0z5JdRpqJXKMdB+99B+eW+GofKA=
+
+Name: icons/obj16/InterruptibleActivityRegion.gif
+SHA1-Digest: qwXtrKauehK0JdA+VKOOV0mg5fQ=
+
+Name: org/eclipse/uml2/diagram/common/sheet/ReferenceComboAndDialogCel
+ lEditor$1.class
+SHA1-Digest: J5u6Mu1bC2P13I1rwGFOLzJlSXk=
+
+Name: icons/obj16/InformationFlow.gif
+SHA1-Digest: PyOGWUkAgHuVCbfR2TifkvJJ/tU=
+
+Name: icons/obj16/CreationEvent.gif
+SHA1-Digest: 9HyoKwzgbZpQiIuRO+fCYXznPys=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/end/JavaCharS
+ tream.class
+SHA1-Digest: WFRIQwxAGkevu1YItILgdDK4cyg=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$40.class
+SHA1-Digest: 3GWQ1Lq4P9x1NIHpaeha2tF3vFM=
+
+Name: org/eclipse/uml2/diagram/common/sheet/TextAndDialogCellEditor.cl
+ ass
+SHA1-Digest: yxOk/yGkC7PEULXR5LvYZBmCa1o=
+
+Name: org/eclipse/uml2/diagram/common/UMLCommonPlugin.class
+SHA1-Digest: xKbsQu9KDlHYxYHRHAVmYHbdfa8=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$23.class
+SHA1-Digest: hG4Bgj0tf5tQchmmTcl7IV4O+cM=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$121.class
+SHA1-Digest: 6ZrEbqP8K6WuavWfP6W+uhqrf0Q=
+
+Name: org/eclipse/uml2/diagram/common/stereo/ApplyProfileInfoAction.cl
+ ass
+SHA1-Digest: fQ5v+ICSAA/l2d5mmZp3wm+/Z+A=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$104.class
+SHA1-Digest: BqOqm6LgeWAu2+kJLsl5D7ZAz0U=
+
+Name: icons/obj16/Substitution.gif
+SHA1-Digest: xPrX6MFEEIK2B7KaivQxwmjrA4g=
+
+Name: icons/obj16/Pseudostate_junction.gif
+SHA1-Digest: pwwGwX7F3ANFtdgKHYE7dF/ef38=
+
+Name: org/eclipse/uml2/diagram/common/links/InterfaceLinkManager.class
+SHA1-Digest: WwLhXpZadCacbG97Hql/wO/tra0=
+
+Name: org/eclipse/uml2/diagram/common/internal/stereo/AdapterImpl.clas
+ s
+SHA1-Digest: eXNUdK5YhN+n4euQDRHgW7baJpw=
+
+Name: icons/obj16/ObjectFlow.gif
+SHA1-Digest: dUGS4i5igA/caa3S1++my93rzAo=
+
+Name: org/eclipse/uml2/diagram/common/preferences/IconStylePreferenceP
+ age$ShowHideConnectorLabelGroup$1.class
+SHA1-Digest: F2nL1bV6VnK8+7k6doj4SpBTFqA=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$51.class
+SHA1-Digest: kG9YiYSQeYcHDXGrk9fov1C6HBo=
+
+Name: org/eclipse/uml2/diagram/common/async/AsyncDiagramDeleteRequest$
+ Kind.class
+SHA1-Digest: h2yBB5lObU6s1vRnxW9z9iXUJ74=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$34.class
+SHA1-Digest: P3NsHqbVbWrKrqltxHSEFF5Lzs0=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$132.class
+SHA1-Digest: yBv/JuvHiW95UWqw2Jx4W5EvQ+o=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$17.class
+SHA1-Digest: gMZhkbNU9aoS3SKbhTVc+rBGpNs=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$115.class
+SHA1-Digest: ajb9UXmByj7z/1G69RCWCsdeQhU=
+
+Name: org/eclipse/uml2/diagram/common/sheet/AppliedStereotypePropertyS
+ ectionFilter.class
+SHA1-Digest: fAq/LimwkCwvCyJ7TlP5YY2L1nE=
+
+Name: icons/obj16/Parameter_out.gif
+SHA1-Digest: SIMTeWjqYJC2DPGnCeD/RNXPatI=
+
+Name: org/eclipse/uml2/diagram/common/stereo/ApplyProfileAction.class
+SHA1-Digest: GJFHXu5avLpOwoSIzUqmcd8sr1Y=
+
+Name: org/eclipse/uml2/diagram/common/part/UMLModelWizardInitialObject
+ CreationPage.class
+SHA1-Digest: 5P2+XfM3tukJHp43Kp6oDxr0QBc=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/ElementTreeChooser
+ $ModelElementsTreeContentProvider.class
+SHA1-Digest: /9027RQ6+/yx3jzEjK+sxrGZpB0=
+
+Name: icons/obj16/StateInvariant.gif
+SHA1-Digest: q1a6bX8wrXl1/UAyrnBgOHFJXPg=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$62.class
+SHA1-Digest: 7888C40vOzXWgX8/ZNtMr06OoMc=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$160.class
+SHA1-Digest: 3CZ40LQxlbklWuJLKIrZeEYZQVY=
+
+Name: org/eclipse/uml2/diagram/common/internal/draw2d/handles/ResizeCo
+ rnerHandle.class
+SHA1-Digest: smjSrb5M0WEikAUsWpN88xAuIg0=
+
+Name: icons/minus.gif
+SHA1-Digest: YhR4u7tCkME5VBOKZc72qDjcRwk=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$45.class
+SHA1-Digest: 0pWoQDTg8r31GPlJgIlRSn29AdM=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$143.class
+SHA1-Digest: OAXnBAbVZ43NdXP8r8TvHixxGf4=
+
+Name: org/eclipse/uml2/diagram/common/parser/operation/OperationParser
+ TokenManager.class
+SHA1-Digest: 5/biXTmyNRF71N/VaiRwL2Jwg+c=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$28.class
+SHA1-Digest: k9tiZkzGQbVCv4rX3bYU0MVJuz0=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$126.class
+SHA1-Digest: NNGSacTKL8z2ox2oBvLVSJKyHKE=
+
+Name: icons/obj16/Connector.gif
+SHA1-Digest: 3dPgVNtGNhwkX1eSSzkqs/PGrK0=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$109.class
+SHA1-Digest: SEekiLln6SEJ1MSR6vp4eRAXl7E=
+
+Name: icons/obj16/SignalEvent.gif
+SHA1-Digest: aYO/11CACKZFipPvSSWPRgIVpxw=
+
+Name: icons/obj16/TestIdentityAction.gif
+SHA1-Digest: seh6vTrn/DeeW/4iLkL5Z6T+QsQ=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$90.class
+SHA1-Digest: yO3zVbe0GGP3FQ+dgQb1270LWKQ=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/NameAndStereotypeBlock.cl
+ ass
+SHA1-Digest: 9b4nXW42QOTbUyf6LpOgp2ljyuA=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/end/Associati
+ onEndParser.class
+SHA1-Digest: iACDWCXQVDuA4DCTghUM3RhxpvE=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/AbstractPostCreateC
+ ommand.class
+SHA1-Digest: ABUcQKMm8DuL+gRuLhcS3BFR2F8=
+
+Name: org/eclipse/uml2/diagram/common/internal/draw2d/handles/ResizeFr
+ ameSideHandle.class
+SHA1-Digest: 5u/iNX0LOnQSRzx1oTmtTjSgwBM=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$73.class
+SHA1-Digest: cJxN/sIRIkYdvHfCEYdpPL/G8Os=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$171.class
+SHA1-Digest: zXo9s886OVbXLzf3cEPvMS3ZxUs=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/name/JavaChar
+ Stream.class
+SHA1-Digest: aFO1L+fU1FD2H/kma8jHJJTAT5c=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$56.class
+SHA1-Digest: IZopG/f2AbEzUIB7ITGNyBieqms=
+
+Name: org/eclipse/uml2/diagram/common/actions/ConvertCommentIntoNoteAc
+ tion$CreateNoteCommand.class
+SHA1-Digest: HSsmWPid20dRBHhnYzQ+k4VNPkU=
+
+Name: icons/obj16/Transition.gif
+SHA1-Digest: a3ixlYVeFk20BatBgrlL/Qp6wb4=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$154.class
+SHA1-Digest: RORQQuslJvQ55y959OiEOY56aUY=
+
+Name: org/eclipse/uml2/diagram/common/parser/operation/operation.jj
+SHA1-Digest: GAnaIHd+3U/MRR0r6RqvvEJG7dM=
+
+Name: icons/obj16/ReadSelfAction.gif
+SHA1-Digest: 3nn0bqes1SJNNWREdYl/75uBU4w=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$39.class
+SHA1-Digest: 9gYk5ivZgmkbtdA5rezSvZt+kVc=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/end/Associati
+ onEndToString.class
+SHA1-Digest: XE25dEudpJU0AUqNw4w82SPOQ9o=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$137.class
+SHA1-Digest: WMug0AV2jgHaO2cYObSKWb2+d+8=
+
+Name: icons/obj16/ConsiderIgnoreFragment.gif
+SHA1-Digest: 5awwc9J1kVxE/Z0JGayGFCNOH0U=
+
+Name: org/eclipse/uml2/diagram/common/layered/MultilayeredSupport.clas
+ s
+SHA1-Digest: n8ZPymo6nyzVfKZOnA0+g6WweR4=
+
+Name: org/eclipse/uml2/diagram/common/parser/operation/OperationToStri
+ ng$VIEW$1.class
+SHA1-Digest: /Y0KcwCtwj50h4H8B2z22TGg7Gk=
+
+Name: org/eclipse/uml2/diagram/common/parameter/EditPropertyParameters
+ Command.class
+SHA1-Digest: kppmPzxCrCRgLQ/886+2s93+c8Q=
+
+Name: org/eclipse/uml2/diagram/common/parameter/ParametersCellModifier
+ .class
+SHA1-Digest: g2NHQBf01R0klljDkNZtSpqAM3k=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/decoration/AssemblyConnec
+ torEndDecoration.class
+SHA1-Digest: akKbAvCLm5sKCjm/2VDhciVvAEw=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/MultiReferenceElem
+ entChooserDialog$3.class
+SHA1-Digest: ma6CKASO0UgJvb57iXnoI6Lgwcg=
+
+Name: icons/obj16/ClearStructuralFeatureAction.gif
+SHA1-Digest: XBv8ptn4ABJqMizrN2hRJiMPt9s=
+
+Name: org/eclipse/uml2/diagram/common/parameter/celleditors/PositiveIn
+ tegerCellEditor.class
+SHA1-Digest: eJDwCHX3LjAT+/3C/9Vs0j20w7g=
+
+Name: icons/obj16/ReadStructuralFeatureAction.gif
+SHA1-Digest: w3gjsMvqvTwKcjguSGKxHKpUZeA=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/MultilineConstraintFigure
+ .class
+SHA1-Digest: 3QrCPOP/R8pa5icsP364Cn8wtYg=
+
+Name: icons/obj16/Pseudostate_fork.gif
+SHA1-Digest: N+GnG4Al+eIEYfxfGr58TmqeF98=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$84.class
+SHA1-Digest: q/K5gJJYq4nhzWbHuLCEcnakEVw=
+
+Name: icons/obj16/Lifeline.gif
+SHA1-Digest: 0zkgMs5IlJSS8oU6bdqt8YJsDGo=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$182.class
+SHA1-Digest: 7KMnqG463S/7Fg+6jNsQT5o9Lro=
+
+Name: icons/obj16/Association.gif
+SHA1-Digest: QIBoS7Es4QQ3CA/ImubRj0HrxLw=
+
+Name: icons/obj16/AnyReceiveEvent.gif
+SHA1-Digest: gehduTVIR/8cXwC+8umfPleki1w=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$67.class
+SHA1-Digest: Fn2iETx7G6LnEBmSY5UEFgvRykU=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/name/Token.cl
+ ass
+SHA1-Digest: tM/U11lZnVicr+yGzDXXX/3MuZI=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$165.class
+SHA1-Digest: OZQpJR41zWs42aLAWe62eFgMm+o=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$148.class
+SHA1-Digest: OkZI1oMYeVD/PWUVs9d/tGdd6Jo=
+
+Name: icons/obj16/PackageImport.gif
+SHA1-Digest: PJHw6NLQwpSWBYySuZCBeDI9YL4=
+
+Name: org/eclipse/uml2/diagram/common/sheet/UML2ToolsPropertyFilter.cl
+ ass
+SHA1-Digest: zPEkNYQ0ejtLl7DXvWV/y6U0j+o=
+
+Name: icons/obj16/DecisionNode.gif
+SHA1-Digest: VkxRLtySuysm+uDIb5HDA/fJnzY=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/AssociationIn
+ stanceParser$ROLE_PARSER$1.class
+SHA1-Digest: amSsSpGOcIP0fl1mJfizkw8uF9U=
+
+Name: icons/obj16/InteractionConstraint.gif
+SHA1-Digest: 9WVGLTyKG7ut8SBug85MVwgohGU=
+
+Name: icons/obj16/Node.gif
+SHA1-Digest: Zz7dfpHnQzgMxZ6GeWVmcyBU+1w=
+
+Name: org/eclipse/uml2/diagram/common/links/ConnectionRoutingHelper.cl
+ ass
+SHA1-Digest: ij0UmzCHv9b2phMqBTLgkFeuIIg=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/SimpleLabelDelegate.class
+SHA1-Digest: +q+WqKRyIQBQaxC7HkUyPr6I5Cw=
+
+Name: icons/obj16/DestructionEvent.gif
+SHA1-Digest: JXH3IIKuF6hz6CwPY1ewL9UroXQ=
+
+Name: icons/obj16/ReadVariableAction.gif
+SHA1-Digest: cqr+ZC8ye9SgbNnA11aQbXyIkB4=
+
+Name: icons/obj16/StringExpression.gif
+SHA1-Digest: 1N2nxlDd/Bqadra/vsm5VKIcxcs=
+
+Name: icons/obj16/CreateLinkObjectAction.gif
+SHA1-Digest: 7SOmlYEhPdhIfqESktJe6s/qOc0=
+
+Name: org/eclipse/uml2/diagram/common/parser/port/TokenMgrError.class
+SHA1-Digest: VknZ1LmqovI1PKcfXCBAG3uZ964=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$95.class
+SHA1-Digest: 1/zo//NCCjvFC/cBzH/EMIWpeK0=
+
+Name: org/eclipse/uml2/diagram/common/actions/ChangeNotationAction.cla
+ ss
+SHA1-Digest: kxrQjXBkSQD/YsPtSaog1On8eD8=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$193.class
+SHA1-Digest: 4ak+yxikct2EjSLTqzBQBLNdABQ=
+
+Name: org/eclipse/uml2/diagram/common/internal/stereo/PackageStereotyp
+ eAdapter.class
+SHA1-Digest: db6ibFm2xgPca6KAqTqKQqxwvb4=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$78.class
+SHA1-Digest: m/qCsKjHFsXTTmgWdprl5u12ZZo=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$176.class
+SHA1-Digest: AwvJpv8u3AgtbOBsBO93ltO7F3g=
+
+Name: org/eclipse/uml2/diagram/common/parameter/celleditors/TypeDialog
+ CellEditor.class
+SHA1-Digest: JfLgpu7H+eWp8DgFe8jrjyUt2Dg=
+
+Name: icons/obj16/OpaqueExpression.gif
+SHA1-Digest: J7dHlCRZcfGhGRsMhlQHETsj2/w=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/AssociationIn
+ stanceParser$1.class
+SHA1-Digest: IuOURAAMK3VmsnV8q9cfBBDREZ8=
+
+Name: org/eclipse/uml2/diagram/common/part/LinkToolEntry.class
+SHA1-Digest: PqHNhinep6Gp1Tk365tAj2XmC90=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$159.class
+SHA1-Digest: 0fHeEgfhh90sfl/sTtG2YTLGArE=
+
+Name: org/eclipse/uml2/diagram/common/actions/UMLDiagramAction.class
+SHA1-Digest: w+taV+JUp+ybFnM3Ql5ty6daJQk=
+
+Name: org/eclipse/uml2/diagram/common/stereo/StereotypeOperationsEx$St
+ ereotypeImageDescriptor.class
+SHA1-Digest: tJCAh2YWxhZFDjpOwFZUlpU9a3w=
+
+Name: org/eclipse/uml2/diagram/common/parser/operation/OperationParser
+ Constants.class
+SHA1-Digest: 3Kp3WKEdYL3xA7DmnVqKy2YBnKg=
+
+Name: icons/obj16/CentralBufferNode.gif
+SHA1-Digest: BnomSm8U+34ccxJV7JsBmifuj0w=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/SplitEllipseLayout.class
+SHA1-Digest: SI7am/Oo9yOc3pbGUPh4fsQLwwY=
+
+Name: org/eclipse/uml2/diagram/common/async/NewDiagramSyncHelper$1.cla
+ ss
+SHA1-Digest: nwu2RpnYT8gf7yFLmITWxumcPa0=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$89.class
+SHA1-Digest: 4U5V7Mxjl1w4wckneWdZBVOR8MU=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$187.class
+SHA1-Digest: VJR7DYkCdUgt8I+AAYcH3igdh1Y=
+
+Name: icons/obj16/Association_none.gif
+SHA1-Digest: QIBoS7Es4QQ3CA/ImubRj0HrxLw=
+
+Name: org/eclipse/uml2/diagram/common/commands/ApplyOrUnapplyStereotyp
+ eCommand$ApplyOrUnapplyStereotypeRequest.class
+SHA1-Digest: 9HRQRKql7aRIr8eKm2c7GbrWaEo=
+
+Name: icons/obj16/LinkEndData.gif
+SHA1-Digest: tH++tfgH05iOLDPloiLs5S5efZQ=
+
+Name: icons/obj16/ReduceAction.gif
+SHA1-Digest: hX293EyJV35jBknY0ATNVlbXdQI=
+
+Name: org/eclipse/uml2/diagram/common/parameter/EditPropertyParameters
+ Dialog$4.class
+SHA1-Digest: RyAnw1vN5AzyzmNM5L3H9/JLZR4=
+
+Name: icons/obj16/PartDecomposition.gif
+SHA1-Digest: TOHwuWnsH1cUsw0OzDyU0ZXRbzg=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/decoration/EllipseDecorat
+ ion.class
+SHA1-Digest: E0bShDIEdynwPOnKsrMMXeVdo5o=
+
+Name: org/eclipse/uml2/diagram/common/sheet/AssociationPropertySection
+ $AssociationPropertySectionFilter.class
+SHA1-Digest: qFfhEEj9Xcx0/YgKY6olyn5l+cM=
+
+Name: icons/obj16/TemplateSignature.gif
+SHA1-Digest: TIFbzG7dTaSsEcWW7yFI6WTXlSs=
+
+Name: org/eclipse/uml2/diagram/common/parser/port/ParseException.class
+SHA1-Digest: Jnj8NFsuT644e1zEA9ZnS1Rc78w=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/MultiReferenceElem
+ entChooserDialog.class
+SHA1-Digest: R5RbuHKQkzkWG5yZIwIpTA9gMro=
+
+Name: org/eclipse/uml2/diagram/common/compartments/U2TCompartmentFigur
+ e$CenteredLine.class
+SHA1-Digest: CmJMUKZkowjgFimcaNsKTa9nZno=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$198.class
+SHA1-Digest: 7NS/s4GqfsZqQfbp8mRWbFSvlyA=
+
+Name: icons/obj16/InitialNode.gif
+SHA1-Digest: Zz7dfpHnQzgMxZ6GeWVmcyBU+1w=
+
+Name: org/eclipse/uml2/diagram/common/actions/ConvertNoteToCommentActi
+ on.class
+SHA1-Digest: r7+dbm1Tg0qOsS1gp+oNsWtVlrI=
+
+Name: org/eclipse/uml2/diagram/common/parser/property/TokenMgrError.cl
+ ass
+SHA1-Digest: c82HZhZNgHRPF1JAnLJ89B+2jao=
+
+Name: icons/obj16/QualifierValue.gif
+SHA1-Digest: sfmdM2yb2axhWOH3ZtKMx5OkwlE=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/ElementChooserPage
+ .class
+SHA1-Digest: MJGL+oFqt2h3kVucAqVBjBOIBcU=
+
+Name: org/eclipse/uml2/diagram/common/async/SyncModelNode$1.class
+SHA1-Digest: pLd2bRATdANvVP28fwVIlOuPJCc=
+
+Name: icons/obj16/Component.gif
+SHA1-Digest: /cYFwVuQBL7atbzaz4p5CnZMy4g=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/TabbedElementChoos
+ er$1.class
+SHA1-Digest: Mt/BEjd+Pvm4D0jDizGjHHfwqOE=
+
+Name: org/eclipse/uml2/diagram/common/parameter/celleditors/TypeDialog
+ CellEditor$ReferencedElementChooserDialogEx.class
+SHA1-Digest: w+leentaC8XMofAzWCGNgMQnuJE=
+
+Name: org/eclipse/uml2/diagram/common/genapi/IUpdaterNodeDescriptor.cl
+ ass
+SHA1-Digest: pPBJOgwKrfXZ23L9Rpor9IUCta4=
+
+Name: org/eclipse/uml2/diagram/common/sheet/ConstraintSpecificationTab
+ $PropertySectionFilter.class
+SHA1-Digest: 0v94j/kL4Iwbxz3FwUhjPj02DH0=
+
+Name: org/eclipse/uml2/diagram/common/sheet/TextAndDialogCellEditor$1.
+ class
+SHA1-Digest: +bYIxOo/UZOTP44N6YtSdvDbIiE=
+
+Name: icons/obj16/IntervalConstraint.gif
+SHA1-Digest: oVdKA6sZZZzAHhYz4eVYzyRU+MA=
+
+Name: org/eclipse/uml2/diagram/common/parameter/EditPropertyParameters
+ Dialog$SetValueToSpecification.class
+SHA1-Digest: 4VDsoz6AQ8Q3rcE8BcXFELhqTLs=
+
+Name: org/eclipse/uml2/diagram/common/parameter/celleditors/TypeDialog
+ CellEditor$ReferencedElementChooserDialogEx$1.class
+SHA1-Digest: +ut/Vynlis0Zf2JU6gNxxg59zqc=
+
+Name: org/eclipse/uml2/diagram/common/parser/valuespec/ValueSpecificat
+ ionParser.class
+SHA1-Digest: 8O7UKHIQw18i2MVNdmTaYOGzwxQ=
+
+Name: org/eclipse/uml2/diagram/common/parser/property/PropertyParserTo
+ kenManager.class
+SHA1-Digest: sXC+QfF43ZJrPqT1pP68x5bRL/s=
+
+Name: org/eclipse/uml2/diagram/common/parser/port/PortParser$Lookahead
+ Success.class
+SHA1-Digest: vZ5FwckKRZgIqHel9OKXcohP3bc=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/U2TResizableShapeEd
+ itPolicy.class
+SHA1-Digest: Zz+mHywFBM1pAOWxShY7NDAfNHE=
+
+Name: icons/obj16/AddVariableValueAction.gif
+SHA1-Digest: qE3mPzTPwBOdicAYQRomB5kPhz4=
+
+Name: icons/obj16/ProtocolTransition.gif
+SHA1-Digest: vsxqbWHQhiZfao6rfMG2zHpmgIQ=
+
+Name: org/eclipse/uml2/diagram/common/preferences/IconStylePreferenceP
+ age.class
+SHA1-Digest: 6EZZ7nqEIjIXFo+o4TePcb4Hrdk=
+
+Name: org/eclipse/uml2/diagram/common/async/SynchronizeDiagramAction$1
+ .class
+SHA1-Digest: D9al8H50Vnb2hrXgbEdOscHe944=
+
+Name: org/eclipse/uml2/diagram/common/async/SyncModelContext$1.class
+SHA1-Digest: THKIjFE/ALlqw6Xk8lOcaxney9c=
+
+Name: org/eclipse/uml2/diagram/common/parser/imports/ElementImportPars
+ er$CompletionProcessor.class
+SHA1-Digest: EV/FV1fEnP2rBum8Noy5EIuYtE8=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/TabbedElementChoos
+ er$FeatureValueValidator.class
+SHA1-Digest: FtIpNiHPvGV+JFLCdKZxV9jUJTw=
+
+Name: icons/obj16/Include.gif
+SHA1-Digest: IfvtNUU76BgnDMSWqY8HEEWqIYQ=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/UpdateDescriptionEd
+ itPolicy$1.class
+SHA1-Digest: rKGs9OldIV7F3IBS2RRBTvzY/84=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/ConfigurableFilter
+ Matcher.class
+SHA1-Digest: SnvddpwjtzAPuW8eTtZf9CuWxps=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/ElementTreeChooser
+ $ModelElementsTreeLabelProvider.class
+SHA1-Digest: ltRi44FZy3VXFPdKsOVrF7Ao5nY=
+
+Name: icons/obj16/CallOperationAction.gif
+SHA1-Digest: 3pGfrnwOoAJqfm6vsTmNBhq8XJI=
+
+Name: icons/obj16/TimeInterval.gif
+SHA1-Digest: hD9tYl5kRSYPCzrB0DPAVXAouLA=
+
+Name: org/eclipse/uml2/diagram/common/parser/events/EventParserUtil.cl
+ ass
+SHA1-Digest: GHN74LLKFSe/Iu3nrZptwUx7QEU=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$4.class
+SHA1-Digest: ncGN/UmUkD1FZRK49y8kOrR7M+I=
+
+Name: org/eclipse/uml2/diagram/common/actions/GMFValidateAction.class
+SHA1-Digest: qW/JimIAUmy2i3MINbMfYrG/K0s=
+
+Name: org/eclipse/uml2/diagram/common/parser/port/PortToString.class
+SHA1-Digest: mpb3wfpe14A+1kuKU+RRgmIIFUU=
+
+Name: org/eclipse/uml2/diagram/common/parser/events/EventParserUtil$1.
+ class
+SHA1-Digest: 0bWY33yBFcVcfReKu5K2wOudzlA=
+
+Name: org/eclipse/uml2/diagram/common/sheet/TextAndDialogCellEditor$6.
+ class
+SHA1-Digest: o9dYXiSN04UyWb1VIKItKNOUT4I=
+
+Name: org/eclipse/uml2/diagram/common/part/ModelElementsContentHelper.
+ class
+SHA1-Digest: DyAGsaf1cIV2vjWnXLZkc/Rx3d0=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/LaneLayoutEditPolic
+ y.class
+SHA1-Digest: 9C5LKBFMUhLI0fsw8DjG6HLjPqI=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$10.class
+SHA1-Digest: MO4r1j6QDpGsxsaLwB4CrrClxR0=
+
+Name: org/eclipse/uml2/diagram/common/parser/valuespec/ValueSpecificat
+ ionParser$1.class
+SHA1-Digest: HXk5WpZ6rRyVQ8Ri2E+aN4afq4s=
+
+Name: org/eclipse/uml2/diagram/common/async/SynchronizeDiagramDialog.c
+ lass
+SHA1-Digest: Ppqnp3fUO8X5SQoOpJEEU6nBBjE=
+
+Name: org/eclipse/uml2/diagram/common/parser/valuespec/ConstraintLangu
+ ageParser$1.class
+SHA1-Digest: pyGdK6TWWNdViBO2KVSnL2kBvFs=
+
+Name: org/eclipse/uml2/diagram/common/parser/property/JavaCharStream.c
+ lass
+SHA1-Digest: FGVBOhVHcMpytixGQOZKx3HZPI8=
+
+Name: icons/obj16/TemplateParameterSubstitution.gif
+SHA1-Digest: ZV6Y297gKTNVh6LuxH81vGQeNfc=
+
+Name: org/eclipse/uml2/diagram/common/sheet/ReferenceComboAndDialogCel
+ lEditor.class
+SHA1-Digest: PgL14E6GQhqdgrMwbIbuED0QxW4=
+
+Name: org/eclipse/uml2/diagram/common/async/SyncModelLabelProvider.cla
+ ss
+SHA1-Digest: i6uAT8P+G7lhGJNbGoJVvfRJ5OY=
+
+Name: org/eclipse/uml2/diagram/common/sheet/UMLStereotypePropertySecti
+ on$UMLStereotypePropertySource.class
+SHA1-Digest: ScXbZuxEszXt7XUloOlc0LaKIcs=
+
+Name: org/eclipse/uml2/diagram/common/async/ICanonicalHelper.class
+SHA1-Digest: D5k832WCwalt+mFuKZS6J9CucdQ=
+
+Name: icons/obj16/Transition_external.gif
+SHA1-Digest: 5pA5UDMpsgIA5m9qaEN1Jcgfsh4=
+
+Name: org/eclipse/uml2/diagram/common/async/SwitchSyncModeCommand.clas
+ s
+SHA1-Digest: wUcnvYdoWj0ovLMMupjRtdv0IGQ=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/end/Associati
+ onEndToString$EDIT.class
+SHA1-Digest: MYtzVn46peK8quHUxPONVwTDcHM=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/UMLContainmentFilt
+ er.class
+SHA1-Digest: Nq4ZIUCmnhs18FssqXRlhK0Gg2s=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$21.class
+SHA1-Digest: zYN+M0wsdxPKycIHaLItlwk2IAI=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/decoration/CompositeDecor
+ ation.class
+SHA1-Digest: wl9aBQXruygEZa2eH3gTFhUbmFY=
+
+Name: icons/obj16/CombinedFragment.gif
+SHA1-Digest: zsVqLnbvg189AajhTxTrp26Wjr8=
+
+Name: icons/obj16/AssociationClass.gif
+SHA1-Digest: +X+eceGozC/zCPKc7kzmJcVazmY=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$102.class
+SHA1-Digest: FPbrMrcSFEA6b8veCtY9z8wUHek=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$9.class
+SHA1-Digest: pS2dhY3BvI1xjsTUUReRBePD9hE=
+
+Name: icons/obj16/Interaction.gif
+SHA1-Digest: kTkzoNcHMp4iHQkYLVOMa2J0mzg=
+
+Name: org/eclipse/uml2/diagram/common/parser/instance/InstanceSpecific
+ ationParserConstants.class
+SHA1-Digest: ju5F2vSSU8O2fIOcqV/NvAN3RAA=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/PileLayout$5.class
+SHA1-Digest: 70dlGDaQjXpEU8NDq82cOHrTnSM=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/end/associati
+ on-end.jj
+SHA1-Digest: zYISmkM+l3gSV3MzH41jfz9tvu4=
+
+Name: org/eclipse/uml2/diagram/common/parser/slot/TokenMgrError.class
+SHA1-Digest: NEJvztKAFTGSa4FWeNPnjx23sjM=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/end/ParseExce
+ ption.class
+SHA1-Digest: WBNr7KyN0zM9AFoBhOSzHSj+Bq4=
+
+Name: icons/obj16/ExtensionPoint.gif
+SHA1-Digest: qPRwoV2xulKhBj2IueT2Q/z1sco=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/FillingBorderLayout.class
+SHA1-Digest: Lop6ItS4doIA7yUBwzpc6pxIDuE=
+
+Name: org/eclipse/uml2/diagram/common/part/NodeToolEntry.class
+SHA1-Digest: UlcTGpcUsWG3BiRAZIkAxLfTxH4=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$32.class
+SHA1-Digest: ZypF8Sz0OknsNlTOTta1/X0XUUM=
+
+Name: icons/obj16/OpaqueBehavior.gif
+SHA1-Digest: i+Wua/EKzICdxLvtGxyOvBVKQmQ=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$130.class
+SHA1-Digest: 6DFIDS4cjhNBYrwwJS/8u+25AjQ=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/PackageFrameFigure$Pentag
+ on.class
+SHA1-Digest: 5ac9592R8e06TIUHJOhf3VmtUbg=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$15.class
+SHA1-Digest: KJLYZ8X52c+NxFoE6tSVRqqdRdU=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$113.class
+SHA1-Digest: 3UFp/KDaSRRMO7WSsAdZSW6AMUQ=
+
+Name: icons/obj16/Parameter.gif
+SHA1-Digest: MgNW09Kioc1+dcpI66msS8BLlIg=
+
+Name: org/eclipse/uml2/diagram/common/commands/RefreshLabelsCommand.cl
+ ass
+SHA1-Digest: LTmImLTdjNF0p0wr7wZ92FzbqYI=
+
+Name: icons/obj16/ClassifierTemplateParameter.gif
+SHA1-Digest: 0e2NayUmw/RsCqylHJ/3YXAu0QI=
+
+Name: org/eclipse/uml2/diagram/common/parser/slot/SlotParserTokenManag
+ er.class
+SHA1-Digest: tHQUidMXNHjQ5GlUb5N/xkw4i+8=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$60.class
+SHA1-Digest: mD7EDtc5soPd6UFTrneImY9nl6Q=
+
+Name: org/eclipse/uml2/diagram/common/parser/instance/Token.class
+SHA1-Digest: 1+Lp6zyGkmklPD3LaXfaaVP7+uw=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$43.class
+SHA1-Digest: SMj/nUFJ76OVl39WXO+FtixxuNM=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$141.class
+SHA1-Digest: SWHc8L1YWsOoG1Rn2xAhSVvMzt4=
+
+Name: icons/obj16/Package.gif
+SHA1-Digest: 5FVgD0Q2TU3SBdVA/rOVY+p8hrk=
+
+Name: icons/obj16/OpaqueAction.gif
+SHA1-Digest: gz6KMoQ5uGsvPk0o7c1USmwQdoM=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$26.class
+SHA1-Digest: zo42RMQEoxTG+t7jV+/4HBU3fZs=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$124.class
+SHA1-Digest: NwJD9FE+jRlbnQhYrkTtvgzlbPs=
+
+Name: org/eclipse/uml2/diagram/common/internal/stereo/PackageStereotyp
+ eAdapter$StereotypeApplicationAdapter.class
+SHA1-Digest: +9SJYn/SnYmcLoQKTCZjrA1DgZQ=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$107.class
+SHA1-Digest: AX0k48E3dsfYYaFHAtVIJkN2jAM=
+
+Name: icons/obj16/Reception.gif
+SHA1-Digest: FH8uhD+7/D3p/rlbe4a85/9Gzig=
+
+Name: icons/obj16/Interval.gif
+SHA1-Digest: OXZPIXdrHBQrhDNxaAEcCuCXqtY=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/FilteredListContro
+ l.class
+SHA1-Digest: IuaxZXDyxqIomGWLtapP0RiAQSg=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/PackageFrameFigure.class
+SHA1-Digest: nkoMepawpcBYvgMQJOAvs3SFL28=
+
+Name: org/eclipse/uml2/diagram/common/pathmap/PlatformResourcePathMapR
+ esolver.class
+SHA1-Digest: DxS92a/ZP1+le5kn/NyeSMCrzEI=
+
+Name: org/eclipse/uml2/diagram/common/parser/instance/instance.jj
+SHA1-Digest: OuwFn+6Rd9/80y1hAeo0xYy9hSQ=
+
+Name: org/eclipse/uml2/diagram/common/parser/property/property.jj
+SHA1-Digest: JM95PlQXjW9nmQ7XtT8QALmgJRU=
+
+Name: org/eclipse/uml2/diagram/common/pathmap/ArchivePathMapResolver.c
+ lass
+SHA1-Digest: B/+YqqJ10vZbJ2CE5EC357uQGEA=
+
+Name: org/eclipse/uml2/diagram/common/async/SyncModelContext.class
+SHA1-Digest: 9F9fXMSbDrchAB0la7R1lccz/Gc=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$71.class
+SHA1-Digest: CPbRKDXItwXkfkd88CrmX5LhY2g=
+
+Name: icons/obj16/ConnectorEnd.gif
+SHA1-Digest: aeEtYaBQX15WLTV3f8KJOt4p7LY=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$54.class
+SHA1-Digest: JHYE/ztQ6uB4tDVSVqr3AyzuBm4=
+
+Name: org/eclipse/uml2/diagram/common/parser/property/PropertyParserCo
+ nstants.class
+SHA1-Digest: 4bJ0E0TrlBcsnLuEtY6THdQP9hk=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$152.class
+SHA1-Digest: sk+6VCYU5nNkLpG3g1TPH4+jhS0=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$37.class
+SHA1-Digest: bm9XK7gVcdMp7WeKp6VPrXoHGVA=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$135.class
+SHA1-Digest: IjS60q+bfr5CZu2jERwR4pf3+4k=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$118.class
+SHA1-Digest: 5JjMhKH5e3BR605VuNUpAqGIcOw=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/U2TCreateParameters
+ .class
+SHA1-Digest: ZRWbVKoNnWxFYV/NKFqploOLyu8=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/MultiReferenceElem
+ entChooserDialog$1.class
+SHA1-Digest: GEzpUqtvzcSB5STJRR1gQjFIbNg=
+
+Name: org/eclipse/uml2/diagram/common/sheet/ReferencePropertyDescripto
+ r.class
+SHA1-Digest: rKt/vuBFIh+sXTRUdC6fAEwYw8k=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/CreationEditPolicyW
+ ithCustomReparent.class
+SHA1-Digest: P9jmb5GxncqrlKXxkiYxARFfpXQ=
+
+Name: icons/obj16/ProfileApplication.gif
+SHA1-Digest: nvnfxxy7uovrT0TsVTBt5iW6VTs=
+
+Name: icons/obj16/EnumerationLiteral.gif
+SHA1-Digest: kbnlAEGca7DuU2p5vVQiWA1mOPY=
+
+Name: icons/obj16/Message_asynchSignal.gif
+SHA1-Digest: f6LjVbFdztYFl4BDWZYjGoYMHYk=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$82.class
+SHA1-Digest: tNiMwcjqsnc6vyaYuuonw0tZoYA=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/name/Associat
+ ionNameToString$VIEW.class
+SHA1-Digest: nsALxxKVNZRpiyvKNDEohWYlEhU=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$180.class
+SHA1-Digest: Y6odq3TrP69gW6oo51VeFueIPUA=
+
+Name: org/eclipse/uml2/diagram/common/parser/operation/OperationToStri
+ ng.class
+SHA1-Digest: ytZjHtixxiDi6ZQO5FflaslQ1+Y=
+
+Name: org/eclipse/uml2/diagram/common/actions/ValidateContributionItem
+ Provider.class
+SHA1-Digest: sxby+oAeU0xLTv4s3NjsqTbowZ8=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$65.class
+SHA1-Digest: 3Z9Kqc5pkJOJhFouMHykJg2g0HI=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$163.class
+SHA1-Digest: mH8jtHcCt2b2rfEwWpt5HAaJxDc=
+
+Name: org/eclipse/uml2/diagram/common/parser/instance/InstanceSpecific
+ ationParser$JJCalls.class
+SHA1-Digest: Yq+GzmpeNybBtDtqN7RNvLZz478=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$48.class
+SHA1-Digest: sgzioeEcWP3tSr6AH/z5CJeDNxo=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/name/ParseExc
+ eption.class
+SHA1-Digest: Dyb7urYxWvd/vgbUaGAZiYQX9Fg=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$146.class
+SHA1-Digest: gAbQKjLljVhkpD4Ec0s+MADf1iY=
+
+Name: icons/obj16/ExceptionHandler.gif
+SHA1-Digest: Gc7F/TqQfHkQMxNDvIdwUUErB1k=
+
+Name: icons/obj16/Generalization.gif
+SHA1-Digest: DaIidOBxfUSoo3uP7uju35nslLY=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$129.class
+SHA1-Digest: gWAEVtzNJBNzoaWfTZJAwZahK5Q=
+
+Name: org/eclipse/uml2/diagram/common/actions/ConvertCommentCommandBas
+ e$Config.class
+SHA1-Digest: TXzLvo88H1IEotE/lI5+r1EEvIA=
+
+Name: icons/obj16/CommunicationPath.gif
+SHA1-Digest: 0/sSyx5tpd71lPKoGlruwBalrJw=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$93.class
+SHA1-Digest: Ux+eaqu4fgiw2+O65FT3CnMEu2w=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$191.class
+SHA1-Digest: dLSMUComceBSVnmaqyxO+dMfYss=
+
+Name: org/eclipse/uml2/diagram/common/compartments/U2TResizableCompart
+ mentEditPolicy$U2TCollapseHandle$CollapsingLabel.class
+SHA1-Digest: 9l8KIAekHH7XrkpeNeAiM6MVmJY=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$76.class
+SHA1-Digest: gww+qdjIo7CGDLSHELOS7eVWqcc=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/FilteredListContro
+ l$1.class
+SHA1-Digest: ulKJzFWaApIluKF5mNJqQEasSjg=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$174.class
+SHA1-Digest: NTux0xVX8NNPUHpTsDl+LVDzYS0=
+
+Name: icons/obj16/Message_deleteMessage.gif
+SHA1-Digest: o2ZIBPhTRFxmTlzl6QPG6j3FrYU=
+
+Name: org/eclipse/uml2/diagram/common/stereo/ApplyProfileInfoAction$Ap
+ plyProfileInfoCommand.class
+SHA1-Digest: SQDiah+PGUIq86gwbOYpcaO8m84=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$59.class
+SHA1-Digest: yQT9VJnKKc/Sbnsf9T1IDlwWdow=
+
+Name: icons/obj16/ConditionalNode.gif
+SHA1-Digest: YzS6gmv39HeA0+lhAKx13jLe8Zw=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$157.class
+SHA1-Digest: xv9Kes/HrUDK2BrSiv/pBAOFfAE=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/end/Associati
+ onEndParserConstants.class
+SHA1-Digest: KFKSnKlAxrjvEJUkjOLq4Kn3TDk=
+
+Name: icons/obj16/StructuredActivityNode.gif
+SHA1-Digest: ARjOTaHqce9rppe7IjN58XvrPa8=
+
+Name: icons/obj16/Message_reply.gif
+SHA1-Digest: isNT27PdxUXoe5gknGDggOuu1bc=
+
+Name: icons/obj16/OccurrenceSpecification.gif
+SHA1-Digest: O5l16U94nRioimSY0yxmKlwHCsY=
+
+Name: icons/obj16/Message_createMessage.gif
+SHA1-Digest: p5rPZGeIevIR7eda+vD4DVd9PHc=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/MultiReferenceElem
+ entChooserDialog$6.class
+SHA1-Digest: Q13KP62wciFAd4lXy3tO9iW47eA=
+
+Name: icons/obj16/Trigger.gif
+SHA1-Digest: s4NnnDkdjUPALiGvyKaw4jaDcts=
+
+Name: org/eclipse/uml2/diagram/common/part/UMLElementChooserDialog$Mod
+ elElementsTreeLabelProvider.class
+SHA1-Digest: f5HrnaVRxzk9kL+pop5xAzASJ7c=
+
+Name: icons/obj16/ReplyAction.gif
+SHA1-Digest: TH5q22gbXwmBGeCIs6DNoUueNJ8=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/U2TGraphicalNodeEdi
+ tPolicy.class
+SHA1-Digest: WlPaCVLrOUXVpNl2HMkX7HWjAf4=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$87.class
+SHA1-Digest: RfuN+TCyanIoQCKufUqjQ9BhJh4=
+
+Name: org/eclipse/uml2/diagram/common/parser/valuespec/ValueSpecificat
+ ionParser$ConstraintParser.class
+SHA1-Digest: saPxlCx8pZuOA798JK94NappLWg=
+
+Name: org/eclipse/uml2/diagram/common/parser/ElementProvider.class
+SHA1-Digest: vh5YN66U+GocwwkeqFDPXGYvWng=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$185.class
+SHA1-Digest: 0jSqV8pMQBTzQ3MyX1bxGoUTAGA=
+
+Name: org/eclipse/uml2/diagram/common/async/NewDiagramSynchronizationW
+ izardPage.class
+SHA1-Digest: K9DFguLa6rk7BMDGh1SHa1dmUmE=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/ReferencedElementC
+ hooserDialog$OkButtonEnabler.class
+SHA1-Digest: /2FOUEaFMXJaCXg6IPIHKX79vNc=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$168.class
+SHA1-Digest: EbdrryxcFWZqg5nI2VshaH3h37k=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/ManuallyDrawnShortcutDeco
+ rator.class
+SHA1-Digest: 55Im+DKd2HGp8BhcItPk9T6VtiQ=
+
+Name: org/eclipse/uml2/diagram/common/parameter/EditPropertyParameters
+ Dialog$2.class
+SHA1-Digest: H9PsmDIEdfxIhc5ExeXyJPJMVTE=
+
+Name: org/eclipse/uml2/diagram/common/actions/ConvertNoteToCommentActi
+ on$ConvertNoteToCommentCommand.class
+SHA1-Digest: sh+RIaRZN7Rg6V66ceZTMA+A3tc=
+
+Name: icons/obj16/Image.gif
+SHA1-Digest: 8mBXeO0NvL7H0nJFbKkMS2nxLRw=
+
+Name: icons/obj16/InstanceValue.gif
+SHA1-Digest: fyz+cPXum1MhbweCi69tOG4U9sE=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/MetaclassContainme
+ ntFilter.class
+SHA1-Digest: Zh+8QcV3qBfU0bTXBxMmaQKuARA=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$98.class
+SHA1-Digest: k4orkSW6MjStf/UgpSXgtYkYOdk=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$196.class
+SHA1-Digest: dy+sOf0/hzHCWogTBq2U4VaPuNE=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$179.class
+SHA1-Digest: dKmmkd4vCZ1RO2j07Vo2uwXjvyU=
+
+Name: org/eclipse/uml2/diagram/common/parser/operation/OperationParser
+ $LookaheadSuccess.class
+SHA1-Digest: RSK9jkuS5Nu0RLWpjiyvZ3/eqfM=
+
+Name: org/eclipse/uml2/diagram/common/async/SyncModelContentProvider.c
+ lass
+SHA1-Digest: uQR883WyMnM83FXrvhr4iWoiq+I=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/name/TokenMgr
+ Error.class
+SHA1-Digest: KeO4EJ8yKW8lBN5gv4w910fITD0=
+
+Name: icons/obj16/CreateLinkAction.gif
+SHA1-Digest: w9B7zwW8lNavjkfSRg+eKNikb60=
+
+Name: icons/obj16/CreateObjectAction.gif
+SHA1-Digest: T7GhidmDg33yw96/bRxVlyZvWTI=
+
+Name: org/eclipse/uml2/diagram/common/stereo/TaggedValueHelper.class
+SHA1-Digest: jRMZq7+o7+wGwUozGIYoUlv7Dx4=
+
+Name: org/eclipse/uml2/diagram/common/part/UMLElementChooserDialog$OkB
+ uttonEnabler.class
+SHA1-Digest: Gz7BHSJlgtlkOHGHG4h3oy6ndM0=
+
+Name: org/eclipse/uml2/diagram/common/actions/ConvertCommentIntoNoteAc
+ tion.class
+SHA1-Digest: BAtIpjOTHpxo8vlkWObncpZru40=
+
+Name: org/eclipse/uml2/diagram/common/parameter/EditPropertyParameters
+ Command$EmptyRequest.class
+SHA1-Digest: Uxs/UdnuSmABMwt4z+NLqYjqhT8=
+
+Name: icons/obj16/State.gif
+SHA1-Digest: gRygtbXSW/g07hU67NQwBkc9ms0=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/InsertingComponentE
+ ditPolicy.class
+SHA1-Digest: HA5DE1Z/z0Dq6K/gLNMuezJ71qU=
+
+Name: org/eclipse/uml2/diagram/common/parser/operation/OperationToStri
+ ng$VIEW.class
+SHA1-Digest: WimYFVqebckGMRtAfj4hHUNVpuU=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/CommentFigureBase.class
+SHA1-Digest: 9dl5nH9OwmkK8PKadIiE1iC5ENI=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/RotatedImageCellEditorLoc
+ ator.class
+SHA1-Digest: pJkoMcp2ISVs/QynZFLH6Q3txLM=
+
+Name: org/eclipse/uml2/diagram/common/parser/instance/JavaCharStream.c
+ lass
+SHA1-Digest: 3PTX58GMXssLi+G0pmh06qrAnAs=
+
+Name: org/eclipse/uml2/diagram/common/pathmap/FolderPathMapResolver.cl
+ ass
+SHA1-Digest: cNEk4/VPeXSIyFKU/J0DHcj7VjM=
+
+Name: org/eclipse/uml2/diagram/common/sheet/ReferenceDialogCellEditor$
+ NamedElementValidator.class
+SHA1-Digest: wSt9dBjqyvsnkb61o5QOnW09viQ=
+
+Name: org/eclipse/uml2/diagram/common/parser/port/PortParser$TypeLooku
+ pCallback.class
+SHA1-Digest: Sv2E5ofsZDZ17jNgw0QdKIvalbE=
+
+Name: icons/obj16/Pseudostate_terminate.gif
+SHA1-Digest: sMI6OqEi+uwpPdhjwzWvZsk4xhM=
+
+Name: org/eclipse/uml2/diagram/common/parameter/EditPropertyParameters
+ Dialog$ParametersContentProvider.class
+SHA1-Digest: lwoQl0UMmCopGOiAMb5GYJCT5mA=
+
+Name: org/eclipse/uml2/diagram/common/async/AsyncDiagramComponentEditP
+ olicy.class
+SHA1-Digest: pm0Edr8f5aXzSDE8Quxl4JMj19s=
+
+Name: icons/obj16/PrimitiveType.gif
+SHA1-Digest: 9amvbT22aaBD6d9MHaloC8l4mlU=
+
+Name: org/eclipse/uml2/diagram/common/parser/operation/OperationParser
+ $JJCalls.class
+SHA1-Digest: F7cQZFXby8bSmLdAM5qPPTQQI5Q=
+
+Name: messages.properties
+SHA1-Digest: WkDvrVeakbrj6nGHqCeS1gWoe54=
+
+Name: icons/obj16/RemoveVariableValueAction.gif
+SHA1-Digest: FaOplma5BrzlIxQLu4MYsSWEMQI=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$2.class
+SHA1-Digest: 1T6r/p/I9qH6O3zsVN1mDe4hnSE=
+
+Name: icons/obj16/LinkEndDestructionData.gif
+SHA1-Digest: PNzOwu3gLVHT/+VivAgClPt8CcA=
+
+Name: icons/obj16/ActionInputPin.gif
+SHA1-Digest: 0/gA48PscujvA34XKX7C1hok/zM=
+
+Name: org/eclipse/uml2/diagram/common/sheet/TextAndDialogCellEditor$4.
+ class
+SHA1-Digest: FaYAEFx1y37fzyQT864z8OsECUo=
+
+Name: org/eclipse/uml2/diagram/common/links/ComponentOperationsExt.cla
+ ss
+SHA1-Digest: rykuL51k5Kv9upWgjGA7Lf1nPzk=
+
+Name: icons/obj16/Gate.gif
+SHA1-Digest: KxsBBKZKxOKc2qA2V9fpTEaXJUE=
+
+Name: org/eclipse/uml2/diagram/common/parser/stereotype/PackageApplied
+ StereotypeParser.class
+SHA1-Digest: xSbCF25CJ8BNM8xes4sVgE+Ammc=
+
+Name: org/eclipse/uml2/diagram/common/sheet/ImageLocationCellEditor.cl
+ ass
+SHA1-Digest: ZDxFVOIazfyR7e3NUfU13hCz4JQ=
+
+Name: org/eclipse/uml2/diagram/common/parser/instance/InstanceSpecific
+ ationToString$EDIT.class
+SHA1-Digest: leTLIJWgs4BB8DJissxIVmyB6B8=
+
+Name: icons/obj16/Property.gif
+SHA1-Digest: tkutZ6OGa7t+eJfCkSBDMLReiRs=
+
+Name: icons/obj16/Pseudostate_exitPoint.gif
+SHA1-Digest: mEHO7kd/lHRrlcQZT5gGpn4qMB4=
+
+Name: icons/obj16/Connector_delegation.gif
+SHA1-Digest: pTRZL2Gz8BS2jGBjoJVCMJjyzOI=
+
+Name: org/eclipse/uml2/diagram/common/links/ProvidedInterfaceLink.clas
+ s
+SHA1-Digest: IZ/YJgO1/XmOc9pHzbo3/akiZd8=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/UnmovableUnselectab
+ leShapeEditPolicy$1.class
+SHA1-Digest: 7SqCRXQ85vySQrAzjtuLgU9ffLg=
+
+Name: org/eclipse/uml2/diagram/common/parser/operation/OperationParser
+ $ParameterAdapter.class
+SHA1-Digest: uLOMI/X1V7tT06BfBVSyVNIMffE=
+
+Name: org/eclipse/uml2/diagram/common/async/SyncModelNode.class
+SHA1-Digest: VmmeSeqxEaBoMr9kEtQbYpdKsbs=
+
+Name: org/eclipse/uml2/diagram/common/Messages.class
+SHA1-Digest: 6KCo2UgM+DbTM5vfOBlZYB3anBM=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/name/Associat
+ ionNameParser.class
+SHA1-Digest: IL0V5plp3oWge0WKrQ3Fmhrhg/k=
+
+Name: icons/obj16/Pseudostate_entryPoint.gif
+SHA1-Digest: 232Ob79+Z/9cvqiIlI42oHHVhGg=
+
+Name: org/eclipse/uml2/diagram/common/parameter/EditPropertyParameters
+ Dialog$ParameterLabelProvider.class
+SHA1-Digest: xONn8HrlCeVDv8rDDl7cquIcIRo=
+
+Name: icons/obj16/RedefinableTemplateSignature.gif
+SHA1-Digest: zQNL8mUWGH7wU7hQH1Qd2iIbhEc=
+
+Name: org/eclipse/uml2/diagram/common/genapi/IUpdaterLinkDescriptor.cl
+ ass
+SHA1-Digest: xz3wOLWg0o/T1FLaXTo2VxvOROc=
+
+Name: org/eclipse/uml2/diagram/common/parameter/celleditors/TypeCellEd
+ itor.class
+SHA1-Digest: e1VkSHG1qCxObQM7KPI+M0wHflk=
+
+Name: org/eclipse/uml2/diagram/common/parser/property/Token.class
+SHA1-Digest: r9lxMcnGeUMHqr8OZWLH2gCopuk=
+
+Name: org/eclipse/uml2/diagram/common/sheet/ReferenceComboAndDialogCel
+ lEditor$DialogCellLayout.class
+SHA1-Digest: n9B5pPfwjEicDbrWRuOaBMLmGMk=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/MoveViewCommand.cla
+ ss
+SHA1-Digest: 9RfUH0jxiCwbHBnbwbvUPT5jtNY=
+
+Name: icons/obj16/StateMachine.gif
+SHA1-Digest: C5ub0OmmzxDbUiSRfKvmnKkAiuU=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$100.class
+SHA1-Digest: 0BsRT1fBSZIuFNtiX9wupDCgOmY=
+
+Name: org/eclipse/uml2/diagram/common/constraint/ConstraintUtils.class
+SHA1-Digest: tC3STAOJ5RPCIlRYjkm8/fg1b+4=
+
+Name: icons/obj16/ParameterSet.gif
+SHA1-Digest: iPfpDYKGCjnnEk46SPwMUrFyQpY=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/name/Associat
+ ionNameParserTokenManager.class
+SHA1-Digest: ZQbAKMlFfBgxNA8QXa+o1wmFtEA=
+
+Name: org/eclipse/uml2/diagram/common/parser/property/ParseException.c
+ lass
+SHA1-Digest: sPnaq2wBOtZqCXZ2QvLjEM/kwh0=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$7.class
+SHA1-Digest: kl6Fm1nRR/X9F9cwC4HfxSVylJo=
+
+Name: icons/obj16/SendObjectAction.gif
+SHA1-Digest: 261t9dsBDVrUB6yaZz6Ufjt8Sv4=
+
+Name: icons/obj16/Transition_local.gif
+SHA1-Digest: q2LtXPC45euySch06T+ElVTORag=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/UMLFileFilter.clas
+ s
+SHA1-Digest: TFSYaSmQIbzFwhll+bVHDAjwp5U=
+
+Name: org/eclipse/uml2/diagram/common/sheet/AssociationPropertySection
+ $SourcePropertySection.class
+SHA1-Digest: 21GdaB2uEvJ6oztHOXfj46MXpYc=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/PileLayout$3.class
+SHA1-Digest: OLCPa3GbY0iXjr2H8ISFZdCDh5c=
+
+Name: icons/obj16/Parameter_return.gif
+SHA1-Digest: ij4aJoxjetPk4JRYotIf8d5RvR8=
+
+Name: icons/obj16/ConnectableElementTemplateParameter.gif
+SHA1-Digest: h1pKqiwNUEUgFrHEYGARaNPxMWc=
+
+Name: icons/obj16/Activity.gif
+SHA1-Digest: TTNE29U/FGPVDqbLCOztlYOj/DQ=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$30.class
+SHA1-Digest: 2MFh8A4JTXsJfqFTctQ6Rqb4+Uo=
+
+Name: org/eclipse/uml2/diagram/common/commands/RequiredPortLinkHelper.
+ class
+SHA1-Digest: +p1ZIZ+K/rSnX7IM1+6FiGtGFlQ=
+
+Name: icons/obj16/Duration.gif
+SHA1-Digest: ++J9wVQQhARqCIPJ4KTlmf4nP88=
+
+Name: icons/obj16/ReadLinkObjectEndQualifierAction.gif
+SHA1-Digest: RkhRDEy2AmgD9pEMvaNDCrelq64=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$13.class
+SHA1-Digest: kmCvRMsMyQmFbzwEYFl42qDyWU8=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$111.class
+SHA1-Digest: ZcZNpAVXOQru++E1pePS2q9KNF4=
+
+Name: icons/obj16/Connector_assembly.gif
+SHA1-Digest: 49Qe2TApqg0SMxAqiZ7Rz6F8u7k=
+
+Name: org/eclipse/uml2/diagram/common/parser/stereotype/DependencyAppl
+ iedStereotypeParser.class
+SHA1-Digest: W59k1dhGdf4f/m/96PIafHVdZ+I=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/TabbedElementChoos
+ er$LabelProviderWithContext.class
+SHA1-Digest: t+0H5MIvRvatxu/pyyM16SBg+d4=
+
+Name: icons/obj16/StartClassifierBehaviorAction.gif
+SHA1-Digest: h0o57p29hLI8hh1VkhG44i8wfA0=
+
+Name: icons/obj16/SendOperationEvent.gif
+SHA1-Digest: ohPtKuzrOaN1iPWZYK0VznW19k8=
+
+Name: icons/obj16/ControlFlow.gif
+SHA1-Digest: TbG1a3RfsawusNk6ctPsdOEJRNQ=
+
+Name: org/eclipse/uml2/diagram/common/parser/slot/SlotToString$VIEW.cl
+ ass
+SHA1-Digest: +ETRjR6Iqhk+Hi+o/v7UICxph8M=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/DynamicResizeDirect
+ ionsEditPolicy.class
+SHA1-Digest: vdm8YKXffBJIF3H3XCjqpf1HrVI=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/Cube3DFigure.class
+SHA1-Digest: /eVPMQ50epH4LSn/3Szbt4ImeS0=
+
+Name: icons/obj16/Interface.gif
+SHA1-Digest: nlxhwYDlEusmQVfcMvJ0I3TTLco=
+
+Name: org/eclipse/uml2/diagram/common/internal/draw2d/handles/U2TResiz
+ eHandle.class
+SHA1-Digest: q8dVOupS0LWAgIL6+DrQ+NrqV9s=
+
+Name: org/eclipse/uml2/diagram/common/sheet/ReferenceComboAndDialogCel
+ lEditor$2.class
+SHA1-Digest: WZsSpT+zUtHvlFUCfXsv8cQNOUA=
+
+Name: org/eclipse/uml2/diagram/common/preferences/ViewFiltersPreferenc
+ ePage.class
+SHA1-Digest: YACXGIvQw9JS0vch9kzrzXgQV14=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$41.class
+SHA1-Digest: ENKm+5P/ecdYEmSO+XHZn6+GbLw=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/UpdateDescriptionRe
+ quest.class
+SHA1-Digest: pvyMv0TYOGssRFnxH3o7f0SwEmo=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$24.class
+SHA1-Digest: P04hZCbXtN2x+R2AUahVXiGp09c=
+
+Name: icons/obj16/ReadExtentAction.gif
+SHA1-Digest: CN8YkQAdqFkkq/YFoc1x5/JlJ68=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$122.class
+SHA1-Digest: jMheOjGiSLd8u1ms6Cl7RzitjhQ=
+
+Name: icons/obj16/Enumeration.gif
+SHA1-Digest: QXutLUF++90tNoFsGdK+RslRgeo=
+
+Name: org/eclipse/uml2/diagram/common/parser/instance/InstanceSpecific
+ ationParser$ClassifierLookupCallback.class
+SHA1-Digest: PVACYu07300LrGPqPuTRd24DmvU=
+
+Name: org/eclipse/uml2/diagram/common/part/UMLModelWizardInitialObject
+ CreationPage$1.class
+SHA1-Digest: cfWi8fwnXn3YpOTf4nogA0xKjI0=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$105.class
+SHA1-Digest: CoXIaM1vP9nuhJHQe4GsoHwTzVs=
+
+Name: icons/obj16/TemplateParameter.gif
+SHA1-Digest: E47Xpp2ODkH7b/Xb7a8iWP7KFkg=
+
+Name: org/eclipse/uml2/diagram/common/internal/draw2d/handles/U2THandl
+ eKit$1.class
+SHA1-Digest: WDj3zkBiuz23qvdF3RIzFsdOEYc=
+
+Name: icons/obj16/LoopNode.gif
+SHA1-Digest: jqLVn1vIQjIHrlfG3V3RE2LoyNQ=
+
+Name: org/eclipse/uml2/diagram/common/stereo/StereotypeOperationsEx.cl
+ ass
+SHA1-Digest: v26Q8hl6lTEAJLqVkjM+1oEJQkg=
+
+Name: icons/obj16/Dependency.gif
+SHA1-Digest: KyEOZAnfnHyRvHKMExljT99uN44=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/AssociationLinkFigureBase
+ .class
+SHA1-Digest: uii7n/x3zfiKYPI2xX5SnLmwdvM=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/UpdateDescriptionEd
+ itPolicy.class
+SHA1-Digest: oJLMp+H5BiBSlqxNxYT3KqfWmAk=
+
+Name: org/eclipse/uml2/diagram/common/parameter/ShowPropertyParameters
+ ActionBase$RefreshEditPartCommand.class
+SHA1-Digest: 6bDzdjNWJ37tVKIBSOuyJ2OzLKo=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$52.class
+SHA1-Digest: uhP4EsDXMRv6MaQknEH1YrQZeU4=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$150.class
+SHA1-Digest: P9O9B4yGe/tF0J47P5eelFDxepU=
+
+Name: org/eclipse/uml2/diagram/common/commands/ProvidedPortLinkHelper.
+ class
+SHA1-Digest: rbwhKgHFsBKzghHqB4slbYAY2bs=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$35.class
+SHA1-Digest: Gw2bcdM2jwau0nM+s71ckNqY6uA=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/PileLayout$SizeExtractor.
+ class
+SHA1-Digest: 6wSGsnS0Hc07sQD0BoXe1s2pO1w=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$133.class
+SHA1-Digest: bVuzdmr3K4eaAhk1iRxU61vbwCk=
+
+Name: icons/obj16/Transition_internal.gif
+SHA1-Digest: Uw3SWB0hUH28584cle0sIasgIX4=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/CenterLayout.class
+SHA1-Digest: Toc/Q7DRfJCFMc9gyhHlvV40L2c=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$18.class
+SHA1-Digest: jp75hsQBH/BFbNPltI+zHLZkaJU=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$116.class
+SHA1-Digest: Y9l3Ff+VmOO3ZS4vSJup7VwFBY4=
+
+Name: icons/obj16/SequenceNode.gif
+SHA1-Digest: tczRcTLoC9wvWmN0LBt6Fzx8fKU=
+
+Name: icons/obj16/ForkNode.gif
+SHA1-Digest: gnihqm3Hz5JpUwf3FRC+/TMQatA=
+
+Name: org/eclipse/uml2/diagram/common/parser/property/PropertyToString
+ $EDIT.class
+SHA1-Digest: WwKS+I+MDoT5Ui/lKOzqzWdIVaY=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$80.class
+SHA1-Digest: rIWfpvP3OVG7qTKfatNgJssRXfs=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/decoration/AssociationDec
+ oration.class
+SHA1-Digest: VUjuimO846RvxWGMs6A3I0JLywQ=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$63.class
+SHA1-Digest: gt6ou6q8Pn4AQOLY0QA98qIg6OY=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$161.class
+SHA1-Digest: Fde5J0Jcg+7CdfGE4Sg69wFRyfI=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$46.class
+SHA1-Digest: 8K3/EUmD5Tx0yHtIPju5dk6YRSk=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$144.class
+SHA1-Digest: UYqZA/Ze4ZZmat/l3fUuUEj1o5Q=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$29.class
+SHA1-Digest: 99InnS94EEoG7qZeqRLPxulxcRQ=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$127.class
+SHA1-Digest: wtNWUKXR1SAraVdWaEni1gKCFL4=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/ElementTreeChooser
+ $MainRoot.class
+SHA1-Digest: oC8e7gFwJkUa8wls2mPyBtDqDF0=
+
+Name: icons/obj16/Port.gif
+SHA1-Digest: ZQysnewntRp7O6TVT1NY1soakA4=
+
+Name: icons/obj16/ExpansionRegion.gif
+SHA1-Digest: mJ06XAE4ijb/5dRFkObjmV1qoGE=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/IRefreshableFeedbac
+ kEditPolicy.class
+SHA1-Digest: JFkG8JHc+JPV5N0ZbaNEP8GuzFE=
+
+Name: icons/obj16/DataType.gif
+SHA1-Digest: 9v7WfrnRlrcV/Z+Y8cytp0qtV+4=
+
+Name: icons/obj16/Pin.gif
+SHA1-Digest: ZkiXbGlbddkFEs8kOqYSuc3HDYY=
+
+Name: org/eclipse/uml2/diagram/common/parser/property/PropertyParser$J
+ JCalls.class
+SHA1-Digest: i3SQmuwbj2rJvfsKvylP/d5gU84=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/AbstractVisualEffec
+ tEditPolicy.class
+SHA1-Digest: /8AgnRI983Pf7fFi+l6CEA1fQoM=
+
+Name: org/eclipse/uml2/diagram/common/parser/port/PortParserTokenManag
+ er.class
+SHA1-Digest: kMCTnk1KEGk2xHDDiNyNCjVS0qo=
+
+Name: org/eclipse/uml2/diagram/common/parser/property/PropertyParser$L
+ ookaheadSuccess.class
+SHA1-Digest: DUMU82aPw4zCvdfW3QBZPikKPns=
+
+Name: org/eclipse/uml2/diagram/common/parser/operation/OperationSemant
+ icParser.class
+SHA1-Digest: w3SAgL4tyHtKhPWLMpqd6yi4Gro=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$91.class
+SHA1-Digest: nutSchphf0ZN9kOj+vI4xEZgB3E=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/ElementTreeChooser
+ $MainRoot$Workspace.class
+SHA1-Digest: +UJUh82yBtz91EVPBprnX96Zprk=
+
+Name: org/eclipse/uml2/diagram/common/actions/UMLDiagramAction2.class
+SHA1-Digest: RZmTO1xu2fLboMcUMFGC49P7QLg=
+
+Name: org/eclipse/uml2/diagram/common/details/DetailLevelParserOptions
+ .class
+SHA1-Digest: pxQ1mknW0Ap+rl4NvN+ZhzQhgw4=
+
+Name: org/eclipse/uml2/diagram/common/actions/NewDiagramPropertyTester
+ .class
+SHA1-Digest: InGmaet2IY17HpBmHPddCf4mP60=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$74.class
+SHA1-Digest: 6fYrBWCo6FJ1FGC2pQZ2LFrcBNg=
+
+Name: icons/obj16/Usage.gif
+SHA1-Digest: eNkk+KNuN1dE3qEQ7JYbWVHSmec=
+
+Name: icons/obj16/DurationConstraint.gif
+SHA1-Digest: zVsQToKeHsP709kSGa75kAMJ2R8=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$172.class
+SHA1-Digest: 9xuExyd2ktXKXfzW73zI97YFlGk=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$57.class
+SHA1-Digest: t8eOw8NEINjG+36Nq7gLlqtdwqw=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$155.class
+SHA1-Digest: TCWX/7i8Qohf9wDtcSToj8/cspQ=
+
+Name: icons/obj16/SendSignalEvent.gif
+SHA1-Digest: RA0QJ6Kig3zASr1A+BE/IPnX9fA=
+
+Name: icons/obj16/Extend.gif
+SHA1-Digest: rokfP1aRIExr/cAvlyDcBsIholg=
+
+Name: org/eclipse/uml2/diagram/common/preferences/IconStylePreferenceP
+ age$1.class
+SHA1-Digest: vAJfl+ZsQpkcHwzNmMbOb/qCM4Y=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$138.class
+SHA1-Digest: BtIubqymrkByKGmM2Z9PNHuz4+I=
+
+Name: org/eclipse/uml2/diagram/common/links/RequiredInterfaceLink.clas
+ s
+SHA1-Digest: kzE67gbGbHVweuTKiRMac/7adSQ=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/MultiReferenceElem
+ entChooserDialog$4.class
+SHA1-Digest: SWBK5UEhWJ3pc3c7NSycZkVPy1s=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/ElementFilteredLis
+ tChooser.class
+SHA1-Digest: 4+nJKSxAp8PejNKqM/bSmMrAgNQ=
+
+Name: org/eclipse/uml2/diagram/common/parser/operation/OperationParser
+ .class
+SHA1-Digest: DePmXtjAdyEfLISidn08Q492Vb4=
+
+Name: icons/obj16/CallBehaviorAction.gif
+SHA1-Digest: 0GViy8mvVY5+1iNzKHoSogCPdcc=
+
+Name: org/eclipse/uml2/diagram/common/layered/MultiLayeredContainer.cl
+ ass
+SHA1-Digest: A5d3VTQtP1Iw+M73f7+lF+np7mE=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$85.class
+SHA1-Digest: VMSArNS4PgJUL78/TjxGld2UbaI=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$183.class
+SHA1-Digest: Lu4vYMAXoIVzcTSxBxapWwSG6vg=
+
+Name: org/eclipse/uml2/diagram/common/part/UMLElementChooserDialog.cla
+ ss
+SHA1-Digest: BpL8o+5pB4R059Vswftm+RkkFjQ=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$68.class
+SHA1-Digest: FGEW2xTZ2LVYvwub7MsxPOvDhXo=
+
+Name: icons/obj16/GeneralizationSet.gif
+SHA1-Digest: Q6JxWmPM77Vu76uOhV6mU0Nfdgg=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$166.class
+SHA1-Digest: Z72t6eAndRpBXl8euBbQeZyKvlU=
+
+Name: icons/obj16/LinkEndCreationData.gif
+SHA1-Digest: 70LxszYrir0QGOQbafqwILMhAGY=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$149.class
+SHA1-Digest: 5XiPhpy0IHgXm2Dsqh+4WP10XJk=
+
+Name: icons/obj16/TimeEvent.gif
+SHA1-Digest: fJ/vKen2K1/lPQ85HCoQvuEC8Ao=
+
+Name: org/eclipse/uml2/diagram/common/links/PortOperationsExt.class
+SHA1-Digest: Bqu4PzYfImE0brWxOhMYZW76ob8=
+
+Name: icons/obj16/LiteralUnlimitedNatural.gif
+SHA1-Digest: jjcwEI2rsVRJ/ZyGS24Y72nGT2c=
+
+Name: icons/obj16/ClearAssociationAction.gif
+SHA1-Digest: ohvLUtPJEX3afpNc8smRCUMqqrI=
+
+Name: icons/obj16/JoinNode.gif
+SHA1-Digest: 5sujHSeUoWjhWMzDXH6yECoIxF4=
+
+Name: icons/obj16/Pseudostate_deepHistory.gif
+SHA1-Digest: zZVWkkcwuTeD3LM2AhDU8rzYMTU=
+
+Name: org/eclipse/uml2/diagram/common/parameter/ShowPropertyParameters
+ ActionBase$1.class
+SHA1-Digest: dblt/C5vbz33GBF71U5IzUVdOrs=
+
+Name: icons/obj16/ProtocolConformance.gif
+SHA1-Digest: qQ+mcKDcGuj43aeBTpUk4VVT14M=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$96.class
+SHA1-Digest: TFwB5846n9Pf0y1k+xVagyNV7bk=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$194.class
+SHA1-Digest: nPwh2dPKtn+omLUYm2MZoydhrUQ=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$79.class
+SHA1-Digest: /ZHMHut+tkPocsW+xWM8efoGOBI=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$177.class
+SHA1-Digest: tX287lmFQriVFgjyoceMrYphKp4=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/PolylineContainer.class
+SHA1-Digest: cDjj83v+/2nm7FJzomUkgkRdycA=
+
+Name: icons/obj16/ValuePin.gif
+SHA1-Digest: R/ZOZITwpLDryRk8W+m5Udf6/Wg=
+
+Name: org/eclipse/uml2/diagram/common/parser/instance/InstanceSpecific
+ ationParser.class
+SHA1-Digest: qD/RjhK2QWnjHDmO2+vhkJ0wZ0Q=
+
+Name: org/eclipse/uml2/diagram/common/pathmap/XMI2UMLSupport.class
+SHA1-Digest: BYfRpQBZxvMssD1/z1usOB5xgSs=
+
+Name: icons/obj16/Class.gif
+SHA1-Digest: W2htQ0xBFtUGyWBu2j8bCtrWFwg=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory.class
+SHA1-Digest: tk5V2Sd6aT2TQfLejO7rIl3wKzc=
+
+Name: icons/obj16/DataStoreNode.gif
+SHA1-Digest: vTDrbS2TYygAkiOwFlbP+PPBC9s=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/PartialRectangleFigure.cl
+ ass
+SHA1-Digest: Ibwc3k4gjed1slayunTgVXKF4DI=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/PackageFrameFigure$DontSt
+ retchTopBorderLayout.class
+SHA1-Digest: byohB+wqRDBlxyTF5pBLXFbHr4I=
+
+Name: icons/obj16/ReceiveSignalEvent.gif
+SHA1-Digest: lhlr5fYplk8e/cVpJKatpfolEDw=
+
+Name: org/eclipse/uml2/diagram/common/async/NewDiagramSyncHelper$2.cla
+ ss
+SHA1-Digest: +6diHKucDWnavDsWfBCvCa40Zyo=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$188.class
+SHA1-Digest: HbDdtg1IHam4U5F84Kzh7TDntns=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/ElementTreeChooser
+ .class
+SHA1-Digest: vf6eD2pwlCK3QT13fDHFn6sxtGo=
+
+Name: icons/obj16/Variable.gif
+SHA1-Digest: nJV3W45WL1K5Iz6iDh115OeTIiU=
+
+Name: org/eclipse/uml2/diagram/common/parameter/EditPropertyParameters
+ Dialog$5.class
+SHA1-Digest: ao+yK185nkN2p715X1jVfeMcJyE=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/ElementTreeChooser
+ $CollapseAllAction.class
+SHA1-Digest: aY8aDMuZNc0JuyL5ihTG2UdO2sQ=
+
+Name: org/eclipse/uml2/diagram/common/parser/stereotype/ClassifierAppl
+ iedStereotypeParser.class
+SHA1-Digest: 1orSvS6YDTQkzse7F106PbGNpYU=
+
+Name: icons/obj16/TimeObservation.gif
+SHA1-Digest: RITl6ngOIjyRJx2ox5w/bKESNEc=
+
+Name: icons/obj16/LiteralString.gif
+SHA1-Digest: 35rjkhA2eGuGWawPptIlSjqDtUQ=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/ElementTreeChooser
+ $ExpandNodeAction.class
+SHA1-Digest: k2WSFjhr5tK9GjSjC/obUEFVxfQ=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/QualifiedNameLabel
+ Provider.class
+SHA1-Digest: ZYveoHjj19dAIQnc8mb7MJg5V+E=
+
+Name: icons/obj16/Expression.gif
+SHA1-Digest: m6R0R1HT2qa6jTFY2DXqR8XZrqA=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/RotatedImageOfStringLabel
+ Delegate.class
+SHA1-Digest: Ud1U3kBl8KkAYuRNNeNmVLwXjtQ=
+
+Name: icons/obj16/AddStructuralFeatureValueAction.gif
+SHA1-Digest: x/qtzZxwuq6nrv2OM+6f7R63OV8=
+
+Name: org/eclipse/uml2/diagram/common/sheet/UMLPropertySection.class
+SHA1-Digest: HALQlcAj1v5V7d3riADXHLpstgk=
+
+Name: org/eclipse/uml2/diagram/common/async/NewDiagramSyncHelper.class
+SHA1-Digest: N0j/C7T/q1FM7MRk7tdsNYof6/o=
+
+Name: icons/obj16/Signal.gif
+SHA1-Digest: /7GaTowbDEhRlvRDN5Bt8qNcU9Q=
+
+Name: org/eclipse/uml2/diagram/common/preferences/MainPreferencePage.c
+ lass
+SHA1-Digest: EfEl9fpXSCtbuTEJ7PILUBtDLKI=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/TabbedElementChoos
+ er$2.class
+SHA1-Digest: SjTnOzNcoCPdVq/8nCovPleYLjU=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/decoration/DotDecoration.
+ class
+SHA1-Digest: yaxl8Anb0WRe8mbBYJhyx5qiFtk=
+
+Name: org/eclipse/uml2/diagram/common/parser/instance/InstanceSpecific
+ ationParser$LookaheadSuccess.class
+SHA1-Digest: psgDz9DCM7Y4rbvx8SI23+MXcWc=
+
+Name: icons/obj16/ActivityFinalNode.gif
+SHA1-Digest: gDnGQXs/8yJ5PKZCuxuxGs/eKrg=
+
+Name: icons/obj16/ChangeEvent.gif
+SHA1-Digest: gG6b0csAt6mfHB0oRf3ckJavuYY=
+
+Name: org/eclipse/uml2/diagram/common/parser/instance/ParseException.c
+ lass
+SHA1-Digest: MdKsg+k/kdI9mzZ58QdkxI/m+CI=
+
+Name: icons/obj16/UnmarshallAction.gif
+SHA1-Digest: joG0+klp+hEbIeclcPRql+5YqmU=
+
+Name: org/eclipse/uml2/diagram/common/Startup.class
+SHA1-Digest: eSDlAfhkhIz3lz4/VKkiLPkmFRw=
+
+Name: org/eclipse/uml2/diagram/common/sheet/TextAndDialogCellEditor$2.
+ class
+SHA1-Digest: CZFhq6i1MV5x5K94MJhHRyM35g8=
+
+Name: icons/obj16/TimeExpression.gif
+SHA1-Digest: uRCeOkMzB9nsIj0nrmrpobITyao=
+
+Name: icons/obj16/LiteralNull.gif
+SHA1-Digest: xCNoyFVb0biNNLcuUyay0CSEPjo=
+
+Name: org/eclipse/uml2/diagram/common/async/DeleteFromDiagramPopupProv
+ ider.class
+SHA1-Digest: yIm/NVeEC51oZLqlu5c3N9FKDUg=
+
+Name: org/eclipse/uml2/diagram/common/async/ApplySynchronizationComman
+ d.class
+SHA1-Digest: 9v2ImTzqSE0mHXztfZ58Ww951p0=
+
+Name: org/eclipse/uml2/diagram/common/parser/stereotype/ProfileApplied
+ StereotypeParser.class
+SHA1-Digest: ICIvPe1PsecTQg5deNrNxxEHPj4=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/ViewHelper.class
+SHA1-Digest: 8XA9r6QNbzo3PxBoXaTHDaYTFh8=
+
+Name: icons/obj16/Artifact.gif
+SHA1-Digest: UNYAdGOuh9VbzFCH73rKTwuwRwo=
+
+Name: org/eclipse/uml2/diagram/common/parser/imports/ElementImportPars
+ er$1.class
+SHA1-Digest: LBQsfm4kHZMkDDWfyGB9WG8JwPw=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/OneLineDashedBorder.class
+SHA1-Digest: oM9cZWEwc+ioxKVgH+nnGa/LzFM=
+
+Name: icons/collapseall.gif
+SHA1-Digest: X2SYkCGSP2jr+iOlYBLU19jEd4Y=
+
+Name: icons/obj16/InteractionOperand.gif
+SHA1-Digest: hyNuxr6Kjgeruj6SDljzx+Mjy80=
+
+Name: icons/obj16/Operation.gif
+SHA1-Digest: mZV8ZLbsBylgDnYJvZg+S1b9zgI=
+
+Name: org/eclipse/uml2/diagram/common/parser/property/PropertySemantic
+ Parser.class
+SHA1-Digest: +VSHoLYSg5d3nhN85Tyl7f0p+vw=
+
+Name: icons/obj16/DestroyObjectAction.gif
+SHA1-Digest: 1IDwmEwMXyU40Oina0dl6QWyJtU=
+
+Name: org/eclipse/uml2/diagram/common/stereo/ApplicableStereotypesItem
+ Provider.class
+SHA1-Digest: TtoOMqKGMcLUMd6+z8etQAWMSSM=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/TabbedElementChoos
+ er.class
+SHA1-Digest: Ffgm4QPcM2QNwcAeVQwUl8meRT8=
+
+Name: org/eclipse/uml2/diagram/common/parameter/celleditors/TypeDialog
+ CellEditor$1.class
+SHA1-Digest: JinSdrS+unb07Fz8HcJhn8GfccA=
+
+Name: icons/plus.gif
+SHA1-Digest: 2jS5MX+Cz9Ja2EaMgGmLqAEhges=
+
+Name: org/eclipse/uml2/diagram/common/parameter/EditPropertyParameters
+ Dialog.class
+SHA1-Digest: fJJ5J4EEErlc+65q3meivfT9lY8=
+
+Name: icons/obj16/ClearVariableAction.gif
+SHA1-Digest: yFbQHaThik/ZEsZRt4FN5Cj92Fo=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/ClassifierNameVisua
+ lEffectEditPolicy.class
+SHA1-Digest: bM89nQY2zYeJ6xBvWREJMfzCnws=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/name/Associat
+ ionNameToString.class
+SHA1-Digest: s/HssRlfXTH6T3bS4x3FojFxPWo=
+
+Name: org/eclipse/uml2/diagram/common/parser/property/PropertyParser.c
+ lass
+SHA1-Digest: ofQjdrUofCkU6PNywaiXM9ApJhY=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/PileLayout.class
+SHA1-Digest: BDIODvc/NNavaLNAj4vCSlryfQA=
+
+Name: icons/obj16/FlowFinalNode.gif
+SHA1-Digest: BKr4phcQpf/82sHYADLPFxoyRVU=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$5.class
+SHA1-Digest: SRxG1TR3hRizVJyFhpBr1b0V0pQ=
+
+Name: org/eclipse/uml2/diagram/common/stereo/StereotypeImages.class
+SHA1-Digest: XvJnT8HKTMB4A1QpHrSYCRKZEgg=
+
+Name: icons/obj16/Pseudostate.gif
+SHA1-Digest: sCYyqbusu+9x3MNay/p5xbamSXs=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/PileLayout$1.class
+SHA1-Digest: tR/oVMqcq6IE5wHPqeO+onGaUBk=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/end/Associati
+ onEndToString$ROLE_VIEW.class
+SHA1-Digest: 6+R++6+vCoQnzvPJanSW6FqiACQ=
+
+Name: org/eclipse/uml2/diagram/common/stereo/ProfileUtil.class
+SHA1-Digest: qetCyCKEPtdDRHRWo2exKf567E0=
+
+Name: org/eclipse/uml2/diagram/common/sheet/UMLStereotypePropertySecti
+ on.class
+SHA1-Digest: 4SPfU+stWKXAgNq+41ZndwB5uxM=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$11.class
+SHA1-Digest: zldJIS82e13hlGAN4X7I9YsttLY=
+
+Name: org/eclipse/uml2/diagram/common/parser/valuespec/ValueSpecificat
+ ionParser$2.class
+SHA1-Digest: 2cPOdhLU/NuEDYcx2Nb3xaTpa40=
+
+Name: org/eclipse/uml2/diagram/common/sheet/AssociationPropertySection
+ .class
+SHA1-Digest: CAuTVosm1FspJix9juzuUV8LEJQ=
+
+Name: org/eclipse/uml2/diagram/common/parser/valuespec/ConstraintLangu
+ ageParser$2.class
+SHA1-Digest: 3dtQGELxg93BMhCV/ZYlvu61SX0=
+
+Name: org/eclipse/uml2/diagram/common/parser/slot/Token.class
+SHA1-Digest: hinXh14V/yJSGsN3NL9RxNn3BL0=
+
+Name: org/eclipse/uml2/diagram/common/stereo/ApplicableProfilesItemPro
+ vider.class
+SHA1-Digest: ffQ1HHWhVjNdyk1kJnNGL9Ze//Y=
+
+Name: org/eclipse/uml2/diagram/common/compartments/U2TResizableCompart
+ mentEditPolicy$U2TCollapseHandle$U2THandleLocator.class
+SHA1-Digest: TZ+mF85FR5Du4lcyQeqotjY74BI=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$22.class
+SHA1-Digest: GvgyuY9OAahw7m0r/3Ak9dKuzRM=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$120.class
+SHA1-Digest: YG9Xan5sWzwwb6ULq6hzMzJ2SAY=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$103.class
+SHA1-Digest: TrtwKFJwgpGJ6MTdnisTLJN7v7M=
+
+Name: icons/obj16/FinalState.gif
+SHA1-Digest: 5edtrK1JEdD1biAeXdhSVLFETW0=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/AbstractPostCreateC
+ ommand$ViewAndElementAccess.class
+SHA1-Digest: J8Nw5dSxaYuJSVUDbcs4qH/6lx8=
+
+Name: icons/obj16/BehaviorExecutionSpecification.gif
+SHA1-Digest: nrOoKnJJT78xH7I9J4mTNGRnsBM=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/name/Associat
+ ionNameParserConstants.class
+SHA1-Digest: YLwjUfziqy+Ly1CETdlzdxk0Hs0=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/EObjectAndElementTy
+ peAdapter.class
+SHA1-Digest: ri8RDUO+dkXjcz5Un0diA5DTc1c=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/PileLayout$6.class
+SHA1-Digest: HwdTtY5nOi9T3DfEokVeC1XYTEk=
+
+Name: icons/obj16/FunctionBehavior.gif
+SHA1-Digest: 2JkG6m21+r7NkUgVxnjbnjMkXJk=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/StereotypeLabel2.class
+SHA1-Digest: 7x24D8dB13Dnqgp9JvzjZe4emBI=
+
+Name: icons/obj16/Pseudostate_choice.gif
+SHA1-Digest: B653oMspfgJUWSZn216A3Shc9vs=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$50.class
+SHA1-Digest: 3Z9GUgLAJMEQq3xD5XyH6AjgB/k=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/end/Associati
+ onEndParser$LookaheadSuccess.class
+SHA1-Digest: sjp5FznQQm3F5patI3BdsQHDiIE=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$33.class
+SHA1-Digest: njC67LLx/680K5upsx+hQnMwgVI=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$131.class
+SHA1-Digest: s0nhX9Jr7/5OMp7JJWcB4511tCo=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/LaneLayoutEditPolic
+ y$1.class
+SHA1-Digest: 39qizDZpPr9XLhoN6pNCZXbaCV4=
+
+Name: icons/obj16/Device.gif
+SHA1-Digest: tp7cCcAdurP/vkw7pTiI79Cj+W8=
+
+Name: icons/obj16/Pseudostate_join.gif
+SHA1-Digest: 5sujHSeUoWjhWMzDXH6yECoIxF4=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$16.class
+SHA1-Digest: qeXTa5tuIQ4kTnj0XvJTIUAA4qE=
+
+Name: icons/obj16/RaiseExceptionAction.gif
+SHA1-Digest: okG4IWrBZZ5PqWT5cT439SuwM9Q=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$114.class
+SHA1-Digest: SxQsa56CMg2o0zEE2O72l6dio4I=
+
+Name: icons/obj16/Constraint.gif
+SHA1-Digest: awXH7cn/xgXMd//wbAVvZucpaBY=
+
+Name: org/eclipse/uml2/diagram/common/part/CreateLinkToolBase.class
+SHA1-Digest: Jx0JXkAHIKO9AUY6m9l1RvPewYM=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/PortVisualEffectEdi
+ tPolicy.class
+SHA1-Digest: CLy+1VtGX3dPNHX8JGVxlmR1GzA=
+
+Name: org/eclipse/uml2/diagram/common/pathmap/PathMapResolver.class
+SHA1-Digest: k8OV8Jmlhb9beeA5tNoeCybxsC0=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$61.class
+SHA1-Digest: UJ5rWZEUXBI1Q41O0YmUMAEx5Cw=
+
+Name: org/eclipse/uml2/diagram/common/parameter/celleditors/PositiveIn
+ tegerCellEditor$1.class
+SHA1-Digest: i09qdQP7s/Uqy0rqAzTCymvYblQ=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$44.class
+SHA1-Digest: kz4wJfxBgwJNPTAhdJFWwlEnaYg=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$142.class
+SHA1-Digest: gqMAm5xtRKqPNg9veK0ftemvvCM=
+
+Name: icons/obj16/Message.gif
+SHA1-Digest: HBu9V2lw2xk/t47JNZzaHBGzTKk=
+
+Name: org/eclipse/uml2/diagram/common/stereo/TaggedValueListener.class
+SHA1-Digest: Tq9dIaMhcgil7S+xKDiNFFkH4gM=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$27.class
+SHA1-Digest: IWYQuCM6Yu+9+VYrtP/mb3HDPCw=
+
+Name: org/eclipse/uml2/diagram/common/providers/ImageUtils.class
+SHA1-Digest: R5W+NfY2L0/MgY/BPD9eebMEvLQ=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$125.class
+SHA1-Digest: 0KgPAs93jCkN6DP9/UQGG7E3Rsg=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$108.class
+SHA1-Digest: ydIvykyq69HPqJgCFjIiPAtg19E=
+
+Name: org/eclipse/uml2/diagram/common/compartments/U2TResizableCompart
+ mentEditPolicy.class
+SHA1-Digest: vdcgOKf98Y0jPZDxGCsNt7d6tq8=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/decoration/ComposableRota
+ tableDecoration.class
+SHA1-Digest: JmtLlju0V0cyLb2t/mvrsCNB1og=
+
+Name: icons/obj16/Pseudostate_initial.gif
+SHA1-Digest: Cm9WmZUxBBL1WQ3Mhwv+zhVBTB0=
+
+Name: icons/obj16/ReadIsClassifiedObjectAction.gif
+SHA1-Digest: eSQ2v0h6jca8Z8jwoXgAFyC8484=
+
+Name: icons/obj16/TimeConstraint.gif
+SHA1-Digest: iWtmzBenCC7gGR+5dOWm4qO+gpM=
+
+Name: about.html
+SHA1-Digest: m//+sZd+LYcO5OY/bjEiZVm0dk0=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$72.class
+SHA1-Digest: TsT19j8Hl/pTH00pHH7OyMTNrls=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$170.class
+SHA1-Digest: tMY6iadcCUX3tIh7mqAE7goR2dQ=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/UnmovableUnselectab
+ leShapeEditPolicy.class
+SHA1-Digest: nuODvy+i7Vfb6h8j8c3QQyPROyI=
+
+Name: icons/obj16/ReadLinkObjectEndAction.gif
+SHA1-Digest: v2S0PdGYdfQqD3dlRym5DSkvgtY=
+
+Name: icons/obj16/RemoveStructuralFeatureValueAction.gif
+SHA1-Digest: rk3uYGlhWuJJzZgSo343CFeTSBs=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$55.class
+SHA1-Digest: Vpi3/b4Q+dRUR3IGXpnpN3YYfbE=
+
+Name: org/eclipse/uml2/diagram/common/parser/slot/SlotParser.class
+SHA1-Digest: LmxgSY8aQZRfIOCmD5D9DRfv81s=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$153.class
+SHA1-Digest: /AgDmcTnelN4H/ciGKstJG9r8qk=
+
+Name: icons/obj16/InteractionUse.gif
+SHA1-Digest: 2tYKqbJDijv3XHkTQB5a1N1rYGk=
+
+Name: org/eclipse/uml2/diagram/common/links/InterfaceLinkFilter.class
+SHA1-Digest: r1NsAxwKrjxFYYP/7hi2n7L7Smw=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$38.class
+SHA1-Digest: dmmAV4ha/eeBh2dZod+YaDIPpvM=
+
+Name: icons/obj16/ConnectionPointReference.gif
+SHA1-Digest: /Jt49zRIH9K5u/2/elAUD+GuY9A=
+
+Name: icons/obj16/Model.gif
+SHA1-Digest: d8noDPY3t/Qm9v9iQX8ig7f0nx8=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$136.class
+SHA1-Digest: +rOnGAv8F8TNgzxmpbJcanPVz7s=
+
+Name: org/eclipse/uml2/diagram/common/async/AsyncDiagramDeleteRequest.
+ class
+SHA1-Digest: vxte8/GmbFv7DHz+64owYquABAQ=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$119.class
+SHA1-Digest: 5PvfXwZ8J9vdaiOsPBsAsW8rEKQ=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/ElementTreeChooser
+ $MainRoot$CurrentResource.class
+SHA1-Digest: l6Chtsf8ycqOUcMzgjEdXSelza4=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/MultiReferenceElem
+ entChooserDialog$2.class
+SHA1-Digest: Xl6oqCC0m/WXZgC8/Q14VscrdZ4=
+
+Name: org/eclipse/uml2/diagram/common/parser/property/PropertyParser$T
+ ypeLookupCallback.class
+SHA1-Digest: ortC9t68LndU9xpmJlMvxU2+U2A=
+
+Name: org/eclipse/uml2/diagram/common/parser/slot/slot.jj
+SHA1-Digest: IcVTaUQS0hYS7FqB4KRj0adF/nQ=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/BorderItemNameLocator.cla
+ ss
+SHA1-Digest: YC2ceu/TQtZi43P2qPcJfYotGV4=
+
+Name: icons/obj16/ReclassifyObjectAction.gif
+SHA1-Digest: UrsF6Zb70UZupH9U/a/BaDKhrnE=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$83.class
+SHA1-Digest: pUqmHqsnRj4m+Kwh028suDR/3/U=
+
+Name: org/eclipse/uml2/diagram/common/async/SyncModelUI$SwitchSynchron
+ izationAction.class
+SHA1-Digest: F8hwkah132+jmHs2jKYs5GSsnVQ=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$181.class
+SHA1-Digest: rGUGr3E4DHDo2KJWmauIe6XJYcw=
+
+Name: org/eclipse/uml2/diagram/common/parser/slot/SlotParserConstants.
+ class
+SHA1-Digest: IQTvCN8u+nO4fEbryjHMlibMk70=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$66.class
+SHA1-Digest: 8TkBuBzMWw23q5SEqtvTG1/dUak=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$164.class
+SHA1-Digest: krxITPRx6EEG0nhtoTpm14cdfxo=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$49.class
+SHA1-Digest: ixo4rxz1xADIQRlPat9ApqNRHqs=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$147.class
+SHA1-Digest: jj/16QMQxYZI1uUb2MM0pzcoX1o=
+
+Name: icons/obj16/OutputPin.gif
+SHA1-Digest: YrYz3NaITXBft0g54MHDyV9RNTI=
+
+Name: org/eclipse/uml2/diagram/common/async/SyncModelUI$SyncModelUIAct
+ ion.class
+SHA1-Digest: O1YUwi4cjjFkHuzzaNDgT7pHEQI=
+
+Name: icons/obj16/GeneralOrdering.gif
+SHA1-Digest: Xx8Lbz2fSRLU9n/2yODsxKGNRM0=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$94.class
+SHA1-Digest: WpagjWZO48iS1PKVd+j3r7Lew1I=
+
+Name: icons/obj16/BroadcastSignalAction.gif
+SHA1-Digest: R/3yuF5Jyrj6HRDTkKxhPJyacf0=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$192.class
+SHA1-Digest: ys4cb1l71R8AOBxhjadmkvi4U9M=
+
+Name: icons/obj16/ExpansionNode.gif
+SHA1-Digest: YBG/Yg1QUSAHE44d9Iloe9YHm10=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$77.class
+SHA1-Digest: jPKIiD/nMi7KW7kPGzgMkEt7ipQ=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/FilteredListContro
+ l$2.class
+SHA1-Digest: WnQ6cJ9Uaxw5/240BIAK98xrYE4=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$175.class
+SHA1-Digest: 3CV/lNpZyjk5VcXx65+x58VEqSI=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/ElementTreeChooser
+ $MainRoot$LoadedResources.class
+SHA1-Digest: a+9l9qfQFZjObEQK0YMgP9zgxNI=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$158.class
+SHA1-Digest: BnrynuqeMMwvhwbdeUdDWdykPf4=
+
+Name: org/eclipse/uml2/diagram/common/async/SyncModelUI$CheckboxFilter
+ edTree.class
+SHA1-Digest: hkxXFE7Cs017Jz5zy6QQJVJriag=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/MultiReferenceElem
+ entChooserDialog$7.class
+SHA1-Digest: GOYm0Smkr1R1M6CKtqzrYAVYh14=
+
+Name: org/eclipse/uml2/diagram/common/parser/operation/TokenMgrError.c
+ lass
+SHA1-Digest: INM0aX9q0aLHl3JWAWiJhq02ciU=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$88.class
+SHA1-Digest: Tff1FweWCqTOp5oMPF2EWnk3R98=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$186.class
+SHA1-Digest: 82I6H4rbv/6BySkoxD1Jy+SlFN4=
+
+Name: org/eclipse/uml2/diagram/common/parser/operation/Token.class
+SHA1-Digest: Iv43p+OPnQ0rdJm/WCjMiWGcMa4=
+
+Name: icons/obj16/DurationInterval.gif
+SHA1-Digest: CoNDiIbCvnDJuCBzTgrNjG0lLBQ=
+
+Name: icons/obj16/LiteralBoolean.gif
+SHA1-Digest: P+KqffFP6WE6xH72YVbikI8QrT4=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$169.class
+SHA1-Digest: NYRWT9NuwL3EEPdMQvyXCdj0Fxw=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/ReferencedElementC
+ hooserDialog.class
+SHA1-Digest: 08rKhz3FCDDd9DsggqZkMCuf74s=
+
+Name: org/eclipse/uml2/diagram/common/parameter/EditPropertyParameters
+ Dialog$3.class
+SHA1-Digest: knHJTzJf55No5/MyoirpagwROT4=
+
+Name: org/eclipse/uml2/diagram/common/async/SyncModelUI$CheckStateInit
+ ializer.class
+SHA1-Digest: 6oMfv/NQYYN7JQrXhs5hMK/c6+g=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/name/associat
+ ion-name.jj
+SHA1-Digest: qMOMLQSGTd6LtVqACAM16FLM+Go=
+
+Name: icons/obj16/ActivityPartition.gif
+SHA1-Digest: RqSUzN8ERiDFlIag6JBSZFaauOY=
+
+Name: org/eclipse/uml2/diagram/common/validation/UML2ToolsValidator.cl
+ ass
+SHA1-Digest: a0ls6dnrkB3JqwcmXnv6VoKlDs4=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/ManuallyDrawnShortcutDeco
+ rationFigure.class
+SHA1-Digest: vz8z0omgjH9h9zGE21figV8uO6Q=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/name/Associat
+ ionNameToString$EDIT.class
+SHA1-Digest: +Vd0Jo6WChBas1fETGBc+CxzoLc=
+
+Name: org/eclipse/uml2/diagram/common/parser/operation/JavaCharStream.
+ class
+SHA1-Digest: BdU8FAAwcEI1Ae8FpMXPxyfPSC8=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$99.class
+SHA1-Digest: hfRg262uIeodEGmTh6Dz36eRfaw=
+
+Name: org/eclipse/uml2/diagram/common/sheet/ReferenceDialogCellEditor.
+ class
+SHA1-Digest: OcRjNfrHufTSIW4gsUnELvQEj+M=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$197.class
+SHA1-Digest: mOu/0mlNrFhhi0OGjHf2Zn749JY=
+
+Name: icons/obj16/Manifestation.gif
+SHA1-Digest: 1pqs6Pi7B753BoG08z7PYcWmVEc=
+
+Name: org/eclipse/uml2/diagram/common/preferences/UMLPreferencesConsta
+ nts.class
+SHA1-Digest: ZhNaiS7dn/fhGMtQhUZbZWDHt1E=
+
+Name: org/eclipse/uml2/diagram/common/parser/imports/ElementImportProv
+ ider.class
+SHA1-Digest: nsnbwrXnbbFwPGmnT/ID5IJK5vc=
+
+Name: icons/obj16/Profile.gif
+SHA1-Digest: 2BrPAL4VTeHCF1D6WzqNb55JVzE=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/ConstraintFigure.class
+SHA1-Digest: vZFPiVSNxYl++BKyqk8oiNfqlQs=
+
+Name: icons/obj16/ExtensionEnd.gif
+SHA1-Digest: kVhm3ywBQXbRSn60WSq4resNrBo=
+
+Name: icons/obj16/ActionExecutionSpecification.gif
+SHA1-Digest: zquZxcPamDVPC6YsvnxGj9zR/fg=
+
+Name: icons/obj16/Message_asynchCall.gif
+SHA1-Digest: EYrdn1Za3/05kZ0S5lTbL2tpG70=
+
+Name: org/eclipse/uml2/diagram/common/editparts/PrimaryShapeEditPart.c
+ lass
+SHA1-Digest: s7lWnsiyNKmPJ22O++PrDFm5n2s=
+
+Name: icons/obj16/ProtocolStateMachine.gif
+SHA1-Digest: HWKrfRF7uOVL7qP/Zk/FR+6gP04=
+
+Name: icons/obj16/AcceptEventAction.gif
+SHA1-Digest: eNxdHUrewD8x6VUeHmP08OkAlsY=
+
+Name: org/eclipse/uml2/diagram/common/parameter/ShowPropertyParameters
+ ActionBase.class
+SHA1-Digest: sN5kKPIPi2ooy5Gp7Xy+j/uBbl4=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/DefaultSizeOvalAnchorable
+ Figure.class
+SHA1-Digest: YPj5tvzWrt+IQ+LoR/K2atczw30=
+
+Name: icons/obj16/Deployment.gif
+SHA1-Digest: GiWPGbG4h1e8MNM6E9GZwHsmTQk=
+
+Name: org/eclipse/uml2/diagram/common/view/ViewProviderUtils.class
+SHA1-Digest: SeovQFZU31pVo6591+X2D0R1sig=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/AbstractPostCreateC
+ ommand$CVAEAccess.class
+SHA1-Digest: cjIUCXRBMm7svyELjQEI0tShk1w=
+
+Name: org/eclipse/uml2/diagram/common/actions/RotateActionHandler.clas
+ s
+SHA1-Digest: Nyhojrv2Isv51ygt5WHLJnxoc4g=
+
+Name: org/eclipse/uml2/diagram/common/parser/valuespec/ConstraintLangu
+ ageParser.class
+SHA1-Digest: l49N23ZmgI0L5qHLTMa4spnF8GQ=
+
+Name: org/eclipse/uml2/diagram/common/internal/draw2d/handles/U2TRelat
+ iveHandleLocator.class
+SHA1-Digest: j6KM6Eq0Lei7dsWerbOyWaVJUe0=
+
+Name: org/eclipse/uml2/diagram/common/parser/slot/JavaCharStream.class
+SHA1-Digest: Z9bPyUHFHp31D+fHEnE/qR9PTDw=
+
+Name: org/eclipse/uml2/diagram/common/stereo/ApplyProfileAction$ApplyP
+ rofileCommand.class
+SHA1-Digest: Hwv50MU7q1pbw4wtubSG4+oHBm4=
+
+Name: icons/obj16/ExecutionEnvironment.gif
+SHA1-Digest: XpeNBNt4c4ow8WeTEYsn+swg2fI=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/end/Associati
+ onEndToString$MULTIPLICITY_VIEW.class
+SHA1-Digest: vpGIEK4BkSZEFUuOFzLnWBidMBo=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/end/Token.cla
+ ss
+SHA1-Digest: z0NMLupYEOEAC+QeAYwQs68LyMs=
+
+Name: icons/obj16/InstanceSpecification.gif
+SHA1-Digest: UB+2He1OXQKkAtNTO/ge64S5beg=
+
+Name: org/eclipse/uml2/diagram/common/parser/stereotype/DeploymentAppl
+ iedStereotypeParser.class
+SHA1-Digest: sZZ+ksDVGAcEU4mX3EEKpgc+fdU=
+
+Name: org/eclipse/uml2/diagram/common/parser/operation/OperationParser
+ $OperationAdapter.class
+SHA1-Digest: SSe2QaX8Ar/8nlh6Hw+NK/dhLuI=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/XYLayoutEditPolicyW
+ ithMovableLabels.class
+SHA1-Digest: mC0bhgKd/bvbW7JI0kU0D2pc93Q=
+
+Name: org/eclipse/uml2/diagram/common/part/NewDiagramHandlerBase.class
+SHA1-Digest: p6IA5OfcGB44bqPf3NG+DqQUBCM=
+
+Name: icons/obj16/Association_shared.gif
+SHA1-Digest: /JX3UrQn1B4eKhFHIfQrBNJ7QGU=
+
+Name: org/eclipse/uml2/diagram/common/parser/stereotype/AppliedStereot
+ ypeParser.class
+SHA1-Digest: 0bJkVckKrRLbKF0DDNc7j2VdB6o=
+
+Name: icons/obj16/Actor.gif
+SHA1-Digest: b77io1g4x4sT8wQTLG904HmrFu4=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/RequiredInterfaceDecorati
+ on.class
+SHA1-Digest: DXsrHH3Czo4WXJqa1E81BkX1JWs=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/MetaclassContainme
+ ntFilter$EPackageRegistry.class
+SHA1-Digest: t2l8WgCmmDkh4EdQVEcC/j3ep0I=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/end/Associati
+ onEndApplyStrategy.class
+SHA1-Digest: J7Ci0hSAsPJjA3i6n+kpX6kTXsk=
+
+Name: org/eclipse/uml2/diagram/common/internal/stereo/TaggedValueHelpe
+ rImpl.class
+SHA1-Digest: P3u1qK1fg36OmU+KBcTHrKXNDqs=
+
+Name: org/eclipse/uml2/diagram/common/async/CanonicalHelper.class
+SHA1-Digest: FjmxvPpXuP6kC9ybMfA+R4YjmrI=
+
+Name: org/eclipse/uml2/diagram/common/parser/instance/InstanceSpecific
+ ationToString.class
+SHA1-Digest: hPRgZPClE4tzoqPynJb7TIBklwA=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/ElementTreeChooser
+ $MenuBuilder.class
+SHA1-Digest: NM+ajOkYLGLQU3JLTv3cXH/opzY=
+
+Name: org/eclipse/uml2/diagram/common/stereo/ProfileRegistry$ProfileIn
+ fo.class
+SHA1-Digest: zhFp9IDk1dyTczUZ14Zs1Pk9MI4=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$3.class
+SHA1-Digest: A6+WijhizwhNsxfwA2n4N0IfCEE=
+
+Name: org/eclipse/uml2/diagram/common/stereo/StereotypeListener.class
+SHA1-Digest: hMblv3lxuTx+YV9x5q/d6v9c2/s=
+
+Name: org/eclipse/uml2/diagram/common/conventions/ConnectorEndConventi
+ on.class
+SHA1-Digest: 08EXamkb4yvEnHgmYeDjM2/6mL0=
+
+Name: org/eclipse/uml2/diagram/common/sheet/TextAndDialogCellEditor$5.
+ class
+SHA1-Digest: HO4XpxaA308jR77vgz1m+xzu518=
+
+Name: org/eclipse/uml2/diagram/common/parser/port/PortParser$JJCalls.c
+ lass
+SHA1-Digest: 5oPjqyLuoB3YBYNtJGZRheQfZyQ=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/end/Associati
+ onEndToString$MODIFIERS_VIEW.class
+SHA1-Digest: Wedsuuo09Wek7SrskcfljGgZAHk=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/AssociationIn
+ stanceParser.class
+SHA1-Digest: ypAKyCTWEcCF6P8Ne8eUUoqeVkA=
+
+Name: org/eclipse/uml2/diagram/common/async/SyncModelUI.class
+SHA1-Digest: m4o2QmoebR4oFvq8fUqez8sG7KA=
+
+Name: icons/obj16/PackageMerge.gif
+SHA1-Digest: 9Nsfa0ec3oWYijlhitW91Um688c=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/U2TCreateLinkComman
+ d.class
+SHA1-Digest: GC7SqZ9QDaM6eCBFkdY34Hl+gfA=
+
+Name: icons/obj16/Abstraction.gif
+SHA1-Digest: Apr8MAYtUZ4HlM/bElUYQ3dPJQk=
+
+Name: org/eclipse/uml2/diagram/common/internal/draw2d/handles/Position
+ 2Direction.class
+SHA1-Digest: N7/C7YwR6JkDS+QDGBh5FCXW1GE=
+
+Name: org/eclipse/uml2/diagram/common/actions/UMLDiagramAction2$1.clas
+ s
+SHA1-Digest: TXI0UH2CiWoVEIgWWYstO2w8JSI=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/MoveRequestWithPare
+ ntInfo.class
+SHA1-Digest: pl2uGMhKuBihvooVBj0xuvJqtbU=
+
+Name: org/eclipse/uml2/diagram/common/stereo/ApplicableProfilesItemPro
+ vider$MenuBuilder.class
+SHA1-Digest: Y6Ocr+PHuzZI1Wy5Iccc7C8v8Ug=
+
+Name: org/eclipse/uml2/diagram/common/editparts/NeedsParentEditPart.cl
+ ass
+SHA1-Digest: 2uAWcWSQtJbj5jnkHf/8V4UzaKM=
+
+Name: org/eclipse/uml2/diagram/common/parser/operation/OperationInplac
+ eApplier.class
+SHA1-Digest: Q4yKzpqwJnFP99zKOf+8vpIE3aY=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/NameAndStereotypeBlock$To
+ pBottomLayout.class
+SHA1-Digest: omD3FV7Oova+CWDOuoavXXvRAJQ=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/LaneLayout.class
+SHA1-Digest: dsYRCXrK2dhQiFnj3flPJNRMdW8=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$20.class
+SHA1-Digest: FcqK2vid11N+MDGOMkgXQkbjUks=
+
+Name: icons/obj16/Collaboration.gif
+SHA1-Digest: SGfSCYl/PW++smMZ2sJXAQFjaMo=
+
+Name: org/eclipse/uml2/diagram/common/parser/operation/OperationToStri
+ ng$EDIT.class
+SHA1-Digest: OfC/GeDZoa5hBuOY1X/FZZp1AWI=
+
+Name: icons/obj16/Continuation.gif
+SHA1-Digest: ww6sJt4fEVyGCgKApU3rcZoh0Z8=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$101.class
+SHA1-Digest: CNB3l8/WUQwub87oTz9arhktDkE=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/UpdateDescriptionRe
+ quest$Descriptor.class
+SHA1-Digest: o8/b/I1bv6TLmkeaZUYrL1ouUBg=
+
+Name: icons/obj16/Association_composite.gif
+SHA1-Digest: 5AwkiXisr3ksBbCwDV+3Z/tMU8U=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$8.class
+SHA1-Digest: v050ROZXb8qWw2O4N7Wd9ywadW4=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/PileLayout$4.class
+SHA1-Digest: 0m7tSp++ytATcALC8Rrpq2yKB/g=
+
+Name: icons/obj16/UseCase.gif
+SHA1-Digest: V7dsnxGb1m7zNBUPoZIRCNUZpZ0=
+
+Name: org/eclipse/uml2/diagram/common/parameter/EditPropertyParameters
+ Dialog$ValueSpecificationToStringConverter.class
+SHA1-Digest: YsvC6vFEvORVg/TQFQRoLbOn8bw=
+
+Name: org/eclipse/uml2/diagram/common/pathmap/PathMapService.class
+SHA1-Digest: jsk1nJxoNDH7i/5eIId3GPsMzP4=
+
+Name: org/eclipse/uml2/diagram/common/stereo/StereotypeUtil.class
+SHA1-Digest: SNa9+uAy5JyDUMc37/jIL8W9f50=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$31.class
+SHA1-Digest: ogu4dkj99/x+Zh9AM/Dwaj3kWM8=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$14.class
+SHA1-Digest: 53rIoF+l3gzCpZpVtR0lRvaWyks=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$112.class
+SHA1-Digest: vTp0lwCIds9Fuw0sJ+2MsWlr0pM=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/decoration/ComposablePoly
+ gonDecoration.class
+SHA1-Digest: 4YU2xXGpbVOeMdEFMDo1S0P/K9o=
+
+Name: org/eclipse/uml2/diagram/common/commands/ApplyStereotypeHelper.c
+ lass
+SHA1-Digest: eyADI6UUJ+4y//zSJNjSss1X/3s=
+
+Name: org/eclipse/uml2/diagram/common/actions/ChangeNotationAction$1.c
+ lass
+SHA1-Digest: y2+fE73Dwy9EyHbFnoYvxK6iEa0=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/end/Associati
+ onEndParser$JJCalls.class
+SHA1-Digest: JN9jKd48TLuISOcVPTBbOKxRc3o=
+
+Name: org/eclipse/uml2/diagram/common/async/ByVisualIDViewerFilter.cla
+ ss
+SHA1-Digest: u/RjI1mURccHjvjgiF4P3vGiFRg=
+
+Name: icons/obj16/DurationObservation.gif
+SHA1-Digest: GDskCPmLOC3A3L8Xxawi1bXYIZI=
+
+Name: org/eclipse/uml2/diagram/common/sheet/ReferenceComboAndDialogCel
+ lEditor$3.class
+SHA1-Digest: y4mm4rWnMaduKbIoCfRRAoHWqtk=
+
+Name: org/eclipse/uml2/diagram/common/compartments/U2TCompartmentFigur
+ e.class
+SHA1-Digest: yC2FtpQMpYKSGPhjFJTHv9I2h/o=
+
+Name: plugin.properties
+SHA1-Digest: 7e/0ttPVhGJ4qt6yeUFgY8zoo3w=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$42.class
+SHA1-Digest: SigMrcDdXEzQ7zKXabamWVv/UB4=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$140.class
+SHA1-Digest: hgXQq0EScM6fD2ZQTr14TBO6Z9I=
+
+Name: icons/obj16/Region.gif
+SHA1-Digest: iSp8pCAJMBpSMOJVsfoyh9xCvDQ=
+
+Name: org/eclipse/uml2/diagram/common/parser/valuespec/ValueSpecificat
+ ionParserUtil$1.class
+SHA1-Digest: OYypt62khMLpxz/xBidSxQqIT0E=
+
+Name: icons/obj16/Realization.gif
+SHA1-Digest: rpc/iW+HyYXt0s6ytzxG4gj3kgo=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$25.class
+SHA1-Digest: WP9w8ETMwIaF/azbIaA7ruQ4qT0=
+
+Name: org/eclipse/uml2/diagram/common/validation/OCLFromStereoConstrai
+ nt.class
+SHA1-Digest: 0SWBknaMqL008Gj/7HAukxB8HIw=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$123.class
+SHA1-Digest: /cOJaM/KJQCWvNM94Ej3EqLaQB0=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$106.class
+SHA1-Digest: rhF3uGUMTO++f9Db8+EuYcOI/2M=
+
+Name: plugin.xml
+SHA1-Digest: LYFHFCGprBcO9vrom8i3Hyp2RwU=
+
+Name: icons/obj16/Slot.gif
+SHA1-Digest: 4sBp3prqnLtuBg5nZ9W1yX7iyOQ=
+
+Name: org/eclipse/uml2/diagram/common/stereo/ProfileRegistry.class
+SHA1-Digest: v6CZFmd4BSIm5GTUcS2qkLtvxhY=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/CoveredFreeformLayer.clas
+ s
+SHA1-Digest: RzIEOGkOURPJiillMhBCeUMcXAg=
+
+Name: org/eclipse/uml2/diagram/common/parameter/celleditors/BooleanCel
+ lEditor.class
+SHA1-Digest: kIO1O0JH/P6SE2ywE8iyR2yMbh4=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$70.class
+SHA1-Digest: 8k/dmErzGBzDQSzt8DjXx6OrFvk=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$53.class
+SHA1-Digest: TCbIWlYtmOVIHNTCwNCGPZxvSpM=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$151.class
+SHA1-Digest: fPXXoIDdFwjHqieeyu8NAhNpvrQ=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/decoration/CompositeDecor
+ ation$LocatorStub.class
+SHA1-Digest: 5WRuaxuMwrx9sWupcMgeb6NCed0=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$36.class
+SHA1-Digest: 9Gp7mzGhIMeLd9lkWV5T/+ERuGA=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$134.class
+SHA1-Digest: jkRaEqzUSReh/NYBk6qApyci4XA=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$19.class
+SHA1-Digest: sDq9ofPo3YUtg2Uu0kHjw+0hh6Q=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$117.class
+SHA1-Digest: CLaq4IfPvgodf4q+AgEbOr6AQhc=
+
+Name: org/eclipse/uml2/diagram/common/parser/port/Token.class
+SHA1-Digest: AS7zQyeDQmB3DButjDQoE477I78=
+
+Name: org/eclipse/uml2/diagram/common/parameter/celleditors/DirectionC
+ ellEditor.class
+SHA1-Digest: n0bFXGcrjXohlaqE5q51oVLIgL4=
+
+Name: org/eclipse/uml2/diagram/common/async/DeleteFromDiagramAction.cl
+ ass
+SHA1-Digest: 3fam9EYNc6wKLiAONWsU9uaJ3Fs=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/StereotypeLabelDirectEdit
+ Policy.class
+SHA1-Digest: Tl6sbSn+flRho/1K5a8wmBCq5qg=
+
+Name: icons/obj16/ReceiveOperationEvent.gif
+SHA1-Digest: 5CdWObZGDEPCBOfMck/K4oLaXjo=
+
+Name: org/eclipse/uml2/diagram/common/parser/valuespec/ValueSpecificat
+ ionParserUtil.class
+SHA1-Digest: +t+52PkEfJLIKvC6fQRD2RRBxnc=
+
+Name: icons/obj16/MessageOccurrenceSpecification.gif
+SHA1-Digest: QHYbZ+gXPaY9cNYMQzpctO/w4Iw=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$81.class
+SHA1-Digest: lL6HS6O6oN6ntYqEt3GBcY3MDaQ=
+
+Name: org/eclipse/uml2/diagram/common/async/SyncModelUI$BulkSelectActi
+ on.class
+SHA1-Digest: CeGWgj6AO0i0aswIUVUVlggn3/w=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$64.class
+SHA1-Digest: LlPuaTV6EkAQnF1JoyBGV2Ta5Vo=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$162.class
+SHA1-Digest: lLAWSlK1EffnQ9R6GsTUm8vE4Kc=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$47.class
+SHA1-Digest: zBPTVzoVR+8HSW8Xo1t6PWnfHBA=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$145.class
+SHA1-Digest: G8WuJdXSFqFBejGJRYGrj1YlTSk=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$128.class
+SHA1-Digest: InXsHu/8YIDK7glHcD2CgtO7aZs=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/AssociationEndDecor
+ ationEditPolicy.class
+SHA1-Digest: EwEWzMLRN20CNzfjFxyaD//rdq8=
+
+Name: org/eclipse/uml2/diagram/common/parser/property/PropertyToString
+ .class
+SHA1-Digest: r05LZTJ6iAQT7pFUgidvOQ0voxM=
+
+Name: org/eclipse/uml2/diagram/common/preferences/IconStylePreferenceP
+ age$ShowHideConnectorLabelGroup.class
+SHA1-Digest: kMToDp5UmXKOfNUFNF6w1ZiRAG4=
+
+Name: org/eclipse/uml2/diagram/common/parser/slot/SlotToString$EDIT.cl
+ ass
+SHA1-Digest: ucaLuR8LDDilej9j7013f3Xr1dg=
+
+Name: icons/obj16/ComponentRealization.gif
+SHA1-Digest: TrFnNfHfKVGChbEJgA/Bn2XkvcM=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$92.class
+SHA1-Digest: 8We6tWI/wgMqqy+0tJtQEyAMxMc=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$190.class
+SHA1-Digest: pgjvbt2WG6c9cekgA3RAcfj07iI=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$75.class
+SHA1-Digest: VBPgErP5bsN1+0Fsn+JD4D2Igfo=
+
+Name: org/eclipse/uml2/diagram/common/actions/ConvertNoteToCommentActi
+ on$ConvertNoteToCommentCommand$1.class
+SHA1-Digest: 75uh3ZFRCduqhX98vKSTNcuTVHY=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$173.class
+SHA1-Digest: kYLtzjAqsXw8nmyMndYBFcfpCog=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/BisectionBorderItemLocato
+ r.class
+SHA1-Digest: fCVuCCvg0YRt2L7BO9JwMnEVx90=
+
+Name: org/eclipse/uml2/diagram/common/stereo/ApplyStereotypeAction.cla
+ ss
+SHA1-Digest: KN1Ih8H+CfvyC2c1FkcU1c2z2x0=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$58.class
+SHA1-Digest: FDiiKMlgIEjLeuSTT3QXMHIBYqw=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$156.class
+SHA1-Digest: ypa3dYStX+Rjz0b8fVLjUfV9OtQ=
+
+Name: org/eclipse/uml2/diagram/common/preferences/IconStylePreferenceP
+ age$2.class
+SHA1-Digest: tb42DkcyjqBcJ58fc5rrABhsoxQ=
+
+Name: icons/obj16/AcceptCallAction.gif
+SHA1-Digest: fzGYsFgl8xnkYQf4+LloFm5e+h0=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$139.class
+SHA1-Digest: CFBlzrJoRcQq6j05D6h3emXt6zM=
+
+Name: org/eclipse/uml2/diagram/common/stereo/ApplyProfileAction$Unappl
+ yProfileCommand.class
+SHA1-Digest: M3d8T9N1Pk2FOYye5nyLEODTwBI=
+
+Name: org/eclipse/uml2/diagram/common/actions/ConvertCommentCommandBas
+ e.class
+SHA1-Digest: cMb2TLc07W4c7v93UyzXHg0BJd0=
+
+Name: org/eclipse/uml2/diagram/common/sheet/PropertySourceExtension.cl
+ ass
+SHA1-Digest: IYu7lhHPvQVOiCx0Rw9+HWt5vpA=
+
+Name: icons/obj16/ExecutionEvent.gif
+SHA1-Digest: TuTG9rlsQgJEyyfbKbSpvtugvGo=
+
+Name: icons/obj16/Parameter_inout.gif
+SHA1-Digest: tQ7WY2OnNYnChJoaK68dz5BvhKs=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/MultiReferenceElem
+ entChooserDialog$5.class
+SHA1-Digest: mPxOHShAlthZATZgj+T+acVO9vE=
+
+Name: icons/obj16/ActivityParameterNode.gif
+SHA1-Digest: sUn5M8g7FOZNSugBdeTRLeku8MI=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$86.class
+SHA1-Digest: 8ZHnlqNy963Ss96l6pur6xCyHXE=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/AssociationIn
+ stanceParser$ROLE_PARSER.class
+SHA1-Digest: Q8EhhAy9ZNj+IGKI7VhjpXjwws0=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$184.class
+SHA1-Digest: hrufGFnNEkmlSE5MqcunCZeGvqM=
+
+Name: org/eclipse/uml2/diagram/common/parser/port/PortParser.class
+SHA1-Digest: CJ/1CbAsaIQOhpcJy4J2UmUl0vY=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/ElementChooserPage
+ $Validator.class
+SHA1-Digest: Z9oTUp6TCXPol2+GIair58Z2vQk=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$69.class
+SHA1-Digest: yQh5w2TStE5OOCHEcF7MIVWR2gk=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$167.class
+SHA1-Digest: uHKXK9dicBO1kmgMiXb4cSeDsco=
+
+Name: org/eclipse/uml2/diagram/common/parser/instance/InstanceSpecific
+ ationParserTokenManager.class
+SHA1-Digest: hDIOvHEvt4CaLlM0anXTmbszOig=
+
+Name: icons/obj16/ExecutionOccurrenceSpecification.gif
+SHA1-Digest: 9uSY1OSnjg4dHyJw+RZ7At/Knho=
+
+Name: org/eclipse/uml2/diagram/common/parameter/EditPropertyParameters
+ Dialog$1.class
+SHA1-Digest: sxjOExox1R7tCjBtUX7J1/ynWgs=
+
+Name: org/eclipse/uml2/diagram/common/async/SyncModelUI$MenuBuilder.cl
+ ass
+SHA1-Digest: QRMuGe8ppz901Xcu/lo8xwaovTU=
+
+Name: icons/obj16/InterfaceRealization.gif
+SHA1-Digest: a/Q3RLArSVbBCme8ueRhLMJ7gyc=
+
+Name: org/eclipse/uml2/diagram/common/parser/slot/SlotLookupSuite$Stru
+ cturalFeatureLookup.class
+SHA1-Digest: wnbfnYC0UWeBwC4VZrNKsbjS1eM=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$97.class
+SHA1-Digest: wP1gx43VpYqidVkOzTnKOsOBL3M=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$195.class
+SHA1-Digest: 2LGjka7aZTUq+WsZLSAYVc1IMbc=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$178.class
+SHA1-Digest: rpJsVDpDMJU0M2InFAewErhgiE0=
+
+Name: org/eclipse/uml2/diagram/common/layered/MultilayeredSupportImpl.
+ class
+SHA1-Digest: 5ULMvR83P9y/ONrXKtatYoMVm58=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/U2TCreateParameters
+ Impl.class
+SHA1-Digest: 6Td7x6eAGqTy+SdoF9YT9H6Yifg=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/ElementTreeChooser
+ $TreeRoot.class
+SHA1-Digest: vsImjmDarzZUinZoPH9Ps5Zw6X8=
+
+Name: org/eclipse/uml2/diagram/common/sheet/ConstraintSpecificationTab
+ $PropertySection.class
+SHA1-Digest: V3ViVPDl8Fq5pQ7twK+W10gDTvI=
+
+Name: org/eclipse/uml2/diagram/common/commands/ApplyOrUnapplyStereotyp
+ eCommand.class
+SHA1-Digest: gHDnoLAxWb5oZvZ0yv1q9QB6Flo=
+
+Name: icons/obj16/SendSignalAction.gif
+SHA1-Digest: BE2vFqiUHsqamgiTPts669rFUFs=
+
+Name: icons/obj16/OperationTemplateParameter.gif
+SHA1-Digest: 9i9++MVy3rJcpYAyMTuUWHfOZm4=
+
+Name: org/eclipse/uml2/diagram/common/parser/port/JavaCharStream.class
+SHA1-Digest: wOkOtExZXCD+dxFNxOMQLaOHsWg=
+
+Name: org/eclipse/uml2/diagram/common/sheet/chooser/SimpleNamedElement
+ LabelProvider.class
+SHA1-Digest: g//Jqf3GowpstATRhaORT/NcWUg=
+
+Name: icons/obj16/Extension.gif
+SHA1-Digest: eWdu90EOe7hJP67CjbJTi9/J/qU=
+
+Name: org/eclipse/uml2/diagram/common/parser/instance/InstanceSpecific
+ ationToString$VIEW.class
+SHA1-Digest: sHQEjfc5ZtUuOHNTmb5GArbae8w=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/PileLayout$PileConstraint
+ .class
+SHA1-Digest: suOM8tkuIuxRlvGc99+k5jIx+WQ=
+
+Name: org/eclipse/uml2/diagram/common/async/NewDiagramSyncHelper$3.cla
+ ss
+SHA1-Digest: HCe3FywuXD4OquqqDQR4F52/HzE=
+
+Name: org/eclipse/uml2/diagram/common/parser/operation/ParseException.
+ class
+SHA1-Digest: WzRi4RoyAlSxCx/uTK0NFy1netA=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$189.class
+SHA1-Digest: Ec1QXblKZhAyV8bqd8uISM7xgDY=
+
+Name: org/eclipse/uml2/diagram/common/actions/ConvertCommentCommandBas
+ e$ConfigImpl.class
+SHA1-Digest: 4HhJAUCtcCKIyTXKI7VHN8EWOyI=
+
+Name: org/eclipse/uml2/diagram/common/internal/stereo/StereotypeApplic
+ ationTaggedValueAdapter.class
+SHA1-Digest: SWEiruh/cS2DwHQgNM/w6lviBbw=
+
+Name: org/eclipse/uml2/diagram/common/internal/draw2d/handles/U2TMoveH
+ andle.class
+SHA1-Digest: Q2bXWRpcv1RLiQhMg8GEf4bVSSE=
+
+Name: org/eclipse/uml2/diagram/common/parser/port/port.jj
+SHA1-Digest: R0pQ63SFWUPu9Q8y6QCnOlXJJ48=
+
+Name: icons/obj16/CallEvent.gif
+SHA1-Digest: yERScQrLsxXrJbZL27muvtvn4Xk=
+
+Name: org/eclipse/uml2/diagram/common/commands/ChangeAssociationKindCo
+ mmand.class
+SHA1-Digest: ODuO6FL37TdNzsZzqIeT95oC1ZE=
+
+Name: icons/obj16/Comment.gif
+SHA1-Digest: SapdGaVvchAFqbUviKHDzPyr8Yo=
+
+Name: icons/obj16/InformationItem.gif
+SHA1-Digest: j+Ri+iajHW0rOxBPKH3xRo7jVPI=
+
+Name: org/eclipse/uml2/diagram/common/sheet/AssociationPropertySection
+ $TargetPropertySection.class
+SHA1-Digest: M527UDA0DH49DxrhTKBLWUJQahk=
+
+Name: org/eclipse/uml2/diagram/common/genapi/IDiagramUpdater.class
+SHA1-Digest: yV5fSurWcf1CZpam+jKCrAsS3P0=
+
+Name: org/eclipse/uml2/diagram/common/parameter/EditParametersTableCon
+ stants.class
+SHA1-Digest: LVT/5gLq1PKs3DY68kYUu+lx2qo=
+
+Name: org/eclipse/uml2/diagram/common/parser/port/PortParserConstants.
+ class
+SHA1-Digest: dIjOirsrEtbYgM9YIKhipk9Gi6E=
+
+Name: org/eclipse/uml2/diagram/common/stereo/ApplicableStereotypesItem
+ Provider$MenuBuilder.class
+SHA1-Digest: VAVwF69dazc+vXodFleCarm6jbI=
+
+Name: org/eclipse/uml2/diagram/common/parser/operation/OperationParser
+ $TypeGate.class
+SHA1-Digest: hrDb3bK1iQkdxiAIuEm6ais/OuM=
+
+Name: org/eclipse/uml2/diagram/common/parser/association/end/Associati
+ onEndParserTokenManager.class
+SHA1-Digest: VkJ/zdRhuCKdfE7uZV+E0COn+gc=
+
+Name: org/eclipse/uml2/diagram/common/parser/slot/SlotToString.class
+SHA1-Digest: bAcaoWOcKfOU95vHv1ere5MxV9A=
+
+Name: org/eclipse/uml2/diagram/common/parser/operation/OperationParser
+ $MultiplicityGate.class
+SHA1-Digest: HgMQmllBI1AxVeuH+1ks+b8OhUs=
+
+Name: icons/obj16/ValueSpecificationAction.gif
+SHA1-Digest: c01wfF985tKo2UNTa6cPdkRSrJY=
+
+Name: org/eclipse/uml2/diagram/common/async/SyncModelUI$CheckListener.
+ class
+SHA1-Digest: Lh2KWClodWfGohD37uhNP0cPEEc=
+
+Name: org/eclipse/uml2/diagram/common/compartments/U2TResizableCompart
+ mentEditPolicy$U2TCollapseHandle.class
+SHA1-Digest: nD+a4bt/U1CJGRQ7by2DjuBpMXk=
+
+Name: icons/obj16/InputPin.gif
+SHA1-Digest: gGDya+CfMiYw35isdMdQFRng1Ao=
+
+Name: org/eclipse/uml2/diagram/common/sheet/ReferencePropertyDescripto
+ r$1.class
+SHA1-Digest: MFM+jCl6PPyfSWUB1Ectwsvyx/M=
+
+Name: icons/obj16/Clause.gif
+SHA1-Digest: fBJleL198jdJjGQ+OA33Ui2k1pI=
+
+Name: org/eclipse/uml2/diagram/common/layered/MultilayeredFigure.class
+SHA1-Digest: HGt/TFZQeM+IKIJQkw7xBItBvE8=
+
+Name: org/eclipse/uml2/diagram/common/parser/slot/ParseException.class
+SHA1-Digest: tJNUfOawWRCmNKMn/p7cpTZoUgA=
+
+Name: org/eclipse/uml2/diagram/common/providers/AlternativeUMLItemProv
+ iderAdapterFactory$1.class
+SHA1-Digest: x2Le9grKEEOB6K6hEI37H3I5TTM=
+
+Name: org/eclipse/uml2/diagram/common/stereo/ApplyProfileAction$1.clas
+ s
+SHA1-Digest: OtezoB9uqwDUPDUNzeclL53BZOE=
+
+Name: org/eclipse/uml2/diagram/common/internal/draw2d/handles/U2THandl
+ eKit.class
+SHA1-Digest: UzTfZBX4iFwsiunPRdPaaplBymo=
+
+Name: icons/obj16/Parameter_in.gif
+SHA1-Digest: WspUd0tLvfud55oXeK7JWPQ64DI=
+
+Name: org/eclipse/uml2/diagram/common/sheet/TextAndDialogCellEditor$3.
+ class
+SHA1-Digest: PjcEjZrdg4F6J8Tbi84uYfzsfvw=
+
+Name: icons/obj16/CollaborationUse.gif
+SHA1-Digest: qPjPVDLIffwlFpUIoKAn+hN78gQ=
+
+Name: icons/obj16/ReadLinkAction.gif
+SHA1-Digest: 1Wh77Kq2GoPLSP8u9DgQozoxpgM=
+
+Name: icons/obj16/Pseudostate_shallowHistory.gif
+SHA1-Digest: rc3ha5Xrt6xg1gHu0y5In/7bLs4=
+
+Name: org/eclipse/uml2/diagram/common/conventions/AssociationEndConven
+ tion.class
+SHA1-Digest: a4+VtGB6pGsrZsYR/IM0av7EFTo=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/InsertingComponentE
+ ditPolicy$ExecuteCreationAndReturnEObjectCommand.class
+SHA1-Digest: Yaqq7J3xJVydazhMoLGjiSxuaUQ=
+
+Name: icons/obj16/LiteralInteger.gif
+SHA1-Digest: wQvPXDJGA7rB7yTeV87ck5BLogg=
+
+Name: org/eclipse/uml2/diagram/common/genapi/IVisualIDRegistry.class
+SHA1-Digest: FTI7SG6Q35L8KLKXA2GGaz5ILJU=
+
+Name: org/eclipse/uml2/diagram/common/sheet/ConstraintSpecificationTab
+ .class
+SHA1-Digest: uMgKPGaDB6CNZxwZisPysPxLPcw=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/RotatedImageOfString.clas
+ s
+SHA1-Digest: AQZoelyiHafvXk9LxxaYXBQPzKk=
+
+Name: icons/obj16/TemplateBinding.gif
+SHA1-Digest: paSa6U/AvZKJmkOCe+TbzfnuuH4=
+
+Name: org/eclipse/uml2/diagram/common/sheet/ImageLocationCellEditor$Im
+ ageFileFilter.class
+SHA1-Digest: V4T88gExOMFXwhkwLqkB9umA5Ns=
+
+Name: icons/ovr16/SyncDiagram.gif
+SHA1-Digest: 2HBl9QoS6nmj3DXjTP4cUDx8Jjc=
+
+Name: org/eclipse/uml2/diagram/common/editpolicies/DoNothingEditPolicy
+ .class
+SHA1-Digest: kMV7s027njWXfDh7VNoULpM30Bo=
+
+Name: org/eclipse/uml2/diagram/common/draw2d/StereotypeLabel.class
+SHA1-Digest: NIIZE2WWe2l056zDqtJLUlm/Svk=
+
+Name: org/eclipse/uml2/diagram/common/parser/instance/TokenMgrError.cl
+ ass
+SHA1-Digest: dGkRsH0tJseDAEwnUC6eph/FJ/o=
+
