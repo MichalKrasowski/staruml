@@ -145,6 +145,22 @@ public class DeleteFromModelAction extends Action implements IStarUMLModelAction
 	        		        ICommandProxy icmdPoxy = new ICommandProxy(command);
 	        		        editor.getDiagramEditDomain().getDiagramCommandStack().execute(icmdPoxy);
 	        			}
+	        		}else if(shapeImple.getElement() instanceof PackageImpl){
+	        			PackageImpl imple = (PackageImpl)shapeImple.getElement();
+	        			if(selectedNodeName.equals(imple.getName())){
+	        				// Shape의 좌표를 통해 EditorPart를 얻어온다.
+	        				Location location = (Location)shapeImple.getLayoutConstraint();
+	        				DiagramEditPart diagramEditPart = editor.getDiagramEditPart();
+	        				Point point = new Point(location.getX(),location.getY());
+	        				EditPart editPart = diagramEditPart.getViewer().findObjectAt(point);
+	        				// 삭제 Command를 작성한다.
+	        				EditCommandRequestWrapper targetRequest = new EditCommandRequestWrapper(new DestroyElementRequest(editingDomain, false));
+	        		        Command curCommand = editPart.getCommand(targetRequest);
+	        		        CompositeTransactionalCommand command = new CompositeTransactionalCommand(editingDomain, DiagramUIMessages.DiagramEditor_Delete_from_Model);
+	        		        command.compose(new CommandProxy(curCommand));
+	        		        ICommandProxy icmdPoxy = new ICommandProxy(command);
+	        		        editor.getDiagramEditDomain().getDiagramCommandStack().execute(icmdPoxy);
+	        			}
 	        		}
 	        	}
 	        }else{

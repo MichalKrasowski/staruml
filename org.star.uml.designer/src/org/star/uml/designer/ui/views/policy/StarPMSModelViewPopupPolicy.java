@@ -13,6 +13,8 @@ import org.star.uml.designer.ui.diagram.action.ActorCreateAction;
 import org.star.uml.designer.ui.diagram.action.ClazzDiagramCreateAction;
 import org.star.uml.designer.ui.diagram.action.DeleteDiagramAction;
 import org.star.uml.designer.ui.diagram.action.DeleteFromModelAction;
+import org.star.uml.designer.ui.diagram.action.PackageModelCreateAction;
+import org.star.uml.designer.ui.diagram.action.PackageModelInsertAction;
 import org.star.uml.designer.ui.diagram.action.SequenceDiagramCreateAction;
 import org.star.uml.designer.ui.diagram.action.UsecaseModelCreateAction;
 import org.star.uml.designer.ui.diagram.action.UsecaseDiagramCreateAction;
@@ -57,7 +59,10 @@ public class StarPMSModelViewPopupPolicy {
 			default:
 		}
 	}
-	
+	/**
+	 * 모든 액션을 Disabled 한다.
+	 * @param actionMap
+	 */
 	static void setPolicy_1(HashMap actionMap){
 		Iterator ie = actionMap.keySet().iterator();
 		while(ie.hasNext()){
@@ -66,24 +71,39 @@ public class StarPMSModelViewPopupPolicy {
 			action.setEnabled(false);
 		}
 	}
-	
+	/**
+	 * 로그인 할 수 있다.
+	 * @param actionMap
+	 */
 	static void setPolicy_2(HashMap actionMap){
 		Action action = (Action)actionMap.get(PMSLoginAction.ACTION_TITLE);
 		action.setEnabled(true);
 	}
-	
+	/**
+	 * 로그아웃 할 수 있다
+	 * @param actionMap
+	 */
 	static void setPolicy_3(HashMap actionMap){
 		Action action = (Action)actionMap.get(PMSLogoutAction.ACTION_TITLE);
 		action.setEnabled(true);
 	}
-	
+	/**
+	 * 모델을 생성 할 수 있다.
+	 * @param actionMap
+	 */
 	static void setPolicy_4(HashMap actionMap){
 		Action action = (Action)actionMap.get(ActorCreateAction.ACTION_TITLE);
 		action.setEnabled(true);
 		Action action2 = (Action)actionMap.get(UsecaseModelCreateAction.ACTION_TITLE);
 		action2.setEnabled(true);
+		Action action3 = (Action)actionMap.get(PackageModelCreateAction.ACTION_TITLE);
+		action3.setEnabled(true);
 	}
 	
+	/**
+	 * 모델을 삭제할 수 있다. 모델 이름을 변경할 수 있다.
+	 * @param actionMap
+	 */
 	static void setPolicy_5(HashMap actionMap){
 //		Action action2 = (Action)actionMap.get(DeleteFromDiagramAction.ACTION_TITLE);
 //		action2.setEnabled(true);
@@ -93,6 +113,10 @@ public class StarPMSModelViewPopupPolicy {
 		action4.setEnabled(true);
 	}
 	
+	/**
+	 * 다이어그램을 삭제할 수 있다. 다이어그램 이름을 변경할 수 있다.
+	 * @param actionMap
+	 */
 	static void setPolicy_6(HashMap actionMap){
 		Action action2 = (Action)actionMap.get(DeleteDiagramAction.ACTION_TITLE);
 		action2.setEnabled(true);
@@ -100,11 +124,19 @@ public class StarPMSModelViewPopupPolicy {
 		action4.setEnabled(true);
 	}
 	
+	/**
+	 * UseCase Diagram를 생성할 수 있다.
+	 * @param actionMap
+	 */
 	static void setPolicy_7(HashMap actionMap){
 		Action action = (Action)actionMap.get(UsecaseDiagramCreateAction.ACTION_TITLE);
 		action.setEnabled(true);
 	}
 	
+	/**
+	 * Sequence Diagram를 생성할 수 있다.
+	 * @param actionMap
+	 */
 	static void setPolicy_8(HashMap actionMap){
 		Action action = (Action)actionMap.get(SequenceDiagramCreateAction.ACTION_TITLE);
 		action.setEnabled(true);
@@ -118,6 +150,10 @@ public class StarPMSModelViewPopupPolicy {
 		
 	}
 	
+	/**
+	 * Class Diagram를 생성할 수 있다. 유스케이스 레포트를 볼 수 있다.
+	 * @param actionMap
+	 */
 	static void setPolicy_11(HashMap actionMap){
 		Action action = (Action)actionMap.get(ClazzDiagramCreateAction.ACTION_TITLE);
 		action.setEnabled(true);

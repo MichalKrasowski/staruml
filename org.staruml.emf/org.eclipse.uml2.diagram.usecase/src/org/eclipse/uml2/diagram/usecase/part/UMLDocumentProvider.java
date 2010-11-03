@@ -79,6 +79,7 @@ import org.eclipse.ui.part.ViewPart;
 import org.eclipse.uml2.diagram.common.pathmap.XMI2UMLSupport;
 import org.eclipse.uml2.uml.internal.impl.ActorImpl;
 import org.eclipse.uml2.uml.internal.impl.BehavioredClassifierImpl;
+import org.eclipse.uml2.uml.internal.impl.PackageImpl;
 import org.eclipse.uml2.uml.internal.impl.UseCaseImpl;
 import org.eclipse.uml2.uml.internal.resource.UMLResourceImpl;
 import org.w3c.dom.Document;
@@ -579,10 +580,17 @@ public class UMLDocumentProvider extends AbstractDocumentProvider implements IDi
         			savedNameList.add(name);
 				}
 	        	// 새롭게 저장되는 엘리먼트 이름을 저장한다.
+	        	// Package , UseCase , Actor 모델을 저장한다.
     			for(int i=0; i<diagram.getPersistedChildren().size(); i++){
 	        		ShapeImpl shapeImple = (ShapeImpl)diagram.getPersistedChildren().get(i);
-	        		if(shapeImple.getElement() instanceof ActorImpl || shapeImple.getElement() instanceof UseCaseImpl){
+	        		if(shapeImple.getElement() instanceof ActorImpl || 
+	        		   shapeImple.getElement() instanceof UseCaseImpl){
 	        			BehavioredClassifierImpl imple = (BehavioredClassifierImpl)shapeImple.getElement();
+	        			if(imple.getName() != null && !savedNameList.contains(imple.getName())){
+	        				newNameList.add(imple.getName());
+	        			}
+	        		}else if(shapeImple.getElement() instanceof PackageImpl){
+	        			PackageImpl imple = (PackageImpl)shapeImple.getElement();
 	        			if(imple.getName() != null && !savedNameList.contains(imple.getName())){
 	        				newNameList.add(imple.getName());
 	        			}

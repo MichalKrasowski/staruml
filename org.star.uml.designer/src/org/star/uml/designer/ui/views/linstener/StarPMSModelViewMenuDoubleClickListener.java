@@ -11,6 +11,8 @@ import org.star.uml.designer.base.constance.GlobalConstants;
 import org.star.uml.designer.base.utils.EclipseUtile;
 import org.star.uml.designer.ui.diagram.action.ActorCreateAction;
 import org.star.uml.designer.ui.diagram.action.ActorInsertAction;
+import org.star.uml.designer.ui.diagram.action.PackageModelCreateAction;
+import org.star.uml.designer.ui.diagram.action.PackageModelInsertAction;
 import org.star.uml.designer.ui.diagram.action.UsecaseDiagramCreateAction;
 import org.star.uml.designer.ui.diagram.action.UsecaseModelInsertAction;
 import org.star.uml.designer.ui.diagram.action.interfaces.IStarUMLDiagramAction;
@@ -38,11 +40,14 @@ public class StarPMSModelViewMenuDoubleClickListener implements IDoubleClickList
 			EclipseUtile.openDiagram("/Root/" + fileName+"."+extension,extension);
 		}else if(catetory.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL)){ 
 			// 모델일 경우 다이어그램에 모델을 추가한다.
-			if(extension.equals(ActorInsertAction.ACTION_TYPE)){
+			if(extension.equals(ActorInsertAction.ACTION_TYPE)){ // Actor 추가
 				ActorInsertAction action2 = new ActorInsertAction();
 				action2.run();
-			}else if(extension.equals(UsecaseModelInsertAction.ACTION_TYPE)){
+			}else if(extension.equals(UsecaseModelInsertAction.ACTION_TYPE)){// UseCase 추가
 				UsecaseModelInsertAction action2 = new UsecaseModelInsertAction();
+				action2.run();
+			}else if(extension.equals(PackageModelCreateAction.ACTION_TYPE)){// Package 추가
+				PackageModelInsertAction action2 = new PackageModelInsertAction();
 				action2.run();
 			}
 		}
