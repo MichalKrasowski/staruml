@@ -102,7 +102,7 @@ public class UsecaseDiagramCreateAction extends Action implements IStarUMLDiagra
 		modelView.getTreeViewer().refresh();
 		// 모델 파일에 추가된 다이어 그램을 추가한다.
 		StarPMSModelViewUtil.addDiagramToModel("Root",parentId,fileName,DIAGRAM_EXTENSION,
-							  				   GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM,ACTION_ID,objId,GlobalConstants.UMLMoedl.UML_TYPE_PACKAGE_Element);
+							  				   GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM,ACTION_ID,objId,GlobalConstants.UMLMoedl.UML_TYPE_PACKAGE_Element,"");
 	}
 	
 	public URL getImageURL(){

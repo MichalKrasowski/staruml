@@ -9,14 +9,22 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.gef.EditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.image.ImageFileFormat;
+import org.eclipse.gmf.runtime.diagram.ui.render.clipboard.DiagramGenerator;
+import org.eclipse.gmf.runtime.diagram.ui.render.clipboard.DiagramImageGenerator;
 import org.eclipse.gmf.runtime.diagram.ui.render.internal.DiagramUIRenderPlugin;
 import org.eclipse.gmf.runtime.diagram.ui.render.internal.DiagramUIRenderStatusCodes;
 import org.eclipse.gmf.runtime.diagram.ui.render.internal.l10n.DiagramUIRenderMessages;
+import org.eclipse.gmf.runtime.diagram.ui.render.util.CopyToImageUtil;
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 import org.eclipse.jface.action.Action;
@@ -227,6 +235,38 @@ public class EclipseUtile {
 					status.add(e.getStatus());
 				}catch (Exception e1) {
 					e1.printStackTrace();
+				} finally {
+					monitor.done();
+				}
+			}
+		};
+	}
+	
+	public static IRunnableWithProgress createImageRunnable(final MultiStatus status) {
+		return new IRunnableWithProgress() {
+			public void run(IProgressMonitor monitor) {
+				try {
+					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+					DiagramDocumentEditor editor = null;
+					if(page.getActiveEditor() instanceof org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor){
+						editor = (org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor)page.getActiveEditor();
+					}else if(page.getActiveEditor() instanceof org.eclipse.uml2.diagram.sequence.part.UMLDiagramEditor){
+						editor = (org.eclipse.uml2.diagram.sequence.part.UMLDiagramEditor)page.getActiveEditor();
+					}
+					
+		        	DiagramEditPart diagramEditPart = editor.getDiagramEditPart();
+		        	EditPart focusEdit = diagramEditPart.getViewer().getFocusEditPart();
+					CopyToImageUtil  copyToImageUtil = new CopyToImageUtil();
+					String folderPaht = ResourcesPlugin.getWorkspace().getRoot().getProject("Root").getLocation().toString();
+					IPath path = new Path(folderPaht+"/default.png");
+			    	ImageFileFormat format = ImageFileFormat.resolveImageFormat(5);
+			    	DiagramGenerator gen = new DiagramImageGenerator(diagramEditPart);
+			    	monitor.beginTask("", 6); 
+					monitor.worked(1);
+					copyToImageUtil.copyToImage(diagramEditPart, path, format,monitor);
+				} catch (CoreException e) {
+					e.printStackTrace();
+					status.add(e.getStatus());
 				} finally {
 					monitor.done();
 				}

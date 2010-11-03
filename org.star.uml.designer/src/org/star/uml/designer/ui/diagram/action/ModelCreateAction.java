@@ -157,7 +157,7 @@ public class ModelCreateAction extends Action implements IStarUMLModelAction{
 			modelView.getTreeViewer().refresh();
 			// Model.xml 파일에 노드를 추가한다.
 			StarPMSModelViewUtil.addDiagramToModel("Root",parentId,nodeName,type,
-								  			       GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL,ACTION_ID,objId,type);
+								  			       GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL,ACTION_ID,objId,type,"");
 		}
 		EclipseUtile.refreshProject("Root");
 	}

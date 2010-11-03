@@ -86,7 +86,7 @@ public class DiagramSaveAction extends Action{
 		final MultiStatus status = new MultiStatus(DiagramUIRenderPlugin
 				.getPluginId(), DiagramUIRenderStatusCodes.OK,
 				DiagramUIRenderMessages.CopyToImageAction_Label, null);
-    	IRunnableWithProgress runnable = StarPMSModelViewUtil.createRunnable(status);
+    	IRunnableWithProgress runnable = EclipseUtile.createImageRunnable(status);
     	try {
     		ProgressMonitorDialog progressMonitorDialog = new ProgressMonitorDialog(
     				Display.getCurrent().getActiveShell());
