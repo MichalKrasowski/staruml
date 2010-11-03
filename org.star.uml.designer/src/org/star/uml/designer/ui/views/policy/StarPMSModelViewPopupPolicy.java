@@ -14,7 +14,7 @@ import org.star.uml.designer.ui.diagram.action.ClazzDiagramCreateAction;
 import org.star.uml.designer.ui.diagram.action.DeleteDiagramAction;
 import org.star.uml.designer.ui.diagram.action.DeleteFromModelAction;
 import org.star.uml.designer.ui.diagram.action.SequenceDiagramCreateAction;
-import org.star.uml.designer.ui.diagram.action.UsecaseCreateAction;
+import org.star.uml.designer.ui.diagram.action.UsecaseModelCreateAction;
 import org.star.uml.designer.ui.diagram.action.UsecaseDiagramCreateAction;
 
 public class StarPMSModelViewPopupPolicy {
@@ -80,7 +80,7 @@ public class StarPMSModelViewPopupPolicy {
 	static void setPolicy_4(HashMap actionMap){
 		Action action = (Action)actionMap.get(ActorCreateAction.ACTION_TITLE);
 		action.setEnabled(true);
-		Action action2 = (Action)actionMap.get(UsecaseCreateAction.ACTION_TITLE);
+		Action action2 = (Action)actionMap.get(UsecaseModelCreateAction.ACTION_TITLE);
 		action2.setEnabled(true);
 	}
 	

@@ -49,7 +49,7 @@ import org.star.uml.designer.ui.views.StarPMSModelViewUtil;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeObject;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeParent;
 
-public class UsecaseCreateAction extends Action implements IStarUMLModelAction{
+public class UsecaseModelCreateAction extends Action implements IStarUMLModelAction{
 	public static final String ACTION_ID = "USECASE";
 	public static final String ACTION_URI = "org.eclipse.uml2.diagram.usecase.createUseCase_2003";
 	public static final String ACTION_TITLE ="Create Usecase";
@@ -61,7 +61,7 @@ public class UsecaseCreateAction extends Action implements IStarUMLModelAction{
 	public DiagramDocumentEditor editor = null;
 	public View view = null;
 	
-	public UsecaseCreateAction() {
+	public UsecaseModelCreateAction() {
 		super();
 		this.setText(ACTION_TITLE);
 		this.setImageDescriptor(getImageDescriptor());

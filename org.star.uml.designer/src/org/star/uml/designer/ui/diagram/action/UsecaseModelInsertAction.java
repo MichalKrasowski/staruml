@@ -59,6 +59,7 @@ import org.eclipse.uml2.uml.internal.impl.ActorImpl;
 import org.eclipse.uml2.uml.internal.impl.BehavioredClassifierImpl;
 import org.eclipse.uml2.uml.internal.impl.PackageImpl;
 import org.eclipse.uml2.uml.internal.impl.UMLFactoryImpl;
+import org.eclipse.uml2.uml.internal.impl.UseCaseImpl;
 import org.osgi.framework.Bundle;
 import org.star.uml.designer.Activator;
 import org.star.uml.designer.base.constance.GlobalConstants;
@@ -74,17 +75,17 @@ import org.star.uml.designer.ui.views.StarPMSModelViewUtil;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeObject;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeParent;
 
-public class ActorInsertAction extends Action implements IStarUMLModelAction{
-	public static final String ACTION_ID = "ACTOR INSERT";
+public class UsecaseModelInsertAction extends Action implements IStarUMLModelAction{
+	public static final String ACTION_ID = "USECASE INSERT";
 	public static final String ACTION_URI = "";
-	public static final String ACTION_TITLE ="Insert Actor";
-	public static final String ACTION_TYPE ="uml:Actor";
-	public static final String ICON_PATH = "/icons/diagram/Actor.gif";
+	public static final String ACTION_TITLE ="Insert Usecase";
+	public static final String ACTION_TYPE ="uml:UseCase";
+	public static final String ICON_PATH = "/icons/diagram/UseCase.gif";
 	
 	private String selectedNodeName = "";
 	private DiagramDocumentEditor editor = null;
 	
-	public ActorInsertAction() {
+	public UsecaseModelInsertAction() {
 		super();
 		this.setText(ACTION_TITLE);
 		this.setImageDescriptor(getImageDescriptor());
@@ -93,7 +94,7 @@ public class ActorInsertAction extends Action implements IStarUMLModelAction{
 	@Override
 	public void run() {
 		try{
-			// 모델 Tree에 Actor를 추가한다.
+			// 모델 Tree에 Usecase를 추가한다.
 			IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 									.findView(GlobalConstants.PluinID.STAR_PMS_MODEL_VIEW);
 			StarPMSModelView modelView = (StarPMSModelView)view_part;
@@ -101,7 +102,7 @@ public class ActorInsertAction extends Action implements IStarUMLModelAction{
 			TreeSelection treeSelection = (TreeSelection)modelView.getTreeViewer().getSelection();
 			TreeObject parent = (TreeObject)treeSelection.getFirstElement();
 			selectedNodeName = (String)parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE);
-			// 모델에 이미 Actor가 추가되어 있기 때문에 모델과 Snyc가능한 Actor중 원하는 것을 선택 한 후 추가한다.
+			// 모델에 이미 Usecase가 추가되어 있기 때문에 모델과 Snyc가능한 Usecase중 원하는 것을 선택 한 후 추가한다.
 			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 			if(page.getActiveEditor() !=null && page.getActiveEditor() instanceof org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor){
 	        	org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor editor = 
@@ -110,15 +111,15 @@ public class ActorInsertAction extends Action implements IStarUMLModelAction{
 	        	IDiagramDocument document = editor.getDiagramDocument();
 	        	Diagram diagram = document.getDiagram();
 	        	TransactionalEditingDomain editingDomain = editor.getEditingDomain();
-	        	// 모델을 같이 사용하기 때문에 최초 Editor로드 시 않보이는 노드들이 생성 되는데 모델에서 선택 한 값이 
-	        	// 이 값일 경우 Visible 속성을 통해 보이고 않보이고를 정한다.
+	        	// 모델을 같이 사용하기 때문에 최초 Editor로드 시 않보이는 노드들이 생성 되는데 
+	        	//  Visible 속성을 통해 보이고 않보이고를 정한다.
 	        	boolean visilityFlag = true;
 	        	for(int i=0; i<diagram.getTransientChildren().size(); i++){
 	        		ShapeImpl shapeImple = (ShapeImpl)diagram.getTransientChildren().get(i);
-	        		if(shapeImple.getElement() instanceof ActorImpl){
-	        			ActorImpl actorImpl = (ActorImpl)shapeImple.getElement();
+	        		if(shapeImple.getElement() instanceof UseCaseImpl){
+	        			UseCaseImpl imple = (UseCaseImpl)shapeImple.getElement();
 	        			if(!shapeImple.isVisible()){
-	        				if(selectedNodeName.equals(actorImpl.getName())){
+	        				if(selectedNodeName.equals(imple.getName())){
 	        					VisibleShapeCommand viCmd = new VisibleShapeCommand();
 	        					viCmd.setShapeImpl(shapeImple);
 	        					editor.getEditingDomain().getCommandStack().execute(viCmd);
@@ -129,10 +130,10 @@ public class ActorInsertAction extends Action implements IStarUMLModelAction{
 	        	}
 	        	for(int i=0; i<diagram.getPersistedChildren().size(); i++){
 	        		ShapeImpl shapeImple = (ShapeImpl)diagram.getPersistedChildren().get(i);
-	        		if(shapeImple.getElement() instanceof ActorImpl){
-	        			ActorImpl actorImpl = (ActorImpl)shapeImple.getElement();
+	        		if(shapeImple.getElement() instanceof UseCaseImpl){
+	        			UseCaseImpl imple = (UseCaseImpl)shapeImple.getElement();
 	        			if(!shapeImple.isVisible()){
-	        				if(selectedNodeName.equals(actorImpl.getName())){
+	        				if(selectedNodeName.equals(imple.getName())){
 	        					VisibleShapeCommand viCmd = new VisibleShapeCommand();
 	        					viCmd.setShapeImpl(shapeImple);
 	        					editor.getEditingDomain().getCommandStack().execute(viCmd);
@@ -154,7 +155,7 @@ public class ActorInsertAction extends Action implements IStarUMLModelAction{
 		        	// 트리에서 선택된 모델을 Sync 모델에서 찾는다.
 		        	SyncModelNode result = new SyncModelNode(syncDiagram, myRootDiagramView, context);
 		        	for(int i=1; i<result.getChildren().size(); i++){
-		        		ActorImpl imple = (ActorImpl)result.getChildren().get(i).getSyncModelView().getElement();
+		        		UseCaseImpl imple = (UseCaseImpl)result.getChildren().get(i).getSyncModelView().getElement();
 		        		if(selectedNodeName.equals(imple.getName())){
 		        			result.getChildren().get(i).setChecked(true);
 		        		}
@@ -164,13 +165,13 @@ public class ActorInsertAction extends Action implements IStarUMLModelAction{
 		        	context.dispose();
 	        	}
 	        	// 표시된 Node를 화면 가운데로 이동한다.
-	    		// Actor를 기본 위치에서 가운데로 이동한다.
+	    		// 모델을 기본 위치에서 가운데로 이동한다.
 	        	for(int i=0; i<diagram.getPersistedChildren().size(); i++){
 	        		ShapeImpl shapeImple = (ShapeImpl)diagram.getPersistedChildren().get(i);
-	        		if(shapeImple.getElement() instanceof ActorImpl){
+	        		if(shapeImple.getElement() instanceof UseCaseImpl){
 	        			Location location= (Location) shapeImple.getLayoutConstraint();
-	        			ActorImpl actorImpl = (ActorImpl)shapeImple.getElement();
-	        			String name = actorImpl.getName();
+	        			UseCaseImpl impl = (UseCaseImpl)shapeImple.getElement();
+	        			String name = impl.getName();
 	        			if(selectedNodeName.equals(name)){
 	        				MoveShapeCommand cmd = (MoveShapeCommand) StarUMLCommandFactory.getCommand(MoveShapeCommand.ID);
 	        				cmd.setShapeImpl(shapeImple);
