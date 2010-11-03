@@ -269,7 +269,9 @@ public class StarPMSModelView extends ViewPart {
 	 */
 	public void closeEditor(){
 		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+//		System.out.println(page);
 		if(page != null && page.getActiveEditor() !=null && page.getActiveEditor() instanceof DiagramDocumentEditor){
+//			System.out.println("closeEditor");
 			page.closeAllEditors(false);
 		}
 	}
@@ -299,31 +301,6 @@ public class StarPMSModelView extends ViewPart {
 	private void removeContextMenu(IMenuManager manager,Composite parent,ISelection selection) {
 		manager.removeAll();
 	}
-
-	private void fillAnalysisUseCaseContextMenu(IMenuManager manager,Composite parent,ISelection selection) {
-		Action analysisAction = StarPMSModelViewUtil.makeAnalysisUsecaseAction(parent,selection,this);
-		manager.add(analysisAction);
-	}
-	
-	private void fillAnalysisUseCaseDiagramContextMenu(IMenuManager manager,Composite parent,ISelection selection) {
-		Action analysisAction = StarPMSModelViewUtil.makeAnalysisUseCaseDiagramAction(parent,selection,this);
-		Action analysisSaveAction =StarPMSModelViewUtil.makeAnalysisUseCaseDiagramSaveAction(parent,selection); 
-		manager.add(analysisAction);
-		manager.add(analysisSaveAction);
-	}
-	
-	private void fillSequenceDiagramContextMenu(IMenuManager manager,Composite parent,ISelection selection) {
-		Action analysisSaveAction =StarPMSModelViewUtil.makeAnalysisSequenceDiagramSaveAction(parent,selection); 
-		Action usecaseReportAction =StarPMSModelViewUtil.makeUsecaseReportAction(parent,selection); 
-		manager.add(usecaseReportAction);
-		manager.add(analysisSaveAction);
-	}
-	
-	private void fillImplementationClassDiagramContextMenu(IMenuManager manager,Composite parent,ISelection selection) {
-		Action implementationAction = StarPMSModelViewUtil.makeImplemetationClassDiagramAction(parent,selection);
-		manager.add(implementationAction);
-	}
-	
 
 	private void hookDoubleClickAction() {
 		StarPMSModelViewMenuDoubleClickListener lisnener = 

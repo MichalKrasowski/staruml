@@ -28,7 +28,7 @@ public class GlobalConstants {
 		public static final int POLICY_3 = 3; // Tree logout status
 		public static final int POLICY_4 = 4; // Tree root selected
 		public static final int POLICY_5 = 5; // Tree diagramModel selected
-		public static final int POLICY_6 = 6; // Tree diagramModel selected
+		public static final int POLICY_6 = 6; // Tree diagram selected
 		public static final int POLICY_7 = 7; // Tree analysisModel selected
 		public static final int POLICY_8 = 8; // Tree designModel selected
 		public static final int POLICY_9 = 9; // Tree implementationModel selected
