@@ -58,6 +58,7 @@ import org.star.uml.designer.ui.action.PMSLogoutAction;
 import org.star.uml.designer.ui.action.RefactorRenameAction;
 import org.star.uml.designer.ui.action.ViewReportAction;
 import org.star.uml.designer.ui.diagram.action.ActorCreateAction;
+import org.star.uml.designer.ui.diagram.action.ClassModelCreateAction;
 import org.star.uml.designer.ui.diagram.action.ClazzDiagramCreateAction;
 import org.star.uml.designer.ui.diagram.action.DeleteDiagramAction;
 import org.star.uml.designer.ui.diagram.action.DeleteFromDiagramAction;
@@ -261,6 +262,7 @@ public class StarPMSModelViewUtil {
 		ActorCreateAction actor = new ActorCreateAction(); // Actor 생성
 		UsecaseModelCreateAction usecase = new UsecaseModelCreateAction(); // Usecase 생성
 		PackageModelCreateAction packageModel = new PackageModelCreateAction(); // Package 생성
+		ClassModelCreateAction classModel = new ClassModelCreateAction();
 		
 		MenuManager viewGroup = new MenuManager("View"); // 뷰그룹
 		ViewReportAction viewReportAction = new ViewReportAction(); // 유스케이스 레포트 보기
@@ -290,6 +292,7 @@ public class StarPMSModelViewUtil {
 		menuMgr.add(modelGroup);
 		modelGroup.add(packageModel);
 		modelGroup.add(new Separator());
+		modelGroup.add(classModel);
 		modelGroup.add(actor);
 		modelGroup.add(usecase);
 		menuMgr.add(new Separator());

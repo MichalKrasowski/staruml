@@ -11,6 +11,7 @@ import org.star.uml.designer.base.constance.GlobalConstants;
 import org.star.uml.designer.base.utils.EclipseUtile;
 import org.star.uml.designer.ui.diagram.action.ActorCreateAction;
 import org.star.uml.designer.ui.diagram.action.ActorInsertAction;
+import org.star.uml.designer.ui.diagram.action.ClassModelInsertAction;
 import org.star.uml.designer.ui.diagram.action.PackageModelCreateAction;
 import org.star.uml.designer.ui.diagram.action.PackageModelInsertAction;
 import org.star.uml.designer.ui.diagram.action.UsecaseDiagramCreateAction;
@@ -36,6 +37,7 @@ public class StarPMSModelViewMenuDoubleClickListener implements IDoubleClickList
 		String catetory = (String)treeObject.getData(GlobalConstants.StarMoedl.STAR_MODEL_CATEGORY);
 		String extension = (String)treeObject.getData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION);
 		String fileName = (String)treeObject.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE);
+		System.out.println();
 		if(catetory.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM)){ // 다이어그램일 경우 파일을 연다.
 			EclipseUtile.openDiagram("/Root/" + fileName+"."+extension,extension);
 		}else if(catetory.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL)){ 
@@ -48,6 +50,9 @@ public class StarPMSModelViewMenuDoubleClickListener implements IDoubleClickList
 				action2.run();
 			}else if(extension.equals(PackageModelCreateAction.ACTION_TYPE)){// Package 추가
 				PackageModelInsertAction action2 = new PackageModelInsertAction();
+				action2.run();
+			}else if(extension.equals(ClassModelInsertAction.ACTION_TYPE)){// Class 추가
+				ClassModelInsertAction action2 = new ClassModelInsertAction();
 				action2.run();
 			}
 		}

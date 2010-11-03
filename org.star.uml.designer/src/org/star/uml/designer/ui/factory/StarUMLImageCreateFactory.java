@@ -4,6 +4,7 @@ import org.eclipse.swt.graphics.Image;
 import org.star.uml.designer.Activator;
 import org.star.uml.designer.base.constance.GlobalConstants;
 import org.star.uml.designer.ui.diagram.action.ActorCreateAction;
+import org.star.uml.designer.ui.diagram.action.ClassModelCreateAction;
 import org.star.uml.designer.ui.diagram.action.ClazzDiagramCreateAction;
 import org.star.uml.designer.ui.diagram.action.PackageModelCreateAction;
 import org.star.uml.designer.ui.diagram.action.PackageModelInsertAction;
@@ -29,6 +30,8 @@ public class StarUMLImageCreateFactory {
 				return Activator.getImageDescriptor(UsecaseModelCreateAction.ICON_PATH).createImage();
 			}else if(extension.equals(PackageModelInsertAction.ACTION_TYPE)){ // Package
 				return Activator.getImageDescriptor(PackageModelCreateAction.ICON_PATH).createImage();
+			}else if(extension.equals(ClassModelCreateAction.ACTION_TYPE)){ // Class
+				return Activator.getImageDescriptor(ClassModelCreateAction.ICON_PATH).createImage();
 			}
 		}
 		return null;
