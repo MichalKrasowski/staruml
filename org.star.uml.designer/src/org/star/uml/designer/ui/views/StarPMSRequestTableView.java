@@ -212,7 +212,6 @@ public class StarPMSRequestTableView extends ViewPart {
 	public void addButtonListener(Button button){
 		button.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent event) {
-				System.out.println("addButtonListener");
 				Button srcBtuuton = (Button)event.getSource();
 	        
 				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();

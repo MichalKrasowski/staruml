@@ -86,7 +86,7 @@ public class ActorCreateAction extends Action implements IStarUMLModelAction{
 					GlobalConstants.StarMoedl.STAR_MODEL_CATEGORY, 
 					GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL					);
 		treeObject.setData(GlobalConstants.StarMoedl.STAR_MODEL_FILE, nodeName);
-		treeObject.setData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION, ACTION_ID);
+		treeObject.setData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION, ACTION_TYPE);
 		treeObject.setData(GlobalConstants.StarMoedl.STAR_MODEL_ID, objId);
 		modelView.getTreeViewer().refresh();
 		// Model.xml 파일에 노드를 추가한다.

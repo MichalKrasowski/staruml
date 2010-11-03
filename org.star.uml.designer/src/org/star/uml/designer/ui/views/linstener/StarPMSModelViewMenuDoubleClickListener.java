@@ -38,7 +38,7 @@ public class StarPMSModelViewMenuDoubleClickListener implements IDoubleClickList
 		}else if(catetory.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL)){ 
 			// 모델일 경우 다이어그램에 모델을 추가한다.
 			IStarUMLDiagramAction action = null;
-			if(extension.equals(ActorCreateAction.ACTION_ID)){
+			if(extension.equals(ActorCreateAction.ACTION_TYPE)){
 				ActorInsertAction action2 = new ActorInsertAction();
 				action2.run();
 			}

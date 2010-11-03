@@ -269,9 +269,12 @@ public class StarPMSModelView extends ViewPart {
 	 */
 	public void closeEditor(){
 		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-//		System.out.println(page);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		if(page != null && page.getActiveEditor() !=null && page.getActiveEditor() instanceof DiagramDocumentEditor){
-//			System.out.println("closeEditor");
 			page.closeAllEditors(false);
 		}
 	}

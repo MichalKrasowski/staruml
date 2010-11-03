@@ -27,12 +27,10 @@ public class StarUMLExtensionImple implements StarUMLExtension{
 
 	@Override
 	public void diagramSave(HashMap map) {
-		System.out.println("diagramSave : ");
 	}
 
 	@Override
 	public void fileSave(HashMap map) {
-		System.out.println("fileSave : ");
 	}
 
 	@Override

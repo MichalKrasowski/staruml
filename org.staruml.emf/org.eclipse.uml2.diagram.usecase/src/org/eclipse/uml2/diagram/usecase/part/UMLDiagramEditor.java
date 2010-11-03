@@ -310,7 +310,6 @@ public class UMLDiagramEditor extends DiagramDocumentEditor implements IGotoMark
 			}
 		});
 		// Enkisoft 로드 될때 모델에 삭제된 노드들은 삭제한다.
-		System.out.println("initializeGraphicalViewer");
 		IDiagramDocument document = getDiagramDocument();
     	Diagram diagram = document.getDiagram();
     	TransactionalEditingDomain editingDomain = getEditingDomain();
@@ -450,7 +449,6 @@ public class UMLDiagramEditor extends DiagramDocumentEditor implements IGotoMark
 		}
 		
 		public void execute() {
-			System.out.println("setVisible");
 			shapeImple.setVisible(false);
 		}
 

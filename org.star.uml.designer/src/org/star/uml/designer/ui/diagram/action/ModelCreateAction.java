@@ -148,7 +148,7 @@ public class ModelCreateAction extends Action implements IStarUMLModelAction{
 			String type = resultList.get(i).get("type");
 			String objId = resultList.get(i).get("id");
 			// 추가된 Node에 필요한 값들을 설정한다.
-			TreeObject treeObject = parent.appendChield(parent,nodeName+"("+ACTION_ID+")",
+			TreeObject treeObject = parent.appendChield(parent,nodeName+"("+type.substring(4,type.length())+")",
 						GlobalConstants.StarMoedl.STAR_MODEL_CATEGORY, 
 						GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL					);
 			treeObject.setData(GlobalConstants.StarMoedl.STAR_MODEL_FILE, nodeName);

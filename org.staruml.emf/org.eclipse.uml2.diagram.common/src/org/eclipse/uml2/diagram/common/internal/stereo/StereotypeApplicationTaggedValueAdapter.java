@@ -22,7 +22,6 @@ public class StereotypeApplicationTaggedValueAdapter extends AdapterImpl {
 
 	@Override
 	public void notifyChanged(Notification notification) {
-		System.out.println(notification);
 		if (Notification.SET == notification.getEventType() && notification.getFeature() instanceof EStructuralFeature) {
 			EStructuralFeature feature = (EStructuralFeature) notification.getFeature();
 			EObject stereotypeApplication = (EObject) getTarget();
