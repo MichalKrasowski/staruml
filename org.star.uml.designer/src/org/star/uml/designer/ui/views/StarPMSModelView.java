@@ -162,6 +162,9 @@ public class StarPMSModelView extends ViewPart {
 		public Object getData(String key){
 			return data.get(key);
 		}
+		public void setName(String name){
+			this.name = name;
+		}
 	}
 	
 	public class TreeParent extends TreeObject {
@@ -224,7 +227,29 @@ public class StarPMSModelView extends ViewPart {
 		}
 		@Override
 		public int compare(Viewer viewer, Object e1, Object e2) {
-			return super.compare(viewer, e1, e1);
+			int rusltint = 0;
+			if(e1 instanceof StarPMSModelView.TreeObject){
+				TreeObject object1 = (TreeObject)e1;
+				TreeObject object2 = (TreeObject)e2;
+				String object1_org = object1.getName();
+				String object2_org = object2.getName();
+				String category1 = (String)object1.getData(GlobalConstants.StarMoedl.STAR_MODEL_CATEGORY);
+				String extension1 = (String)object1.getData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION);
+				String file1 = (String)object1.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE);
+				String type1 = (String)object1.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE);
+				String category2 = (String)object2.getData(GlobalConstants.StarMoedl.STAR_MODEL_CATEGORY);
+				String extension2 = (String)object2.getData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION);
+				String file2 = (String)object2.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE);
+				String type2 = (String)object2.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE);
+				String object1_name = category1+"_"+extension1+"_"+type1+"_"+file1;
+				String object2_name = category2+"_"+extension2+"_"+type2+"_"+file1;
+				object1.setName(object1_name);
+				object2.setName(object2_name);
+				rusltint = super.compare(viewer, e1, e2);
+				object1.setName(object1_org);
+				object2.setName(object2_org);
+			}
+			return rusltint;
 		}
 	}
 	
