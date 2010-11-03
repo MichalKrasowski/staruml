@@ -154,9 +154,11 @@ public class ActorInsertAction extends Action implements IStarUMLModelAction{
 		        	// 트리에서 선택된 모델을 Sync 모델에서 찾는다.
 		        	SyncModelNode result = new SyncModelNode(syncDiagram, myRootDiagramView, context);
 		        	for(int i=1; i<result.getChildren().size(); i++){
-		        		ActorImpl imple = (ActorImpl)result.getChildren().get(i).getSyncModelView().getElement();
-		        		if(selectedNodeName.equals(imple.getName())){
-		        			result.getChildren().get(i).setChecked(true);
+		        		if(result.getChildren().get(i).getSyncModelView().getElement() instanceof ActorImpl){
+		        			ActorImpl imple = (ActorImpl)result.getChildren().get(i).getSyncModelView().getElement();
+			        		if(selectedNodeName.equals(imple.getName())){
+			        			result.getChildren().get(i).setChecked(true);
+			        		}
 		        		}
 		        	}
 		        	ApplySynchronizationCommand cmd = new ApplySynchronizationCommand(result);
