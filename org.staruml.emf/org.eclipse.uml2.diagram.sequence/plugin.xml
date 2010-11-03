@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
+   <extension-point id="org_eclipse_uml2_diagram_sequence_extension_starUML" name="StarUML Extension" schema="schema/org_eclipse_uml2_diagram_sequence_extension_starUML.exsd"/>
 
    <extension point="org.eclipse.ui.popupMenus" id="org.eclipse.uml2.diagram.sequence.message.popup">
       <objectContribution
