@@ -2,6 +2,7 @@
 <?eclipse version="3.0"?>
 
 <plugin>
+   <extension-point id="org_eclipse_uml2_diagram_clazz_extension_starUML" name="StarUML Extension" schema="schema/org_eclipse_uml2_diagram_clazz_extension_starUML.exsd"/>
 
 <!-- gmf generator persistent region begin -->
    <!--

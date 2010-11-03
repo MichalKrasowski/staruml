@@ -2,6 +2,8 @@ package org.eclipse.uml2.diagram.clazz.part;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -12,18 +14,27 @@ import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.core.resources.IStorage;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.ISafeRunnable;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.MultiRule;
@@ -49,22 +60,29 @@ import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocu
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.EditorStatusCodes;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.util.DiagramIOUtil;
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.impl.DiagramImpl;
+import org.eclipse.gmf.runtime.notation.impl.ShapeImpl;
 import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.uml2.diagram.common.extension.StarUMLExtension;
 import org.eclipse.uml2.diagram.common.pathmap.XMI2UMLSupport;
 import org.eclipse.uml2.uml.Property;
+import org.eclipse.uml2.uml.internal.impl.ActorImpl;
 import org.eclipse.uml2.uml.internal.impl.ClassImpl;
 import org.eclipse.uml2.uml.internal.impl.PackageImpl;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 /**
  * @generated
@@ -524,6 +542,7 @@ public class UMLDocumentProvider extends AbstractDocumentProvider implements IDi
 			if (!overwrite && !info.isSynchronized()) {
 				throw new CoreException(new Status(IStatus.ERROR, UMLDiagramEditorPlugin.ID, IResourceStatus.OUT_OF_SYNC_LOCAL, Messages.UMLDocumentProvider_UnsynchronizedFileSaveError, null));
 			}
+			
 			info.stopResourceListening();
 			fireElementStateChanging(element);
 			try {
@@ -549,6 +568,30 @@ public class UMLDocumentProvider extends AbstractDocumentProvider implements IDi
 			} finally {
 				info.startResourceListening();
 			}
+			
+			IConfigurationElement[] config = Platform.getExtensionRegistry()
+			.getConfigurationElementsFor("org.eclipse.uml2.diagram.clazz.org_eclipse_uml2_diagram_clazz_extension_starUML");
+    		try {
+    			for (IConfigurationElement e : config) {
+    				final Object o = e.createExecutableExtension("class");
+    				if (o instanceof StarUMLExtension) {
+    					ISafeRunnable runnable = new ISafeRunnable() {
+    						public void handleException(Throwable exception) {
+    							System.out.println("Exception in client");
+    						}
+
+    						public void run() throws Exception {
+    							HashMap map = new HashMap();
+    							map.put("a", "A");
+    							((StarUMLExtension) o).diagramSave(map);
+    						}
+    					};
+    					SafeRunner.run(runnable);
+    				}
+    			}
+    		} catch (CoreException ex) {
+    			System.out.println(ex.getMessage());
+    		}
 		} else {
 			URI newResoruceURI;
 			List affectedFiles = null;
