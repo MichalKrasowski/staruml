@@ -151,7 +151,7 @@ public class StarPMSModelViewUtil {
 	}
 	
 	public static void addDiagramToModel(String project,String parentId, String name, 
-										 String extension,String category,String diagramName,String objId,String type){
+										 String extension,String category,String diagramName,String objId,String type, String parentSeq){
 		// 모델 파일이 있는 프로젝트를 가져온다.
 		IProject rootProject = ResourcesPlugin.getWorkspace().getRoot().getProject(project);
 		Document modelDoc = null;
@@ -175,6 +175,7 @@ public class StarPMSModelViewUtil {
 					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_NAME, name+"("+diagramName+")");
 					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_FILE, name);
 					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION, extension);
+					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_USECASE_SEQ, parentSeq);
 					node.appendChild(newNode);
 					XmlUtil.writeXmlFile(modelDoc, modelPath);
 				}
