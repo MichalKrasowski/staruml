@@ -1404,6 +1404,12 @@
          </action>
       </objectContribution>
    </extension>
+<extension
+      point="org.eclipse.uml2.diagram.usecase.org_eclipse_uml2_diagram_usecase_extension_starUML">
+   <client
+         class="org.eclipse.uml2.diagram.common.extension.StarUMLExtension">
+   </client>
+</extension>
 
 
 </plugin>
