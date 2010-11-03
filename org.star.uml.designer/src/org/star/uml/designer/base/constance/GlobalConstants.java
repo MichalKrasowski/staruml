@@ -42,6 +42,7 @@ public class GlobalConstants {
 		public static final String STAR_MODEL_CATEGORY = "star:category";
 		public static final String STAR_MODEL_FILE = "star:file";
 		public static final String STAR_MODEL_EXTENSION = "star:extension";
+		public static final String STAR_MODEL_USECASE_SEQ = "star:parentseq";
 		public static final String STAR_MODEL_ID = "xmi:id";
 		public static final String STAR_MODEL_TYPE = "xmi:type";
 		public static final String STAR_MODEL_NAME = "name";

@@ -101,7 +101,13 @@ public class EclipseUtile {
 			public void run(IProgressMonitor monitor) {
 				try {
 					Resource diagram = StarUMLDiagramCreateFactory.getResource(actionID, diagramURI, modelURI, monitor);
-//					UMLDiagramEditorUtil.openDiagram(diagram);
+					if(actionID.equals(UsecaseDiagramCreateAction.ACTION_ID)){
+						org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditorUtil.openDiagram(diagram);
+					}else if(actionID.equals(SequenceDiagramCreateAction.ACTION_ID)){
+						org.eclipse.uml2.diagram.sequence.part.UMLDiagramEditorUtil.openDiagram(diagram);
+					}else if(actionID.equals(ClazzDiagramCreateAction.ACTION_ID)){
+						org.eclipse.uml2.diagram.clazz.part.UMLDiagramEditorUtil.openDiagram(diagram);
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
