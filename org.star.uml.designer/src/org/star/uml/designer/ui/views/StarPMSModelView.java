@@ -38,6 +38,7 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditDomain;
 import org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
@@ -260,6 +261,17 @@ public class StarPMSModelView extends ViewPart {
 		hookDoubleClickAction();
 		contributeToActionBars();
 		createToolBar();
+		closeEditor();
+	}
+	
+	/**
+	 * 로드 될때 다이어그램이 열려있을 경우 닫는다.
+	 */
+	public void closeEditor(){
+		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+		if(page != null && page.getActiveEditor() !=null && page.getActiveEditor() instanceof DiagramDocumentEditor){
+			page.closeAllEditors(false);
+		}
 	}
 	
 	private void createToolBar() {
