@@ -6,6 +6,7 @@ import org.star.uml.designer.base.constance.GlobalConstants;
 import org.star.uml.designer.ui.diagram.action.ActorCreateAction;
 import org.star.uml.designer.ui.diagram.action.ClazzDiagramCreateAction;
 import org.star.uml.designer.ui.diagram.action.SequenceDiagramCreateAction;
+import org.star.uml.designer.ui.diagram.action.UsecaseCreateAction;
 import org.star.uml.designer.ui.diagram.action.UsecaseDiagramCreateAction;
 
 public class StarUMLImageCreateFactory {
@@ -20,8 +21,10 @@ public class StarUMLImageCreateFactory {
 				return Activator.getImageDescriptor(ClazzDiagramCreateAction.ICON_PATH).createImage();
 			}
 		}else if(category.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL)){
-			if(extension.equals(ActorCreateAction.ACTION_ID) || extension.equals(GlobalConstants.UMLMoedl.UML_MODEL_TYPE_ACTOR)){
+			if(extension.equals(ActorCreateAction.ACTION_TYPE)){
 				return Activator.getImageDescriptor(ActorCreateAction.ICON_PATH).createImage();
+			}else if(extension.equals(UsecaseCreateAction.ACTION_TYPE)){
+				return Activator.getImageDescriptor(UsecaseCreateAction.ICON_PATH).createImage();
 			}
 		}
 		return null;

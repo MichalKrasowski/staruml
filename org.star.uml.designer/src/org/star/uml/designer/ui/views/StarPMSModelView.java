@@ -269,6 +269,7 @@ public class StarPMSModelView extends ViewPart {
 	 */
 	public void closeEditor(){
 		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+		System.out.println("page : "+page);
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {

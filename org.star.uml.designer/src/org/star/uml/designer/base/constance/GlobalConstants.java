@@ -77,6 +77,7 @@ public class GlobalConstants {
 		
 		// Model Type
 		public static final String UML_MODEL_TYPE_ACTOR = "uml:Actor";
+		public static final String UML_MODEL_TYPE_USECASE = "uml:UseCase";
 	}
 	
 	//PluinID
