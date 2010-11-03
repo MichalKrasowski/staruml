@@ -48,11 +48,11 @@ import org.eclipse.uml2.diagram.common.async.AsyncDiagramDeleteRequest;
 import org.eclipse.uml2.diagram.common.async.SyncModelContext;
 import org.eclipse.uml2.diagram.common.async.SyncModelNode;
 import org.eclipse.uml2.diagram.common.async.SynchronizeDiagramAction;
-import org.eclipse.uml2.diagram.usecase.edit.helpers.UMLBaseEditHelper;
-import org.eclipse.uml2.diagram.usecase.edit.parts.PackageEditPart;
-import org.eclipse.uml2.diagram.usecase.navigator.UMLNavigatorItem;
-import org.eclipse.uml2.diagram.usecase.part.UMLDiagramUpdater;
-import org.eclipse.uml2.diagram.usecase.part.UMLVisualIDRegistry;
+import org.eclipse.uml2.diagram.clazz.edit.helpers.UMLBaseEditHelper;
+import org.eclipse.uml2.diagram.clazz.edit.parts.PackageEditPart;
+import org.eclipse.uml2.diagram.clazz.navigator.UMLNavigatorItem;
+import org.eclipse.uml2.diagram.clazz.part.UMLDiagramUpdater;
+import org.eclipse.uml2.diagram.clazz.part.UMLVisualIDRegistry;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.eclipse.uml2.uml.VisibilityKind;
 import org.eclipse.uml2.uml.internal.impl.ActorImpl;
@@ -60,7 +60,6 @@ import org.eclipse.uml2.uml.internal.impl.BehavioredClassifierImpl;
 import org.eclipse.uml2.uml.internal.impl.ClassImpl;
 import org.eclipse.uml2.uml.internal.impl.PackageImpl;
 import org.eclipse.uml2.uml.internal.impl.UMLFactoryImpl;
-import org.eclipse.uml2.uml.internal.impl.UseCaseImpl;
 import org.osgi.framework.Bundle;
 import org.star.uml.designer.Activator;
 import org.star.uml.designer.base.constance.GlobalConstants;
@@ -78,7 +77,7 @@ import org.star.uml.designer.ui.views.StarPMSModelView.TreeParent;
 
 public class ClassModelInsertAction extends Action implements IStarUMLModelAction{
 	public static final String ACTION_ID = "CLASS INSERT";
-	public static final String ACTION_URI = "org.eclipse.uml2.diagram.usecase.createClass_2001";
+	public static final String ACTION_URI = "org.eclipse.uml2.diagram.clazz.createClass_2001";
 	public static final String ACTION_TITLE ="Insert Class";
 	public static final String ACTION_TYPE ="uml:Class";
 	public static final String ICON_PATH = "/icons/diagram/Class.gif";
@@ -94,6 +93,7 @@ public class ClassModelInsertAction extends Action implements IStarUMLModelActio
 	
 	@Override
 	public void run() {
+		
 		try{
 			// 모델 Tree에 Class를 추가한다.
 			IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
@@ -129,19 +129,21 @@ public class ClassModelInsertAction extends Action implements IStarUMLModelActio
 	        			}
 	        		}
 	        	}
-	        	for(int i=0; i<diagram.getPersistedChildren().size(); i++){
-	        		ShapeImpl shapeImple = (ShapeImpl)diagram.getPersistedChildren().get(i);
-	        		if(shapeImple.getElement() instanceof ClassImpl){
-	        			ClassImpl imple = (ClassImpl)shapeImple.getElement();
-	        			if(!shapeImple.isVisible()){
-	        				if(selectedNodeName.equals(imple.getName())){
-	        					VisibleShapeCommand viCmd = new VisibleShapeCommand();
-	        					viCmd.setShapeImpl(shapeImple);
-	        					editor.getEditingDomain().getCommandStack().execute(viCmd);
-	        					visilityFlag = false;
-	        				}
-	        			}
-	        		}
+	        	if(visilityFlag){
+		        	for(int i=0; i<diagram.getPersistedChildren().size(); i++){
+		        		ShapeImpl shapeImple = (ShapeImpl)diagram.getPersistedChildren().get(i);
+		        		if(shapeImple.getElement() instanceof ClassImpl){
+		        			ClassImpl imple = (ClassImpl)shapeImple.getElement();
+		        			if(!shapeImple.isVisible()){
+		        				if(selectedNodeName.equals(imple.getName())){
+		        					VisibleShapeCommand viCmd = new VisibleShapeCommand();
+		        					viCmd.setShapeImpl(shapeImple);
+		        					editor.getEditingDomain().getCommandStack().execute(viCmd);
+		        					visilityFlag = false;
+		        				}
+		        			}
+		        		}
+		        	}
 	        	}
 	        	// Visible 속성을 통하여 화면에 표시된 경우 지나간다.
 	        	if(visilityFlag){
@@ -155,6 +157,7 @@ public class ClassModelInsertAction extends Action implements IStarUMLModelActio
 		        		new SyncModelContext(myDiagramUpdater.TYPED_ADAPTER, myVisualIDRegistry.TYPED_ADAPTER, ep.getDiagramPreferencesHint(), editingDomain);
 		        	// 트리에서 선택된 모델을 Sync 모델에서 찾는다.
 		        	SyncModelNode result = new SyncModelNode(syncDiagram, myRootDiagramView, context);
+		        	System.out.println("result.getChildren().size() : " +result.getChildren().size());
 		        	for(int i=1; i<result.getChildren().size(); i++){
 		        		if(result.getChildren().get(i).getSyncModelView().getElement() instanceof ClassImpl){
 		        			ClassImpl imple = (ClassImpl)result.getChildren().get(i).getSyncModelView().getElement();
