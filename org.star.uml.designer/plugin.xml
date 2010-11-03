@@ -122,5 +122,17 @@
             class="org.eclipse.uml2.diagram.extension.imple.StarUMLExtensionImple">
       </client>
    </extension>
+   <extension
+         point="org.eclipse.uml2.diagram.sequence.org_eclipse_uml2_diagram_sequence_extension_starUML">
+      <client
+            class="org.eclipse.uml2.diagram.extension.imple.StarUMLExtensionImple">
+      </client>
+   </extension>
+   <extension
+         point="org.eclipse.uml2.diagram.clazz.org_eclipse_uml2_diagram_clazz_extension_starUML">
+      <client
+            class="org.eclipse.uml2.diagram.extension.imple.StarUMLExtensionImple">
+      </client>
+   </extension>
 
 </plugin>
