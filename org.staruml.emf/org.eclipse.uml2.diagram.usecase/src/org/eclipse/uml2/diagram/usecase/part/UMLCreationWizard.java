@@ -162,32 +162,6 @@ public class UMLCreationWizard extends Wizard implements INewWizard {
 			}
 			return false;
 		}
-		//Enkisoft 2010-09-11 Park Yong Cheon
-		Bundle bundle = Platform.getBundle("org.star.uml.designer");
-		if(bundle !=null){
-			UMLCreationWizardPage wizPate = (UMLCreationWizardPage)this.getPages()[0];
-			FileInputStream in = null;
-			FileOutputStream out = null;
-			try {
-				URL fileURL = bundle.getEntry("properties/temp.properties"); 
-				File file = new File(FileLocator.resolve(fileURL).toURI());  
-				in = new FileInputStream(file);
-				Properties props = new Properties();
-				props.load(in);
-				props.put("diagramName", wizPate.getFileName());
-				out = new FileOutputStream(file);
-				props.store(out, "");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}finally{
-				try {
-					in.close();
-					out.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
 		return diagram != null;
 	}
 	

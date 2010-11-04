@@ -57,9 +57,11 @@ import org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.dialogs.IDialogSettings;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
@@ -184,9 +186,11 @@ public class UMLDiagramEditorUtil {
 				try {
 //				Package model = createInitialModel(initialObject, diagramNameWithoutExtension);
 //				attachModelToResource(model, modelResource);
-				
-				//Enkisoft : use one resource
-				try {
+				Package model = null;
+				// StarPMS 와 연결된 경우 하나의 소스에서 생성하도록 한다.
+				// StarPMS Model에 로그인 된 경우에만 모델을 추가한다.
+				if(initialObject == null){
+					//Enkisoft : use one resource
 					IProject rootProject = ResourcesPlugin.getWorkspace().getRoot().getProject("Root");
 					String projectPath = rootProject.getLocation().toOSString();
 					java.io.File xmlFile = new java.io.File(projectPath+"/default.uml");
@@ -206,19 +210,18 @@ public class UMLDiagramEditorUtil {
 					Source source = new DOMSource(document);
 			        Result result = new StreamResult(xmlFile);
 			        x.transform(source, result);
-				} catch (Exception e2) {
-					e2.printStackTrace();
+					IFile file = ResourcesPlugin.getWorkspace().getRoot().getProject("Root").getFile("default.uml");
+					URI uri = URI.createFileURI(file.getFullPath().toString());
+					Resource resource = editingDomain.getResourceSet().createResource(uri);
+					try {
+						resource.load(null);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+					model = (Package) EcoreUtil.getObjectByType(resource.getContents(), UMLPackage.Literals.PACKAGE);
+				}else{
+					model = createInitialModel(initialObject, diagramNameWithoutExtension);
 				}
-				
-				IFile file = ResourcesPlugin.getWorkspace().getRoot().getProject("Root").getFile("default.uml");
-				URI uri = URI.createFileURI(file.getFullPath().toString());
-				Resource resource = editingDomain.getResourceSet().createResource(uri);
-				try {
-					resource.load(null);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-				Package model = (Package) EcoreUtil.getObjectByType(resource.getContents(), UMLPackage.Literals.PACKAGE);
 				attachModelToResource(model, modelResource);
 
 				Diagram diagram = ViewService.createDiagram(model, PackageEditPart.MODEL_ID, UMLDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
