@@ -123,7 +123,7 @@
       <?gmfgen generated="true"?>
   	  <wizard
   	     name="%newWizardName"
-  	     icon="icons/obj16/UMLDiagramFile.gif"
+  	     icon="icons/obj16/16.gif"
   	     category="org.eclipse.uml2.diagram.New"
   	     class="org.eclipse.uml2.diagram.csd.part.UMLCreationWizard"
   	     id="org.eclipse.uml2.diagram.csd.part.UMLCreationWizardID">
