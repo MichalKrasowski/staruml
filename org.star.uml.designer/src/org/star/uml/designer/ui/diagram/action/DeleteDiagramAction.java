@@ -75,6 +75,7 @@ import org.star.uml.designer.base.utils.CommonUtil;
 import org.star.uml.designer.base.utils.EclipseUtile;
 import org.star.uml.designer.base.utils.XmlUtil;
 import org.star.uml.designer.command.MoveShapeCommand;
+import org.star.uml.designer.service.dao.PmsDao;
 import org.star.uml.designer.ui.diagram.action.interfaces.IStarUMLModelAction;
 import org.star.uml.designer.ui.factory.StarUMLCommandFactory;
 import org.star.uml.designer.ui.factory.StarUMLEditHelperFactory;
@@ -113,18 +114,25 @@ public class DeleteDiagramAction extends Action implements IStarUMLModelAction{
 			TreeObject parent = null;
 			String folderPaht = null;
 			try{
-			parent = (TreeObject)treeSelection.getFirstElement();
-			folderPaht = ResourcesPlugin.getWorkspace().getRoot().getProject("Root").getLocation().toString();
-			File diagram = new File(folderPaht + "/" + parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE) + "." + parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION));
-			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-			IProgressMonitor monitor = new NullProgressMonitor();
-			monitor.beginTask("Save content...", 1);
-			if(page.getActiveEditor() != null){
-				page.getActiveEditor().doSave(monitor);
-			}
-			if(diagram.isFile()){
-				diagram.delete();
-			}
+				parent = (TreeObject)treeSelection.getFirstElement();
+				folderPaht = ResourcesPlugin.getWorkspace().getRoot().getProject("Root").getLocation().toString();
+				File diagram = new File(folderPaht + "/" + parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE) + "." + parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION));
+				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+				IProgressMonitor monitor = new NullProgressMonitor();
+				monitor.beginTask("Save content...", 1);
+				if(page.getActiveEditor() != null){
+					page.getActiveEditor().doSave(monitor);
+				}
+				if(diagram.isFile()){
+					diagram.delete();
+				}
+				
+				PmsDao pd = new PmsDao();
+				if(parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION).toString().equals(GlobalConstants.StarMoedl.STAR_EXTENSION_SEQUENCE_DIAGRAM)){
+					pd.sequenceDelete(parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_USECASE_SEQ).toString());
+				}else if(parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION).toString().equals(GlobalConstants.StarMoedl.STAR_EXTENSION_CLASS_DIAGRAM)){
+					pd.clazzDelete(parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_USECASE_SEQ).toString());
+				}
 			}catch(Exception e){e.printStackTrace();}
 			selectedNodeName = (String)parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE);
 			String modelPath = folderPaht+File.separator+GlobalConstants.DEFAULT_VIEW_MODEL_FILE;

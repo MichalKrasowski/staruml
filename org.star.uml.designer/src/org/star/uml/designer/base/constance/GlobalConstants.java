@@ -5,6 +5,10 @@ public class GlobalConstants {
 	//Default Node Name
 	public static final String[] NODE_NAMES = {"Park,Yong Cheon","Lee,Kung Chul","Kim,Sung Sik","Park,Hee Chul"};
 	
+	//user Info
+	public static final String STAR_USER_ID = "userId";
+	public static final String STAR_USER_PASS = "password";
+	
 	//Default File Name
 	public static final String DEFAULT_MODEL_FILE = "default.uml";
 	public static final String DEFAULT_VIEW_MODEL_FILE = "model.xml";
@@ -36,13 +40,18 @@ public class GlobalConstants {
 		public static final int POLICY_11 = 11; // Tree sequence diagram selected
 	}
 	
+	public class StarPMSModelDeleteDiagramPolicy{
+		public static final int POLICY_1 = 1; // Tree not selected
+	}
+	
 	// Star Model
 	public class StarMoedl{
 		// Star Model Attribute
 		public static final String STAR_MODEL_CATEGORY = "star:category";
 		public static final String STAR_MODEL_FILE = "star:file";
 		public static final String STAR_MODEL_EXTENSION = "star:extension";
-		public static final String STAR_MODEL_USECASE_SEQ = "star:parentseq";
+		public static final String STAR_MODEL_USECASE_SEQ = "star:seq";
+		public static final String STAR_MODEL_USECASE_PARENT_SEQ = "star:parentseq";
 		public static final String STAR_MODEL_ID = "xmi:id";
 		public static final String STAR_MODEL_TYPE = "xmi:type";
 		public static final String STAR_MODEL_NAME = "name";

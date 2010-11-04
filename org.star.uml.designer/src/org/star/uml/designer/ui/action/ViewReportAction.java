@@ -28,6 +28,7 @@ import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.uml2.diagram.usecase.edit.helpers.UMLBaseEditHelper;
 import org.eclipse.uml2.diagram.usecase.navigator.UMLNavigatorItem;
@@ -44,6 +45,7 @@ import org.star.uml.designer.base.utils.EclipseUtile;
 import org.star.uml.designer.ui.diagram.action.interfaces.IStarUMLModelAction;
 import org.star.uml.designer.ui.factory.StarUMLCommandFactory;
 import org.star.uml.designer.ui.factory.StarUMLEditHelperFactory;
+import org.star.uml.designer.ui.views.StarPMSBrowersView;
 import org.star.uml.designer.ui.views.StarPMSModelView;
 import org.star.uml.designer.ui.views.StarPMSModelViewUtil;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeObject;
@@ -67,7 +69,21 @@ public class ViewReportAction extends Action{
 	
 	@Override
 	public void run() {
-		
+		System.out.println("ViewReportAction Start~~!!!");
+		IViewPart model_view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
+		StarPMSModelView modelView = (StarPMSModelView)model_view_part;
+		TreeSelection treeSelection = (TreeSelection)modelView.getTreeViewer().getSelection();
+    	TreeObject chield = (TreeObject)treeSelection.getFirstElement();
+    	String  req_usecase_seq = (String)chield.getData("parentSeq");
+		IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSBrowersView");
+        StarPMSBrowersView brower = (StarPMSBrowersView)view_part;
+        String url = "http://192.168.10.193:8080/starPMS/processMgt/viewUseCaseReportSimple.do?usecaseSeq=";
+        brower.setURL(url+req_usecase_seq);
+        try {
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("org.star.uml.designer.ui.views.StarPMSBrowersView");
+		} catch (PartInitException e) {
+			e.printStackTrace();
+		}
 	}
 	
 //	public EObject createNode(){

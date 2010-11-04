@@ -60,10 +60,10 @@ import org.star.uml.designer.ui.views.StarPMSRequestTableView;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeObject;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeParent;
 
-public class DiagramSaveAction extends Action{
-	public static final String ACTION_ID = "DIAGRAMSAVE";
-	public static final String ACTION_URI = "org.eclipse.uml2.diagram.DiagramSaveAction";
-	public static final String ACTION_TITLE ="Diagram Save";
+public class ClazzDiagramSaveAction extends Action{
+	public static final String ACTION_ID = "CLAZZDIAGRAMSAVE";
+	public static final String ACTION_URI = "org.eclipse.uml2.diagram.ClazzDiagramSaveAction";
+	public static final String ACTION_TITLE ="Class Diagram Save";
 	public static final String ACTION_TYPE ="";
 	public static final String ICON_PATH = "/icons/diagram/Actor.gif";
 	public Map map;
@@ -72,7 +72,7 @@ public class DiagramSaveAction extends Action{
 	public DiagramDocumentEditor editor = null;
 	public View view = null;
 	
-	public DiagramSaveAction() {
+	public ClazzDiagramSaveAction() {
 		super();
 		this.setText(ACTION_TITLE);
 		this.setImageDescriptor(getImageDescriptor());
@@ -98,25 +98,27 @@ public class DiagramSaveAction extends Action{
 		
 		String folderPaht = ResourcesPlugin.getWorkspace().getRoot().getProject("Root").getLocation().toString();
 		File img = new File(folderPaht + "/default.png");
-		PmsDao pd = new PmsDao();
+		
 		IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
 		StarPMSModelView modelView = (StarPMSModelView)view_part;
 		TreeParent parent = modelView.getTreeParent();
-		TreeObject[] objects = ((TreeParent)parent.getChildren()[1]).getChildren();
+		
+		TreeObject[] objects = ((TreeParent)parent.getChildren()[2]).getChildren();
 		for(int i = 0; i < objects.length; i++){
 			TreeObject object = objects[i];
 			System.out.println("STAR_MODEL_FILE === " + object.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE) );
 			System.out.println("fileName === " + fileName.substring(0,fileName.lastIndexOf(".")) );
 			if(object.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE) != null && object.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE).equals(fileName.substring(0,fileName.lastIndexOf(".")))){
-		    	inputData.put("REQ_USECASE_SEQ", object.getData(GlobalConstants.StarMoedl.STAR_MODEL_USECASE_SEQ));
+				inputData.put("userId", parent.getData(GlobalConstants.STAR_USER_ID));
+				inputData.put("seq", object.getData(GlobalConstants.StarMoedl.STAR_MODEL_USECASE_SEQ));
 				inputData.put("img", img);
-				inputData.put("name", "시퀸스 다이어 그램");
+				inputData.put("name", object.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE));
 			}
 		}
 		
 		try{
-			pd.analysis_insert(inputData);
-			pd.analysisUpdate(inputData);
+			PmsDao pd = new PmsDao();
+			pd.clazzUpdate(inputData);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

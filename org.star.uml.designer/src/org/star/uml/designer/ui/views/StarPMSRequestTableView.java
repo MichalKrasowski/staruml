@@ -57,6 +57,7 @@ import org.eclipse.uml2.diagram.usecase.edit.parts.UseCaseEditPart;
 import org.eclipse.uml2.diagram.usecase.navigator.UMLNavigatorItem;
 import org.eclipse.uml2.uml.internal.impl.PackageImpl;
 import org.star.uml.designer.Activator;
+import org.star.uml.designer.base.utils.EclipseUtile;
 import org.star.uml.designer.service.dao.PmsDao;
 
 public class StarPMSRequestTableView extends ViewPart {
@@ -219,41 +220,44 @@ public class StarPMSRequestTableView extends ViewPart {
 					org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor editor = 
 						(org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor)page.getActiveEditor();
 					DiagramEditPart diagramEditPart = editor.getDiagramEditPart();
+					
 					EditPart focusEdit = diagramEditPart.getViewer().getFocusEditPart();
 					org.eclipse.draw2d.geometry.Point point = null;
 	        	if(focusEdit instanceof UseCaseEditPart){
+	        		final MultiStatus status = new MultiStatus(DiagramUIRenderPlugin
+	        				.getPluginId(), DiagramUIRenderStatusCodes.OK,
+	        				DiagramUIRenderMessages.CopyToImageAction_Label, null);
+	            	IRunnableWithProgress runnable = EclipseUtile.createImageRunnable(status);
+	            	try {
+	            		ProgressMonitorDialog progressMonitorDialog = new ProgressMonitorDialog(
+	            				Display.getCurrent().getActiveShell());
+	            		progressMonitorDialog.run(false, true, runnable);
+	            		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("org.star.uml.designer.ui.views.StarPMSRequestTableView");
+	        		} catch (Exception e) {
+	        			e.printStackTrace();
+	        		}
+	        		
 	        		UseCaseEditPart useCaseEditPart = (UseCaseEditPart)focusEdit;
-	        		point = useCaseEditPart.getLocation();
+	        		org.eclipse.gmf.runtime.notation.impl.ShapeImpl shape = (org.eclipse.gmf.runtime.notation.impl.ShapeImpl)useCaseEditPart.getModel();
+	        		org.eclipse.uml2.uml.internal.impl.UseCaseImpl useCase = (org.eclipse.uml2.uml.internal.impl.UseCaseImpl)shape.basicGetElement();
+	        		
+	        		TableItem srcTableItem = (TableItem)srcBtuuton.getData("row");
+					PmsDao pd = new PmsDao();
+					Map inputData = new HashMap();
+					String folderPaht = ResourcesPlugin.getWorkspace().getRoot().getProject("Root").getLocation().toString();
+					File img = new File(folderPaht + "/default.png");
+					inputData.put("img", img);
+					inputData.put("seq", srcTableItem.getData("seq").toString());
+					inputData.put("name", useCase.getName());
+					try{
+						pd.projectUpdate(inputData);
+					}catch(Exception e){
+						e.printStackTrace();
+					}
+			        srcTableItem.setText(2, useCase.getName());
+			        srcTableItem.setText(3, "등록");
 	        	}
-	        	IDiagramDocument document = editor.getDiagramDocument();
-	        	if (document != null) {
-	        		Diagram diagram = document.getDiagram();
-		    		IFile file = WorkspaceSynchronizer.getFile(diagram.eResource());
-		    		if (file != null) {
-		    			UMLNavigatorItem item = new UMLNavigatorItem(diagram, file, false);
-		    			DiagramImpl diagramImpleImple = (DiagramImpl)item.getView();
-		    			PackageImpl packageImple = (PackageImpl) diagramImpleImple.getElement();
-		    			List list = packageImple.getMembers();
-		    			for(int i=0; i<list.size(); i++){
-		    				if(list.get(i) instanceof org.eclipse.uml2.uml.internal.impl.UseCaseImpl){
-		    					org.eclipse.uml2.uml.internal.impl.UseCaseImpl useCase = 
-		    						(org.eclipse.uml2.uml.internal.impl.UseCaseImpl)list.get(i);
-		    					TableItem srcTableItem = (TableItem)srcBtuuton.getData("row");
-		    					PmsDao pd = new PmsDao();
-		    					Map inputData = new HashMap();
-		    					inputData.put("seq", srcTableItem.getData("seq").toString());
-		    					inputData.put("name", useCase.getName());
-		    					try{
-		    						pd.projectUpdate(inputData);
-		    					}catch(Exception e){
-		    						e.printStackTrace();
-		    					}
-		    			        srcTableItem.setText(2, useCase.getName());
-		    			        srcTableItem.setText(3, "등록");
-		    				}
-		        		}
-		    		}
-	    		}
+	        	
 	        }
 	      }
 	      public void widgetDefaultSelected(SelectionEvent event) {

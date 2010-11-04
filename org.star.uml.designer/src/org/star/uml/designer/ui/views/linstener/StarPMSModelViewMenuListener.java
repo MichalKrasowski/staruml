@@ -2,18 +2,16 @@ package org.star.uml.designer.ui.views.linstener;
 
 import java.util.HashMap;
 
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.PlatformUI;
 import org.star.uml.designer.base.constance.GlobalConstants;
-import org.star.uml.designer.base.utils.EclipseUtile;
+import org.star.uml.designer.service.dao.PmsDao;
 import org.star.uml.designer.ui.views.StarPMSModelView;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeObject;
+import org.star.uml.designer.ui.views.policy.StarPMSModelDeleteDiagramPolicy;
 import org.star.uml.designer.ui.views.policy.StarPMSModelViewPopupPolicy;
 
 public class StarPMSModelViewMenuListener implements IMenuListener{
@@ -66,18 +64,32 @@ public class StarPMSModelViewMenuListener implements IMenuListener{
 			if(category != null && category.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL)){
 				StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_5, actionMap);
 			}
-			// Category가 "diagram"인 경우 다이어그램을 삭제할 수 있다. 다이어그램 명을 변경 할 수 있다.
-			if(category != null && category.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM)){
-				StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_6, actionMap);
-			}
+			
 			// Category가 "diagram"인 경우 다이어 그램의 종류에 따라 연관된 다이어 그램을 생성 할 수 있다
 			if(category != null && category.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM)){
 				String extension = (String)treeObject.getData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION);
+				System.out.println("extension === " + extension);
+				System.out.println("STAR_EXTENSION_SEQUENCE_DIAGRAM === " + GlobalConstants.StarMoedl.STAR_EXTENSION_SEQUENCE_DIAGRAM);
 				if(extension != null && extension.equals(GlobalConstants.StarMoedl.STAR_EXTENSION_SEQUENCE_DIAGRAM)){
+					System.out.println("===== POLICY_11 =======");
 					StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_11, actionMap);
+					
 				}
 			}
 			
+			// Category가 "diagram"인 경우 다이어그램을 삭제할 수 있다. 다이어그램 명을 변경 할 수 있다.
+			if(category != null && category.equals(GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM)){
+				String extension = (String)treeObject.getData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION);
+				if(extension != null && extension.equals(GlobalConstants.StarMoedl.STAR_EXTENSION_SEQUENCE_DIAGRAM)){
+					String seq = (String)treeObject.getData(GlobalConstants.StarMoedl.STAR_MODEL_USECASE_SEQ);
+					PmsDao pd = new PmsDao();
+					if(pd.clazzSequenceCount(seq) > 0){
+						StarPMSModelDeleteDiagramPolicy.applyPolicy(GlobalConstants.StarPMSModelDeleteDiagramPolicy.POLICY_1, actionMap);
+					}
+				}else{
+					StarPMSModelDeleteDiagramPolicy.applyPolicy(GlobalConstants.StarPMSModelDeleteDiagramPolicy.POLICY_1, actionMap);
+				}
+			}
 			
 		}else{
 			StarPMSModelViewPopupPolicy.applyPolicy(GlobalConstants.StarPMSModelViewPopupPolicy.POLICY_1, actionMap);
