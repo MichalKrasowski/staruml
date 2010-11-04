@@ -87,16 +87,19 @@ public class SequenceDiagramCreateAction  extends Action implements IStarUMLMode
 //			e.printStackTrace();
 //		}
 		
-		String folderPaht = ResourcesPlugin.getWorkspace().getRoot().getProject("Root").getLocation().toString();
-		File img = new File(folderPaht + "/default.png");
-		PmsDao pd = new PmsDao();
-		
-		inputData.put("img", img);
-//		try{
-//			pd.diragramUpdate(inputData);
-//		}catch(Exception e){
-//			e.printStackTrace();
-//		}
+		//String folderPaht = ResourcesPlugin.getWorkspace().getRoot().getProject("Root").getLocation().toString();
+		//File img = new File(folderPaht + "/default.png");
+		//inputData.put("img", img);
+		IViewPart tree_view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
+		StarPMSModelView treeView = (StarPMSModelView)tree_view_part;
+		inputData.put("userId", treeView.getTreeParent().getData(GlobalConstants.STAR_USER_ID));
+		try{
+			PmsDao pd = new PmsDao();
+			inputData.put("seq", pd.sequenceSeqMax());
+			pd.analysis_insert(inputData);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		
 		// "default" 다이어그램을 생성하기 위해 기존 "default" 이름을 사용하는 파일이 있는지 확인 한 후 
 		// Index를 +1 해서 다이어 그램을 생성한다.  
@@ -124,11 +127,12 @@ public class SequenceDiagramCreateAction  extends Action implements IStarUMLMode
 		treeObject.setData(GlobalConstants.StarMoedl.STAR_MODEL_CATEGORY, 
 					       GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM);
 		treeObject.setData(GlobalConstants.StarMoedl.STAR_MODEL_ID, objId);
-		treeObject.setData(GlobalConstants.StarMoedl.STAR_MODEL_USECASE_SEQ, inputData.get("parentSeq"));
+		treeObject.setData(GlobalConstants.StarMoedl.STAR_MODEL_USECASE_SEQ, inputData.get("seq"));
+		treeObject.setData(GlobalConstants.StarMoedl.STAR_MODEL_USECASE_PARENT_SEQ, inputData.get("parentSeq"));
 		modelView.getTreeViewer().refresh();
 		// 모델 파일에 추가된 다이어 그램을 추가한다.
 		StarPMSModelViewUtil.addDiagramToModel("Root",parentId,fileName,DIAGRAM_EXTENSION,
-							  				   GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM,ACTION_ID,objId,GlobalConstants.UMLMoedl.UML_TYPE_PACKAGE_Element,"");
+							  				   GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM,ACTION_ID,objId,GlobalConstants.UMLMoedl.UML_TYPE_PACKAGE_Element,(String)inputData.get("parentSeq"),(String)inputData.get("seq"));
 	}
 	
 	public URL getImageURL(){
