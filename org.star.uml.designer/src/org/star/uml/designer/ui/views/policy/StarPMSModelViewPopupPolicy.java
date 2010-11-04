@@ -101,10 +101,10 @@ public class StarPMSModelViewPopupPolicy {
 		action2.setEnabled(true);
 		Action action3 = (Action)actionMap.get(PackageModelCreateAction.ACTION_TITLE);
 		action3.setEnabled(true);
-		Action action4 = (Action)actionMap.get(ClassModelCreateAction.ACTION_TITLE);
-		action4.setEnabled(true);
-		Action action5 = (Action)actionMap.get(InterfaceModelCreateAction.ACTION_TITLE);
-		action5.setEnabled(true);
+//		Action action4 = (Action)actionMap.get(ClassModelCreateAction.ACTION_TITLE);
+//		action4.setEnabled(true);
+//		Action action5 = (Action)actionMap.get(InterfaceModelCreateAction.ACTION_TITLE);
+//		action5.setEnabled(true);
 	}
 	
 	/**

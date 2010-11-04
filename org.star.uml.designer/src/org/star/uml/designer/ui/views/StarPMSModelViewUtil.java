@@ -294,7 +294,7 @@ public class StarPMSModelViewUtil {
 		menuMgr.add(modelGroup);
 		modelGroup.add(packageModel);
 		modelGroup.add(new Separator());
-		modelGroup.add(classModel);
+//		modelGroup.add(classModel);
 //		modelGroup.add(interfaceModel);
 		modelGroup.add(usecase);
 		modelGroup.add(actor);

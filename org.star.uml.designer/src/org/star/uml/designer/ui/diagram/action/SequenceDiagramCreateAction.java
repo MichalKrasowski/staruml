@@ -74,29 +74,29 @@ public class SequenceDiagramCreateAction  extends Action implements IStarUMLMode
 			MessageDialog.openInformation(tableView.getViewSite().getShell(),"다이어그램 저장","Request Table에서 저장될 항목을 선택 해 주세요");
 			return;
 		}
-    	final MultiStatus status = new MultiStatus(DiagramUIRenderPlugin
-				.getPluginId(), DiagramUIRenderStatusCodes.OK,
-				DiagramUIRenderMessages.CopyToImageAction_Label, null);
-    	IRunnableWithProgress runnable = EclipseUtile.createImageRunnable(status);
-    	try {
-    		ProgressMonitorDialog progressMonitorDialog = new ProgressMonitorDialog(
-    				Display.getCurrent().getActiveShell());
-    		progressMonitorDialog.run(false, true, runnable);
-    		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("org.star.uml.designer.ui.views.StarPMSRequestTableView");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//    	final MultiStatus status = new MultiStatus(DiagramUIRenderPlugin
+//				.getPluginId(), DiagramUIRenderStatusCodes.OK,
+//				DiagramUIRenderMessages.CopyToImageAction_Label, null);
+//    	IRunnableWithProgress runnable = EclipseUtile.createImageRunnable(status);
+//    	try {
+//    		ProgressMonitorDialog progressMonitorDialog = new ProgressMonitorDialog(
+//    				Display.getCurrent().getActiveShell());
+//    		progressMonitorDialog.run(false, true, runnable);
+//    		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("org.star.uml.designer.ui.views.StarPMSRequestTableView");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		
 		String folderPaht = ResourcesPlugin.getWorkspace().getRoot().getProject("Root").getLocation().toString();
 		File img = new File(folderPaht + "/default.png");
 		PmsDao pd = new PmsDao();
 		
 		inputData.put("img", img);
-		try{
-			pd.diragramUpdate(inputData);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+//		try{
+//			pd.diragramUpdate(inputData);
+//		}catch(Exception e){
+//			e.printStackTrace();
+//		}
 		
 		// "default" 다이어그램을 생성하기 위해 기존 "default" 이름을 사용하는 파일이 있는지 확인 한 후 
 		// Index를 +1 해서 다이어 그램을 생성한다.  
