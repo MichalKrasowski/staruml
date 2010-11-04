@@ -169,48 +169,47 @@ public class UMLDiagramEditorUtil {
 		final Resource modelResource = editingDomain.getResourceSet().createResource(modelURI);
 		final String diagramName = diagramURI.lastSegment();
 		final String diagramNameWithoutExtension = diagramURI.trimFileExtension().lastSegment();
+		// enki model 명을 가져와서 default가 아닌경우 기존 로직을 사용한다.
+		String str = modelURI.path();
+		String[] strs = str.split("/");
+		String fullName = strs[strs.length-1];
+		final String name = fullName.substring(0,fullName.indexOf(".uml"));
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, Messages.UMLDiagramEditorUtil_CreateDiagramCommandLabel, Collections.EMPTY_LIST) {
-
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				//Package model = createInitialModel();
-				//attachModelToResource(model, modelResource);
-				
-				//Enkisoft : use one resource
-				try {
-					IProject rootProject = ResourcesPlugin.getWorkspace().getRoot().getProject("Root");
-					String projectPath = rootProject.getLocation().toOSString();
-					java.io.File xmlFile = new java.io.File(projectPath+"/default.uml");
-			    	StringWriter writer = new StringWriter(); 
-					TransformerFactory fac = TransformerFactory.newInstance();
-					Transformer x = fac.newTransformer();
-					x.transform(new StreamSource(xmlFile), new StreamResult(writer));
-					DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-					DocumentBuilder builder = dbFactory.newDocumentBuilder();
-					Document document = builder.parse(new InputSource(new StringReader(writer.toString())));
-					Node rootEl = document.getFirstChild();
-//					for(int i=0; i<rootEl.getChildNodes().getLength(); i++){
-//						if(rootEl.getChildNodes().item(i).getNodeName().equals("elementImport")){
-//							rootEl.removeChild(rootEl.getChildNodes().item(i));
-//						}
-//					}
-					Source source = new DOMSource(document);
-			        Result result = new StreamResult(xmlFile);
-			        x.transform(source, result);
-				} catch (Exception e2) {
-					e2.printStackTrace();
+				Package model = null;
+				// StarPMS 와 연결된 경우 하나의 소스에서 생성하도록 한다.
+				// StarPMS Model에 로그인 된 경우에만 모델을 추가한다.
+				if(name.equals("default")){
+					try {
+					//Enkisoft : use one resource
+						IProject rootProject = ResourcesPlugin.getWorkspace().getRoot().getProject("Root");
+						String projectPath = rootProject.getLocation().toOSString();
+						java.io.File xmlFile = new java.io.File(projectPath+"/default.uml");
+				    	StringWriter writer = new StringWriter(); 
+						TransformerFactory fac = TransformerFactory.newInstance();
+						Transformer x = fac.newTransformer();
+						x.transform(new StreamSource(xmlFile), new StreamResult(writer));
+						DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+						DocumentBuilder builder = dbFactory.newDocumentBuilder();
+						Document document = builder.parse(new InputSource(new StringReader(writer.toString())));
+						Node rootEl = document.getFirstChild();
+						Source source = new DOMSource(document);
+				        Result result = new StreamResult(xmlFile);
+				        x.transform(source, result);
+						
+						IFile file = ResourcesPlugin.getWorkspace().getRoot().getProject("Root").getFile("default.uml");
+						URI uri = URI.createFileURI(file.getFullPath().toString());
+						Resource resource = editingDomain.getResourceSet().createResource(uri);
+						resource.load(null);
+						model = (Package) EcoreUtil.getObjectByType(resource.getContents(), UMLPackage.Literals.PACKAGE);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}else{
+					model = createInitialModel();
 				}
-				
-				IFile file = ResourcesPlugin.getWorkspace().getRoot().getProject("Root").getFile("default.uml");
-				URI uri = URI.createFileURI(file.getFullPath().toString());
-				Resource resource = editingDomain.getResourceSet().createResource(uri);
-				try {
-					resource.load(null);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-				Package model = (Package) EcoreUtil.getObjectByType(resource.getContents(), UMLPackage.Literals.PACKAGE);
 				attachModelToResource(model, modelResource);
-				//
 				
 				Diagram diagram = ViewService.createDiagram(model, PackageEditPart.MODEL_ID, UMLDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				if (diagram != null) {
