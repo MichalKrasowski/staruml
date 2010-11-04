@@ -119,7 +119,7 @@ public class PMSLoginAction extends Action {
 	          StarPMSRequestTableView tableView = (StarPMSRequestTableView)view_part;
 	          tableView.loadTable();
 				//Load Model View
-	          StarPMSModelViewUtil.loadModel("Root");
+	          StarPMSModelViewUtil.loadModel("Root", textUser.getText());
 	          IViewPart model_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
 	          StarPMSModelView modelView = (StarPMSModelView)model_part;
 	          modelView.setLoginFlag(true);
@@ -154,6 +154,7 @@ public class PMSLoginAction extends Action {
 		return Activator.getImageDescriptor(ICON_PATH);
 	}
 	
+	/*
 	public void openProjectDialog(final Shell parentShell){
 		final Shell shell = new Shell(SWT.TITLE | SWT.BORDER | SWT.APPLICATION_MODAL);
 		shell.setText("Select StarPMS Project");
@@ -203,4 +204,5 @@ public class PMSLoginAction extends Action {
 	    
 	    shell.open();
 	}
+	*/
 }

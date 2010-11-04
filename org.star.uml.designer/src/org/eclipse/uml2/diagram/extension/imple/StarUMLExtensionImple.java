@@ -6,17 +6,26 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.uml2.diagram.common.extension.StarUMLExtension;
 import org.star.uml.designer.base.constance.GlobalConstants;
-import org.star.uml.designer.ui.diagram.action.DiagramSaveAction;
+import org.star.uml.designer.ui.diagram.action.ClazzDiagramSaveAction;
 import org.star.uml.designer.ui.diagram.action.ModelCreateAction;
+import org.star.uml.designer.ui.diagram.action.SequenceDiagramSaveAction;
 import org.star.uml.designer.ui.views.StarPMSModelView;
 
 public class StarUMLExtensionImple implements StarUMLExtension{
 
 	@Override
 	public void diagramSave(HashMap map) {
-		DiagramSaveAction dg = new DiagramSaveAction();
-		dg.map = map;
-		dg.run();
+		String fileName = (String)map.get("fileName");
+		if(fileName.substring(fileName.lastIndexOf(".")+1).equals(GlobalConstants.StarMoedl.STAR_EXTENSION_SEQUENCE_DIAGRAM)){
+			SequenceDiagramSaveAction dg = new SequenceDiagramSaveAction();
+			dg.map = map;
+			dg.run();
+		}else if(fileName.substring(fileName.lastIndexOf(".")+1).equals(GlobalConstants.StarMoedl.STAR_EXTENSION_CLASS_DIAGRAM)){
+			ClazzDiagramSaveAction cg = new ClazzDiagramSaveAction();
+			cg.map = map;
+			cg.run();
+		}
+		
 	}
 
 	@Override
