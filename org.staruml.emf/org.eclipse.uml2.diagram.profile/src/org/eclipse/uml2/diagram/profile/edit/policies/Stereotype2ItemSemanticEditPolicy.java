@@ -1,0 +1,52 @@
+package org.eclipse.uml2.diagram.profile.edit.policies;
+
+import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CompoundCommand;
+import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
+import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand;
+import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
+import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
+import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.uml2.diagram.profile.edit.commands.ExtensionCreateCommand;
+import org.eclipse.uml2.diagram.profile.edit.commands.ExtensionReorientCommand;
+import org.eclipse.uml2.diagram.profile.edit.commands.GeneralizationCreateCommand;
+import org.eclipse.uml2.diagram.profile.edit.commands.GeneralizationReorientCommand;
+import org.eclipse.uml2.diagram.profile.edit.parts.ExtensionEditPart;
+import org.eclipse.uml2.diagram.profile.edit.parts.GeneralizationEditPart;
+import org.eclipse.uml2.diagram.profile.providers.UMLElementTypes;
+
+/**
+ * @generated
+ */
+public class Stereotype2ItemSemanticEditPolicy extends UMLBaseItemSemanticEditPolicy {
+
+	/**
+	 * @generated
+	 */
+	public Stereotype2ItemSemanticEditPolicy() {
+		super(UMLElementTypes.Stereotype_3003);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getDestroyElementCommand(DestroyElementRequest req) {
+		View view = (View) getHost().getModel();
+		CompositeTransactionalCommand cmd = new CompositeTransactionalCommand(getEditingDomain(), null);
+		cmd.setTransactionNestingEnabled(false);
+		EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
+		if (annotation == null) {
+			// there are indirectly referenced children, need extra commands: false
+			addDestroyShortcutsCommand(cmd, view);
+			// delete host element
+			cmd.add(new DestroyElementCommand(req));
+		} else {
+			cmd.add(new DeleteCommand(getEditingDomain(), view));
+		}
+		return getGEFWrapper(cmd.reduce());
+	}
+
+}

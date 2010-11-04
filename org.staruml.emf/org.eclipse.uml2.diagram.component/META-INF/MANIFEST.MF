@@ -1,0 +1,2437 @@
+Manifest-Version: 1.0
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Eclipse-LazyStart: true
+Bundle-SymbolicName: org.eclipse.uml2.diagram.component; singleton:=tr
+ ue
+Require-Bundle: org.eclipse.core.runtime,org.eclipse.core.resources,or
+ g.eclipse.core.expressions,org.eclipse.jface,org.eclipse.ui.ide,org.e
+ clipse.ui.views,org.eclipse.ui.navigator,org.eclipse.emf.ecore,org.ec
+ lipse.emf.ecore.xmi,org.eclipse.emf.edit.ui,com.ibm.icu,org.eclipse.g
+ ef;visibility:=reexport,org.eclipse.gmf.runtime.emf.core,org.eclipse.
+ gmf.runtime.emf.commands.core,org.eclipse.gmf.runtime.emf.ui.properti
+ es,org.eclipse.gmf.runtime.diagram.ui,org.eclipse.gmf.runtime.diagram
+ .ui.properties,org.eclipse.gmf.runtime.diagram.ui.providers,org.eclip
+ se.gmf.runtime.diagram.ui.providers.ide,org.eclipse.gmf.runtime.diagr
+ am.ui.render,org.eclipse.gmf.runtime.diagram.ui.resources.editor,org.
+ eclipse.gmf.runtime.diagram.ui.resources.editor.ide,org.eclipse.gmf.r
+ untime.notation.providers,org.eclipse.uml2.uml;visibility:=reexport,o
+ rg.eclipse.uml2.uml.edit;visibility:=reexport,org.eclipse.emf.ecore;v
+ isibility:=reexport,org.eclipse.emf.ecore.edit;visibility:=reexport,o
+ rg.eclipse.emf.ocl;visibility:=reexport,org.eclipse.emf.query.ocl;vis
+ ibility:=reexport,org.eclipse.gmf.runtime.draw2d.ui;visibility:=reexp
+ ort,org.eclipse.uml2.diagram.common;visibility:=reexport,org.eclipse.
+ draw2d;visibility:=reexport,org.eclipse.ocl.ecore;visibility:=reexpor
+ t,org.eclipse.ui.navigator.resources,org.eclipse.gmf.runtime.diagram.
+ ui.printing,org.eclipse.gmf.runtime.diagram.ui.printing.render
+Bundle-Activator: org.eclipse.uml2.diagram.component.part.UMLDiagramEd
+ itorPlugin
+Export-Package: org.eclipse.uml2.diagram.component.edit.parts,org.ecli
+ pse.uml2.diagram.component.part,org.eclipse.uml2.diagram.component.pr
+ oviders,org.eclipse.uml2.diagram.component.navigator
+Bundle-Version: 0.9.0.v200906190654
+Bundle-ClassPath: .
+Bundle-ActivationPolicy: lazy
+Bundle-Vendor: %providerName
+Bundle-Name: %pluginName
+Bundle-ManifestVersion: 2
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PortOnClassEditPar
+ t$1.class
+SHA1-Digest: 6kD7tzSWLpmdHRlDSztJp3J6Ppw=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentStereoEdi
+ tPart$4.class
+SHA1-Digest: aDpZTshK7JJOEphqS4aYlGbnWzE=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentName2Edit
+ Part$4.class
+SHA1-Digest: rGaZVa8/6DshRFgT/1oNTg/rxX8=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLPaletteFactory$1.clas
+ s
+SHA1-Digest: 7M9eeLdRsS2lW9BD7cAqDhYM++8=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PropertyEditPart$1
+ .class
+SHA1-Digest: TXuZkvUCwH27LttteCl/7eKaSO8=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Component2EditPart
+ $LinkTargetListener.class
+SHA1-Digest: K9fGnLLhQuY69FOuZRgpVurwb2s=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PackageStereo2Edit
+ Part$4.class
+SHA1-Digest: TUvTkcLOXkuqOfWxJyNprSVBL0E=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentNameEditP
+ art$1.class
+SHA1-Digest: mQskHAui36g5oSWw+2OQMqITk0M=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLDocumentProvider$Reso
+ urceSetInfo$SynchronizerDelegate$2.class
+SHA1-Digest: cD6WiG/N/15RC1gA7uja/uogGB8=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLLoadResourceAction.cl
+ ass
+SHA1-Digest: s50NxKhutU1Aq36ZbX38fTl2hUA=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentRequiredE
+ ditPart.class
+SHA1-Digest: rkNknk1y1gna3KpCr+FZQTUGHh8=
+
+Name: org/eclipse/uml2/diagram/component/part/CreateAssociationLinkToo
+ l$NONE.class
+SHA1-Digest: E6KZ9p8mHNpur5+RBS83Mo+BhPw=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLCreationWizard$1.clas
+ s
+SHA1-Digest: h5HVOgWTCMm6PueI6R0sECXYQEI=
+
+Name: org/eclipse/uml2/diagram/component/action/Class2ContributionItem
+ Provider.class
+SHA1-Digest: ZslSUQGND/gRlACpAR7uqwNzHeM=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLDocumentProvider$1.cl
+ ass
+SHA1-Digest: NLjM6eOTx9UZwT0oCWEWCU70pbg=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/AssociationReor
+ ientCommand.class
+SHA1-Digest: fw+w6uBOWrCb1SsET+x0uSShEKg=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/UMLEditPartFactory
+ .class
+SHA1-Digest: 4sPfmswUUBMGKe487IrGsTlkC1w=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Package4EditPart$2
+ .class
+SHA1-Digest: gl0eDAbo5rQcMAMD+Bj6uQFKRkM=
+
+Name: org/eclipse/uml2/diagram/component/navigator/UMLNavigatorContent
+ Provider.class
+SHA1-Digest: Oe3KbbLPKWd4nTE1CTvzlR+CHng=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/AssemblyConnect
+ orCircleCreateCommand.class
+SHA1-Digest: rbRrqaxgQydRHEDsiBDU5tBT0ts=
+
+Name: org/eclipse/uml2/diagram/component/links/RequiredInterfaceLinkFi
+ lter.class
+SHA1-Digest: FT267pBZlYac29uUCyoXHl9sDuk=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName6Ed
+ itPart.class
+SHA1-Digest: +ngus7w7W4DPYT8wrRLFqnNpJq0=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onClassEditPart.class
+SHA1-Digest: NFraUyQpizrq0rMJbS5GQ3JbXko=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactNameEditPa
+ rt$3.class
+SHA1-Digest: khVnuteAY3V7AZ8l/sYapp2ugfo=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentEditPart$
+ LinkTargetListener.class
+SHA1-Digest: 4xIBUlzI67fC5txXJgj4wetP2A0=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentStereo2Ed
+ itPart$3.class
+SHA1-Digest: s1HSyobJf472PP7FKr3s165Q3II=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Artifact3EditPart.
+ class
+SHA1-Digest: v6/M5/2hLB3DRkb9Aw4ii8vZKH8=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/PackageCreateCo
+ mmand.class
+SHA1-Digest: cuHxh9EwMpRWIbkflFtwfAd2cXI=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassNameEditPart.
+ class
+SHA1-Digest: deqxRhNZUSiF5ukifFWxxctx66Q=
+
+Name: org/eclipse/uml2/diagram/component/part/CreateAssociationLinkToo
+ l$SHARED.class
+SHA1-Digest: b2PJz6VesyYx/9nDWiwuuhFRzMo=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/ClassDiagramNot
+ ationInnerClassCreateCommand.class
+SHA1-Digest: z1p4PvodbqZYwLZ+XpHXez+1QuU=
+
+Name: org/eclipse/uml2/diagram/component/edit/helpers/ConnectorEditHel
+ per.class
+SHA1-Digest: sYj7Z69uwY4y8H6uDNm9eHDS5Qw=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onClassStereotypeEditPart.class
+SHA1-Digest: isKZdDgpHF2OE5C4isOI/K7V6XI=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassNameEditPart$
+ 2.class
+SHA1-Digest: g700PNHWdEsFEccaDM7mleDVf9M=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PortOnClassEditPar
+ t$1$1.class
+SHA1-Digest: /lOuQk6aDyHR/f9OyMnZgUFacJ8=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLDiagramEditor$1.class
+SHA1-Digest: pfwnX6dgn28I89qtYyLCzuDuv/E=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName5Ed
+ itPart$2$1.class
+SHA1-Digest: bOs/ZKGbtIzHS+jgpCSNtOLiT4E=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Component3EditPart
+ $2.class
+SHA1-Digest: S54Vv5Wo1DhYEVU8gP52aivRGjM=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentContentsE
+ ditPart.class
+SHA1-Digest: JVC7/pfXC2hqe7JUS2TFpG/TXH4=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/PackageItemSema
+ nticEditPolicy$DuplicateAnythingCommand.class
+SHA1-Digest: P1y9JeB/dhl9umViddyZOfFy9JI=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PortNameEditPart.c
+ lass
+SHA1-Digest: svYnJ01uzbrnLOycu/FsPULLlzw=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onPropertyEditPart$1$1.class
+SHA1-Digest: +h/4zX7fuMr3zj+D8l6nVtkQxew=
+
+Name: org/eclipse/uml2/diagram/component/navigator/UMLNavigatorSorter.
+ class
+SHA1-Digest: wrHpi9NwBDqew4fcjHU0ttilb4k=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onClassStereotypeEditPart$4.class
+SHA1-Digest: CjIDXYlu6a6TMXTe2i4DsPaWqyY=
+
+Name: org/eclipse/uml2/diagram/component/expressions/UMLOCLFactory$1.c
+ lass
+SHA1-Digest: gkqfoBvu7PnH08l4mkQ5npQpR3I=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/Package3CreateC
+ ommand.class
+SHA1-Digest: aNipeJsTMb5nPLsOUjjezyXsEKs=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ArtifactContent
+ s3ItemSemanticEditPolicy.class
+SHA1-Digest: yQT1gW+PO10KmXTBAgFvxIh1l9E=
+
+Name: org/eclipse/uml2/diagram/component/navigator/UMLNavigatorItem.cl
+ ass
+SHA1-Digest: VYqpFZT1TcuS7FA5mo5bDvpVK0g=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassEditPart$1.cl
+ ass
+SHA1-Digest: XAMUhejiUPF6VMVgk/FdL+aOwIY=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLCreateShortcutAction.
+ class
+SHA1-Digest: ZF5xzxxUM/bOC3a18XsUJTxJvCE=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/ElementImportCr
+ eateCommand.class
+SHA1-Digest: LCmL1tvWX5znzTYAMATzvcUXdZs=
+
+Name: org/eclipse/uml2/diagram/component/parsers/CompositeParser.class
+SHA1-Digest: Y6fxAy4J8TouAZAimskNvV8tYnc=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactStereoEdit
+ Part$4.class
+SHA1-Digest: fYeX97HU8UxtydwMh7UBZwSN3vg=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onOperationEditPart.class
+SHA1-Digest: u+1TYC4TlTygmSvEI0Tk2S3REFA=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onInnerClassEditPart.class
+SHA1-Digest: nt8lre6KmIjIGznw78EpFo6gQFE=
+
+Name: org/eclipse/uml2/diagram/component/part/ModelElementSelectionPag
+ e$1.class
+SHA1-Digest: TAEHjERcjgO5xvhaITNy1hcmA7w=
+
+Name: org/eclipse/uml2/diagram/component/part/CreateAssociationLinkToo
+ l$COMPOSITE.class
+SHA1-Digest: oIoMDmtOuv57au1xJv/n8RIFz0Q=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PortName2EditPart$
+ 3.class
+SHA1-Digest: QmstmSIQadbCcoOWm36DDzzMP1c=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLDiagramEditorUtil$1.c
+ lass
+SHA1-Digest: kpgzOr7x26FpSM/xoCKuhYtSho0=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/DependencyNameEdit
+ Part$4.class
+SHA1-Digest: /X3qfVApOQK6oDFaLyU41Cfmwp4=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactStereo2Edi
+ tPart$3.class
+SHA1-Digest: ZqYP9eahVJY2WSABuxkzH6MY4v4=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PortOnClassEditPar
+ t.class
+SHA1-Digest: 8M428UzGfKnj8XQgddG7liShPSk=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Class3EditPart$3.c
+ lass
+SHA1-Digest: Txqmbo3IJeevt6YwECV4MO7js7U=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/CreatePortRequi
+ redInterfaceCommand.class
+SHA1-Digest: EcxyJos5LXgxlIYDk1OsToGSucI=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/DependencyCreat
+ eCommand.class
+SHA1-Digest: Igacb2VEQDiVX6Dwl55syS9mEFs=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactName2EditP
+ art$2.class
+SHA1-Digest: KEZZ523JR+ZCMOzakt86Fn5w6YE=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName3Ed
+ itPart$2.class
+SHA1-Digest: CgVtS8nmMclpZKD0vBTXWxUrlc8=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLDiagramEditor.class
+SHA1-Digest: 5+XHlK75lXHJr0KF/YhsiWeoLUE=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName5Ed
+ itPart$2.class
+SHA1-Digest: UCoNQpbvRcFyJlvAReDGdRs1uck=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/Artifact3Create
+ Command.class
+SHA1-Digest: 50M0HLu1s3rZlvmozOu7SdZ9vxw=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentNameEditP
+ art.class
+SHA1-Digest: WIo7IiATl4yfwSYrMIye2GZzNWc=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLShortcutPropertyTeste
+ r.class
+SHA1-Digest: YzmJSAOJHxWIqsea0jK3G62qsKM=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName7Ed
+ itPart$2.class
+SHA1-Digest: X9bO6iPnLPZI4oWJElM8NKAjQrY=
+
+Name: org/eclipse/uml2/diagram/component/navigator/UMLDomainNavigatorL
+ abelProvider.class
+SHA1-Digest: zTfsdVUZzGplAwRKGJoowjhLm7A=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/PackagePackages
+ CanonicalEditPolicy.class
+SHA1-Digest: q7bVTz5VEY6pfYuF8NRx3xyrSuM=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/PackageImportsI
+ temSemanticEditPolicy.class
+SHA1-Digest: GJI91GDq978xnVLeqfylKAmDdeA=
+
+Name: org/eclipse/uml2/diagram/component/expressions/UMLAbstractExpres
+ sion.class
+SHA1-Digest: gPkNp3qzdX/zSb5dD9rGhP6d6VM=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/CommentItemSema
+ nticEditPolicy.class
+SHA1-Digest: qaEt/WGMlo0Zs3i7nyxpzBZ5tW8=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLDiagramEditorPlugin.c
+ lass
+SHA1-Digest: 1OPVHNUx52S3SuhwsD8vfygb/VA=
+
+Name: org/eclipse/uml2/diagram/component/navigator/UMLNavigatorLinkHel
+ per.class
+SHA1-Digest: qNw+kkAO5O07wvVs9mb1hGPu7Po=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/CommentBodyEditPar
+ t$2$1.class
+SHA1-Digest: HXZZefXzmcjKCLS82SHeTmsVCHk=
+
+Name: org/eclipse/uml2/diagram/component/preferences/DiagramIconStyleP
+ referencePage.class
+SHA1-Digest: xsk08Ws+FSrbvYBw4/qZVvrZ/K4=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Package3EditPart.c
+ lass
+SHA1-Digest: FCaLGDZNJolQN0G0rRCxh/FE5KY=
+
+Name: org/eclipse/uml2/diagram/component/async/UMLComponentFixedElemen
+ tsWizard$NewDiagramSyncHelperWithFixedElements.class
+SHA1-Digest: ZGJH73ESJJWwDoL5h3B/GXqYgDM=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PackageName2EditPa
+ rt$1.class
+SHA1-Digest: 3v9CgTt3yzkxEtBjc9qiLscB+bM=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ComponentConten
+ ts2ItemSemanticEditPolicy.class
+SHA1-Digest: jiH1x4VvJ9xIB+QCCT6ih365Fm4=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PackageNameEditPar
+ t$4.class
+SHA1-Digest: 7/O4LpYPiKUQi6PDCvapoimnPH4=
+
+Name: org/eclipse/uml2/diagram/component/navigator/UMLNavigatorGroup.c
+ lass
+SHA1-Digest: QR9yLKUynFNqvGGfFo9Q19n+qeQ=
+
+Name: org/eclipse/uml2/diagram/component/preferences/DiagramRulersAndG
+ ridPreferencePage.class
+SHA1-Digest: 7a6VSvq0mdh8eIpsA4qLplBp0hQ=
+
+Name: org/eclipse/uml2/diagram/component/action/TurnIntoClass2Action.c
+ lass
+SHA1-Digest: R21PjZ4LpSs/2Qatf7D4mgt56K8=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onClassStereotypeEditPart$2$1.class
+SHA1-Digest: q3I5/O0S+AKpDCSaNEjpueS87gs=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/PackageClassifi
+ ersCanonicalEditPolicy.class
+SHA1-Digest: iccN0DHTaXzOiwhigRDLtxFUIAA=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactStereo3Edi
+ tPart.class
+SHA1-Digest: usaZpXJF5ov0eeMGrAkD7MAGFqc=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassName2EditPart
+ $1.class
+SHA1-Digest: cMP1h4xMsljfZhb0wlAgv79Pzh0=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLElementChooserDialog$
+ ModelElementsTreeContentProvider.class
+SHA1-Digest: N1iiUM0SZD2G92zRRQfqT3ufHqY=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/AssemblyConnect
+ orEndRoleItemSemanticEditPolicy.class
+SHA1-Digest: gLaKUUT7/2cHNLGiX4mXVxRtsj8=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PropertyNameEditPa
+ rt.class
+SHA1-Digest: imCMCsVWhQmt3TEkWjswvYQ5mM8=
+
+Name: org/eclipse/uml2/diagram/component/part/CreateAssociationLinkToo
+ l.class
+SHA1-Digest: MMWNQXtBHzDZFquRb16XAj1jK4I=
+
+Name: org/eclipse/uml2/diagram/component/navigator/UMLNavigatorItem$1.
+ class
+SHA1-Digest: UsjGrU9AXFOyiyedUBMu8KCtz4s=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onClassNameEditPart$3.class
+SHA1-Digest: ye6yMDX1SdThlNP2VqgWltYCuyk=
+
+Name: org/eclipse/uml2/diagram/component/providers/UMLParserProvider.c
+ lass
+SHA1-Digest: 6yHFMr1+2OBc59LD0ZQHanNr/gY=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/Component2Creat
+ eCommand.class
+SHA1-Digest: 8H2PSDjLOUEjQmXVsX+bwEZWjA4=
+
+Name: org/eclipse/uml2/diagram/component/preferences/DiagramConnection
+ sPreferencePage.class
+SHA1-Digest: H4TZv1Rr/6ivw/MJs3/Wzkd4ygo=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/DependencyEditPart
+ .class
+SHA1-Digest: xRvy4n0ckcdrgvP5pSq25IGaVgM=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ElementImportEditP
+ art$1$1.class
+SHA1-Digest: gEwWsx5QWicBYxMinNtJ+lE8zig=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactContentsEd
+ itPart.class
+SHA1-Digest: h6utU/4I9egOruix0Wd3/5wdJow=
+
+Name: org/eclipse/uml2/diagram/component/navigator/UMLNavigatorContent
+ Provider$3.class
+SHA1-Digest: MyY8VJRsTIw5FdrCCRSj6zrlDS4=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onInnerClassEditPart$3.class
+SHA1-Digest: 5xKvecngdQxdBuDIMg1yMWrtZA8=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLMatchingStrategy.clas
+ s
+SHA1-Digest: JsJWtH1k3+lxfT8IRfmuL0oei+0=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PropertyNameEditPa
+ rt$3.class
+SHA1-Digest: +5o4m08bPyRPWpQ/5UBSKOAf+Fs=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ClassDiagramNot
+ ationOperationItemSemanticEditPolicy.class
+SHA1-Digest: vyL0O9jugeegRL8GGHbUIf0npOg=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentStereoEdi
+ tPart$3.class
+SHA1-Digest: CVQz0HYysFMQRdpqwLsjzn+jBHo=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PortOnClassEditPar
+ t$PortFigure.class
+SHA1-Digest: tUAHfmyCjGhd95GyYvVsPX5xEYs=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onInnerClassEditPart$1$1.class
+SHA1-Digest: +zA2wyTjF7tsVzG8OU5IVSB9t1E=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentName2Edit
+ Part$3.class
+SHA1-Digest: 6pMD/vvERoDMs5O6Suns/6PyaBs=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PortEditPart$1$1.c
+ lass
+SHA1-Digest: qL9HDCr1r/AkzH6BKQmkmiir1XY=
+
+Name: org/eclipse/uml2/diagram/component/preferences/DiagramGeneralPre
+ ferencePage.class
+SHA1-Digest: Y9GBwn3UA/5fxWtgn+SjJMB/9so=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/ClassDiagramNot
+ ationClassCreateCommand.class
+SHA1-Digest: 9CVrf+cqaXFeltCCMEMYU2AwsFY=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Artifact3EditPart$
+ 2.class
+SHA1-Digest: Wa1ph27HsCMnWgnOd5FQ99WEZcc=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/PortOnClassItem
+ SemanticEditPolicy.class
+SHA1-Digest: zVRnj3zElfL54eiGzEJMiRZ5OqU=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName3Ed
+ itPart$2$1.class
+SHA1-Digest: eq19h8hr2p+M+6Uzsq+nJeqVYro=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/InterfaceNameEditP
+ art$3.class
+SHA1-Digest: 56gxbFrsy7LDiflpRbTZspN3oyE=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PackageStereo2Edit
+ Part$3.class
+SHA1-Digest: lvIpmNLpiY1n92RcaPMZIH3UsLA=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLDocumentProvider$Reso
+ urceSetInfo$SynchronizerDelegate$1.class
+SHA1-Digest: ktJ3MeCaGCTQwF6F5pFfWVvaPRI=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassEditPart.clas
+ s
+SHA1-Digest: HnzKPWgC+ArB0aHM/PSLtstQnz8=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLCreationWizard.class
+SHA1-Digest: vzsHQOfM4XovCLwlvSIdOphAoyM=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/Artifact2ItemSe
+ manticEditPolicy.class
+SHA1-Digest: tlb8tbxAtray9mslCkgYRJqLBn0=
+
+Name: icons/incomingLinksNavigatorGroup.gif
+SHA1-Digest: lUwMuDmTEvmiqtkgC+kWyrYAkVk=
+
+Name: org/eclipse/uml2/diagram/component/navigator/UMLAbstractNavigato
+ rItem.class
+SHA1-Digest: lQ0rkMDDcGMWAFZiMIIHn12xY/s=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Package2EditPart$1
+ .class
+SHA1-Digest: mxaKDVJeYOJRxLklGheLMek60No=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Class2EditPart.cla
+ ss
+SHA1-Digest: oThkeXdX7K9J0Xk+XIHIP3504iA=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Package4EditPart$1
+ .class
+SHA1-Digest: QCWMc1haY7u1B+ZCwZtVHdoPWFM=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/InterfaceCreate
+ Command.class
+SHA1-Digest: rXblCjdHQaXG+aQ9vUGmhwZH+GE=
+
+Name: org/eclipse/uml2/diagram/component/navigator/UMLAbstractNavigato
+ rItem$2.class
+SHA1-Digest: 6UaBFNCJgy/p0PJgBHarjSEtL/g=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ComponentConten
+ tsItemSemanticEditPolicy.class
+SHA1-Digest: FAwCrsKFGjgkoymwr2aAMnZUefs=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactName2EditP
+ art.class
+SHA1-Digest: oqOc3wKPuXD2NiQzyxhZymQOS7s=
+
+Name: org/eclipse/uml2/diagram/component/links/RegularLinkFilter.class
+SHA1-Digest: EdwFswFvmrI33GAQGkgTQrCAfH0=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PackageImportsEdit
+ Part.class
+SHA1-Digest: l1niXZcdH+4gwQB5VFao6Jz8Gm0=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/PackageCanonica
+ lEditPolicy.class
+SHA1-Digest: FsmzLb5jMCX2+iHB3nNtar8A0CI=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactNameEditPa
+ rt$2.class
+SHA1-Digest: /3EBfYZ1Aru3yjliJhpT17i9rLk=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentStereo2Ed
+ itPart$2.class
+SHA1-Digest: kIGPO3MjmU44BKSWFfwsM2Qlhtk=
+
+Name: org/eclipse/uml2/diagram/component/edit/helpers/ComponentEditHel
+ per.class
+SHA1-Digest: 7hnjMBnw4Yd7UQvVr/L9buOSpKA=
+
+Name: org/eclipse/uml2/diagram/component/navigator/UMLDomainNavigatorI
+ tem.class
+SHA1-Digest: L1IhlDHe+/2HVLbEZIOQM+yI9tk=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactEditPart.c
+ lass
+SHA1-Digest: BLgXehsCNZ5G3x7AW/C8vSmY35E=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/AssemblyConnect
+ orEndRoleCreateCommand.class
+SHA1-Digest: M7f0Q+pJnjq279l1iLZ8pK5cjfA=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/InterfaceRealiz
+ ationReorientCommand.class
+SHA1-Digest: Ol9zW/Xe24P1D9nuJg4pv8khSSs=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/DependencyReori
+ entCommand.class
+SHA1-Digest: 97s0zJYTL5knyiWNfect8lVUJbQ=
+
+Name: org/eclipse/uml2/diagram/component/edit/helpers/UMLBaseEditHelpe
+ r.class
+SHA1-Digest: 9IVwkLHHIksvjiBT/3eYFAC7NZc=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName2Ed
+ itPart$4.class
+SHA1-Digest: cYFz+UuHN9wcvzjSFDI0ZwoXtM8=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactName3EditP
+ art$4.class
+SHA1-Digest: z2s6lqtaGKq3OvKnEbrF2t9tPWo=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Component3EditPart
+ .class
+SHA1-Digest: hx/tnlNI45KSlN2ziho44qxxwyQ=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName4Ed
+ itPart$4.class
+SHA1-Digest: z2lD1hLs4+T3seOqPCoAU7Qz8rA=
+
+Name: icons/wizban/NewUMLWizard.gif
+SHA1-Digest: V9+GnTa2Eps/Z9j0Ylui5kDdHv0=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName6Ed
+ itPart$4.class
+SHA1-Digest: 8Psv54gVK1KRpx7NXnfDQtj+GaM=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/PortCreateComma
+ nd.class
+SHA1-Digest: QEOAY+iWIJl9mkcQCoFxtagL2Hw=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationNameEdi
+ tPart.class
+SHA1-Digest: w2T7lClpl790EOcaGyxyWc7GlyQ=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassNameEditPart$
+ 1.class
+SHA1-Digest: r2UmndGKbA8gd7VZhBXJagUfWJ4=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/Class3CreateCom
+ mand.class
+SHA1-Digest: DKxYmnJowKekkIZXRd9cQGQdWPI=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onPropertyEditPart$3.class
+SHA1-Digest: ElzwLNNoUmKlvcYbLW2tZaZbhiQ=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Component3EditPart
+ $1.class
+SHA1-Digest: bxCWhlJ7HtkPtI9mWsqZysJr/Eg=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentName2Edit
+ Part$2$1.class
+SHA1-Digest: kSa/TFZXMJxNqNL5xgdvCaiiA2A=
+
+Name: org/eclipse/uml2/diagram/component/async/UMLComponentFixedElemen
+ tsWizard$SyncModelContextWithFixedElements.class
+SHA1-Digest: IYXgua8NAxCWWdBjz2AAzJqgXO4=
+
+Name: org/eclipse/uml2/diagram/component/preferences/DiagramPrintingPr
+ eferencePage.class
+SHA1-Digest: FiSkwOHvBjorwcuhbO1+HBjReLI=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onClassStereotypeEditPart$3.class
+SHA1-Digest: co0178GPtSYulVFkYphM4Pei39Y=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLDiagramUpdateCommand.
+ class
+SHA1-Digest: Np0Jat6lih1Wte1pztw3Rm1caUc=
+
+Name: org/eclipse/uml2/diagram/component/sheet/UMLPropertySection.clas
+ s
+SHA1-Digest: 1A6I1DjcJekbSRtLXHJnuM4ct+A=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PackageEditPart.cl
+ ass
+SHA1-Digest: VdvVSYOe3KwS80x5Udl439xKCww=
+
+Name: org/eclipse/uml2/diagram/component/part/DiagramEditorContextMenu
+ Provider$1.class
+SHA1-Digest: 5LWLiYSYMZZEb1h1UwRrC90iQaU=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ClassClassesCan
+ onicalEditPolicy.class
+SHA1-Digest: kTFTnMi5wcgMyUQvZ7u42g6rGCQ=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/AssociationCrea
+ teCommand.class
+SHA1-Digest: BU4z1Eh9/fkQZNxe78uxJw8rRRg=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/PortProvidedCre
+ ateCommand.class
+SHA1-Digest: j3x0R3nyRaQHQUPJf/ujwtOWXbU=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLDiagramEditorUtil.cla
+ ss
+SHA1-Digest: YGU3ashu7Rhi0/pcdbkYAbHhUts=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ClassAttributes
+ ItemSemanticEditPolicy.class
+SHA1-Digest: duWCYmJuR33WZBPWI8GmxrJRKt4=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactStereoEdit
+ Part$3.class
+SHA1-Digest: +Xw+fooXpoFJdyZ09Wqr1w0tBEU=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/CommentAnnotate
+ dElementReorientCommand.class
+SHA1-Digest: LAd8AMvF6LYWwWqy4w0l5Du8vDE=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentEditPart$
+ 2.class
+SHA1-Digest: SPWIAUpMjJ8MbibKU50nAwM86tY=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/PackageImportsC
+ anonicalEditPolicy.class
+SHA1-Digest: GHXIRFu/zHpIvmDOwhXKsw8Etu4=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/PortOnClassCrea
+ teCommand.class
+SHA1-Digest: tq0E/IdcYx5h9Mi+8T0hd+hCDpM=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ElementImportEditP
+ art$3.class
+SHA1-Digest: d6vD1RRACCc0rLkTS0YDKP0LGEA=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PackageEditPart$1.
+ class
+SHA1-Digest: qkYXgAwfCG/Kox6BUbDuyfWIxw0=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PortProvidedEditPa
+ rt.class
+SHA1-Digest: BelVTmQtZrVY8ErBwANLJbKJiLE=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PortName2EditPart$
+ 2.class
+SHA1-Digest: AjkSYIlTSY7mtmCQpQkV04Dp3Sk=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/DependencyNameEdit
+ Part$3.class
+SHA1-Digest: +1stCqh3rlLFSwvyI8wz2N/9bf4=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactStereo2Edi
+ tPart$2.class
+SHA1-Digest: W6jBewYpxafFqNaICjLIIS05cZ4=
+
+Name: org/eclipse/uml2/diagram/component/edit/helpers/ArtifactEditHelp
+ er.class
+SHA1-Digest: uwQpZC52TsRw0+nqRsg0plZ9lIM=
+
+Name: org/eclipse/uml2/diagram/component/edit/helpers/InterfaceEditHel
+ per.class
+SHA1-Digest: D+CUv/+d0UVTnCH6b3glBDoD4Qs=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Class3EditPart$2.c
+ lass
+SHA1-Digest: uf8YXMtzo7985vyKTrqCwLCFASU=
+
+Name: org/eclipse/uml2/diagram/component/providers/UMLParserProvider$H
+ intAdapter.class
+SHA1-Digest: v0RtI7JTpR1n/gVhCqQzw/Yu45U=
+
+Name: org/eclipse/uml2/diagram/component/edit/helpers/AssociationEditH
+ elper.class
+SHA1-Digest: TUjl0s6VkF1fpYR58F+oHIpBdBU=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactName2EditP
+ art$1.class
+SHA1-Digest: lJa7Ad5qGTBuc6G6n3hT60s3igc=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactStereo2Edi
+ tPart$2$1.class
+SHA1-Digest: M1l3L6JMI9I9J2oiv4gQ1elY/44=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName3Ed
+ itPart$1.class
+SHA1-Digest: 8wLoZORSVnATtpgmaTsvUM3+aE4=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName5Ed
+ itPart$1.class
+SHA1-Digest: wn6x5uwYA5bCqN4GWIF7X4LA/GA=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/AssemblyConnect
+ orEndRoleReorientCommand.class
+SHA1-Digest: 593nWqJwlTrjmE8hSxomzjlvyfo=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/PackageCanonica
+ lEditPolicy$Domain2Notation.class
+SHA1-Digest: /I+QhwneQcdf+0atY2BvZkD9IBI=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLDocumentProvider$Reso
+ urceSetInfo$SynchronizerDelegate.class
+SHA1-Digest: Xc3Wmr7CfQWRuepHKEFZjMiIhb4=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLCreationWizardPage.cl
+ ass
+SHA1-Digest: x4p+ElT+d9j1LSn0atsab7j8EuY=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName7Ed
+ itPart$1.class
+SHA1-Digest: dFpLwE57Xafz1TRYdFckwGMM/Qg=
+
+Name: org/eclipse/uml2/diagram/component/part/CreateAssociationLinkToo
+ l$NAVIGABLE.class
+SHA1-Digest: hG4hb9jbzt1jLeDTY6mOXA+iJKc=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentContents2
+ EditPart.class
+SHA1-Digest: 92wzEfF/N1p0KnLPc5TQr+OBwc4=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/CommentEditPart$1.
+ class
+SHA1-Digest: hpuPmC+N9gEMuRsUuWTTdydffbU=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactName2EditP
+ art$2$1.class
+SHA1-Digest: XxCuVXzG+SuTqSKopim2Gf7SKhA=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactEditPart$2
+ .class
+SHA1-Digest: hHYPBS0gyO23CdGXkQGobdJdMgg=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/ClassCreateComm
+ and.class
+SHA1-Digest: hwibyTcINvdQHxiCheixIe3sxaE=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/ComponentRequir
+ edReorientCommand.class
+SHA1-Digest: TOkl5u+H2nYjXjxuI+a1wcHG0CI=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/CommentBodyEditPar
+ t$4.class
+SHA1-Digest: 1uDV16Dr7SMHFWdtgx2uHmPEqlg=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLDocumentProvider.clas
+ s
+SHA1-Digest: IYwOwYUt72XDisRweFJk/nc+oVY=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/Artifact3ItemSe
+ manticEditPolicy.class
+SHA1-Digest: GoI0Mm7FE+187vwGRMwAsi1PdHQ=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssemblyConnectorE
+ ndRoleEditPart$AssemblyConnectorConnection.class
+SHA1-Digest: DpAiZ6XALSMU5IwT4bn2L2cbEdw=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/ConnectorCreate
+ Command.class
+SHA1-Digest: U0rQRjlN5R5nax43trWEBv5rXg8=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationNameEdi
+ tPart$4.class
+SHA1-Digest: 2u1F5GctAkG/iELythYX7vef3IQ=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PackageNameEditPar
+ t$3.class
+SHA1-Digest: /wNU/yDBW6VNcrCD4Aysuj4roVI=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ElementImportEditP
+ art.class
+SHA1-Digest: LoskO3pHa9HlCDB+bMKF5usiVxo=
+
+Name: org/eclipse/uml2/diagram/component/providers/UMLElementTypes.cla
+ ss
+SHA1-Digest: dI/Bbb/fQOd7vYLxYjX1dBnkZ10=
+
+Name: org/eclipse/uml2/diagram/component/edit/helpers/OperationEditHel
+ per.class
+SHA1-Digest: ZN+wgIJpowE0b4G5g15iwIe5jXQ=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PortNameEditPart$3
+ .class
+SHA1-Digest: 6RyukNYspRWUiCJ12wmx5RNjZr8=
+
+Name: about.html
+SHA1-Digest: m//+sZd+LYcO5OY/bjEiZVm0dk0=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PortEditPart.class
+SHA1-Digest: Nlc4qIa1PHWxtbBF+gTr5yJGbVg=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLDiagramEditorUtil$Laz
+ yElement2ViewMap.class
+SHA1-Digest: xMVc0oMC9sMtK50ACmmEEUbGtvI=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/Package2ItemSem
+ anticEditPolicy.class
+SHA1-Digest: plBaa3smakaCJkCGXWK2speFmjM=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PackagePackagesEdi
+ tPart.class
+SHA1-Digest: yZYoAjI0hjYuKGI15X54Ab+5Ue4=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onClassNameEditPart$2.class
+SHA1-Digest: 7RoeW1X8iF3HR9AyHJq4gng8r8Y=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactStereoEdit
+ Part$2$1.class
+SHA1-Digest: CzwOxq8l4caMirdLzxj8NlBS/Lk=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLNewDiagramFileWizard$
+ 1.class
+SHA1-Digest: R5ixJ1vYGycpGzEGDGAPZ7unxbw=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName3Ed
+ itPart.class
+SHA1-Digest: M9Lry84WokXrR86UUtpklouveGY=
+
+Name: org/eclipse/uml2/diagram/component/async/UMLComponentFixedElemen
+ tsWizard.class
+SHA1-Digest: NYpnI8v0zb4NQNjqJB8/bW19Q28=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ElementImportIt
+ emSemanticEditPolicy.class
+SHA1-Digest: sArSNk9tGZ50Jqgv/vVUH/7r2bM=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLInitDiagramFileAction
+ .class
+SHA1-Digest: qKMIYGWQPyZETbiK4Td3fyX8KFs=
+
+Name: org/eclipse/uml2/diagram/component/navigator/UMLNavigatorContent
+ Provider$2.class
+SHA1-Digest: xu6w1vE+XZqczezpGqbqUd0asH8=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ClassOperations
+ CanonicalEditPolicy.class
+SHA1-Digest: 8wO+NvmR4pqjgrqNNsJS4WX02zc=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onInnerClassEditPart$2.class
+SHA1-Digest: 75I1JMynT0h+tYTo4oXmf0mhQjo=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PropertyNameEditPa
+ rt$2.class
+SHA1-Digest: eqjc9otIEVB7Z9s6NbxyFgO3bZ0=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/InterfaceName2Edit
+ Part.class
+SHA1-Digest: oVqqCiEmwMyGiFt/Fhw5FOzF12Q=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLNodeDescriptor.class
+SHA1-Digest: yt+njvXo2xEXIsomAWcnSwqB5K4=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onPropertyEditPart.class
+SHA1-Digest: k21CAFge3s81MqMH4VdYYpTvqHY=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentStereoEdi
+ tPart$2.class
+SHA1-Digest: j4f2PXp5hSt6FG/tjqWoGNPUt5E=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Class3EditPart$1$1
+ .class
+SHA1-Digest: 0mF3x0M0BxkfAto34qz5J6HvnJM=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactContents2E
+ ditPart.class
+SHA1-Digest: ZgLtUbzcns2dylqKOK9YFST3Bt4=
+
+Name: org/eclipse/uml2/diagram/component/edit/helpers/PackageEditHelpe
+ r.class
+SHA1-Digest: J5u9/l+kLQlYeY/lWj8sSIkjvB0=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLDiagramEditor$DropTar
+ getListener.class
+SHA1-Digest: iNdSl/TP/q4PJAaIwZ+T+jPCwHQ=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentName2Edit
+ Part$2.class
+SHA1-Digest: RbW9oumxRCARLs+C/rzLIg2tZR8=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ClassCanonicalE
+ ditPolicy.class
+SHA1-Digest: MhGTDe3WI/1gR+HfUyuAdJ3yn1Q=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/CommentCreateCo
+ mmand.class
+SHA1-Digest: D9/o9/CH+lojMTeU/fDxzwWmKJg=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/PackagePackages
+ ItemSemanticEditPolicy.class
+SHA1-Digest: XJWAY85Y9zd8odBYEMQtOD2jdN4=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Artifact3EditPart$
+ 1.class
+SHA1-Digest: mzwZAfXlMs492ayvHPUl63kVAN4=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PackageNameEditPar
+ t.class
+SHA1-Digest: 72CCOAl+77xOt+SBC6w5IYZuII4=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/InterfaceNameEditP
+ art$2.class
+SHA1-Digest: tkeZq18aatFl16gIilUsQGOInzA=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PackageStereo2Edit
+ Part$2.class
+SHA1-Digest: Ry3jb+FUSHHV6L24jiCncyOIURs=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ArtifactItemSem
+ anticEditPolicy.class
+SHA1-Digest: yAJcVDIamB8OimrBwPNbE/i20Lk=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/ClassDiagramNot
+ ationPropertyCreateCommand.class
+SHA1-Digest: CQLTqYN4Jx5+MN+5L1pKs039pwU=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassNameEditPart$
+ 2$1.class
+SHA1-Digest: RLvxgEKWMwLaahfJskyjgnucoCA=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/CommentEditPart$Co
+ mmentFigure.class
+SHA1-Digest: LkQgNRrmI3rCpgb5Rtm9R2lLBSs=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLUriEditorInputTester.
+ class
+SHA1-Digest: qx2zp9c6Toj/gptLYvboBKOA5bo=
+
+Name: org/eclipse/uml2/diagram/component/edit/helpers/CommentEditHelpe
+ r.class
+SHA1-Digest: XJ0VnLBD4h1QncxOY6IyW32UaaU=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/InterfaceEditPart$
+ ProvidedInterfaceCircleFigure.class
+SHA1-Digest: G+A2UzvOkhE2cn8PU1uLcycDVYY=
+
+Name: org/eclipse/uml2/diagram/component/navigator/UMLDomainNavigatorC
+ ontentProvider$3.class
+SHA1-Digest: pnlo9w4TSCdR2pOuBx21GFJ9Yu0=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/UMLEditPartFactory
+ $TextCellEditorLocator.class
+SHA1-Digest: f7CF6ITQDfqDtyumhMCFDdkRBYQ=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Package3EditPart$P
+ ackageFigure.class
+SHA1-Digest: jaM34oGUW1Ap539cM4FHq/7o0GQ=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/UMLTextSelectio
+ nEditPolicy$1.class
+SHA1-Digest: lMloBApvaMCim7zHqQmf4OPMO7E=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/CommentAnnotate
+ dElementCreateCommand.class
+SHA1-Digest: yO6YV+X9FEO2ooCSCz6vlSotg6U=
+
+Name: org/eclipse/uml2/diagram/component/navigator/UMLNavigatorLabelPr
+ ovider.class
+SHA1-Digest: eeGGV/AwHtcuQOECkYRLhdMPbAg=
+
+Name: org/eclipse/uml2/diagram/component/async/UMLComponentSynchronize
+ DiagramAction.class
+SHA1-Digest: eTPoZfR7FK/HDL0b40K98T8UEbo=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PackageName2EditPa
+ rt$2$1.class
+SHA1-Digest: LXjqMUTCQj3Y/vJn+Cn0Jn51L+w=
+
+Name: org/eclipse/uml2/diagram/component/navigator/UMLAbstractNavigato
+ rItem$1.class
+SHA1-Digest: 6zWxs0+7e3OoYRV2oCDIJm7cLNU=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLVisualIDRegistry$1.cl
+ ass
+SHA1-Digest: lezf4xD43Sf5XwuGqfXU3xZXZh4=
+
+Name: org/eclipse/uml2/diagram/component/action/ShowPropertyParameters
+ ItemProvider.class
+SHA1-Digest: pSrQqJlYzwNgk6Z7R7VBUzHa/eg=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactStereo3Edi
+ tPart$4.class
+SHA1-Digest: Ux7owTnODioPNLYNUkwMO5XY4HA=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactNameEditPa
+ rt$1.class
+SHA1-Digest: FbNVN/7rVkLldVh9lvKUScalUwM=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentStereo2Ed
+ itPart$1.class
+SHA1-Digest: 3aPqw2d27Ssl/+BFS4ZHXETfAmQ=
+
+Name: org/eclipse/uml2/diagram/component/preferences/DiagramIconStyleP
+ referenceHelper.class
+SHA1-Digest: RAJdlKolvcf4fizYU2sLH7GbdNI=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassClassesEditPa
+ rt.class
+SHA1-Digest: OJ3UctUnppUIfFv5lI7uLrdNa6A=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/UMLTextNonResiz
+ ableEditPolicy.class
+SHA1-Digest: 4MTNeDrYFq8B0Pvj6xmWO4ypwB0=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/UMLTextNonResiz
+ ableEditPolicy$HostLayoutListener.class
+SHA1-Digest: rzPbcnYfzR6M0ywhAoyyVs5HXrQ=
+
+Name: org/eclipse/uml2/diagram/component/parsers/MessageFormatParser.c
+ lass
+SHA1-Digest: UqHBs3uffZYUriEqBbN1M23TiR8=
+
+Name: org/eclipse/uml2/diagram/component/providers/UMLShortcutsDecorat
+ orProvider$ShortcutsDecorator.class
+SHA1-Digest: PJGj7PD2gxTatT9ES320/acXHsw=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/InterfaceNameEditP
+ art.class
+SHA1-Digest: HmR513uT3gVKqJ3ndHkAkOYOZCY=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PackageStereo2Edit
+ Part.class
+SHA1-Digest: fNr31d+nw+CfHOdXgAXFn2jnlx0=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName2Ed
+ itPart$3.class
+SHA1-Digest: TlUUdDv+cbGA5SmyujiSeAxr5zk=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactName3EditP
+ art$3.class
+SHA1-Digest: 0TljcBbNe20bsySDDi4v6ZHEW6Y=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName4Ed
+ itPart$3.class
+SHA1-Digest: ZOql9hSfLe6c//axjj+bwkLdyN8=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName6Ed
+ itPart$3.class
+SHA1-Digest: gxA09ahzoAwbolAyhO9kg3zYJq0=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/OpenDiagramEdit
+ Policy.class
+SHA1-Digest: LJwJhmIsg1xdeOwYFK3r5kqPVHE=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Class2EditPart$Com
+ ponentClassFigure.class
+SHA1-Digest: M+zFEKZTCCXSvVCoxV+1AZcLVms=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Class2EditPart$Lin
+ kTargetListener.class
+SHA1-Digest: 63d+UnVjYGvpbVwjkKtAUDkxkvM=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Interface2EditPart
+ $ProvidedInterfaceCircleFigure.class
+SHA1-Digest: 9dsq8eVWMtIuytMBwY4OvmDM6hw=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onPropertyEditPart$2.class
+SHA1-Digest: +kulqsHbWg+2cgJMXtCgl0h69As=
+
+Name: org/eclipse/uml2/diagram/component/edit/helpers/InterfaceEditHel
+ perAdvice.class
+SHA1-Digest: msREjBxstJn/E1vl8ckELoGsLG4=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ArtifactContent
+ sItemSemanticEditPolicy.class
+SHA1-Digest: 5W5EZCI5nsLqnO2x71pj1K+V15o=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentNameEditP
+ art$4.class
+SHA1-Digest: 71vhngvpGZzOxn4fUKSb/38/qkQ=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onClassStereotypeEditPart$2.class
+SHA1-Digest: 4ICNQA9qI34fVeLdiFpVC9Gkn9A=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Component3EditPart
+ $1$1.class
+SHA1-Digest: 3kTZ4BsImVJU1WpCRYTHGyAww0w=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/CommentAnnotatedEl
+ ementEditPart.class
+SHA1-Digest: Qoe1MYOV9rhinGjOKIK1gYdDhEg=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PortName2EditPart.
+ class
+SHA1-Digest: swd7ykbA/ML8NRecv3MHLyuNRN4=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLVisualIDRegistry.clas
+ s
+SHA1-Digest: dU9G/SBpntRSpl04YxH2EIaqBGg=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationNameEdi
+ tPart$2$1.class
+SHA1-Digest: xHBql+T+6BziqJYIruE1TE18gPQ=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactStereoEdit
+ Part$2.class
+SHA1-Digest: vyHz1GVpsufB+75s9qNUS1yPMZ8=
+
+Name: org/eclipse/uml2/diagram/component/preferences/DiagramAppearance
+ PreferencePage.class
+SHA1-Digest: Pg9KzJmWaYo2iHcoCUtHuordNXE=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentEditPart$
+ 1.class
+SHA1-Digest: KgR5yD/9YRwd6kWW6lEy5DJ4v3Y=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/PortRequiredCre
+ ateCommand.class
+SHA1-Digest: 7NuVjUwqhlb/XpGzMa9Mh1xmpIo=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ElementImportEditP
+ art$2.class
+SHA1-Digest: mG7WJPS+Ij3pozs2BKuSG2yBKyk=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PortRequiredEditPa
+ rt.class
+SHA1-Digest: x5oW0gQVnfVF3MVZKaYgnMFxd1E=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/Package3ItemSem
+ anticEditPolicy.class
+SHA1-Digest: Hwsa1nX0XCqUNkwxbWDPJ30Qn4k=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/InterfaceItemSe
+ manticEditPolicy.class
+SHA1-Digest: JdZhij6fvVfmn0l8ORuvOnwNzM8=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onClassEditPart$ClassFigure.class
+SHA1-Digest: 36IWg+feNje5OsUwCYjuPI4OTC0=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PortName2EditPart$
+ 1.class
+SHA1-Digest: iiP3TZYeeFvahF8NwEpWfSvlEIQ=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentRequiredE
+ ditPart$RequiredInterfaceConnectionFigure.class
+SHA1-Digest: VOlAPQXHD6RxWdSRI09D/tu9LRs=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/DependencyNameEdit
+ Part$2.class
+SHA1-Digest: 0XdkmO3LJnikdo3Mx0/RBz1IkSg=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactStereo2Edi
+ tPart$1.class
+SHA1-Digest: uVh6009wEXzVsA3cZko8ETu0ozw=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentStereoEdi
+ tPart.class
+SHA1-Digest: kFy4UNmHsulL9YFoPRXPhsgP0MU=
+
+Name: org/eclipse/uml2/diagram/component/edit/helpers/ClassEditHelper.
+ class
+SHA1-Digest: 05809mGffpggcirNYli2FB4bfSQ=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Class3EditPart$1.c
+ lass
+SHA1-Digest: cqghi/lvQ5tOXaxm7p1+GDKO7kc=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLNewDiagramFileWizard$
+ DiagramRootElementSelectionPage.class
+SHA1-Digest: yo1/WpBBq9Vfuv6Vs9/LwZXVQPE=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName5Ed
+ itPart.class
+SHA1-Digest: AHSc62fgK1Q2BoNri3vFGb64ZQQ=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onOperationEditPart$3.class
+SHA1-Digest: VDf+mjStcnU/IMw5UID8j57u30Y=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ComponentConten
+ ts2CanonicalEditPolicy.class
+SHA1-Digest: bGW0PRhTYxaWPwlfsSHLfkG4S3Q=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PackageClassifiers
+ EditPart.class
+SHA1-Digest: COwiD92VJXnjggfVqpX80Bh4b+Q=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/InterfaceRealizati
+ onEditPart.class
+SHA1-Digest: chooa3NVDZGavF29MP0hZjQeW7I=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLPaletteFactory.class
+SHA1-Digest: 0JD2DbM8OJBCSSGETnl+wUkYP8w=
+
+Name: org/eclipse/uml2/diagram/component/providers/ElementInitializers
+ .class
+SHA1-Digest: wj6mgNkHe1LG0LTBO1wgqKCJgkU=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/PackageItemSema
+ nticEditPolicy.class
+SHA1-Digest: IkmPaihGE0floVTmJ3zAT4pVdOs=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/Package2CreateC
+ ommand.class
+SHA1-Digest: ZW5UrxV0/CCOPfy4LEqV6hyMqQw=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Artifact2EditPart.
+ class
+SHA1-Digest: eSxFBPeJhTsykjwD9gWGb0AUVsk=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onClassNameEditPart$2$1.class
+SHA1-Digest: B1sRY4JvAS0HMDhv1qlMZgBP/og=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/InterfaceName2Edit
+ Part$3.class
+SHA1-Digest: fUbFLPamoyP61Szuh6IeulfLzWo=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactEditPart$1
+ .class
+SHA1-Digest: 3dqdt62y6lx2vaAz39KHqLwwpvE=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassAttributesEdi
+ tPart.class
+SHA1-Digest: Ym2oYdL29khe3KhIKJCqZ9znFQE=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/CommentBodyEditPar
+ t$3.class
+SHA1-Digest: UWUxU00YI9W7rhSwqgW6522KPFw=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/DependencyItemS
+ emanticEditPolicy.class
+SHA1-Digest: arHJptP4gZq0i8W0xxjD2VCLCMo=
+
+Name: org/eclipse/uml2/diagram/component/navigator/UMLDomainNavigatorC
+ ontentProvider.class
+SHA1-Digest: V+cDzpabhioEKkW5sgOyXtOzgcw=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Package2EditPart$S
+ econdaryPackageFigure.class
+SHA1-Digest: hqn+Lgu8kI+P0YZGlDV42sFT8e4=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName6Ed
+ itPart$2$1.class
+SHA1-Digest: 8/qUAUMv5PN8+Rz1aBH6bMa7wRk=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/UMLBaseItemSema
+ nticEditPolicy$LinkConstraints.class
+SHA1-Digest: x6sA+uI3DvBs0jjPzsamS7wXtxA=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/UMLTextSelectio
+ nEditPolicy.class
+SHA1-Digest: pgnZd1wV2GBPlL6e3yXHgoaBYCQ=
+
+Name: org/eclipse/uml2/diagram/component/part/DiagramEditorContextMenu
+ Provider.class
+SHA1-Digest: v9HQaYAaD5X6c6rKk8R7wNs3k0o=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssemblyConnectorE
+ ndRoleEditPart.class
+SHA1-Digest: Se5kStsm46vJYfnpLZElHhnM2lU=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationNameEdi
+ tPart$3.class
+SHA1-Digest: mwV1+NB6kzFXowkp71Q2oy9D7XY=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PackageNameEditPar
+ t$2.class
+SHA1-Digest: GPbBtx68PSBbpeOT8iXyX9ciZ/Y=
+
+Name: org/eclipse/uml2/diagram/component/expressions/UMLOCLFactory$Exp
+ ression.class
+SHA1-Digest: 6uqkfIrOH7V3DUV+azVwyUsRS1Y=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationEditPar
+ t.class
+SHA1-Digest: sK51NwdxIx24DkQJCTqa590zFy8=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onClassNameEditPart.class
+SHA1-Digest: s7xYxRtm1HiKUb8VxJ6yurkchfo=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/InterfaceEditPart$
+ 1.class
+SHA1-Digest: jMpc9H/cfqMllAdmh7jp7g3gAko=
+
+Name: org/eclipse/uml2/diagram/component/part/Messages.class
+SHA1-Digest: vaQPTdIIRB/inPEua+yzJuFaPC8=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/Artifact2Create
+ Command.class
+SHA1-Digest: L6yR+GvULxrtU53VcA77Sja8ghY=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLNewDiagramFileWizard.
+ class
+SHA1-Digest: +d5bdo2gQL94fcByVDY25fpqFZk=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PortNameEditPart$2
+ .class
+SHA1-Digest: g55pE52Wep43QGpV0y9IMZtc9ts=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PortEditPart$PortF
+ igure.class
+SHA1-Digest: xZlnQB8d6XHjMes/mtaeskKaZhs=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Artifact3EditPart$
+ ArtifactFigure.class
+SHA1-Digest: A4pru31qubi3/N3fjxf0traBP4Y=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onClassNameEditPart$1.class
+SHA1-Digest: KCx7lLvnp7YaqhlWxuw9gVIp3pQ=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/InterfaceEditPart$
+ 1$1.class
+SHA1-Digest: zgqL/1Uy3lXQBdJ3xeKFUXXyjwA=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PortNameEditPart$1
+ $1.class
+SHA1-Digest: 2vrhyftD8R5VIvpSanD1L2YDrCc=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/PropertyCreateC
+ ommand.class
+SHA1-Digest: HMC6+ytvmC6LQTTVCB6KuJewdJM=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ArtifactContent
+ s3CanonicalEditPolicy.class
+SHA1-Digest: nqP/o6RmRafAzV5AIQqlsa9+Bwk=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassName2EditPart
+ $2$1.class
+SHA1-Digest: F6PWpkzdokG0+g8TsE2Mk7jgOZE=
+
+Name: org/eclipse/uml2/diagram/component/navigator/UMLNavigatorContent
+ Provider$1.class
+SHA1-Digest: WWrS6r+MElndqSu+00BjDEH+vBo=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onInnerClassEditPart$1.class
+SHA1-Digest: OpeRg3LaaY8zB00rDEFRE94NQ5c=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PropertyNameEditPa
+ rt$1.class
+SHA1-Digest: guAd3vKYqY2/HL5cXXavzA0v5JQ=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ClassOperations
+ ItemSemanticEditPolicy.class
+SHA1-Digest: P9rUWWEbh8d1oBK/h80unnjd5zw=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/Component2Canon
+ icalEditPolicy.class
+SHA1-Digest: 49X0/lN6K7ZM0FN7iNYtNvthBh8=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/CommentBodyEditPar
+ t.class
+SHA1-Digest: PjFTG+aYvsaOYNth4BVzmjpoGfM=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentStereoEdi
+ tPart$1.class
+SHA1-Digest: qnom0HhollLHFSVyTC7qWAMBoRw=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLLinkDescriptor$2.clas
+ s
+SHA1-Digest: 2lHemvuEBfn3MM+UJ2bEIhCiL08=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentName2Edit
+ Part$1.class
+SHA1-Digest: q96AHZhrl2UBSJFgMu2SOvzqqTw=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onClassEditPart$2.class
+SHA1-Digest: IBuVmMP76dEAsGcMaL4V7KP3NYM=
+
+Name: org/eclipse/uml2/diagram/component/navigator/UMLDomainNavigatorI
+ tem$1.class
+SHA1-Digest: ujoA0qkW7P00R8pIb/oAnjkrXOg=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssemblyConnectorC
+ ircleEditPart$AssemblyConnectorCircleFigure.class
+SHA1-Digest: 81Rt9u6FDfVzQaX6Dm4+xqYqnyM=
+
+Name: org/eclipse/uml2/diagram/component/providers/UMLIconProvider.cla
+ ss
+SHA1-Digest: Y/PXPb+4tv74qzgOFxMYqjQ6RGE=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentStereoEdi
+ tPart$2$1.class
+SHA1-Digest: Rm9AEbfIRiwLIaiaxJc6CyjG4Q8=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/InterfaceNameEditP
+ art$1.class
+SHA1-Digest: cn828AybwhKlA/zP0TSS30FCwdI=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PackageStereo2Edit
+ Part$1.class
+SHA1-Digest: /e5E4dIFKjrk74qLMGV+OV82nYw=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/InterfaceRealiz
+ ationItemSemanticEditPolicy.class
+SHA1-Digest: VWwQBIsJxoBlCswjqny6nzKIYBs=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Component2EditPart
+ $2.class
+SHA1-Digest: SAcYy7GN8y63krkwC/omGDTSzw8=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ClassClassesIte
+ mSemanticEditPolicy.class
+SHA1-Digest: U5MWG1BMq4K/TQIr7YN3lH8Bwzw=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/UMLReorientConn
+ ectionViewCommand.class
+SHA1-Digest: irrA0y8UBS52EhAcY/vjN103ElU=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Interface2EditPart
+ $1.class
+SHA1-Digest: QEe+eM2j/ViPC/wXIhx3huqFlwU=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/InterfaceName2Edit
+ Part$1$1.class
+SHA1-Digest: ufblWCyWx156tfzcgAoi6Qnziiw=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLDocumentProvider$Reso
+ urceSetInfo.class
+SHA1-Digest: 5iDCeVPe8TtMCpdwLaTod4okYBI=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Package2EditPart.c
+ lass
+SHA1-Digest: C1gE7o9i+euaKNuYX9MY4jFYsv0=
+
+Name: org/eclipse/uml2/diagram/component/navigator/UMLDomainNavigatorC
+ ontentProvider$2.class
+SHA1-Digest: wmo8v8Cz4kG47A0c1A4MK2QRUl0=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/UMLEditPartFactory
+ $LabelCellEditorLocator.class
+SHA1-Digest: 9LaWriIPuAQMLmZ65JkI2e+5MBg=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PackageName2EditPa
+ rt$4.class
+SHA1-Digest: 19WYzYvVkW2e9bzuSAW8v756eSk=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Interface2EditPart
+ $1$1.class
+SHA1-Digest: lEBleIfRTIjapIIzrMWh7AZxGaY=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/UMLTextSelectio
+ nEditPolicy$HostLayoutListener.class
+SHA1-Digest: wojcJjswuJsRlxCwEtMk1GtXbJ4=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactStereo2Edi
+ tPart.class
+SHA1-Digest: 9y12ARmJnn8jQEy6AD8hhn7sgqE=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ArtifactContent
+ sCanonicalEditPolicy.class
+SHA1-Digest: wi77S/Tu+Bllf5IybVbG3MqNOpo=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLElementChooserDialog$
+ ModelFilesFilter.class
+SHA1-Digest: jqmsESaJ9Omao9Kaj+FEJMxhqEE=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassName2EditPart
+ $4.class
+SHA1-Digest: LrjIeFQ3R3ZXhaAxT/V35RxtEHs=
+
+Name: org/eclipse/uml2/diagram/component/links/ProvidedInterfaceLinkFi
+ lter.class
+SHA1-Digest: Q5YsnQBsn64c28+xG3O4RlBmLqI=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ClassAttributes
+ CanonicalEditPolicy.class
+SHA1-Digest: u9pub1/Bd4PnVkKGeTkP2ln3njA=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLElementChooserDialog$
+ OkButtonEnabler.class
+SHA1-Digest: eiKBXJjt3kw6LnAcrjl8+AGGNNI=
+
+Name: org/eclipse/uml2/diagram/component/providers/UMLEditPartProvider
+ .class
+SHA1-Digest: F6oP2+NX1WxA0N8VPU2hgy0SD7I=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/Package4ItemSem
+ anticEditPolicy.class
+SHA1-Digest: AdZlZRttue0ZINW6Ay9ED9ZUtUM=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactStereo3Edi
+ tPart$3.class
+SHA1-Digest: eiRv90CwtTdgfs5CqAyG0jEeKlQ=
+
+Name: org/eclipse/uml2/diagram/component/preferences/DiagramViewFilter
+ sPreferencePage.class
+SHA1-Digest: YE49IW/vfLbAwl64E5BqfJsdcoU=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName7Ed
+ itPart.class
+SHA1-Digest: c/iY49SCqQGUuocGzBvGIqWzzuI=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationEditPar
+ t$AssociationLinkFigure.class
+SHA1-Digest: O4oXIZcVQF7zvDWiB31WrEn1uEI=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/DependencyNameEdit
+ Part$2$1.class
+SHA1-Digest: JR5nA7tjiVDageLQ8ijMCKlfZqo=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Component2EditPart
+ $ComponentFigure.class
+SHA1-Digest: nnyEtPOrEXyLy5G1YdSV3YaAuGg=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName2Ed
+ itPart$2.class
+SHA1-Digest: icgygE0ascn9XjQ+YyiNSKivikI=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactName3EditP
+ art$2.class
+SHA1-Digest: RTc26rHUv73Vkq58SveIXPdt3EI=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName4Ed
+ itPart$2.class
+SHA1-Digest: 4IqZrr/B0W3AvxT7r9zkop8Wgwc=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName6Ed
+ itPart$2.class
+SHA1-Digest: VCHGYUNZ71ARid1i8dXqXXExDlk=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLPaletteFactory$3.clas
+ s
+SHA1-Digest: 1RVxlN2Z1GiufJYy3dysLOrLUjw=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onPropertyEditPart$1.class
+SHA1-Digest: NIeVSrwRzFM6kEJfbAda9OUUFnY=
+
+Name: org/eclipse/uml2/diagram/component/edit/helpers/ArtifactEditHelp
+ erAdvice.class
+SHA1-Digest: qSIX2DvpLFDZLdzgM1Wxeqo5B/E=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Artifact2EditPart$
+ ArtifactFigure.class
+SHA1-Digest: kLvq2jZr6Qf2Rlp7bhWRYIu6aWU=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/OpenDiagramEdit
+ Policy$OpenDiagramCommand.class
+SHA1-Digest: lOqk838zS2denkNpuw8ovE7p8OI=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName4Ed
+ itPart$2$1.class
+SHA1-Digest: TP4/1KlMAAvb50hcoEQkeyjp9zA=
+
+Name: org/eclipse/uml2/diagram/component/edit/helpers/ComponentEditHel
+ perAdvice.class
+SHA1-Digest: ebZ//Q2V+/ZWZ5YLNsXgbnOJ7uM=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentNameEditP
+ art$3.class
+SHA1-Digest: ji5xDj6o3FrgOa8m5zuUNkQRxmY=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onClassStereotypeEditPart$1.class
+SHA1-Digest: OkBDOz97oYBqKjMJGyV33OMSLPg=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLDocumentProvider$Reso
+ urceSetModificationListener.class
+SHA1-Digest: mp8B30GuZBYb3pPSw1KHtSfNWzs=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/Component2ItemS
+ emanticEditPolicy.class
+SHA1-Digest: 2Hay9KO76EYQhRcjHiUmU2Assuo=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PackageStereo2Edit
+ Part$2$1.class
+SHA1-Digest: 5KP/XJQrUfIg5SPpbkRsJaM6DAY=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassEditPart$Comp
+ onentClassFigure.class
+SHA1-Digest: 20JO2DVNEh2mLus3iJ10/+3zdys=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ComponentCanoni
+ calEditPolicy.class
+SHA1-Digest: NjYonTBgZhKDS1qTJ8pzLaTROsI=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/DependencyNameEdit
+ Part.class
+SHA1-Digest: /Dn/lDj9L1MRQhE9b98ZKUmvUF4=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactStereoEdit
+ Part$1.class
+SHA1-Digest: oy+45Zmkg/pSF8hhQg+RaLvVyV0=
+
+Name: org/eclipse/uml2/diagram/component/sheet/UMLSheetLabelProvider.c
+ lass
+SHA1-Digest: gn0A7XtbpDg8jZzVmXvNGykOzEU=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLElementChooserDialog$
+ ModelElementsTreeLabelProvider.class
+SHA1-Digest: /HHGAWYrmfPOIF9RViBbvbRojsc=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/ComponentCreate
+ Command.class
+SHA1-Digest: RiE6GsKo0sv0uV3s6IZ6uQss554=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ElementImportEditP
+ art$1.class
+SHA1-Digest: F6zmcDT8BUC7hpNbFhS/eV6buQ0=
+
+Name: .options
+SHA1-Digest: XJDPhlz8AHIY4ZIOrlSWwsJ8v8Y=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ClassItemSemant
+ icEditPolicy.class
+SHA1-Digest: CDrtRHLKceRFbFnK+DbK82W1Zw8=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/Class2CreateCom
+ mand.class
+SHA1-Digest: VrwDb2oBi/+b8JW3PXGGT1rvBT0=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/DependencyNameEdit
+ Part$1.class
+SHA1-Digest: Z/FA5v62OplwecCYDZg+fDqGISk=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLDiagramActionBarContr
+ ibutor.class
+SHA1-Digest: RBQpdgFQvC1GCyz4kAGkZcb59dk=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onOperationEditPart$2.class
+SHA1-Digest: o+265sKdQsltglQJQs4it2/MpqA=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/AssociationItem
+ SemanticEditPolicy.class
+SHA1-Digest: eyV2UpyE/tQU2AwkAR/5FjbvQb0=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PortEditPart$1.cla
+ ss
+SHA1-Digest: X4QiEyPYHXMYNy06FxWNhYfVl4A=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PortName2EditPart$
+ 1$1.class
+SHA1-Digest: 6bysguXtMG+l6jbq6TcCZ9F5oEM=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Component2EditPart
+ .class
+SHA1-Digest: MrgsOP9prd4JoEizxzjwmiprrMI=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/PortItemSemanti
+ cEditPolicy.class
+SHA1-Digest: XMS94WYI1CQzN6XC13P74pLKPJw=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PortRequiredEditPa
+ rt$RequiredInterfaceConnectionFigure.class
+SHA1-Digest: VLqbNl6VEfpdSQkebf5vrZsn4D4=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/InterfaceName2Edit
+ Part$2.class
+SHA1-Digest: y3A+T4hiOF3N/PS4mST9JRdZzJ4=
+
+Name: org/eclipse/uml2/diagram/component/action/ClassDiagramNotationCl
+ assContributionItemProvider.class
+SHA1-Digest: O3mRv1W539dnuknZuhj7pKE2i9Q=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Artifact2EditPart$
+ 2.class
+SHA1-Digest: i7sg4AsSgbn7dVT7n51I8iUJt2M=
+
+Name: plugin.properties
+SHA1-Digest: HWt/DN4yCQbdmofk/2kbROBXLbg=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/CommentBodyEditPar
+ t$2.class
+SHA1-Digest: N2/DaqX0t1837L9XMBkqHkq56Zs=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassNameEditPart$
+ 4.class
+SHA1-Digest: Xm1yguq3hq1x5y2dseL+C4Hf4yU=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLDiagramEditor$3.class
+SHA1-Digest: 5WhAntlfarcJyUs0lvYVp+M9tjs=
+
+Name: icons/outgoingLinksNavigatorGroup.gif
+SHA1-Digest: lUwMuDmTEvmiqtkgC+kWyrYAkVk=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/InterfaceEditPart.
+ class
+SHA1-Digest: QeNYq+cyGXGGeaNE145X2qV/q7U=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationNameEdi
+ tPart$2.class
+SHA1-Digest: kEsL1zzms9vS+f5XhxgreoC9TdI=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/UMLCreateShortc
+ utDecorationsCommand.class
+SHA1-Digest: YzLlGRorQl59MRMt5TIAcBxCeQQ=
+
+Name: plugin.xml
+SHA1-Digest: aFFYyzQQsr4TqNWWcH4Z1ZkRFMU=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onClassEditPart$LinkTargetListener.class
+SHA1-Digest: CV4dT4p6BwdGYvHp0Dl1qOIzAxc=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Package4EditPart.c
+ lass
+SHA1-Digest: dk2fh1IhG+18DZySINlT4t80EyE=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PackageNameEditPar
+ t$1.class
+SHA1-Digest: OuFBTl33HqptccqcTIsphJMzSqc=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassName2EditPart
+ .class
+SHA1-Digest: mcsXxLHCGstKT6dLOP5TaUzUxDc=
+
+Name: org/eclipse/uml2/diagram/component/parsers/AbstractParser$Invali
+ dValue.class
+SHA1-Digest: Oa73/bNAhMEjZGlnyrbvjsmxSUQ=
+
+Name: icons/linksNavigatorGroup.gif
+SHA1-Digest: lUwMuDmTEvmiqtkgC+kWyrYAkVk=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PortNameEditPart$1
+ .class
+SHA1-Digest: 8+xS0k4tgcTFnfmBNm5m746VoWY=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Package3EditPart$1
+ .class
+SHA1-Digest: OGwJM87ESwMKy7QB9llSeaAuAu0=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ConnectorEditPart.
+ class
+SHA1-Digest: sm2laHrpDGhG2C8dn1acjAysrlQ=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/AssemblyConnect
+ orCircleItemSemanticEditPolicy.class
+SHA1-Digest: TUyV37CNdsxeuYZSS5DXdUg+i+0=
+
+Name: icons/shortcut.gif
+SHA1-Digest: beQtr7R8KTRHiy1Yp1sYd+I4CKY=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/Interface2Creat
+ eCommand.class
+SHA1-Digest: /fULtWYo2Vc8i2c+E7RvQc7odLU=
+
+Name: org/eclipse/uml2/diagram/component/edit/helpers/InterfaceRealiza
+ tionEditHelper.class
+SHA1-Digest: /wYiVaehpCjwI80Hxk+qhftHIRo=
+
+Name: org/eclipse/uml2/diagram/component/part/PaletteFactoryProvider.c
+ lass
+SHA1-Digest: ytu3mokNLWdxn1L/rly4UgKRLwI=
+
+Name: org/eclipse/uml2/diagram/component/async/UMLComponentDiagramHead
+ erFilter.class
+SHA1-Digest: wds5ud5l8uZqxvAQKxQt7cutjXA=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/ClassDiagramNot
+ ationOperationCreateCommand.class
+SHA1-Digest: EB4seBCm3fpEX6tiDOX6q9NytIU=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/UMLBaseItemSema
+ nticEditPolicy.class
+SHA1-Digest: PbYQu44fxK4JAD53sdFwj9UxTds=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/Class2ItemSeman
+ ticEditPolicy.class
+SHA1-Digest: 15Y+Y69A4xqcS9YlSUPcWi3Q5so=
+
+Name: org/eclipse/uml2/diagram/component/preferences/DiagramPreference
+ Initializer.class
+SHA1-Digest: X4JxXEk6aze1stJhK0a2mFq7qg0=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactStereo3Edi
+ tPart$2$1.class
+SHA1-Digest: Ze+PYBgpfx+DVbTu72qh003D35c=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLLinkDescriptor$1.clas
+ s
+SHA1-Digest: AwV6r05Rx25I16NRUn3DxUj72LY=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactName2EditP
+ art$4.class
+SHA1-Digest: o5h7hf9LzD7FgF48Ln2h0V8VVb4=
+
+Name: org/eclipse/uml2/diagram/component/providers/UMLModelingAssistan
+ tProvider.class
+SHA1-Digest: 4W9KXj3NDANh7Je5AzMPHmk2beA=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/PortRequiredIte
+ mSemanticEditPolicy.class
+SHA1-Digest: XidxEHeM24BF5amP5Y1bxH2IOV4=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ConnectorItemSe
+ manticEditPolicy.class
+SHA1-Digest: FOxZcQOSH0om8Dco/CcDQPYVUrA=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName3Ed
+ itPart$4.class
+SHA1-Digest: GPFSLQHKJ0yjEuN4rkPYAX3rY0U=
+
+Name: org/eclipse/uml2/diagram/component/action/TurnCommentIntoNoteAct
+ ion.class
+SHA1-Digest: CT55xcovYnLdDstdWsj6u1PtaeY=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onClassEditPart$1.class
+SHA1-Digest: n5N4uTgRKMtenQyvMwR0UmGMcq4=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName5Ed
+ itPart$4.class
+SHA1-Digest: qTNU6FFmU88TI54mWp2K+fPGE7k=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Interface2EditPart
+ .class
+SHA1-Digest: UGwId9W/LqnJ2+2dueUVNwGOfI4=
+
+Name: org/eclipse/uml2/diagram/component/action/ShowPropertyParameters
+ Action.class
+SHA1-Digest: zxS2f9tOozDb/ZM2eEVFDbkbAl0=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName7Ed
+ itPart$4.class
+SHA1-Digest: 9NtzBBQ2nGqwWXJMajm6Cmbr8aY=
+
+Name: org/eclipse/uml2/diagram/component/expressions/UMLOCLFactory.cla
+ ss
+SHA1-Digest: STj8KlUXKLBjQnGRXkX9J4VrGrA=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName2Ed
+ itPart$2$1.class
+SHA1-Digest: yJ5PMpevq2zxkLMmjUzFQ7en71w=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactName3EditP
+ art$2$1.class
+SHA1-Digest: ykm6BrdDAqxnYOQKySgx/HsJZUo=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Component2EditPart
+ $1.class
+SHA1-Digest: 7/c1FUJmEv4E/LBerwQVqktWYow=
+
+Name: org/eclipse/uml2/diagram/component/navigator/UMLNavigatorActionP
+ rovider$OpenDiagramAction.class
+SHA1-Digest: zW4fKJ0f6gG8456iAUUniatUpDo=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/Component3Creat
+ eCommand.class
+SHA1-Digest: H3YFpwP9sjHqSUimulTlHP8KoCY=
+
+Name: messages.properties
+SHA1-Digest: 3VwSxU/iQm5qZnQ30Dm6wz7IU2A=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ClassDiagramNot
+ ationPropertyItemSemanticEditPolicy.class
+SHA1-Digest: M+QDgP+icMdmX2waeDaGIEjApXM=
+
+Name: org/eclipse/uml2/diagram/component/providers/UMLContributionItem
+ Provider.class
+SHA1-Digest: V0Hlz1jdDWd5jEK5ICdNHoKB0kg=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/ArtifactCreateC
+ ommand.class
+SHA1-Digest: X2QVQ6VATFgzP8L0GMvwP/Atd8I=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/PropertyItemSem
+ anticEditPolicy.class
+SHA1-Digest: ahOLVd22DITad2E0QkYB0Jt0BBk=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ArtifactContent
+ s2CanonicalEditPolicy.class
+SHA1-Digest: Uf0T4S4OeiwpVNRYmSbAX+HY4/o=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/Component3ItemS
+ emanticEditPolicy.class
+SHA1-Digest: 5pqTbV9to8lRu94pf+3uvk1AvQ8=
+
+Name: org/eclipse/uml2/diagram/component/navigator/UMLDomainNavigatorC
+ ontentProvider$1.class
+SHA1-Digest: j+BqQyLxacNG0eSSJI2PJT2XYEY=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PackageName2EditPa
+ rt$3.class
+SHA1-Digest: Dm4EdzkzzXzaDeH+xiIwmNMsvPs=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassEditPart$Link
+ TargetListener.class
+SHA1-Digest: JRXFK2Mbklx51nMBu8kDyvHQ6fE=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLDiagramUpdater.class
+SHA1-Digest: NSV2HY7kpdOegfMvvlbTKoq+w6s=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Class3EditPart.cla
+ ss
+SHA1-Digest: NdRital5lNyZvE9LpP/2nSgyiQk=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ConnectorEditPart$
+ DelegationConnectorConnection.class
+SHA1-Digest: Vy81giq0b3P9kPYTMahoyrGQTTA=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassName2EditPart
+ $3.class
+SHA1-Digest: UZEyqWDHAy/cIQ3CH6JRYELPwXE=
+
+Name: org/eclipse/uml2/diagram/component/action/TurnIntoClassDiagramNo
+ tationClassAction.class
+SHA1-Digest: iPbg/RvnOCJ1K8jrFCq/Xi2gJQI=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName2Ed
+ itPart.class
+SHA1-Digest: AZfSCZCmguJfT1lXNi8iGT5krVc=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactName3EditP
+ art.class
+SHA1-Digest: /+ttR5+WbzCBcYqsGpYeXSXJ8os=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactStereo3Edi
+ tPart$2.class
+SHA1-Digest: qEdixcX3OL2847kFDov9FH8m1Kw=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentName2Edit
+ Part.class
+SHA1-Digest: kmJZAUZjpMGTRhDMtQy2zhJbG5g=
+
+Name: org/eclipse/uml2/diagram/component/edit/helpers/PropertyEditHelp
+ er.class
+SHA1-Digest: S5DpyddSSYdsXYqaTK+Kw3h61Ew=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Package3EditPart$L
+ inkTargetListener.class
+SHA1-Digest: 0Tpnu8xknabIkcjTSnuC1A+yH3A=
+
+Name: org/eclipse/uml2/diagram/component/edit/helpers/ElementImportEdi
+ tHelper.class
+SHA1-Digest: sAgTYSmvYycNIYlmudPHytQLZhw=
+
+Name: org/eclipse/uml2/diagram/component/edit/helpers/PortProvidedEdit
+ HelperAdvice.class
+SHA1-Digest: sSlBIKdE0vFEKISrfgnuk3nj93g=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName2Ed
+ itPart$1.class
+SHA1-Digest: L3RRbblZClcA1iKyLRDy9lY9I9I=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactName3EditP
+ art$1.class
+SHA1-Digest: WOk0oDhkPzoNtugUrxslYZQMHss=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onOperationEditPart$1$1.class
+SHA1-Digest: yX9rKZ8cJjcuKWU+teQcUDGA5Oc=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName4Ed
+ itPart$1.class
+SHA1-Digest: OzT7K1hlwp4pSJkFHec6RDDH6Jc=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ClassDiagramNot
+ ationClassCanonicalEditPolicy.class
+SHA1-Digest: /WKccdA5XkWi/c5dtq/EO8FWYWw=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName6Ed
+ itPart$1.class
+SHA1-Digest: oBqR86u3E6kx8QQamCoXcORbrWA=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/DependencyEditPart
+ $Dependency_WithArrow_Polyline.class
+SHA1-Digest: OZLLgBerHbA5DPHGmhNyADb2VGA=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/PortProvidedIte
+ mSemanticEditPolicy.class
+SHA1-Digest: O4TODVQ0BJNEwfK6NsbauX9jwM0=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLPaletteFactory$2.clas
+ s
+SHA1-Digest: Ms+ft7w2lsr9Hx0nXjJL51qdPKU=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/UMLTextNonResiz
+ ableEditPolicy$1.class
+SHA1-Digest: 3ZGRL9gZ9G2Kxw943yxTJ79Oj4o=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactEditPart$A
+ rtifactFigure.class
+SHA1-Digest: yfNuJzIbysgEAd7+ngtqxVyMg/M=
+
+Name: org/eclipse/uml2/diagram/component/edit/helpers/ClassEditHelperA
+ dvice.class
+SHA1-Digest: 3fs67b5lk4C0SP66iSWq8WKemWA=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PackageName2EditPa
+ rt.class
+SHA1-Digest: oWwljRU8vukwlvCu/9+K+au0RcU=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentNameEditP
+ art$2.class
+SHA1-Digest: Zoqv6elegII3lC3n26Iowi8RoQo=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLDocumentProvider$Reso
+ urceSetInfo$SynchronizerDelegate$3.class
+SHA1-Digest: BgnE+fFNrP/cSfLdo9JergljYLU=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentEditPart$
+ ComponentFigure.class
+SHA1-Digest: mEenm0lCKpsgsRdgH63waJQQC2g=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/ConnectorReorie
+ ntCommand.class
+SHA1-Digest: GkgpWkI1Terwc9BpJs5otiZHZfE=
+
+Name: org/eclipse/uml2/diagram/component/part/DeleteElementAction.clas
+ s
+SHA1-Digest: 4XaSP7VWqgltO+1uHNNMQxu4QmU=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentNameEditP
+ art$2$1.class
+SHA1-Digest: atX9zB8yqdKo2esa6WdWqe/RhQ4=
+
+Name: org/eclipse/uml2/diagram/component/edit/helpers/PortEditHelper.c
+ lass
+SHA1-Digest: Cx8p3F0LrI05kFMQ5/t1GLjdRvU=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLDocumentProvider$2.cl
+ ass
+SHA1-Digest: ZCHlBhUFoccIHc6lYeab2cvMbsA=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactNameEditPa
+ rt.class
+SHA1-Digest: /JJgT5ewVbsGMF3pMNc6zGTdb+4=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentStereo2Ed
+ itPart.class
+SHA1-Digest: 9t25qzVwo8HUf/4FTJe9mZpB4Lk=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Package4EditPart$3
+ .class
+SHA1-Digest: +KcfbPNjmZU9XbzLQ6y8Vlpxgd8=
+
+Name: org/eclipse/uml2/diagram/component/expressions/UMLOCLFactory$Exp
+ ression$1.class
+SHA1-Digest: P6QXte4WqpzY5tQ5LTOaZHgzs/0=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLDiagramUpdater$1.clas
+ s
+SHA1-Digest: Lr8Oy3Qnf1ByUNnjZir/akLOiGU=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onOperationEditPart$1.class
+SHA1-Digest: fsv62SfRYQXQAfgjxiVj+gM2LKw=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLLinkDescriptor.class
+SHA1-Digest: MsbYIKg1O2u+9hIQJrQa1vWJAws=
+
+Name: org/eclipse/uml2/diagram/component/providers/UMLViewProvider.cla
+ ss
+SHA1-Digest: y+TFSPymrljjWXSaugfT3/sklnQ=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactNameEditPa
+ rt$4.class
+SHA1-Digest: 92s76tZxBiHNle3CbfFbieVR+7I=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentStereo2Ed
+ itPart$4.class
+SHA1-Digest: GCrsaFrS6izmfhbylU8khnlWEsE=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/CommentEditPart.cl
+ ass
+SHA1-Digest: P4yCc8mD1PV+oFlWoKc4NZDwauE=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/Class3ItemSeman
+ ticEditPolicy.class
+SHA1-Digest: LvHVslYOHSg84kG1AJ/I2OIIwak=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PropertyNameEditPa
+ rt$2$1.class
+SHA1-Digest: LGB8WMT9Osj+yC3XChwmsHLXQDk=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/InterfaceName2Edit
+ Part$1.class
+SHA1-Digest: 9W0/tVJHg1liyv3s0Xl3ep0r0a8=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/ComponentRequir
+ edCreateCommand.class
+SHA1-Digest: aYGc2F6XC8o4/rhIBA0HZr8vTt8=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Artifact2EditPart$
+ 1.class
+SHA1-Digest: XXDmrVE/+ZmG0QJvn6+O2R2HTPU=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/CommentBodyEditPar
+ t$1.class
+SHA1-Digest: JEsX465k5O4bpkw4FFs83g3o49M=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/PackageClassifi
+ ersItemSemanticEditPolicy.class
+SHA1-Digest: UxtxKPYZREm3WNcdGgQunD8SAyc=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassNameEditPart$
+ 3.class
+SHA1-Digest: fiM8HlF2/5bmWvdnlqAf/95h/4w=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLDiagramEditor$2.class
+SHA1-Digest: c9QZ4KuiG98J60cJ+CATA8zSBvU=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Component3EditPart
+ $3.class
+SHA1-Digest: OIDsKY6LntSsFPCI19NhKZRbCyE=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationNameEdi
+ tPart$1.class
+SHA1-Digest: z7PxQDLSly88FTTCP9RRiyGeK/w=
+
+Name: org/eclipse/uml2/diagram/component/async/UMLComponentFixedElemen
+ tsWizard$SyncModelNodeForInitializedDiagram.class
+SHA1-Digest: 4JgKymFcnMNU2WxYhPIb+zOGm9o=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactStereoEdit
+ Part.class
+SHA1-Digest: +rlpW6Fo0V4n7G1uJZECRdHvAf4=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentEditPart.
+ class
+SHA1-Digest: u8bzLrH3ubs/jQKlnwnfFgfDbWc=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/InterfaceNameEditP
+ art$1$1.class
+SHA1-Digest: SYwcY9lrp3OHS4kyMUSaSwjuplM=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/OpenDiagramEdit
+ Policy$OpenDiagramCommand$1.class
+SHA1-Digest: W2ZYB+VFh3EOzusCXnxQept9x4g=
+
+Name: icons/linkTargetNavigatorGroup.gif
+SHA1-Digest: lUwMuDmTEvmiqtkgC+kWyrYAkVk=
+
+Name: org/eclipse/uml2/diagram/component/part/ModelElementSelectionPag
+ e.class
+SHA1-Digest: pKZD54ZhqJQrKRtHatwkNyv+rlY=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssemblyConnectorC
+ ircleEditPart$1.class
+SHA1-Digest: +lIkdBREX3dZ9ReZ0l0+PcztsFM=
+
+Name: org/eclipse/uml2/diagram/component/action/TurnNoteIntoCommentAct
+ ion.class
+SHA1-Digest: lIoF1c4r4wf2hL2WOVtz11dz33E=
+
+Name: org/eclipse/uml2/diagram/component/providers/UMLShortcutsDecorat
+ orProvider.class
+SHA1-Digest: S/xL2h5bspFOuPd+h3mKiaH/Zak=
+
+Name: icons/linkSourceNavigatorGroup.gif
+SHA1-Digest: lUwMuDmTEvmiqtkgC+kWyrYAkVk=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ComponentConten
+ tsCanonicalEditPolicy.class
+SHA1-Digest: ARb2OGnxkVkfMkycfYN5fRMlOPU=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/PortRequiredReo
+ rientCommand.class
+SHA1-Digest: Ke53+7MmfaX4tOk1tBqR21TU9Fs=
+
+Name: org/eclipse/uml2/diagram/component/part/NewDiagramHandler.class
+SHA1-Digest: U3km1zW/Dy9DInWteLrnFFx0Z+Y=
+
+Name: org/eclipse/uml2/diagram/component/parsers/AbstractParser.class
+SHA1-Digest: s9ovCcDUUZPqiuAMDqZytnI9vt8=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLElementChooserDialog.
+ class
+SHA1-Digest: KgRdlbeNqiP1OYrfy1eVDG9Rsnk=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ComponentItemSe
+ manticEditPolicy.class
+SHA1-Digest: MHwaZgYE4uNkf9FqdJb8n+NJ/ss=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName4Ed
+ itPart.class
+SHA1-Digest: GVLPDiNcV0D9ThBmnM3C1MwwTv8=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactStereo2Edi
+ tPart$4.class
+SHA1-Digest: 0w9oaWRfMu8Ld8H7/RIsxliDxN8=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Package4EditPart$1
+ $1.class
+SHA1-Digest: jQGbwt7XfqZWgtOn4GgMoiPM/xU=
+
+Name: org/eclipse/uml2/diagram/component/async/UMLComponentSynchroniza
+ tionWizardPage.class
+SHA1-Digest: DLMq64s7GZP/j0I/rfayUYVOVD0=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactName2EditP
+ art$3.class
+SHA1-Digest: FvGd1JwP6LPSHZnvWTvHWOAaeoM=
+
+Name: org/eclipse/uml2/diagram/component/part/UMLDomainModelElementTes
+ ter.class
+SHA1-Digest: I9MBW3og1YP1i9qMozZYfEjghOA=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ClassDiagramNot
+ ationInnerClassItemSemanticEditPolicy.class
+SHA1-Digest: T4BfXfgE3NOlM3vH4ZPXxU3alFQ=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PropertyEditPart.c
+ lass
+SHA1-Digest: PVgo+JHPV9O7awtpgnU9c/RoDUA=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName3Ed
+ itPart$3.class
+SHA1-Digest: jWCHUMKHKKtqOS7M5lgxWhr4UMs=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactContents3E
+ ditPart.class
+SHA1-Digest: quzsI46YMo7kCMMmT3N57ictlSk=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/PackageCanonica
+ lEditPolicy$1.class
+SHA1-Digest: Wd6v9il1QsndZonHI5HWqdSWi24=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName5Ed
+ itPart$3.class
+SHA1-Digest: SUXaG03gjT3UDTbRvNKMS7/DORc=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactNameEditPa
+ rt$2$1.class
+SHA1-Digest: fmXtdGaUUgbWx4CgVeT+k9w+Xcw=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ComponentStereo2Ed
+ itPart$2$1.class
+SHA1-Digest: JuQUmH5Cv8KPhutnkqK5CRvK/+0=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName7Ed
+ itPart$3.class
+SHA1-Digest: jXL5Qpg650dBS1zwAGtOFlEDFHk=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PropertyEditPart$P
+ artFigure.class
+SHA1-Digest: SOzOtu+fUh0+HHTMznd11VN0Zyo=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ClassDiagramNot
+ ationClassItemSemanticEditPolicy.class
+SHA1-Digest: aFAqM3LYGCxVG1hes2XDM16KruM=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssociationName7Ed
+ itPart$2$1.class
+SHA1-Digest: gMeGwpmS26REgdDSl30eQ/qtQjs=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/AssemblyConnectorC
+ ircleEditPart.class
+SHA1-Digest: EDK5cprMED+ChfeIvgi86y00zl4=
+
+Name: org/eclipse/uml2/diagram/component/navigator/UMLNavigatorActionP
+ rovider.class
+SHA1-Digest: nZ+rBZcRJ3hl/nHyBh6dCsYwgh8=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/CommentAnnotatedEl
+ ementEditPart$AnnotatedElementLinkFigure.class
+SHA1-Digest: M+RF73jtFAD4iKQTr2MmLKIU7cc=
+
+Name: icons/obj16/UMLDiagramFile.gif
+SHA1-Digest: lWlO5N44xJ/ka7KNcvGQu0s8N5I=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/Interface2ItemS
+ emanticEditPolicy.class
+SHA1-Digest: VMM9OBzZ6JpgWoMnjn20EDE1JFc=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PackageName2EditPa
+ rt$2.class
+SHA1-Digest: XrLa+GxnkEOlooOg0wNVCfG8LmM=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ArtifactContent
+ s2ItemSemanticEditPolicy.class
+SHA1-Digest: LafCRiQcjkgvZ4/uhCDn6HcUPV8=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassOperationsEdi
+ tPart.class
+SHA1-Digest: fd3i/X0mKW+6t2R9jdv8R90KgpM=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/PortProvidedReo
+ rientCommand.class
+SHA1-Digest: mwgNNqzE0OnewCRoeuCdiH69Juw=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PackageNameEditPar
+ t$2$1.class
+SHA1-Digest: LQY87BwPb80qovrUFoRS77t5oCo=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassName2EditPart
+ $2.class
+SHA1-Digest: Hs9hZjYK8eHCH/lRRdjnyNUvCgM=
+
+Name: org/eclipse/uml2/diagram/component/edit/helpers/DependencyEditHe
+ lper.class
+SHA1-Digest: M08V9rROhsqy9IZ+G7EV20L+dwk=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/ComponentRequir
+ edItemSemanticEditPolicy.class
+SHA1-Digest: /ov2vdQR7Pl2BsDwflX7/YRvMhM=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ArtifactStereo3Edi
+ tPart$1.class
+SHA1-Digest: 3Xszga+l+jo9/9bNBR4m4CDCNAA=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/ClassDiagramNotati
+ onClassNameEditPart$4.class
+SHA1-Digest: Kux0AQquTgpqh3N8DvZAVzOfbqg=
+
+Name: org/eclipse/uml2/diagram/component/links/UMLInterfaceLinkManager
+ .class
+SHA1-Digest: LP0X246LGn4AcZwrF6PQ6dcW948=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/Class2EditPart$1.c
+ lass
+SHA1-Digest: b9ZqTmUA2HG30yPWOn4P21Ihlns=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/Class2Canonical
+ EditPolicy.class
+SHA1-Digest: DfsgA6aTcH1QjWSq8+ObmjkDR8s=
+
+Name: org/eclipse/uml2/diagram/component/edit/policies/CommentAnnotate
+ dElementItemSemanticEditPolicy.class
+SHA1-Digest: lYZrMJv4FuZMyFua0mhmYG4UyJY=
+
+Name: org/eclipse/uml2/diagram/component/edit/helpers/PortRequiredEdit
+ HelperAdvice.class
+SHA1-Digest: lr2DZmhHM7Y3KsCRaxgRuw+jkU8=
+
+Name: org/eclipse/uml2/diagram/component/edit/commands/InterfaceRealiz
+ ationCreateCommand.class
+SHA1-Digest: Dk5iHECelHcMxVuizU7ieAImFNk=
+
+Name: org/eclipse/uml2/diagram/component/edit/parts/PropertyNameEditPa
+ rt$4.class
+SHA1-Digest: i+jFDmHnJpk95Msa1NFp6EBq4/k=
+
