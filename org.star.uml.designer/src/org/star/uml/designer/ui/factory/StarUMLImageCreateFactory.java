@@ -6,6 +6,7 @@ import org.star.uml.designer.base.constance.GlobalConstants;
 import org.star.uml.designer.ui.diagram.action.ActorCreateAction;
 import org.star.uml.designer.ui.diagram.action.ClassModelCreateAction;
 import org.star.uml.designer.ui.diagram.action.ClazzDiagramCreateAction;
+import org.star.uml.designer.ui.diagram.action.InterfaceModelCreateAction;
 import org.star.uml.designer.ui.diagram.action.PackageModelCreateAction;
 import org.star.uml.designer.ui.diagram.action.PackageModelInsertAction;
 import org.star.uml.designer.ui.diagram.action.SequenceDiagramCreateAction;
@@ -32,6 +33,8 @@ public class StarUMLImageCreateFactory {
 				return Activator.getImageDescriptor(PackageModelCreateAction.ICON_PATH).createImage();
 			}else if(extension.equals(ClassModelCreateAction.ACTION_TYPE)){ // Class
 				return Activator.getImageDescriptor(ClassModelCreateAction.ICON_PATH).createImage();
+			}else if(extension.equals(InterfaceModelCreateAction.ACTION_TYPE)){ // Interface
+				return Activator.getImageDescriptor(InterfaceModelCreateAction.ICON_PATH).createImage();
 			}
 		}
 		return null;

@@ -569,29 +569,6 @@ public class UMLDocumentProvider extends AbstractDocumentProvider implements IDi
 				info.startResourceListening();
 			}
 			
-			IConfigurationElement[] config = Platform.getExtensionRegistry()
-			.getConfigurationElementsFor("org.eclipse.uml2.diagram.clazz.org_eclipse_uml2_diagram_clazz_extension_starUML");
-    		try {
-    			for (IConfigurationElement e : config) {
-    				final Object o = e.createExecutableExtension("class");
-    				if (o instanceof StarUMLExtension) {
-    					ISafeRunnable runnable = new ISafeRunnable() {
-    						public void handleException(Throwable exception) {
-    							System.out.println("Exception in client");
-    						}
-
-    						public void run() throws Exception {
-    							HashMap map = new HashMap();
-    							map.put("a", "A");
-    							((StarUMLExtension) o).diagramSave(map);
-    						}
-    					};
-    					SafeRunner.run(runnable);
-    				}
-    			}
-    		} catch (CoreException ex) {
-    			System.out.println(ex.getMessage());
-    		}
 		} else {
 			URI newResoruceURI;
 			List affectedFiles = null;

@@ -57,6 +57,7 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.eclipse.uml2.uml.VisibilityKind;
 import org.eclipse.uml2.uml.internal.impl.ActorImpl;
 import org.eclipse.uml2.uml.internal.impl.BehavioredClassifierImpl;
+import org.eclipse.uml2.uml.internal.impl.InterfaceImpl;
 import org.eclipse.uml2.uml.internal.impl.PackageImpl;
 import org.eclipse.uml2.uml.internal.impl.UMLFactoryImpl;
 import org.osgi.framework.Bundle;
@@ -74,17 +75,17 @@ import org.star.uml.designer.ui.views.StarPMSModelViewUtil;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeObject;
 import org.star.uml.designer.ui.views.StarPMSModelView.TreeParent;
 
-public class PackageModelInsertAction extends Action implements IStarUMLModelAction{
-	public static final String ACTION_ID = "PACKAGE INSERT";
-	public static final String ACTION_URI = "org.eclipse.uml2.diagram.clazz.createPackage_2001";
-	public static final String ACTION_TITLE ="Insert Package";
-	public static final String ACTION_TYPE ="uml:Package";
-	public static final String ICON_PATH = "/icons/diagram/Package.gif";
+public class InterfaceModelInsertAction extends Action implements IStarUMLModelAction{
+	public static final String ACTION_ID = "INTERFACE INSERT";
+	public static final String ACTION_URI = "org.eclipse.uml2.diagram.class.createInterface_2010";
+	public static final String ACTION_TITLE ="Insert Interface";
+	public static final String ACTION_TYPE ="uml:Interface";
+	public static final String ICON_PATH = "/icons/diagram/Interface.gif";
 	
 	private String selectedNodeName = "";
 	private DiagramDocumentEditor editor = null;
 	
-	public PackageModelInsertAction() {
+	public InterfaceModelInsertAction() {
 		super();
 		this.setText(ACTION_TITLE);
 		this.setImageDescriptor(getImageDescriptor());
@@ -93,7 +94,7 @@ public class PackageModelInsertAction extends Action implements IStarUMLModelAct
 	@Override
 	public void run() {
 		try{
-			// 모델 Tree에 Package를 추가한다.
+			// 모델 Tree에 Interface를 추가한다.
 			IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 									.findView(GlobalConstants.PluinID.STAR_PMS_MODEL_VIEW);
 			StarPMSModelView modelView = (StarPMSModelView)view_part;
@@ -101,7 +102,7 @@ public class PackageModelInsertAction extends Action implements IStarUMLModelAct
 			TreeSelection treeSelection = (TreeSelection)modelView.getTreeViewer().getSelection();
 			TreeObject parent = (TreeObject)treeSelection.getFirstElement();
 			selectedNodeName = (String)parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE);
-			// 모델에 이미 Package가 추가되어 있기 때문에 모델과 Snyc가능한 Class중 원하는 것을 선택 한 후 추가한다.
+			// 모델에 이미 Package가 추가되어 있기 때문에 모델과 Snyc가능한 Interface중 원하는 것을 선택 한 후 추가한다.
 			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 			if(page.getActiveEditor() !=null && page.getActiveEditor() instanceof org.eclipse.uml2.diagram.clazz.part.UMLDiagramEditor){
 	        	org.eclipse.uml2.diagram.clazz.part.UMLDiagramEditor editor = 
@@ -115,8 +116,8 @@ public class PackageModelInsertAction extends Action implements IStarUMLModelAct
 	        	boolean visilityFlag = true;
 	        	for(int i=0; i<diagram.getTransientChildren().size(); i++){
 	        		ShapeImpl shapeImple = (ShapeImpl)diagram.getTransientChildren().get(i);
-	        		if(shapeImple.getElement() instanceof PackageImpl){
-	        			PackageImpl imple = (PackageImpl)shapeImple.getElement();
+	        		if(shapeImple.getElement() instanceof InterfaceImpl){
+	        			InterfaceImpl imple = (InterfaceImpl)shapeImple.getElement();
 	        			if(!shapeImple.isVisible()){
 	        				if(selectedNodeName.equals(imple.getName())){
 	        					VisibleShapeCommand viCmd = new VisibleShapeCommand();
@@ -127,22 +128,21 @@ public class PackageModelInsertAction extends Action implements IStarUMLModelAct
 	        			}
 	        		}
 	        	}
-	        	for(int i=0; i<diagram.getPersistedChildren().size(); i++){
-	        		ShapeImpl shapeImple = (ShapeImpl)diagram.getPersistedChildren().get(i);
-	        		if(shapeImple.getElement() instanceof PackageImpl){
-	        			PackageImpl imple = (PackageImpl)shapeImple.getElement();
-	        			if(!shapeImple.isVisible()){
-	        				System.out.println("selectedNodeName : "+selectedNodeName);
-	        				System.out.println("imple : "+imple);
-	        				System.out.println("imple.getName() : "+imple.getName());
-	        				if(selectedNodeName.equals(imple.getName())){
-	        					VisibleShapeCommand viCmd = new VisibleShapeCommand();
-	        					viCmd.setShapeImpl(shapeImple);
-	        					editor.getEditingDomain().getCommandStack().execute(viCmd);
-	        					visilityFlag = false;
-	        				}
-	        			}
-	        		}
+	        	if(visilityFlag){
+		        	for(int i=0; i<diagram.getPersistedChildren().size(); i++){
+		        		ShapeImpl shapeImple = (ShapeImpl)diagram.getPersistedChildren().get(i);
+		        		if(shapeImple.getElement() instanceof InterfaceImpl){
+		        			InterfaceImpl imple = (InterfaceImpl)shapeImple.getElement();
+		        			if(!shapeImple.isVisible()){
+		        				if(selectedNodeName.equals(imple.getName())){
+		        					VisibleShapeCommand viCmd = new VisibleShapeCommand();
+		        					viCmd.setShapeImpl(shapeImple);
+		        					editor.getEditingDomain().getCommandStack().execute(viCmd);
+		        					visilityFlag = false;
+		        				}
+		        			}
+		        		}
+		        	}
 	        	}
 	        	// Visible 속성을 통하여 화면에 표시된 경우 지나간다.
 	        	if(visilityFlag){
@@ -157,8 +157,8 @@ public class PackageModelInsertAction extends Action implements IStarUMLModelAct
 		        	// 트리에서 선택된 모델을 Sync 모델에서 찾는다.
 		        	SyncModelNode result = new SyncModelNode(syncDiagram, myRootDiagramView, context);
 		        	for(int i=1; i<result.getChildren().size(); i++){
-		        		if(result.getChildren().get(i).getSyncModelView().getElement() instanceof PackageImpl){
-			        		PackageImpl imple = (PackageImpl)result.getChildren().get(i).getSyncModelView().getElement();
+		        		if(result.getChildren().get(i).getSyncModelView().getElement() instanceof InterfaceImpl){
+		        			InterfaceImpl imple = (InterfaceImpl)result.getChildren().get(i).getSyncModelView().getElement();
 			        		if(selectedNodeName.equals(imple.getName())){
 			        			result.getChildren().get(i).setChecked(true);
 			        		}
@@ -172,9 +172,9 @@ public class PackageModelInsertAction extends Action implements IStarUMLModelAct
 	    		// 모델을 기본 위치에서 가운데로 이동한다.
 	        	for(int i=0; i<diagram.getPersistedChildren().size(); i++){
 	        		ShapeImpl shapeImple = (ShapeImpl)diagram.getPersistedChildren().get(i);
-	        		if(shapeImple.getElement() instanceof PackageImpl){
+	        		if(shapeImple.getElement() instanceof InterfaceImpl){
 	        			Location location= (Location) shapeImple.getLayoutConstraint();
-	        			PackageImpl impl = (PackageImpl)shapeImple.getElement();
+	        			InterfaceImpl impl = (InterfaceImpl)shapeImple.getElement();
 	        			String name = impl.getName();
 	        			if(selectedNodeName.equals(name)){
 	        				MoveShapeCommand cmd = (MoveShapeCommand) StarUMLCommandFactory.getCommand(MoveShapeCommand.ID);

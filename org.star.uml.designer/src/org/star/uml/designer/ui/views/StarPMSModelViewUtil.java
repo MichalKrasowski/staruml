@@ -63,6 +63,7 @@ import org.star.uml.designer.ui.diagram.action.ClazzDiagramCreateAction;
 import org.star.uml.designer.ui.diagram.action.DeleteDiagramAction;
 import org.star.uml.designer.ui.diagram.action.DeleteFromDiagramAction;
 import org.star.uml.designer.ui.diagram.action.DeleteFromModelAction;
+import org.star.uml.designer.ui.diagram.action.InterfaceModelCreateAction;
 import org.star.uml.designer.ui.diagram.action.PackageModelCreateAction;
 import org.star.uml.designer.ui.diagram.action.PackageModelInsertAction;
 import org.star.uml.designer.ui.diagram.action.SequenceDiagramCreateAction;
@@ -262,7 +263,8 @@ public class StarPMSModelViewUtil {
 		ActorCreateAction actor = new ActorCreateAction(); // Actor 생성
 		UsecaseModelCreateAction usecase = new UsecaseModelCreateAction(); // Usecase 생성
 		PackageModelCreateAction packageModel = new PackageModelCreateAction(); // Package 생성
-		ClassModelCreateAction classModel = new ClassModelCreateAction();
+		ClassModelCreateAction classModel = new ClassModelCreateAction(); // Class 생성
+		InterfaceModelCreateAction interfaceModel = new InterfaceModelCreateAction(); // interface 생성
 		
 		MenuManager viewGroup = new MenuManager("View"); // 뷰그룹
 		ViewReportAction viewReportAction = new ViewReportAction(); // 유스케이스 레포트 보기
@@ -293,8 +295,9 @@ public class StarPMSModelViewUtil {
 		modelGroup.add(packageModel);
 		modelGroup.add(new Separator());
 		modelGroup.add(classModel);
-		modelGroup.add(actor);
+//		modelGroup.add(interfaceModel);
 		modelGroup.add(usecase);
+		modelGroup.add(actor);
 		menuMgr.add(new Separator());
 		
 		// 뷰 그룹 설정

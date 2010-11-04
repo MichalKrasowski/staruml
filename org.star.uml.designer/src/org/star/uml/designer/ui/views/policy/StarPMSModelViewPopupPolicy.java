@@ -15,6 +15,7 @@ import org.star.uml.designer.ui.diagram.action.ClassModelInsertAction;
 import org.star.uml.designer.ui.diagram.action.ClazzDiagramCreateAction;
 import org.star.uml.designer.ui.diagram.action.DeleteDiagramAction;
 import org.star.uml.designer.ui.diagram.action.DeleteFromModelAction;
+import org.star.uml.designer.ui.diagram.action.InterfaceModelCreateAction;
 import org.star.uml.designer.ui.diagram.action.PackageModelCreateAction;
 import org.star.uml.designer.ui.diagram.action.PackageModelInsertAction;
 import org.star.uml.designer.ui.diagram.action.SequenceDiagramCreateAction;
@@ -102,6 +103,8 @@ public class StarPMSModelViewPopupPolicy {
 		action3.setEnabled(true);
 		Action action4 = (Action)actionMap.get(ClassModelCreateAction.ACTION_TITLE);
 		action4.setEnabled(true);
+		Action action5 = (Action)actionMap.get(InterfaceModelCreateAction.ACTION_TITLE);
+		action5.setEnabled(true);
 	}
 	
 	/**
