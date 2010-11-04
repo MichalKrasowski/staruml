@@ -83,7 +83,7 @@ import org.w3c.dom.NodeList;
 
 public class StarPMSModelViewUtil {
 	
-	public static void loadModel(String project){
+	public static void loadModel(String project, String userId){
 		// ModelView를 가져온다.
 		IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 								.findView(GlobalConstants.PluinID.STAR_PMS_MODEL_VIEW);
@@ -115,7 +115,9 @@ public class StarPMSModelViewUtil {
 		// XML를 로드한 후 Import 페키지는 제외하고 루트를 가져온다.
 		Node rootNode = modelDoc.getChildNodes().item(0);
 		Node subPkgNode = rootNode.getChildNodes().item(9);
+		
 		setTreeFormXML(subPkgNode,modelView.getTreeParent());
+		modelView.getTreeParent().setData(GlobalConstants.STAR_USER_ID, userId);
 		modelView.getTreeViewer().refresh();
 	}
 	
@@ -153,7 +155,7 @@ public class StarPMSModelViewUtil {
 	}
 	
 	public static void addDiagramToModel(String project,String parentId, String name, 
-										 String extension,String category,String diagramName,String objId,String type, String parentSeq){
+										 String extension,String category,String diagramName,String objId,String type, String parentSeq, String seq){
 		// 모델 파일이 있는 프로젝트를 가져온다.
 		IProject rootProject = ResourcesPlugin.getWorkspace().getRoot().getProject(project);
 		Document modelDoc = null;
@@ -177,7 +179,8 @@ public class StarPMSModelViewUtil {
 					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_NAME, name+"("+diagramName+")");
 					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_FILE, name);
 					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION, extension);
-					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_USECASE_SEQ, parentSeq);
+					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_USECASE_PARENT_SEQ, parentSeq);
+					newNode.setAttribute(GlobalConstants.StarMoedl.STAR_MODEL_USECASE_SEQ, seq);
 					node.appendChild(newNode);
 					XmlUtil.writeXmlFile(modelDoc, modelPath);
 				}
