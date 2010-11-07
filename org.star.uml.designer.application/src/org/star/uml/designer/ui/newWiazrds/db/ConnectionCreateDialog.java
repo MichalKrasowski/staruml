@@ -133,20 +133,23 @@ public class ConnectionCreateDialog extends Dialog {
 	}
 	
 	public void projectList(){
-		if(ProjectText != null && ProjectText.getItemCount() > 0){
-			ProjectText.removeAll();
-		}
-		if(!DBConnectionMgr._driver.equals("")){
-			PmsDao pms = new PmsDao();
-			List list = pms.projectList();
-			for (int i = 0; i < list.size(); i++) {
-				Map content = (HashMap)list.get(i);
-				ProjectText.add((String)content.get("PROJECT_NAME"));
-				ProjectText.setData("seq", content.get("PROJECT_SEQ"));
+		if(ProjectText != null){
+			if(ProjectText.getItemCount() > 0){
+				ProjectText.removeAll();
 			}
-			
-			if(list != null && list.size() > 0){
-				ProjectText.select(0);
+		
+			if(!DBConnectionMgr._driver.equals("")){
+				PmsDao pms = new PmsDao();
+				List list = pms.projectList();
+				for (int i = 0; i < list.size(); i++) {
+					Map content = (HashMap)list.get(i);
+					ProjectText.add((String)content.get("PROJECT_NAME"));
+					ProjectText.setData("seq", content.get("PROJECT_SEQ"));
+				}
+				
+				if(list != null && list.size() > 0){
+					ProjectText.select(0);
+				}
 			}
 		}
 	}
@@ -354,6 +357,7 @@ public class ConnectionCreateDialog extends Dialog {
 
 				if (connList.size() > 0) {
 					setCombo();
+					projectList();
 				}
 			}
 		}
