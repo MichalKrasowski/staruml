@@ -99,13 +99,6 @@ public class RefactorRenameAction extends Action{
 		
 		shell.setText(ACTION_TITLE);
 		
-		/*Bundle bundle = Platform.getBundle(Activator.PLUGIN_ID);
-		ImageDescriptor img = ImageDescriptor.createFromURL(bundle
-				.getEntry(ICON_PATH));
-		System.out.println("img ==== " + img);
-		System.out.println("imgaa ==== " + img.createImage());
-		shell.setImage(img.createImage());*/
-		
 		GridLayout layout = new GridLayout(3, false);
 		GridData gridData = new GridData(400, 150);
 	    shell.setLayout(layout);
@@ -115,14 +108,11 @@ public class RefactorRenameAction extends Action{
 	    Label labelDiagramName = new Label(shell, SWT.NONE);
 	    labelDiagramName.setText("New name: ");
 	    gridData = new GridData(GridData.END, GridData.CENTER,false, false);
-	    //gridData.heightHint = 25;
 	    labelDiagramName.setLayoutData(gridData);
 	    
 	    final Text textDiagramName = new Text(shell, SWT.BORDER);
 	    gridData = new GridData(GridData.FILL, GridData.FILL, true, false);
-	    //gridData.widthHint = 100;
 	    gridData.horizontalSpan = 2;
-	    //gridData.heightHint = 25;
 	    textDiagramName.setLayoutData(gridData);
 		
 	    textDiagramName.setText(editName);
@@ -194,7 +184,6 @@ public class RefactorRenameAction extends Action{
     					if(modelAttMap.getNamedItem(GlobalConstants.StarMoedl.STAR_MODEL_CATEGORY) != null 
         						&& modelAttMap.getNamedItem(GlobalConstants.StarMoedl.STAR_MODEL_CATEGORY).getNodeValue().equals(GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL)){
     						try{
-    							System.out.println("saasddas === " + modelAttMap.getNamedItem(GlobalConstants.StarMoedl.STAR_MODEL_CATEGORY).getNodeValue());
 	    						defaultDomStr = XmlUtil.getXmlFileToString(folderPaht+File.separator+GlobalConstants.DEFAULT_MODEL_FILE);
 	    						defaultDoc = XmlUtil.getStringToDocument(defaultDomStr);
 	    						
@@ -203,10 +192,7 @@ public class RefactorRenameAction extends Action{
 	    							NamedNodeMap defaultAttMap = defaultNodes.item(d).getAttributes();
 	    							if(defaultAttMap.getNamedItem(GlobalConstants.StarMoedl.STAR_MODEL_ID) != null 
 	    		    						&& defaultAttMap.getNamedItem(GlobalConstants.StarMoedl.STAR_MODEL_ID).getNodeValue().equals(object.getData(GlobalConstants.StarMoedl.STAR_MODEL_ID))){
-	    								System.out.println("nodeValue ==== " + defaultAttMap.getNamedItem(GlobalConstants.StarMoedl.STAR_MODEL_NAME).getNodeValue());
 	    								defaultAttMap.getNamedItem(GlobalConstants.StarMoedl.STAR_MODEL_NAME).setNodeValue(textDiagramName.getText());
-	    								System.out.println("nodeValue ==== " + defaultAttMap.getNamedItem(GlobalConstants.StarMoedl.STAR_MODEL_NAME).getNodeValue());
-	    								//defaultAttMap.getNamedItem(GlobalConstants.StarMoedl.STAR_MODEL_FILE).setNodeValue(textDiagramName.getText());
 	    							}
 	    						}
     						}catch(Exception e){
