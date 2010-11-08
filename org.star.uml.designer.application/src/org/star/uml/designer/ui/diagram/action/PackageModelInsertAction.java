@@ -103,9 +103,8 @@ public class PackageModelInsertAction extends Action implements IStarUMLModelAct
 			selectedNodeName = (String)parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE);
 			// 모델에 이미 Package가 추가되어 있기 때문에 모델과 Snyc가능한 Class중 원하는 것을 선택 한 후 추가한다.
 			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-			if(page.getActiveEditor() !=null && page.getActiveEditor() instanceof org.eclipse.uml2.diagram.clazz.part.UMLDiagramEditor){
-	        	org.eclipse.uml2.diagram.clazz.part.UMLDiagramEditor editor = 
-	        		(org.eclipse.uml2.diagram.clazz.part.UMLDiagramEditor)page.getActiveEditor();
+			if(page.getActiveEditor() !=null && page.getActiveEditor() instanceof DiagramDocumentEditor){
+				DiagramDocumentEditor editor = (DiagramDocumentEditor)page.getActiveEditor();
 	        	// 다이어 그램을 수정하기 위한 환경 정보들을 가져온다.
 	        	IDiagramDocument document = editor.getDiagramDocument();
 	        	Diagram diagram = document.getDiagram();
@@ -184,9 +183,10 @@ public class PackageModelInsertAction extends Action implements IStarUMLModelAct
 		        				DiagramEditPart diagramEditPart = editor.getDiagramEditPart();
 		        				Point defaultPoint = new Point(modelX,modelY);
 		        				EditPart editPart = diagramEditPart.getViewer().findObjectAt(defaultPoint);
-		        				if(editPart instanceof PackageEditPart){
-		        					locationFlag = false;
-		        				}else{
+		        				if(editPart instanceof org.eclipse.uml2.diagram.usecase.edit.parts.PackageEditPart ||
+		        				   editPart instanceof org.eclipse.uml2.diagram.clazz.edit.parts.PackageEditPart){ // 기본 페키지 인경우 
+		        				   locationFlag = false;
+		        				}else{	
 		        					modelX = modelX+10;
 		        					modelY = modelY+10;
 		        				}
