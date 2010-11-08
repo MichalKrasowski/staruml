@@ -157,7 +157,6 @@ public class ClassModelInsertAction extends Action implements IStarUMLModelActio
 		        		new SyncModelContext(myDiagramUpdater.TYPED_ADAPTER, myVisualIDRegistry.TYPED_ADAPTER, ep.getDiagramPreferencesHint(), editingDomain);
 		        	// 트리에서 선택된 모델을 Sync 모델에서 찾는다.
 		        	SyncModelNode result = new SyncModelNode(syncDiagram, myRootDiagramView, context);
-		        	System.out.println("result.getChildren().size() : " +result.getChildren().size());
 		        	for(int i=1; i<result.getChildren().size(); i++){
 		        		if(result.getChildren().get(i).getSyncModelView().getElement() instanceof ClassImpl){
 		        			ClassImpl imple = (ClassImpl)result.getChildren().get(i).getSyncModelView().getElement();

@@ -132,9 +132,6 @@ public class PackageModelInsertAction extends Action implements IStarUMLModelAct
 	        		if(shapeImple.getElement() instanceof PackageImpl){
 	        			PackageImpl imple = (PackageImpl)shapeImple.getElement();
 	        			if(!shapeImple.isVisible()){
-	        				System.out.println("selectedNodeName : "+selectedNodeName);
-	        				System.out.println("imple : "+imple);
-	        				System.out.println("imple.getName() : "+imple.getName());
 	        				if(selectedNodeName.equals(imple.getName())){
 	        					VisibleShapeCommand viCmd = new VisibleShapeCommand();
 	        					viCmd.setShapeImpl(shapeImple);

@@ -22,7 +22,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 //        configurer.setInitialSize(new Point(400, 300));
         configurer.setShowCoolBar(false);
         configurer.setShowStatusLine(false);
-        configurer.setShowMenuBar(false);
+        configurer.setShowMenuBar(true);
         configurer.setTitle("StarUML Designer");
     }
     

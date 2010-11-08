@@ -105,8 +105,6 @@ public class DiagramSaveAction extends Action{
 		TreeObject[] objects = ((TreeParent)parent.getChildren()[1]).getChildren();
 		for(int i = 0; i < objects.length; i++){
 			TreeObject object = objects[i];
-			System.out.println("STAR_MODEL_FILE === " + object.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE) );
-			System.out.println("fileName === " + fileName.substring(0,fileName.lastIndexOf(".")) );
 			if(object.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE) != null && object.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE).equals(fileName.substring(0,fileName.lastIndexOf(".")))){
 		    	inputData.put("REQ_USECASE_SEQ", object.getData(GlobalConstants.StarMoedl.STAR_MODEL_USECASE_SEQ));
 				inputData.put("img", img);
