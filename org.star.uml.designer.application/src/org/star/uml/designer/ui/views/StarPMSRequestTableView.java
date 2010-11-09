@@ -189,7 +189,7 @@ public class StarPMSRequestTableView extends ViewPart {
 		        			if(i == 1){
 		        				IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSBrowersView");
 		        				StarPMSBrowersView brower = (StarPMSBrowersView)view_part;
-		        				brower.setURL("http://192.168.10.193:8080/starPMS/processMgt/requirementsInfoSimple.do?usecaseSeq=" + item.getData("seq"));
+		        				brower.setURL("http://210.104.181.43:8080/starPMS/processMgt/requirementsInfoSimple.do?usecaseSeq=" + item.getData("seq"));
 		        				try {
 		        					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("org.star.uml.designer.ui.views.StarPMSBrowersView");
 		        				} catch (PartInitException e) {
