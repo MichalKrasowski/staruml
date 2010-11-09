@@ -153,14 +153,16 @@ public class ModelCreateAction extends Action implements IStarUMLModelAction{
 				}
 			}
 			for(int j=0; j<umlNodeList.getLength(); j++){
-				String umlId = umlNodeList.item(j).getAttributes().getNamedItem("xmi:id").getNodeValue();
-				String name = umlNodeList.item(j).getAttributes().getNamedItem("name").getNodeValue();
-				String type = umlNodeList.item(j).getAttributes().getNamedItem("xmi:type").getNodeValue();
-				if(umlId.equals(id)){ // UML ID와 비교하여 이름을 가져온다.
-					diagramIdArray.add(umlId);
-					diagramNameMap.put(umlId,name);
-					diagramNameMap.put(id+"_node",umlNodeList.item(j)); // 수정을 위한 Node를 저장한다.
-					diagramNameMap.put(id+"_type",type); // 저장시 구분을 위해 Type를 가져온다.
+				if(umlNodeList.item(j).getAttributes().getNamedItem("name") != null){
+					String umlId = umlNodeList.item(j).getAttributes().getNamedItem("xmi:id").getNodeValue();
+					String name = umlNodeList.item(j).getAttributes().getNamedItem("name").getNodeValue();
+					String type = umlNodeList.item(j).getAttributes().getNamedItem("xmi:type").getNodeValue();
+					if(umlId.equals(id)){ // UML ID와 비교하여 이름을 가져온다.
+						diagramIdArray.add(umlId);
+						diagramNameMap.put(umlId,name);
+						diagramNameMap.put(id+"_node",umlNodeList.item(j)); // 수정을 위한 Node를 저장한다.
+						diagramNameMap.put(id+"_type",type); // 저장시 구분을 위해 Type를 가져온다.
+					}
 				}
 			}
 		}

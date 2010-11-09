@@ -57,6 +57,7 @@ import org.eclipse.uml2.diagram.usecase.edit.parts.UseCaseEditPart;
 import org.eclipse.uml2.diagram.usecase.navigator.UMLNavigatorItem;
 import org.eclipse.uml2.uml.internal.impl.PackageImpl;
 import org.star.uml.designer.application.Activator;
+import org.star.uml.designer.base.utils.EclipseUtile;
 import org.star.uml.designer.service.dao.PmsDao;
 
 public class StarPMSRequestTableView extends ViewPart {
@@ -234,13 +235,13 @@ public class StarPMSRequestTableView extends ViewPart {
 		    			DiagramImpl diagramImpleImple = (DiagramImpl)item.getView();
 		    			PackageImpl packageImple = (PackageImpl) diagramImpleImple.getElement();
 		    			List list = packageImple.getMembers();
+		    			Map inputData = new HashMap();
 		    			for(int i=0; i<list.size(); i++){
 		    				if(list.get(i) instanceof org.eclipse.uml2.uml.internal.impl.UseCaseImpl){
 		    					org.eclipse.uml2.uml.internal.impl.UseCaseImpl useCase = 
 		    						(org.eclipse.uml2.uml.internal.impl.UseCaseImpl)list.get(i);
 		    					TableItem srcTableItem = (TableItem)srcBtuuton.getData("row");
 		    					PmsDao pd = new PmsDao();
-		    					Map inputData = new HashMap();
 		    					inputData.put("seq", srcTableItem.getData("seq").toString());
 		    					inputData.put("name", useCase.getName());
 		    					try{
@@ -252,6 +253,28 @@ public class StarPMSRequestTableView extends ViewPart {
 		    			        srcTableItem.setText(3, "등록");
 		    				}
 		        		}
+		    			final MultiStatus status = new MultiStatus(DiagramUIRenderPlugin
+			    				.getPluginId(), DiagramUIRenderStatusCodes.OK,
+			    				DiagramUIRenderMessages.CopyToImageAction_Label, null);
+			        	IRunnableWithProgress runnable = EclipseUtile.createImageRunnable(status);
+				    	try {
+				    		ProgressMonitorDialog progressMonitorDialog = new ProgressMonitorDialog(
+				    				Display.getCurrent().getActiveShell());
+				    		progressMonitorDialog.run(false, true, runnable);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						
+						String folderPaht = ResourcesPlugin.getWorkspace().getRoot().getProject("Root").getLocation().toString();
+						File img = new File(folderPaht + "/default.png");
+						PmsDao pd = new PmsDao();
+						
+						inputData.put("img", img);
+						try{
+							pd.diragramUpdate(inputData);
+						}catch(Exception e){
+							e.printStackTrace();
+						}
 		    		}
 	    		}
 	        }

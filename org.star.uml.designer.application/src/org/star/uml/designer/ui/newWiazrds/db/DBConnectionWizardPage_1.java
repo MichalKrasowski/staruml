@@ -60,7 +60,7 @@ public class DBConnectionWizardPage_1 extends WizardPage implements
 			Label connection_label = new Label(container, SWT.NONE);
 			connection_label.setText("Connection  Name : ");
 			connectionNameField = new Text(container, SWT.BORDER);
-			connectionNameField.setText("Test");
+//			connectionNameField.setText("Test");
 			connectionNameField.setLayoutData(new GridData(
 					GridData.FILL_HORIZONTAL));
 
@@ -99,14 +99,14 @@ public class DBConnectionWizardPage_1 extends WizardPage implements
 			userName_label.setText("User  Name : ");
 			userNameField = new Text(container, SWT.BORDER);
 			userNameField.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-			userNameField.setText("star_pms");
+//			userNameField.setText("star_pms");
 
 			// Password 설정
 			Label password_label = new Label(container, SWT.NONE);
 			password_label.setText("Password : ");
 			passwordField = new Text(container, SWT.BORDER | SWT.PASSWORD);
 			passwordField.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-			passwordField.setText("sjdznf");
+//			passwordField.setText("sjdznf");
 
 			// Driver 설정
 			// thin,oci8
@@ -124,14 +124,14 @@ public class DBConnectionWizardPage_1 extends WizardPage implements
 			host_label.setText("Host  Name : ");
 			hostNameField = new Text(container, SWT.BORDER);
 			hostNameField.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-			hostNameField.setText("192.168.10.62");
+//			hostNameField.setText("192.168.10.62");
 
 			// port 설정
 			Label jdbc_label = new Label(container, SWT.NONE);
 			jdbc_label.setText("JDBC Port : ");
 			jdbcPortField = new Text(container, SWT.BORDER);
 			jdbcPortField.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-			jdbcPortField.setText("1522");
+//			jdbcPortField.setText("1522");
 
 			// SID 설정
 			sidServiceName = new Button(container, SWT.RADIO);
@@ -139,7 +139,7 @@ public class DBConnectionWizardPage_1 extends WizardPage implements
 			sidServiceName.addFocusListener(this);
 			sidField = new Text(container, SWT.BORDER);
 			sidField.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-			sidField.setText("orcl10g");
+//			sidField.setText("orcl10g");
 
 			// ServiceName 설정
 			sidServiceName = new Button(container, SWT.RADIO);

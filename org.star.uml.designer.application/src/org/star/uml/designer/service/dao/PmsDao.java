@@ -105,8 +105,7 @@ public class PmsDao {
 			pstmt = con.prepareStatement(sql);
 			InputStream in = new FileInputStream((File)inputData.get("img"));
 			pstmt.setBlob(1, in);
-			pstmt.setString(2, inputData.get("parentSeq").toString());
-			
+			pstmt.setString(2, inputData.get("seq").toString());
 			pstmt.executeUpdate();
 			con.commit();
 		} catch (Exception e) {
