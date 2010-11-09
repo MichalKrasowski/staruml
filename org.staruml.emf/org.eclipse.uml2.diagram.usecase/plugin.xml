@@ -66,7 +66,7 @@
       <editor
          id="org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditorID"
          name="%editorName"
-         icon="icons/obj16/UMLDiagramFile.gif"
+         icon="icons/obj16/16.gif"
          extensions="umlusc"
          default="true"
          class="org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor"
@@ -77,7 +77,7 @@
       <editor
          id="org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditorID"
          name="%editorName"
-         icon="icons/obj16/UMLDiagramFile.gif"
+         icon="icons/obj16/16.gif"
          extensions="umlusecase_diagram"
          default="true"
          class="org.eclipse.uml2.diagram.usecase.part.UMLDiagramEditor"
@@ -737,7 +737,7 @@
             priority="normal" 
             contentProvider="org.eclipse.uml2.diagram.usecase.navigator.UMLNavigatorContentProvider" 
             labelProvider="org.eclipse.uml2.diagram.usecase.navigator.UMLNavigatorLabelProvider"
-            icon="icons/obj16/UMLDiagramFile.gif"
+            icon="icons/obj16/16.gif"
             activeByDefault="true">
          <triggerPoints>
             <or>
@@ -787,7 +787,7 @@
             priority="normal" 
             contentProvider="org.eclipse.uml2.diagram.usecase.navigator.UMLDomainNavigatorContentProvider" 
             labelProvider="org.eclipse.uml2.diagram.usecase.navigator.UMLDomainNavigatorLabelProvider"
-            icon="icons/obj16/UMLDiagramFile.gif"
+            icon="icons/obj16/16.gif"
             activeByDefault="true">
          <triggerPoints>
             <or>

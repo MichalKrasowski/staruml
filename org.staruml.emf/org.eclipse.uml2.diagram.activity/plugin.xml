@@ -50,7 +50,7 @@
       <editor
          id="org.eclipse.uml2.diagram.activity.part.UMLDiagramEditorID"
          name="%editorName"
-         icon="icons/obj16/UMLDiagramFile.gif"
+         icon="icons/obj16/16.gif"
          extensions="umlact"
          default="true"
          class="org.eclipse.uml2.diagram.activity.part.UMLDiagramEditor"
@@ -61,7 +61,7 @@
       <editor
          id="org.eclipse.uml2.diagram.activity.part.UMLDiagramEditorID"
          name="%editorName"
-         icon="icons/obj16/UMLDiagramFile.gif"
+         icon="icons/obj16/16.gif"
          extensions="umlactivity_diagram"
          default="true"
          class="org.eclipse.uml2.diagram.activity.part.UMLDiagramEditor"
@@ -1323,7 +1323,7 @@
             priority="normal" 
             contentProvider="org.eclipse.uml2.diagram.activity.navigator.UMLNavigatorContentProvider" 
             labelProvider="org.eclipse.uml2.diagram.activity.navigator.UMLNavigatorLabelProvider"
-            icon="icons/obj16/UMLDiagramFile.gif"
+            icon="icons/obj16/16.gif"
             activeByDefault="true">
          <triggerPoints>
             <or>
@@ -1367,7 +1367,7 @@
             priority="normal" 
             contentProvider="org.eclipse.uml2.diagram.activity.navigator.UMLDomainNavigatorContentProvider" 
             labelProvider="org.eclipse.uml2.diagram.activity.navigator.UMLDomainNavigatorLabelProvider"
-            icon="icons/obj16/UMLDiagramFile.gif"
+            icon="icons/obj16/16.gif"
             activeByDefault="true">
          <triggerPoints>
             <or>

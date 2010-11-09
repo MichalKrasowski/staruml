@@ -36,7 +36,8 @@ public class UMLDiagramActionBarContributor extends DiagramActionBarContributor 
 		// print preview
 		IMenuManager fileMenu = bars.getMenuManager().findMenuUsingPath(IWorkbenchActionConstants.M_FILE);
 		assert fileMenu != null;
-		IAction printPreviewAction = new RenderedPrintPreviewAction(new EnhancedPrintActionHelper());
-		fileMenu.insertBefore("print", printPreviewAction); //$NON-NLS-1$
+		// enkisoft 프린트 기능 삭제
+//		IAction printPreviewAction = new RenderedPrintPreviewAction(new EnhancedPrintActionHelper());
+//		fileMenu.insertBefore("print", printPreviewAction); //$NON-NLS-1$
 	}
 }
