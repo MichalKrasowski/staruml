@@ -5,6 +5,9 @@ public class GlobalConstants {
 	//Default Node Name
 	public static final String[] NODE_NAMES = {"Park,Yong Cheon","Lee,Kung Chul","Kim,Sung Sik","Park,Hee Chul"};
 	
+	public static final String STAR_USER_ID = "userId";
+	public static final String STAR_USER_PASS = "password";
+	
 	//Default File Name
 	public static final String DEFAULT_MODEL_FILE = "default.uml";
 	public static final String DEFAULT_VIEW_MODEL_FILE = "model.xml";
@@ -47,7 +50,8 @@ public class GlobalConstants {
 		public static final String STAR_MODEL_CATEGORY = "star:category";
 		public static final String STAR_MODEL_FILE = "star:file";
 		public static final String STAR_MODEL_EXTENSION = "star:extension";
-		public static final String STAR_MODEL_USECASE_SEQ = "star:parentseq";
+		public static final String STAR_MODEL_USECASE_SEQ = "star:seq";
+		public static final String STAR_MODEL_USECASE_PARENT_SEQ = "star:parentseq";
 		public static final String STAR_MODEL_ID = "xmi:id";
 		public static final String STAR_MODEL_TYPE = "xmi:type";
 		public static final String STAR_MODEL_NAME = "name";

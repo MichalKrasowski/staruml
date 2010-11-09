@@ -91,7 +91,7 @@ public class UsecaseModelCreateAction extends Action implements IStarUMLModelAct
 		modelView.getTreeViewer().refresh();
 		// Model.xml 파일에 노드를 추가한다.
 		StarPMSModelViewUtil.addDiagramToModel("Root",parentId,nodeName,ACTION_TYPE,
-							  			GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL,ACTION_ID,objId,ACTION_TYPE,"");
+							  			GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM_MODEL,ACTION_ID,objId,ACTION_TYPE,"","");
 		// Default.xml 파일에 노드를 추가한다.
 		StarPMSModelViewUtil.addModelToUML("Root",objId,ACTION_TYPE,nodeName);
 		EclipseUtile.refreshProject("Root");

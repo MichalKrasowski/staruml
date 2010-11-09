@@ -75,6 +75,7 @@ import org.star.uml.designer.base.utils.CommonUtil;
 import org.star.uml.designer.base.utils.EclipseUtile;
 import org.star.uml.designer.base.utils.XmlUtil;
 import org.star.uml.designer.command.MoveShapeCommand;
+import org.star.uml.designer.service.dao.PmsDao;
 import org.star.uml.designer.ui.diagram.action.interfaces.IStarUMLModelAction;
 import org.star.uml.designer.ui.factory.StarUMLCommandFactory;
 import org.star.uml.designer.ui.factory.StarUMLEditHelperFactory;
@@ -105,14 +106,14 @@ public class DeleteDiagramAction extends Action implements IStarUMLModelAction{
 	
 	@Override
 	public void run() {
-			IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-													.findView(GlobalConstants.PluinID.STAR_PMS_MODEL_VIEW);
-			StarPMSModelView modelView = (StarPMSModelView)view_part;
-			// 선택된 Tree를 가져온다.
-			TreeSelection treeSelection = (TreeSelection)modelView.getTreeViewer().getSelection();
-			TreeObject parent = null;
-			String folderPaht = null;
-			try{
+		IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+												.findView(GlobalConstants.PluinID.STAR_PMS_MODEL_VIEW);
+		StarPMSModelView modelView = (StarPMSModelView)view_part;
+		// 선택된 Tree를 가져온다.
+		TreeSelection treeSelection = (TreeSelection)modelView.getTreeViewer().getSelection();
+		TreeObject parent = null;
+		String folderPaht = null;
+		try{
 			parent = (TreeObject)treeSelection.getFirstElement();
 			folderPaht = ResourcesPlugin.getWorkspace().getRoot().getProject("Root").getLocation().toString();
 			File diagram = new File(folderPaht + "/" + parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE) + "." + parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION));
@@ -125,36 +126,43 @@ public class DeleteDiagramAction extends Action implements IStarUMLModelAction{
 			if(diagram.isFile()){
 				diagram.delete();
 			}
-			}catch(Exception e){e.printStackTrace();}
-			selectedNodeName = (String)parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE);
-			String modelPath = folderPaht+File.separator+GlobalConstants.DEFAULT_VIEW_MODEL_FILE;
-			String domStr = null;
-			Document modelDoc = null;
-			try {
-				domStr = XmlUtil.getXmlFileToString(modelPath);
-				modelDoc = XmlUtil.getStringToDocument(domStr);
-			} catch (Exception e1) {
-				e1.printStackTrace();
+			
+			PmsDao pd = new PmsDao();
+			if(parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION).toString().equals(GlobalConstants.StarMoedl.STAR_EXTENSION_SEQUENCE_DIAGRAM)){
+				pd.sequenceDelete(parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_USECASE_SEQ).toString());
+			}else if(parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_EXTENSION).toString().equals(GlobalConstants.StarMoedl.STAR_EXTENSION_CLASS_DIAGRAM)){
+				pd.clazzDelete(parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_USECASE_SEQ).toString());
 			}
-			NodeList nodes = modelDoc.getElementsByTagName("packagedElement");
-			for(int i = 0; i < nodes.getLength(); i++){
-				NamedNodeMap attMap = nodes.item(i).getAttributes();
-				for(int a = 0; a < attMap.getLength(); a++){
-					if(attMap.item(a).getNodeName().equals(GlobalConstants.StarMoedl.STAR_MODEL_ID) 
-							&& attMap.item(a).getNodeValue().equals(parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_ID))){
-						nodes.item(i).getParentNode().removeChild(nodes.item(i));
-					}
+		}catch(Exception e){e.printStackTrace();}
+		selectedNodeName = (String)parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE);
+		String modelPath = folderPaht+File.separator+GlobalConstants.DEFAULT_VIEW_MODEL_FILE;
+		String domStr = null;
+		Document modelDoc = null;
+		try {
+			domStr = XmlUtil.getXmlFileToString(modelPath);
+			modelDoc = XmlUtil.getStringToDocument(domStr);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		NodeList nodes = modelDoc.getElementsByTagName("packagedElement");
+		for(int i = 0; i < nodes.getLength(); i++){
+			NamedNodeMap attMap = nodes.item(i).getAttributes();
+			for(int a = 0; a < attMap.getLength(); a++){
+				if(attMap.item(a).getNodeName().equals(GlobalConstants.StarMoedl.STAR_MODEL_ID) 
+						&& attMap.item(a).getNodeValue().equals(parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_ID))){
+					nodes.item(i).getParentNode().removeChild(nodes.item(i));
 				}
 			}
-			try {
-				XmlUtil.writeXmlFile(modelDoc, modelPath);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			parent.getParent().removeChild(parent);
-			modelView.getTreeViewer().refresh();
-			EclipseUtile.refreshProject("Root");
-			
+		}
+		try {
+			XmlUtil.writeXmlFile(modelDoc, modelPath);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		parent.getParent().removeChild(parent);
+		modelView.getTreeViewer().refresh();
+		EclipseUtile.refreshProject("Root");
+		
 	}
 	
 	public URL getImageURL(){

@@ -70,4 +70,13 @@ public class CustomMessages {
 	public static String LOGIN_INVALID_FIELD_AUTHENTICATE_ERR_MESSAGE;
 	public static String PROJECT_SELECT;
 	public static String PROJECT_INVALID_NAME_MESSAGE;
+	
+	public static String CLAZZ_INSERT_SQL;
+	public static String CLAZZ_DEVSEQ_MAX_SQL;
+	public static String SEQUENCE_MAXSEQ_SQL;
+	public static String CLAZZ_UPDATE_SQL;
+	public static String CLAZZ_SEQ_MAX_SQL;
+	public static String ANALYSIS_DELETE_SQL;
+	public static String CLAZZ_DELETE_SQL;
+	public static String CLAZZ_SEQUENCE_COUNT_SQL;
 }

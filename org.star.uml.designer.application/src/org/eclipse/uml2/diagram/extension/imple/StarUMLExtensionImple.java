@@ -6,8 +6,10 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.uml2.diagram.common.extension.StarUMLExtension;
 import org.star.uml.designer.base.constance.GlobalConstants;
+import org.star.uml.designer.ui.diagram.action.ClazzDiagramSaveAction;
 import org.star.uml.designer.ui.diagram.action.DiagramSaveAction;
 import org.star.uml.designer.ui.diagram.action.ModelCreateAction;
+import org.star.uml.designer.ui.diagram.action.SequenceDiagramSaveAction;
 import org.star.uml.designer.ui.views.StarPMSModelView;
 
 public class StarUMLExtensionImple implements StarUMLExtension{
@@ -22,15 +24,22 @@ public class StarUMLExtensionImple implements StarUMLExtension{
 				StarPMSModelView modelView = (StarPMSModelView)view_part;
 				// 다이어 그램이 속한 부모를 가있을 경우 로그인 상태로 정의한다.
 				if( modelView.getTreeParent() != null){
-					DiagramSaveAction dg = new DiagramSaveAction();
-					dg.map = map;
-					dg.run();
+					String fileName = (String)map.get("fileName");
+					if(fileName.substring(fileName.lastIndexOf(".")+1).equals(GlobalConstants.StarMoedl.STAR_EXTENSION_SEQUENCE_DIAGRAM)){
+						SequenceDiagramSaveAction dg = new SequenceDiagramSaveAction();
+						dg.map = map;
+						dg.run();
+					}else if(fileName.substring(fileName.lastIndexOf(".")+1).equals(GlobalConstants.StarMoedl.STAR_EXTENSION_CLASS_DIAGRAM)){
+						ClazzDiagramSaveAction cg = new ClazzDiagramSaveAction();
+						cg.map = map;
+						cg.run();
+					}
 				}
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-			
+		
 	}
 
 	@Override
@@ -45,7 +54,7 @@ public class StarUMLExtensionImple implements StarUMLExtension{
 												.findView(GlobalConstants.PluinID.STAR_PMS_MODEL_VIEW);
 			if(view_part != null){
 				StarPMSModelView modelView = (StarPMSModelView)view_part;
-				// 다이어 그램이 속한 부모를 가있을 경우 로그인 상태로 정의한다.
+				// 다이어 그램이 속한 부모를 가져온다.
 				if( modelView.getTreeParent() != null){
 					ModelCreateAction modelCreateAction = new ModelCreateAction();
 					modelCreateAction.setRequestMap(requestMap);
