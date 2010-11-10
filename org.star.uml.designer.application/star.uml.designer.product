@@ -3,11 +3,12 @@
 
 <product name="StarUML Designer" uid="star.uml.designer.product" id="org.star.uml.designer.application.product" application="org.star.uml.designer.application.application" version="1.0.0" useFeatures="false" includeLaunchers="true">
 
-
    <configIni use="default">
    </configIni>
 
    <launcherArgs>
+      <programArgs>-Dfile.encoding=UTF-8</programArgs>
+      <vmArgs>-Dfile.encoding=UTF-8</vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
 
@@ -27,7 +28,6 @@
             winLargeLow="/org.star.uml.designer.application/icons/48_8.bmp"/>
       </win>
    </launcher>
-
 
    <vm>
    </vm>

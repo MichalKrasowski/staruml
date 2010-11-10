@@ -110,8 +110,7 @@ public class ClazzDiagramCreateAction extends Action implements IStarUMLModelAct
 		treeObject.setData(GlobalConstants.StarMoedl.STAR_MODEL_ID, objId);
 		modelView.getTreeViewer().refresh();
 		// 모델 파일에 추가된 다이어 그램을 추가한다.
-		
-		StarPMSModelViewUtil.addDiagramToModel("Root",parentId,fileName,DIAGRAM_EXTENSION,
+		StarPMSModelViewUtil.addDiagramToModel("Root","_vq0uQM3LEd-GMK-em0Iv_Q",fileName,DIAGRAM_EXTENSION,
 							  				   GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM,ACTION_ID,objId,GlobalConstants.UMLMoedl.UML_TYPE_PACKAGE_Element,inputData.get("parentSeq").toString(),inputData.get("seq").toString());
 		}catch(Exception e){
 			e.printStackTrace();

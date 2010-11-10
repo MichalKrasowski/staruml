@@ -155,16 +155,16 @@ public class StarPMSModelViewUtil {
 	
 	public static void addDiagramToModel(String project,String parentId, String name, 
 										 String extension,String category,String diagramName,String objId,String type, String parentSeq, String seq){
-		// 모델 파일이 있는 프로젝트를 가져온다.
-		IProject rootProject = ResourcesPlugin.getWorkspace().getRoot().getProject(project);
-		Document modelDoc = null;
 		try{
+			// 모델 파일이 있는 프로젝트를 가져온다.
+			IProject rootProject = ResourcesPlugin.getWorkspace().getRoot().getProject(project);
+			Document modelDoc = null;
 			// 파일을 Document로 로드한다.
 			String projectPath = rootProject.getLocation().toOSString();
 			String modelPath = projectPath+File.separator+GlobalConstants.DEFAULT_VIEW_MODEL_FILE;
 			String domStr = XmlUtil.getXmlFileToString(modelPath);
 			modelDoc = XmlUtil.getStringToDocument(domStr);
-			// Document 있는 Element 중  TagName이 "package"를 가져와서 ID를 비교해 부모가 될 Node를 선택한다.
+			// Document 있는 Element 중  TagName이 "packagedElement"를 가져와서 ID를 비교해 부모가 될 Node를 선택한다.
 			NodeList n = modelDoc.getDocumentElement().getElementsByTagName("packagedElement");
 			for(int i = 0; i < n.getLength(); i++){
 				Node node = n.item(i);

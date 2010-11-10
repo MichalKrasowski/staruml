@@ -128,10 +128,15 @@ public class PmsDao {
 			String sql = CustomMessages.ANALYSIS_INSERT;
 			pstmt = con.prepareStatement(sql);
 			
+			System.out.println(CustomMessages.ANALYSIS_INSERT);
+			System.out.println(inputData.get("name").toString());
+			System.out.println(inputData.get("parentSeq"));
+			System.out.println(inputData.get("userId").toString());
+			
 			pstmt.setString(1, inputData.get("name").toString());
-			pstmt.setInt(2, Integer.valueOf(inputData.get("seq").toString()));
+			pstmt.setInt(2, Integer.valueOf(inputData.get("parentSeq").toString()));
 			pstmt.setString(3, inputData.get("userId").toString());
-			pstmt.setInt(4, Integer.valueOf(inputData.get("parentSeq").toString()));
+//			pstmt.setInt(4, Integer.valueOf(inputData.get("parentSeq").toString()));
 			pstmt.executeUpdate();
 			con.commit();
 		} catch (Exception e) {
@@ -154,7 +159,10 @@ public class PmsDao {
 			pstmt = con.prepareStatement(sql);
 			InputStream in = new FileInputStream((File)inputData.get("img"));
 			pstmt.setBlob(1, in);
-			pstmt.setString(2, inputData.get("REQ_USECASE_SEQ").toString());
+			pstmt.setString(2, inputData.get("seq").toString());
+			System.out.println(CustomMessages.ANALYSIS_UPDATE_SQL);
+			System.out.println("seq : "+inputData.get("seq"));
+			System.out.println(inputData);
 			
 			int resultint = pstmt.executeUpdate();
 			con.commit();
@@ -371,6 +379,7 @@ public class PmsDao {
 			con = pool.getConnection();
 			con.setAutoCommit(false);
 			String sql = CustomMessages.CLAZZ_INSERT_SQL;
+			System.out.println(CustomMessages.CLAZZ_INSERT_SQL);
 			System.out.println("name ===== " + inputData.get("name"));
 			System.out.println("seq ==== " + inputData.get("seq"));
 			System.out.println("userId ==== " + inputData.get("userId"));

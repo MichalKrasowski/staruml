@@ -106,7 +106,7 @@ public class SequenceDiagramSaveAction extends Action{
 		for(int i = 0; i < objects.length; i++){
 			TreeObject object = objects[i];
 			if(object.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE) != null && object.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE).equals(fileName.substring(0,fileName.lastIndexOf(".")))){
-		    	inputData.put("seq", object.getData(GlobalConstants.StarMoedl.STAR_MODEL_USECASE_SEQ));
+		    	inputData.put("seq", object.getData(GlobalConstants.StarMoedl.STAR_MODEL_USECASE_PARENT_SEQ));
 				inputData.put("img", img);
 				inputData.put("name", object.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE));
 			}
