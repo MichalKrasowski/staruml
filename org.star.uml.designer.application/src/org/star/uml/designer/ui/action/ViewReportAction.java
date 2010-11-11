@@ -69,7 +69,6 @@ public class ViewReportAction extends Action{
 	
 	@Override
 	public void run() {
-		System.out.println("ViewReportAction Start~~!!!");
 		IViewPart model_view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
 		StarPMSModelView modelView = (StarPMSModelView)model_view_part;
 		TreeSelection treeSelection = (TreeSelection)modelView.getTreeViewer().getSelection();
@@ -77,8 +76,7 @@ public class ViewReportAction extends Action{
     	String  req_usecase_seq = (String)chield.getData(GlobalConstants.StarMoedl.STAR_MODEL_USECASE_PARENT_SEQ);
 		IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSBrowersView");
         StarPMSBrowersView brower = (StarPMSBrowersView)view_part;
-        String url = "http://210.104.181.43:8080/starPMS/processMgt/viewUseCaseReportSimple.do?usecaseSeq=";
-        System.out.println(url+req_usecase_seq);
+        String url = "http://192.168.10.193:8080/starPMS/processMgt/viewUseCaseReportSimple.do?usecaseSeq=";
         brower.setURL(url+req_usecase_seq);
         try {
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("org.star.uml.designer.ui.views.StarPMSBrowersView");

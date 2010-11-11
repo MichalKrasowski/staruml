@@ -106,8 +106,6 @@ public class ClazzDiagramSaveAction extends Action{
 		TreeObject[] objects = ((TreeParent)parent.getChildren()[2]).getChildren();
 		for(int i = 0; i < objects.length; i++){
 			TreeObject object = objects[i];
-			System.out.println("STAR_MODEL_FILE === " + object.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE) );
-			System.out.println("fileName === " + fileName.substring(0,fileName.lastIndexOf(".")) );
 			if(object.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE) != null && object.getData(GlobalConstants.StarMoedl.STAR_MODEL_FILE).equals(fileName.substring(0,fileName.lastIndexOf(".")))){
 				inputData.put("userId", parent.getData(GlobalConstants.STAR_USER_ID));
 				inputData.put("seq", object.getData(GlobalConstants.StarMoedl.STAR_MODEL_USECASE_SEQ));

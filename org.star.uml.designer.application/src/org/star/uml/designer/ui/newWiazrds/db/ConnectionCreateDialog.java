@@ -36,6 +36,7 @@ import org.star.uml.designer.application.Activator;
 import org.star.uml.designer.base.constance.CustomMessages;
 import org.star.uml.designer.base.db.DBConnectionManager;
 import org.star.uml.designer.base.db.DBConnectionMgr;
+import org.star.uml.designer.base.db.entity.EntityContants;
 import org.star.uml.designer.service.dao.PmsDao;
 import org.star.uml.designer.service.dao.UserMgtDao;
 import org.star.uml.designer.service.uvo.LoginInfo;
@@ -143,8 +144,8 @@ public class ConnectionCreateDialog extends Dialog {
 				List list = pms.projectList();
 				for (int i = 0; i < list.size(); i++) {
 					Map content = (HashMap)list.get(i);
-					ProjectText.add((String)content.get("PROJECT_NAME"));
-					ProjectText.setData("seq", content.get("PROJECT_SEQ"));
+					ProjectText.add((String)content.get(EntityContants.PROJECT_T.PROJECT_NAME));
+					ProjectText.setData(EntityContants.REQUIREMENT_USECASE_T.PROJECT_SEQ, content.get(EntityContants.REQUIREMENT_USECASE_T.PROJECT_SEQ));
 				}
 				
 				if(list != null && list.size() > 0){
@@ -191,7 +192,6 @@ public class ConnectionCreateDialog extends Dialog {
 				return;
 			}
 			
-			
 			IViewPart model_view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
 			StarPMSModelView model = (StarPMSModelView)model_view_part;
 			TreeParent root = model.getTreeParent();
@@ -212,7 +212,9 @@ public class ConnectionCreateDialog extends Dialog {
 		        tableView.removeTable();
 			}
 			model.setLoginFlag(false);
-			model.setTreeParent(model.createTreeParent(connectionName + "/StarPMS/" + ProjectText.getText()));
+			TreeParent parent = model.createTreeParent(connectionName + "/StarPMS/" + ProjectText.getText());
+			parent.setData(EntityContants.REQUIREMENT_USECASE_T.PROJECT_SEQ, ProjectText.getData(EntityContants.REQUIREMENT_USECASE_T.PROJECT_SEQ));
+			model.setTreeParent(parent);
 			
 			model.getInvisibleRoot().addChild(model.getTreeParent());
 			model.getTreeViewer().refresh();

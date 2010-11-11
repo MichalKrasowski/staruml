@@ -57,8 +57,10 @@ import org.eclipse.uml2.diagram.usecase.edit.parts.UseCaseEditPart;
 import org.eclipse.uml2.diagram.usecase.navigator.UMLNavigatorItem;
 import org.eclipse.uml2.uml.internal.impl.PackageImpl;
 import org.star.uml.designer.application.Activator;
+import org.star.uml.designer.base.db.entity.EntityContants;
 import org.star.uml.designer.base.utils.EclipseUtile;
 import org.star.uml.designer.service.dao.PmsDao;
+import org.star.uml.designer.ui.views.StarPMSModelView.TreeParent;
 
 public class StarPMSRequestTableView extends ViewPart {
 	                                 
@@ -77,9 +79,14 @@ public class StarPMSRequestTableView extends ViewPart {
 	}
 	
 	public void loadTable(){
-		PmsDao pd = new PmsDao();
+		// 모델 루투에서 프로잭트 정보를 얻어돈다.
+		IViewPart model_view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSModelView");
+		StarPMSModelView model = (StarPMSModelView)model_view_part;
+		TreeParent root = model.getTreeParent();
+		String project_seq = (String)root.getData(EntityContants.REQUIREMENT_USECASE_T.PROJECT_SEQ);
 		
-	    List projectList = pd.usecaseList();
+		PmsDao pd = new PmsDao();
+	    List projectList = pd.usecaseList(project_seq);
 	    for(int i = 0; i < projectList.size(); i++){
 	    	Map data = (HashMap)projectList.get(i);
 	    		    	
@@ -189,7 +196,7 @@ public class StarPMSRequestTableView extends ViewPart {
 		        			if(i == 1){
 		        				IViewPart view_part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("org.star.uml.designer.ui.views.StarPMSBrowersView");
 		        				StarPMSBrowersView brower = (StarPMSBrowersView)view_part;
-		        				brower.setURL("http://210.104.181.43:8080/starPMS/processMgt/requirementsInfoSimple.do?usecaseSeq=" + item.getData("seq"));
+		        				brower.setURL("http://192.168.10.193:8080/starPMS/processMgt/requirementsInfoSimple.do?usecaseSeq=" + item.getData("seq"));
 		        				try {
 		        					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("org.star.uml.designer.ui.views.StarPMSBrowersView");
 		        				} catch (PartInitException e) {

@@ -51,7 +51,7 @@ public class PmsDao {
 		return flag;
 	}
 	
-	public List usecaseList(){
+	public List usecaseList(String project_seq){
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -60,6 +60,7 @@ public class PmsDao {
 			con = pool.getConnection();
 			String sql = CustomMessages.USECASE_LIST_SQL;
 			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, project_seq); // 프로잭트 번호 설정 "PROJECT_SEQ"
 			
 			rs = pstmt.executeQuery();
 			list = ResultUtil.transDatasList(rs);
@@ -128,11 +129,6 @@ public class PmsDao {
 			String sql = CustomMessages.ANALYSIS_INSERT;
 			pstmt = con.prepareStatement(sql);
 			
-			System.out.println(CustomMessages.ANALYSIS_INSERT);
-			System.out.println(inputData.get("name").toString());
-			System.out.println(inputData.get("parentSeq"));
-			System.out.println(inputData.get("userId").toString());
-			
 			pstmt.setString(1, inputData.get("name").toString());
 			pstmt.setInt(2, Integer.valueOf(inputData.get("parentSeq").toString()));
 			pstmt.setString(3, inputData.get("userId").toString());
@@ -160,9 +156,6 @@ public class PmsDao {
 			InputStream in = new FileInputStream((File)inputData.get("img"));
 			pstmt.setBlob(1, in);
 			pstmt.setString(2, inputData.get("seq").toString());
-			System.out.println(CustomMessages.ANALYSIS_UPDATE_SQL);
-			System.out.println("seq : "+inputData.get("seq"));
-			System.out.println(inputData);
 			
 			int resultint = pstmt.executeUpdate();
 			con.commit();
@@ -379,11 +372,6 @@ public class PmsDao {
 			con = pool.getConnection();
 			con.setAutoCommit(false);
 			String sql = CustomMessages.CLAZZ_INSERT_SQL;
-			System.out.println(CustomMessages.CLAZZ_INSERT_SQL);
-			System.out.println("name ===== " + inputData.get("name"));
-			System.out.println("seq ==== " + inputData.get("seq"));
-			System.out.println("userId ==== " + inputData.get("userId"));
-			System.out.println("parentSeq ==== " + inputData.get("parentSeq"));
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, inputData.get("name").toString());
 			pstmt.setString(2, inputData.get("divId").toString());

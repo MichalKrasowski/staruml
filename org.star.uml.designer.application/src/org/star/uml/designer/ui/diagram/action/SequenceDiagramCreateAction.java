@@ -127,7 +127,6 @@ public void run() {
 		treeObject.setData(GlobalConstants.StarMoedl.STAR_MODEL_USECASE_SEQ, inputData.get("seq"));
 		treeObject.setData(GlobalConstants.StarMoedl.STAR_MODEL_USECASE_PARENT_SEQ, inputData.get("parentSeq"));
 		modelView.getTreeViewer().refresh();
-		System.out.println(inputData);
 		// 모델 파일에 추가된 다이어 그램을 추가한다.
 		StarPMSModelViewUtil.addDiagramToModel("Root",parentId,fileName,DIAGRAM_EXTENSION,
 							  				   GlobalConstants.StarMoedl.STAR_CATEGORY_DIAGRAM,ACTION_ID,objId,GlobalConstants.UMLMoedl.UML_TYPE_PACKAGE_Element,(String)inputData.get("parentSeq"),String.valueOf(inputData.get("seq")));

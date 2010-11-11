@@ -75,11 +75,7 @@ public class ClazzDiagramCreateAction extends Action implements IStarUMLModelAct
 		StarPMSModelView modelView = (StarPMSModelView)view_part;
 		// 선택된 Tree를 가져온다.
 		TreeSelection treeSelection = (TreeSelection)modelView.getTreeViewer().getSelection();
-		System.out.println(treeSelection.toArray().length);
 		Object[] o = treeSelection.toArray();
-		for(int i = 0; i < o.length; i++ ){
-			System.out.println("o ======= " + o);
-		}
 		TreeObject parent = (TreeObject)treeSelection.getFirstElement();
 		String parentId = (String)parent.getData(GlobalConstants.StarMoedl.STAR_MODEL_ID);
 		// ID를 생성한다.
